@@ -4,6 +4,8 @@ import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.specification.ResponseSpecification;
 import org.apache.http.HttpStatus;
 
+import static org.hamcrest.Matchers.containsString;
+
 public final class ResponseSpecs {
 
     private ResponseSpecs() {
@@ -16,6 +18,12 @@ public final class ResponseSpecs {
     public static ResponseSpecification requestReturnsOK() {
         return defaultResponseBuilder()
                 .expectStatusCode(HttpStatus.SC_OK)
+                .build();
+    }
+
+    public static ResponseSpecification requestReturnsSetCookieHeader() {
+        return defaultResponseBuilder()
+                .expectHeader("Set-Cookie", containsString("JSESSIONID"))
                 .build();
     }
 

@@ -16,7 +16,8 @@ public class AuthenticationTest extends BaseTest {
     public void adminCanBeAuthenticatedTest() {
         RetrieveSessionResponse session = new ValidatedAuthRequester(RequestSpecs.adminSpec(),
                 Endpoint.SESSION,
-                ResponseSpecs.requestReturnsOK()).getSession();
+                ResponseSpecs.requestReturnsOK(),
+                ResponseSpecs.requestReturnsSetCookieHeader()).getSession();
 
         assertThat(session.isAuthenticated()).isTrue();
         assertThat(session.getUser().getDisplay()).isEqualTo("admin");
