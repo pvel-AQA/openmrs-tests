@@ -1,8 +1,8 @@
 package api.models;
 
 public class Role {
-    String uuid;
-    String display;
-    String name;
-    String resourceVersion;
+    private String uuid;
+    private String display;
+    private String name;
+    private String resourceVersion;
 }

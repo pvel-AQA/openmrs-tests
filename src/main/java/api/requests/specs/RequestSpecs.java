@@ -1,7 +1,6 @@
 package api.requests.specs;
 
 import api.configs.Config;
-import io.restassured.authentication.AuthenticationScheme;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;

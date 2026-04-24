@@ -21,6 +21,12 @@ public final class ResponseSpecs {
                 .build();
     }
 
+    public static ResponseSpecification requestReturnsCreated() {
+        return defaultResponseBuilder()
+                .expectStatusCode(HttpStatus.SC_CREATED)
+                .build();
+    }
+
     public static ResponseSpecification requestReturnsSetCookieHeader() {
         return defaultResponseBuilder()
                 .expectHeader("Set-Cookie", containsString("JSESSIONID"))

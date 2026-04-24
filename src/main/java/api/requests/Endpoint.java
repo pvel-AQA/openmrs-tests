@@ -1,7 +1,6 @@
 package api.requests;
 
-import api.models.BaseModel;
-import api.models.RetrieveSessionResponse;
+import api.models.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -12,6 +11,31 @@ public enum Endpoint {
             "/session",
             BaseModel.class,
             RetrieveSessionResponse.class
+    ),
+    IDENTIFIER_SOURCE(
+            "/idgen/identifiersource",
+            BaseModel.class,
+            IdentifierSource.class
+    ),
+    IDENTIFIER(
+            "/idgen/identifiersource/{uuid}/identifier",
+            BaseModel.class,
+            IdentifierResponse.class
+    ),
+    LOCATION(
+            "/location",
+            BaseModel.class,
+            LocationResponse.class
+    ),
+    PATIENT(
+            "/patient/",
+            CreatePatientRequest.class,
+            CreatePatientResponse.class
+    ),
+    PATIENT_SEARCH(
+            "/patient/{uuid}",
+            BaseModel.class,
+            CreatePatientResponse.class
     );
 
     private final String url;
