@@ -36,6 +36,41 @@ public enum Endpoint {
             "/patient/{uuid}",
             BaseModel.class,
             CreatePatientResponse.class
+    ),
+    VISIT(
+        "/visit",
+        CreateVisitRequest.class,
+        CreateVisitResponse.class
+    ),
+    VISIT_SEARCH(
+        "/visit/{uuid}",
+        BaseModel.class,
+        CreateVisitResponse.class
+    ),
+    VISIT_BY_PATIENT(
+        "/visit",
+        BaseModel.class,
+        CreateVisitResponse.class
+    ),
+    VISIT_TYPE(
+        "/visittype",
+        BaseModel.class,
+        VisitTypeListResponse.class
+    ),
+    VISIT_TYPE_BY_UUID(
+        "/visittype/{uuid}",
+        BaseModel.class,
+        VisitTypeFullResponse.class
+    ),
+    VISIT_TYPE_SEARCH(
+        "/visittype",
+        BaseModel.class,
+        VisitTypeListResponse.class
+    ),
+    VISIT_ATTRIBUTE_TYPE(
+        "/visitattributetype",
+        VisitAttributeType.class,
+        VisitAttributeType.class
     );
 
     private final String url;
