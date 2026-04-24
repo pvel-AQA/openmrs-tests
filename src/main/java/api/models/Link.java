@@ -1,7 +1,7 @@
 package api.models;
 
 public class Link {
-    String rel;
-    String uri;
-    String resourceAlias;
+    private String rel;
+    private String uri;
+    private String resourceAlias;
 }

@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Person {
-    String uuid;
-    String display;
-    String resourceVersion;
+public class PersonForSessionResponse {
+    private String uuid;
+    private String display;
+    private String resourceVersion;
 }

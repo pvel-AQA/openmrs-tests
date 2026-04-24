@@ -10,10 +10,10 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RetrieveSessionResponse extends BaseModel{
-    boolean authenticated;
-    String locale;
-    List<String> allowedLocales;
-    User user;
-    String sessionLocation;
-    CurrentProvider currentProvider;
+    private boolean authenticated;
+    private String locale;
+    private List<String> allowedLocales;
+    private User user;
+    private String sessionLocation;
+    private CurrentProvider currentProvider;
 }

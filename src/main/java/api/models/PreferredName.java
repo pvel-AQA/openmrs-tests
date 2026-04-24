@@ -11,15 +11,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class User {
+public class PreferredName {
     private String uuid;
     private String display;
-    private String username;
-    private String systemId;
-    private UserProperties userProperties;
-    private PersonForSessionResponse person;
-    private List<Object> privileges;
-    private List<Role> roles;
     private List<Link> links;
-    private String resourceVersion;
 }
