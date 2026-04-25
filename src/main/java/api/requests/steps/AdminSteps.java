@@ -74,7 +74,7 @@ public class AdminSteps {
     public static List<VisitTypeListResponse> searchVisitTypeByName(String name) {
         return new ValidatedCrudRequester<VisitTypeListResponse>(
                 RequestSpecs.adminSpec(),
-                Endpoint.VISIT_TYPE_SEARCH,
+                Endpoint.VISIT_TYPE,
                 ResponseSpecs.requestReturnsOK())
                 .getWithParams(
                         new CrudRequester.QueryBuilder()

@@ -62,11 +62,6 @@ public enum Endpoint {
         BaseModel.class,
         VisitTypeFullResponse.class
     ),
-    VISIT_TYPE_SEARCH(
-        "/visittype",
-        BaseModel.class,
-        VisitTypeListResponse.class
-    ),
     VISIT_ATTRIBUTE_TYPE(
         "/visitattributetype",
         VisitAttributeType.class,
