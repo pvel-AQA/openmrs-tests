@@ -36,6 +36,11 @@ public enum Endpoint {
             "/patient/{uuid}",
             BaseModel.class,
             CreatePatientResponse.class
+    ),
+    PATIENT_UPDATE(
+            "/patient/{uuid}/identifier",
+            CreatePatientRequest.class,
+            CreatePatientResponse.class
     );
 
     private final String url;
