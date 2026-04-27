@@ -1,9 +1,6 @@
 package api.requests.steps;
 
-import api.models.CreatePatientResponse;
-import api.models.IdentifierResponse;
-import api.models.IdentifierSource;
-import api.models.LocationResponse;
+import api.models.*;
 import api.requests.Endpoint;
 import api.requests.skeleton.requesters.CrudRequester;
 import api.requests.skeleton.requesters.ValidatedCrudRequester;
@@ -60,5 +57,14 @@ public class AdminSteps {
                 Endpoint.PATIENT_SEARCH,
                 ResponseSpecs.requestReturnsOK())
                 .get(patientUuid, CreatePatientResponse.class);
+    }
+
+    public static IdentifiersForPatientCreation prepareIdentifiersForPatientCreation(String clinicNameToGetLocation, boolean isIdPreferred) {
+        return IdentifiersForPatientCreation.builder()
+                .identifier(generatePatientIdentifier(getIdentifierSourceUuid()))
+                .identifierType(getIdentifierTypeUuid())
+                .location(getLocationUuidByName(clinicNameToGetLocation))
+                .preferred(isIdPreferred)
+                .build();
     }
 }
