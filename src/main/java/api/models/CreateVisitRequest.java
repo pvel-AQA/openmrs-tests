@@ -15,7 +15,6 @@ import java.util.List;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CreateVisitRequest extends BaseModel{
-
     private String patient;
     private String visitType;
     private String startDatetime;
@@ -24,5 +23,4 @@ public class CreateVisitRequest extends BaseModel{
     private String indication;
     private List<VisitAttribute> attributes;
     private List<String> encounters;
-
 }
