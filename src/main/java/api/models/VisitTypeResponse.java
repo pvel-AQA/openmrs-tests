@@ -11,12 +11,13 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-
-public class VisitTypeResponse extends BaseModel{
-
+public class VisitTypeResponse extends BaseModel {
     private String uuid;
     private String display;
     private String name;
     private String description;
+    private boolean retired;
+    private AuditInfo auditInfo;
     private List<Link> links;
+    private String resourceVersion;
 }

@@ -18,8 +18,8 @@ public class VisitTest extends BaseModel {
 
     @Test
     public void allVisitTypesCanBeRetrievedTest() {
-        List<VisitTypeListResponse> visitTypes =
-                new ValidatedCrudRequester<VisitTypeListResponse>(
+        List<VisitTypeResponse> visitTypes =
+                new ValidatedCrudRequester<VisitTypeResponse>(
                         RequestSpecs.adminSpec(),
                         Endpoint.VISIT_TYPE,
                         ResponseSpecs.requestReturnsOK())
@@ -27,7 +27,7 @@ public class VisitTest extends BaseModel {
                                 new CrudRequester.QueryBuilder()
                                         .v("full")
                                         .build(),
-                                VisitTypeListResponse.class);
+                                VisitTypeResponse.class);
 
         assertThat(visitTypes)
                 .as("Visit types list should not be empty")
@@ -46,8 +46,8 @@ public class VisitTest extends BaseModel {
     public void visitTypeCanBeSearchedByNameTest() {
         String searchQuery = "Facility";
 
-        List<VisitTypeListResponse> facilityVisits =
-                new ValidatedCrudRequester<VisitTypeListResponse>(
+        List<VisitTypeResponse> facilityVisits =
+                new ValidatedCrudRequester<VisitTypeResponse>(
                         RequestSpecs.adminSpec(),
                         Endpoint.VISIT_TYPE,
                         ResponseSpecs.requestReturnsOK())
@@ -56,7 +56,7 @@ public class VisitTest extends BaseModel {
                                         .q(searchQuery)
                                         .v("full")
                                         .build(),
-                                VisitTypeListResponse.class);
+                                VisitTypeResponse.class);
 
         assertThat(facilityVisits)
                 .as("Search results should not be empty")
@@ -79,12 +79,12 @@ public class VisitTest extends BaseModel {
     public void visitTypeCanBeRetrievedByUuidTest() {
         String facilityVisitTypeUuid = AdminSteps.getFacilityVisitTypeUuid();
 
-        VisitTypeFullResponse visitType =
-                new ValidatedCrudRequester<VisitTypeFullResponse>(
+        VisitTypeResponse visitType =
+                new ValidatedCrudRequester<VisitTypeResponse>(
                         RequestSpecs.adminSpec(),
                         Endpoint.VISIT_TYPE_BY_UUID,
                         ResponseSpecs.requestReturnsOK())
-                        .get(facilityVisitTypeUuid, VisitTypeFullResponse.class);
+                        .get(facilityVisitTypeUuid, VisitTypeResponse.class);
 
         assertThat(visitType.getUuid())
                 .as("UUID should match requested UUID")
@@ -105,8 +105,8 @@ public class VisitTest extends BaseModel {
 
     @Test
     public void visitTypeContainsRequiredFieldsTest() {
-        List<VisitTypeListResponse> visitTypes =
-                new ValidatedCrudRequester<VisitTypeListResponse>(
+        List<VisitTypeResponse> visitTypes =
+                new ValidatedCrudRequester<VisitTypeResponse>(
                         RequestSpecs.adminSpec(),
                         Endpoint.VISIT_TYPE,
                         ResponseSpecs.requestReturnsOK())
@@ -114,13 +114,13 @@ public class VisitTest extends BaseModel {
                                 new CrudRequester.QueryBuilder()
                                         .v("full")
                                         .build(),
-                                VisitTypeListResponse.class);
+                                VisitTypeResponse.class);
 
         assertThat(visitTypes)
                 .as("Visit types list should not be empty")
                 .isNotEmpty();
 
-        VisitTypeListResponse visitType = visitTypes.get(0);
+        VisitTypeResponse visitType = visitTypes.get(0);
 
         assertThat(visitType.getUuid())
                 .as("UUID should not be empty")
@@ -145,8 +145,8 @@ public class VisitTest extends BaseModel {
 
     @Test
     public void visitTypeUuidIsValidUuidFormatTest() {
-        List<VisitTypeListResponse> visitTypes =
-                new ValidatedCrudRequester<VisitTypeListResponse>(
+        List<VisitTypeResponse> visitTypes =
+                new ValidatedCrudRequester<VisitTypeResponse>(
                         RequestSpecs.adminSpec(),
                         Endpoint.VISIT_TYPE,
                         ResponseSpecs.requestReturnsOK())
@@ -154,7 +154,7 @@ public class VisitTest extends BaseModel {
                                 new CrudRequester.QueryBuilder()
                                         .v("full")
                                         .build(),
-                                VisitTypeListResponse.class);
+                                VisitTypeResponse.class);
 
         assertThat(visitTypes)
                 .as("All UUIDs should match valid UUID format (8-4-4-4-12)")
@@ -164,6 +164,4 @@ public class VisitTest extends BaseModel {
                         )
                 );
     }
-
-
 }

@@ -38,34 +38,34 @@ public enum Endpoint {
             CreatePatientResponse.class
     ),
     VISIT(
-        "/visit",
-        CreateVisitRequest.class,
-        CreateVisitResponse.class
+            "/visit",
+            CreateVisitRequest.class,
+            CreateVisitResponse.class
     ),
     VISIT_SEARCH(
-        "/visit/{uuid}",
-        BaseModel.class,
-        CreateVisitResponse.class
+            "/visit/{uuid}",
+            BaseModel.class,
+            CreateVisitResponse.class
     ),
     VISIT_BY_PATIENT(
-        "/visit",
-        BaseModel.class,
-        CreateVisitResponse.class
+            "/visit",
+            BaseModel.class,
+            CreateVisitResponse.class
     ),
     VISIT_TYPE(
-        "/visittype",
-        BaseModel.class,
-        VisitTypeListResponse.class
+            "/visittype",
+            BaseModel.class,
+            VisitTypeResponse.class
     ),
     VISIT_TYPE_BY_UUID(
-        "/visittype/{uuid}",
-        BaseModel.class,
-        VisitTypeFullResponse.class
+            "/visittype/{uuid}",
+            BaseModel.class,
+            VisitTypeResponse.class
     ),
     VISIT_ATTRIBUTE_TYPE(
-        "/visitattributetype",
-        VisitAttributeType.class,
-        VisitAttributeType.class
+            "/visitattributetype",
+            VisitAttributeType.class,
+            VisitAttributeType.class
     );
 
     private final String url;

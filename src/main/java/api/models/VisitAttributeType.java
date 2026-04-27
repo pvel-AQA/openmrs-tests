@@ -11,9 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-
-public class VisitAttributeType extends BaseModel{
-
+public class VisitAttributeType extends BaseModel {
     private String name;
     private String description;
     private String datatypeClassname;
