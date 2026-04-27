@@ -66,6 +66,11 @@ public enum Endpoint {
             "/visitattributetype",
             VisitAttributeType.class,
             VisitAttributeType.class
+     ),
+    PATIENT_UPDATE(
+            "/patient/{uuid}/identifier",
+            CreatePatientRequest.class,
+            CreatePatientResponse.class
     );
 
     private final String url;

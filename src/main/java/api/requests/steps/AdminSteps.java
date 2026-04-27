@@ -76,5 +76,14 @@ public class AdminSteps {
         }
 
         return visitTypes.get(0).getUuid();
+
+    public static IdentifiersForPatientCreation prepareIdentifiersForPatientCreation(String clinicNameToGetLocation, boolean isIdPreferred) {
+        return IdentifiersForPatientCreation.builder()
+                .identifier(generatePatientIdentifier(getIdentifierSourceUuid()))
+                .identifierType(getIdentifierTypeUuid())
+                .location(getLocationUuidByName(clinicNameToGetLocation))
+                .preferred(isIdPreferred)
+                .build();
+
     }
 }
