@@ -1,11 +1,13 @@
 package api;
 
 import api.models.*;
+import api.models.comparison.ModelAssertions;
 import api.requests.Endpoint;
 import api.requests.skeleton.requesters.ValidatedCrudRequester;
 import api.requests.specs.RequestSpecs;
 import api.requests.specs.ResponseSpecs;
 import api.requests.steps.AdminSteps;
+import common.generators.PartialEntityGenerator;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -15,26 +17,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CreatePatientTest extends BaseTest {
     @Test
     public void patientCanBeCreatedWithValidDataTest() {
-        String identifierTypeUuid = AdminSteps.getIdentifierTypeUuid();
-        String identifierSourceUuid = AdminSteps.getIdentifierSourceUuid();
-        String patientIdentifier = AdminSteps.generatePatientIdentifier(identifierSourceUuid);
-        String locationUuid = AdminSteps.getLocationUuidByName("Outpatient");
+        final String ClinicNameToGetLocationUuid = "Outpatient";
+        final boolean preferredIdentifierTrue = true;
+        final String[] fieldsToBeGenerated = new String[]{"givenName", "middleName", "familyName"};
 
-        PersonName personName = PersonName.builder()
-                .givenName("Vasiliy")
-                .middleName("Test2")
-                .familyName("Petrov").build();
+        PersonName personName = PartialEntityGenerator.generate(PersonName.class, fieldsToBeGenerated);
 
         CreatePersonRequest person = CreatePersonRequest.builder()
-                .gender("M")
+                .gender(Gender.M.toString())
                 .names(List.of(personName)).build();
 
-        IdentifiersForPatientCreation identifiers = IdentifiersForPatientCreation.builder()
-                .identifier(patientIdentifier)
-                .identifierType(identifierTypeUuid)
-                .location(locationUuid)
-                .preferred(true)
-                .build();
+        IdentifiersForPatientCreation identifiers = AdminSteps.prepareIdentifiersForPatientCreation(
+                ClinicNameToGetLocationUuid, preferredIdentifierTrue);
 
         CreatePatientRequest createPatientRequest = CreatePatientRequest.builder()
                 .identifiers(List.of(identifiers))
@@ -50,20 +44,12 @@ public class CreatePatientTest extends BaseTest {
         assertThat(createdPatient.getUuid()).isNotEmpty();
         assertThat(createdPatient.getPerson().getGender()).isEqualTo(person.getGender());
         assertThat(createdPatient.getDisplay())
-                .isEqualTo(String.format("%s - %s %s %s", patientIdentifier, personName.getGivenName(),
+                .isEqualTo(String.format("%s - %s %s %s", identifiers.getIdentifier(), personName.getGivenName(),
                         personName.getMiddleName(), personName.getFamilyName()));
 
-        String patientUuid = createdPatient.getUuid();
-        CreatePatientResponse foundPatientList = AdminSteps.findPatientByUuid(patientUuid);
+        CreatePatientResponse foundPatientList = AdminSteps.findPatientByUuid(createdPatient.getUuid());
 
-
-        assertThat(createdPatient.getUuid()).isEqualTo(foundPatientList.getUuid());
-        assertThat(createdPatient.getDisplay()).isEqualTo(foundPatientList.getDisplay());
-        assertThat(createdPatient.getPerson().getGender()).isEqualTo(foundPatientList.getPerson().getGender());
-
-
-
-
+        ModelAssertions.assertThatModels(createdPatient, foundPatientList).match();
     }
 
 }
