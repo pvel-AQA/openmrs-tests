@@ -8,13 +8,12 @@ import api.requests.specs.RequestSpecs;
 import api.requests.specs.ResponseSpecs;
 import api.requests.steps.AdminSteps;
 import org.junit.jupiter.api.Test;
-import api.models.BaseModel;
 
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
-public class VisitTest extends BaseModel {
+public class VisitTest extends BaseTest {
 
     @Test
     public void allVisitTypesCanBeRetrievedTest() {
