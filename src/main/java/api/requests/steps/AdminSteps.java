@@ -76,6 +76,7 @@ public class AdminSteps {
         }
 
         return visitTypes.get(0).getUuid();
+    }
 
     public static IdentifiersForPatientCreation prepareIdentifiersForPatientCreation(String clinicNameToGetLocation, boolean isIdPreferred) {
         return IdentifiersForPatientCreation.builder()
