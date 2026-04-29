@@ -76,8 +76,16 @@ public class CrudRequester extends HttpRequest implements CrudEndpointInterface 
     }
 
     @Override
-    public Object delete(long uuid) {
-        return null;
+    public void delete(String uuid) {
+         given()
+                .spec(requestSpecification)
+                .pathParam(PATH_PARAM_UUID, uuid)
+                .queryParam("purge", true)        // ← adds ?purge=true to the URL
+                .when()
+                .delete(Config.getProperty(Config.API_VERSION_CONST) + endpoint.getUrl())
+                .then()
+                .assertThat()
+                .spec(responseSpecifications);
     }
 
     public static class QueryBuilder {

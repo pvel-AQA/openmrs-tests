@@ -37,6 +37,11 @@ public enum Endpoint {
             BaseModel.class,
             CreatePatientResponse.class
     ),
+    PATIENT_DELETE(
+            "/patient/{uuid}",
+            CreatePatientRequest.class,
+            BaseModel.class
+    ),
     PATIENT_UPDATE(
             "/patient/{uuid}/identifier",
             CreatePatientRequest.class,

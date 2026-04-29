@@ -8,6 +8,7 @@ import api.requests.specs.RequestSpecs;
 import api.requests.specs.ResponseSpecs;
 
 import java.util.List;
+import java.util.Map;
 
 public class AdminSteps {
     public static String getIdentifierSourceUuid() {
@@ -66,5 +67,14 @@ public class AdminSteps {
                 .location(getLocationUuidByName(clinicNameToGetLocation))
                 .preferred(isIdPreferred)
                 .build();
+    }
+
+    public static boolean deletePatientByUuid(String patientUuid) {
+        new ValidatedCrudRequester<CreatePatientResponse>(
+                RequestSpecs.adminSpec(),
+                Endpoint.PATIENT_DELETE,
+                ResponseSpecs.requestReturnsNoContent())
+                .delete(patientUuid);
+        return true;
     }
 }

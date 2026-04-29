@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 //@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Patient extends Person{
-    Person person;
+public class Patient {
+    PersonName person;
     String display;
     String uuid;
 

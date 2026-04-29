@@ -9,5 +9,5 @@ public interface CrudEndpointInterface {
     Object getWithParams(Map<String, Object> params, Class<?> clazz);
     Object post(BaseModel model);
     Object post(BaseModel model, String uuid);
-    Object delete(long uuid);
+    void delete(String uuid);
 }
