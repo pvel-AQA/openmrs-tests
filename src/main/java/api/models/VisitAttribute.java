@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class VisitAttribute {
-
     private String attributeType;
     private String value;
     private String uuid;

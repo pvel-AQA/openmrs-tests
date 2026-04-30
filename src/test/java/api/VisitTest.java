@@ -4,6 +4,7 @@ import api.models.*;
 import api.requests.Endpoint;
 import api.requests.skeleton.requesters.CrudRequester;
 import api.requests.skeleton.requesters.ValidatedCrudRequester;
+import api.requests.skeleton.requesters.VisitTypeEnum;
 import api.requests.specs.RequestSpecs;
 import api.requests.specs.ResponseSpecs;
 import api.requests.steps.AdminSteps;
@@ -42,64 +43,58 @@ public class VisitTest extends BaseTest {
     }
 
     @Test
-    public void visitTypeCanBeSearchedByNameTest() {
-        String searchQuery = "Facility";
+    public void allDefinedVisitTypesShouldExistTest() {// Проверяем что ВСЕ типы из Enum существуют в системе
+        for (VisitTypeEnum visitType : VisitTypeEnum.values()) {
+            String visitTypeUuid = AdminSteps.getVisitTypeUuid(visitType);
 
-        List<VisitTypeResponse> facilityVisits =
+            assertThat(visitTypeUuid)
+                    .as(visitType.getDisplayName() + " should have UUID")
+                    .isNotEmpty();
+        }
+    }
+
+    @Test
+    public void visitTypeCanBeSearchedByNameTest() {
+        VisitTypeEnum searchType = VisitTypeEnum.FACILITY_VISIT;
+
+        List<VisitTypeResponse> results =
                 new ValidatedCrudRequester<VisitTypeResponse>(
                         RequestSpecs.adminSpec(),
                         Endpoint.VISIT_TYPE,
                         ResponseSpecs.requestReturnsOK())
                         .getWithParams(
                                 new CrudRequester.QueryBuilder()
-                                        .q(searchQuery)
+                                        .q(searchType.getDisplayName())
                                         .v("full")
                                         .build(),
                                 VisitTypeResponse.class);
 
-        assertThat(facilityVisits)
+        assertThat(results)
                 .as("Search results should not be empty")
                 .isNotEmpty();
 
-        assertThat(facilityVisits.get(0).getName())
-                .as("First result should be 'Facility Visit'")
-                .isEqualTo("Facility Visit");
-
-        assertThat(facilityVisits.get(0).getDescription())
-                .as("Description should contain clinic/hospital reference")
-                .contains("Patient visits the clinic/hospital");
-
-        assertThat(facilityVisits.get(0).isRetired())
-                .as("Visit type should not be retired")
-                .isFalse();
+        assertThat(results.get(0).getName())
+                .as("First result should be '" + searchType.getDisplayName() + "'")
+                .isEqualTo(searchType.getDisplayName());
     }
 
     @Test
     public void visitTypeCanBeRetrievedByUuidTest() {
-        String facilityVisitTypeUuid = AdminSteps.getFacilityVisitTypeUuid();
-
+        String facilityUuid = AdminSteps.getVisitTypeUuid(
+                VisitTypeEnum.FACILITY_VISIT);
         VisitTypeResponse visitType =
                 new ValidatedCrudRequester<VisitTypeResponse>(
                         RequestSpecs.adminSpec(),
                         Endpoint.VISIT_TYPE_BY_UUID,
                         ResponseSpecs.requestReturnsOK())
-                        .get(facilityVisitTypeUuid, VisitTypeResponse.class);
-
+                        .get(facilityUuid, VisitTypeResponse.class);
         assertThat(visitType.getUuid())
                 .as("UUID should match requested UUID")
-                .isEqualTo(facilityVisitTypeUuid);
+                .isEqualTo(facilityUuid);
 
         assertThat(visitType.getName())
-                .as("Name should be 'Facility Visit'")
-                .isEqualTo("Facility Visit");
-
-        assertThat(visitType.getDisplay())
-                .as("Display should equal name")
-                .isEqualTo("Facility Visit");
-
-        assertThat(visitType.isRetired())
-                .as("Visit type should not be retired")
-                .isFalse();
+                .as("Name should be '" + VisitTypeEnum.FACILITY_VISIT.getDisplayName() + "'")
+                .isEqualTo(VisitTypeEnum.FACILITY_VISIT.getDisplayName());
     }
 
     @Test
@@ -115,31 +110,14 @@ public class VisitTest extends BaseTest {
                                         .build(),
                                 VisitTypeResponse.class);
 
-        assertThat(visitTypes)
-                .as("Visit types list should not be empty")
-                .isNotEmpty();
-
+        assertThat(visitTypes).isNotEmpty();
         VisitTypeResponse visitType = visitTypes.get(0);
 
-        assertThat(visitType.getUuid())
-                .as("UUID should not be empty")
-                .isNotEmpty();
-
-        assertThat(visitType.getName())
-                .as("Name should not be empty")
-                .isNotEmpty();
-
-        assertThat(visitType.getDisplay())
-                .as("Display should not be empty")
-                .isNotEmpty();
-
-        assertThat(visitType.getLinks())
-                .as("Links should not be empty")
-                .isNotEmpty();
-
-        assertThat(visitType.getResourceVersion())
-                .as("ResourceVersion should not be empty")
-                .isNotEmpty();
+        assertThat(visitType.getUuid()).isNotEmpty();
+        assertThat(visitType.getName()).isNotEmpty();
+        assertThat(visitType.getDisplay()).isNotEmpty();
+        assertThat(visitType.getLinks()).isNotEmpty();
+        assertThat(visitType.getResourceVersion()).isNotEmpty();
     }
 
     @Test

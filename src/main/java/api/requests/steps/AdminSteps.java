@@ -4,6 +4,7 @@ import api.models.*;
 import api.requests.Endpoint;
 import api.requests.skeleton.requesters.CrudRequester;
 import api.requests.skeleton.requesters.ValidatedCrudRequester;
+import api.requests.skeleton.requesters.VisitTypeEnum;
 import api.requests.specs.RequestSpecs;
 import api.requests.specs.ResponseSpecs;
 
@@ -59,20 +60,26 @@ public class AdminSteps {
                 .get(patientUuid, CreatePatientResponse.class);
     }
 
-    public static String getFacilityVisitTypeUuid() {
-        List<VisitTypeResponse> visitTypes = new ValidatedCrudRequester<VisitTypeResponse>(
+    private static List<VisitTypeResponse> searchVisitTypeByName(String name) {
+        return new ValidatedCrudRequester<VisitTypeResponse>(
                 RequestSpecs.adminSpec(),
                 Endpoint.VISIT_TYPE,
                 ResponseSpecs.requestReturnsOK())
                 .getWithParams(
                         new CrudRequester.QueryBuilder()
-                                .q("Facility")
+                                .q(name)
                                 .v("full")
                                 .build(),
                         VisitTypeResponse.class);
+    }
+
+    public static String getVisitTypeUuid(VisitTypeEnum visitType) {
+        List<VisitTypeResponse> visitTypes = searchVisitTypeByName(
+                visitType.getDisplayName());
 
         if (visitTypes.isEmpty()) {
-            throw new RuntimeException("Facility Visit Type not found");
+            throw new RuntimeException(
+                    visitType.getDisplayName() + " Visit Type not found");
         }
 
         return visitTypes.get(0).getUuid();

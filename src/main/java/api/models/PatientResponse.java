@@ -11,7 +11,6 @@ import java.util.List;
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PatientResponse extends BaseModel{
-
     private String uuid;
     private String display;
     private List<Link> links;
