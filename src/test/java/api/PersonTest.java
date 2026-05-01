@@ -89,7 +89,7 @@ public class PersonTest extends BaseTest{
     }
     @MethodSource("negativeCreatePersonData")
     @ParameterizedTest
-    public void negativeCreatePersonTest(String firstName, String middleName, String lastName, int age, String gender, String expectedMessage) {
+    public void negativeCreatePersonTest(String firstName, String middleName, String lastName, int age, String gender) {
         Response response = AdminSteps.buildAndPostSpecificPersonForNegativeTests(firstName, middleName, lastName, age, gender);
         assertThat(response.statusCode()).isEqualTo(302);
     }
