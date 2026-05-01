@@ -2,6 +2,10 @@ package api;
 
 import api.models.*;
 import api.models.comparison.ModelAssertions;
+import api.requests.Endpoint;
+import api.requests.skeleton.requesters.ValidatedCrudRequester;
+import api.requests.specs.RequestSpecs;
+import api.requests.specs.ResponseSpecs;
 import api.requests.steps.AdminSteps;
 import common.generators.PartialEntityGenerator;
 import common.generators.RandomDataGenerator;
@@ -24,7 +28,17 @@ public class PersonTest extends BaseTest{
 
     @Test
     public void positiveCreatePersonTest(){
-        CreatePersonResponse createdPerson = AdminSteps.buildAndPostRandomPerson(personName);
+        CreatePersonRequest createPersonRequest = CreatePersonRequest.builder()
+                .names(List.of(personName))
+                .age(RandomDataGenerator.randomAge(0,100))
+                .gender(RandomDataGenerator.randomGender().toString())
+                .build();
+
+        CreatePersonResponse createdPerson = new ValidatedCrudRequester<CreatePersonResponse>(
+                RequestSpecs.adminSpec(),
+                Endpoint.PERSON,
+                ResponseSpecs.requestReturnsCreated())
+                .post(createPersonRequest);
         createdUuids.add(createdPerson.getUuid());
         CreatePersonResponse foundPerson = AdminSteps.findPersonByUuid(createdPerson.getUuid()); //checked READ too
         ModelAssertions.assertThatModels(createdPerson, foundPerson).match();
@@ -52,26 +66,19 @@ public class PersonTest extends BaseTest{
 
         AdminSteps.updatePerson(createdUuids.getFirst(), updateRequest);
 
-        // Assert — fetch again and verify changes persisted
         CreatePersonResponse afterUpdate = AdminSteps.findPersonByUuid(createdUuids.getFirst());
 
         assertThat(afterUpdate.getGender())
                 .as("Gender should be updated")
                 .isEqualTo(newGender);
 
-        /*assertThat(afterUpdate.getAge())
-                .as("Age should be updated")
-                .isEqualTo(newAge);*/ // age is not updated, only date
-
         assertThat(afterUpdate.getPreferredName().getDisplay())
                 .as("Name should be updated")
                 .contains(updatedName.getGivenName());
 
-        // Verify before and after are actually different
         assertThat(afterUpdate.getGender())
                 .as("Gender should have changed")
                 .isNotEqualTo(beforeUpdate.getGender()); //flacky result
-
     }
 
     public static Stream<Arguments> negativeCreatePersonData() {
@@ -86,11 +93,4 @@ public class PersonTest extends BaseTest{
         Response response = AdminSteps.buildAndPostSpecificPersonForNegativeTests(firstName, middleName, lastName, age, gender);
         assertThat(response.statusCode()).isEqualTo(302);
     }
-    //read
-
-    //update
-
-
-    //delete
-
 }
