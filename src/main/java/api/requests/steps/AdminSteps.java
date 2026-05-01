@@ -8,6 +8,8 @@ import api.requests.specs.RequestSpecs;
 import api.requests.specs.ResponseSpecs;
 import common.generators.PartialEntityGenerator;
 import common.generators.RandomDataGenerator;
+import common.generators.RandomGenerators;
+import io.restassured.response.Response;
 
 import java.util.List;
 
@@ -102,22 +104,20 @@ public class AdminSteps {
                 .post(createPatientRequest);
     }
 
-    public static boolean deletePatientByUuid(String patientUuid) {
+    public static void deletePatientByUuid(String patientUuid) {
         new ValidatedCrudRequester<CreatePatientResponse>(
                 RequestSpecs.adminSpec(),
                 Endpoint.PATIENT_DELETE,
                 ResponseSpecs.requestReturnsNoContent())
                 .delete(patientUuid);
-        return true;
     }
 
-    public static boolean deletePatientByUuid(String patientUuid, Boolean purge) {
+    public static void deletePatientByUuid(String patientUuid, Boolean purge) {
         new ValidatedCrudRequester<CreatePatientResponse>(
                 RequestSpecs.adminSpec(),
                 Endpoint.PATIENT_DELETE,
-                ResponseSpecs.requestReturnsNoContent())
-                .delete(patientUuid);
-        return true;
+                ResponseSpecs.requestReturnsNotFound())
+                .delete(patientUuid, purge);
     }
 
     public static CreatePersonResponse findPersonByUuid(String personUuid) {

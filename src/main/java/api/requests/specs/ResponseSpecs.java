@@ -50,4 +50,10 @@ public final class ResponseSpecs {
                 .build();
     }
 
+    public static ResponseSpecification requestReturnsNotFound() {
+        return new ResponseSpecBuilder()
+                .expectStatusCode(HttpStatus.SC_NOT_FOUND)
+                .build();
+    }
+
 }

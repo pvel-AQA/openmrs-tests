@@ -1,6 +1,7 @@
 package api.requests.skeleton.interfaces;
 
 import api.models.BaseModel;
+import io.restassured.response.Response;
 
 import java.util.Map;
 

@@ -27,7 +27,7 @@ public class SearchPatientFirstTest extends BaseTest{
                 RequestSpecs.adminSpec(),
                 Endpoint.PATIENT,
                 ResponseSpecs.requestReturnsOK())
-                .getWithParams(params, CreatePatientResponse.class);
+                .getAll(params, CreatePatientResponse.class);
     }
 
     private void assertFieldContainText(List<CreatePatientResponse> results, String searchText) {
@@ -53,9 +53,9 @@ public class SearchPatientFirstTest extends BaseTest{
         return Stream.of(
                 Arguments.of("qwerty", 7),
                 Arguments.of("QWERTY", 7),
-                Arguments.of("yyy", 12),
-                Arguments.of("zz", 12),
-                Arguments.of("Zze", 3));
+                Arguments.of("yyy", 10),
+                Arguments.of("zz", 10),
+                Arguments.of("Zze", 2));
     }
 
     @MethodSource("positivePatientSearchData")

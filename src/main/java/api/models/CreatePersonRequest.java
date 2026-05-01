@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CreatePersonRequest {
+public class CreatePersonRequest extends BaseModel{
     private List<PersonName> names;
     @GeneratingRule(regex = "^[MUF]$")
     private String gender;                  // "M", "F", "U"

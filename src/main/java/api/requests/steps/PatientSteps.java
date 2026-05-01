@@ -127,7 +127,7 @@ public class PatientSteps {
                 RequestSpecs.adminSpec(),
                 Endpoint.PATIENT,
                 ResponseSpecs.requestReturnsOK())
-                .getWithParams(new CrudRequester.QueryBuilder().q(searchText).build(), CreatePatientResponse.class);
+                .getAll(new CrudRequester.QueryBuilder().q(searchText).build(), CreatePatientResponse.class);
     }
 
     // delete patients move from AdminSteps or not?
