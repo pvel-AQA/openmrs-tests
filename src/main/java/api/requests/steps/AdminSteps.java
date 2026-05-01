@@ -7,17 +7,23 @@ import api.requests.skeleton.requesters.ValidatedCrudRequester;
 import api.requests.skeleton.requesters.VisitTypeEnum;
 import api.requests.specs.RequestSpecs;
 import api.requests.specs.ResponseSpecs;
+import common.generators.PartialEntityGenerator;
+import common.generators.RandomDataGenerator;
 
 import java.util.List;
 
 public class AdminSteps {
+    private static final boolean PREFERRED_IDENTIFIER_TRUE = true;
+    private static final String[] NAMES_FIELDS_TO_BE_GENERATED = new String[]{"givenName", "middleName", "familyName"};
+    private static final String[] PERSON_FIELDS_TO_BE_GENERATED = new String[]{"gender", "birthdate", "birthdateEstimated",
+            "dead", "addresses", "attributes"};
+
     public static String getIdentifierSourceUuid() {
         IdentifierSource sourceResponse = new ValidatedCrudRequester<IdentifierSource>(
                 RequestSpecs.adminSpec(),
                 Endpoint.IDENTIFIER_SOURCE,
                 ResponseSpecs.requestReturnsOK())
-                .getWithParams(
-                        new CrudRequester.QueryBuilder().v("full").build(),
+                .getAll(new CrudRequester.QueryBuilder().vEqualsFull().build(),
                         IdentifierSource.class).getFirst();
 
         return sourceResponse.getUuid();
@@ -28,8 +34,7 @@ public class AdminSteps {
                 RequestSpecs.adminSpec(),
                 Endpoint.IDENTIFIER_SOURCE,
                 ResponseSpecs.requestReturnsOK())
-                .getWithParams(
-                        new CrudRequester.QueryBuilder().v("full").build(),
+                .getAll(new CrudRequester.QueryBuilder().vEqualsFull().build(),
                         IdentifierSource.class).getFirst();
 
         return sourceResponse.getIdentifierType().getUuid();
@@ -48,8 +53,7 @@ public class AdminSteps {
                 RequestSpecs.adminSpec(),
                 Endpoint.LOCATION,
                 ResponseSpecs.requestReturnsOK()
-        ).getWithParams(
-                new CrudRequester.QueryBuilder().q(name).build(), LocationResponse.class).getFirst().getUuid();
+        ).getAll(new CrudRequester.QueryBuilder().q(name).build(), LocationResponse.class).getFirst().getUuid();
     }
 
     public static CreatePatientResponse findPatientByUuid(String patientUuid) {
@@ -93,5 +97,35 @@ public class AdminSteps {
                 .preferred(isIdPreferred)
                 .build();
 
+    }
+
+    public static AddressResponse getPersonAddress(String personUuid) {
+        return new ValidatedCrudRequester<AddressResponse>(
+                RequestSpecs.adminSpec(),
+                Endpoint.PERSON_ADDRESS,
+                ResponseSpecs.requestReturnsOK())
+                .getAll(personUuid, AddressResponse.class).getFirst();
+    }
+
+    public static CreatePatientResponse createPatient() {
+        PersonName personName = PartialEntityGenerator.generate(PersonName.class, NAMES_FIELDS_TO_BE_GENERATED);
+
+        CreatePersonRequest person = PartialEntityGenerator.generate(CreatePersonRequest.class, PERSON_FIELDS_TO_BE_GENERATED);
+        person.setNames(List.of(personName));
+        person.setBirthdate(RandomDataGenerator.generateValidDate());
+
+        IdentifiersForPatientCreation identifiers = AdminSteps.prepareIdentifiersForPatientCreation(
+                ClinicName.OUTPATIENT.getClinicName(), PREFERRED_IDENTIFIER_TRUE);
+
+        CreatePatientRequest createPatientRequest = CreatePatientRequest.builder()
+                .identifiers(List.of(identifiers))
+                .person(person)
+                .build();
+
+        return new ValidatedCrudRequester<CreatePatientResponse>(
+                RequestSpecs.adminSpec(),
+                Endpoint.PATIENT,
+                ResponseSpecs.requestReturnsCreated())
+                .post(createPatientRequest);
     }
 }

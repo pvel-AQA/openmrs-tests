@@ -22,8 +22,7 @@ public class GenerateIdentifierTest extends BaseTest{
                 RequestSpecs.adminSpec(),
                 Endpoint.IDENTIFIER_SOURCE,
                 ResponseSpecs.requestReturnsOK())
-                .getWithParams(
-                        new CrudRequester.QueryBuilder().v("full").build(),
+                .getAll(new CrudRequester.QueryBuilder().vEqualsFull().build(),
                         IdentifierSource.class).getFirst();
 
         String uuidOfIdentifierSource = sourceResponse.getUuid();
