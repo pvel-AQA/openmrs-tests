@@ -56,4 +56,10 @@ public final class ResponseSpecs {
                 .build();
     }
 
+    public static ResponseSpecification requestReturnsMovedTemporarily() {
+        return new ResponseSpecBuilder()
+                .expectStatusCode(HttpStatus.SC_MOVED_TEMPORARILY)
+                .build();
+    }
+
 }

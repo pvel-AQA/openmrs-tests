@@ -90,7 +90,24 @@ public class PersonTest extends BaseTest{
     @MethodSource("negativeCreatePersonData")
     @ParameterizedTest
     public void negativeCreatePersonTest(String firstName, String middleName, String lastName, int age, String gender) {
-        Response response = AdminSteps.buildAndPostSpecificPersonForNegativeTests(firstName, middleName, lastName, age, gender);
-        assertThat(response.statusCode()).isEqualTo(302);
+        //Response response = AdminSteps.buildAndPostSpecificPersonForNegativeTests(firstName, middleName, lastName, age, gender);
+        //assertThat(response.statusCode()).isEqualTo(302);
+        PersonName testName = new PersonName();
+        testName.setGivenName(firstName);
+        testName.setMiddleName(middleName);
+        testName.setFamilyName(lastName);
+
+        CreatePersonRequest createPersonRequest = CreatePersonRequest.builder()
+                .names(List.of(testName))
+                .age(age)
+                .gender(gender)
+                .build();
+
+        CreatePersonResponse createdPerson = new ValidatedCrudRequester<CreatePersonResponse>(
+                RequestSpecs.adminSpec(),
+                Endpoint.PERSON,
+                ResponseSpecs.requestReturnsBadRequest())
+                .post(createPersonRequest);
+        createdUuids.add(createdPerson.getUuid());
     }
 }
