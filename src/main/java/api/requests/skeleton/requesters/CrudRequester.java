@@ -35,7 +35,19 @@ public class CrudRequester extends HttpRequest implements CrudEndpointInterface 
     }
 
     @Override
-    public ValidatableResponse getWithParams(Map<String, Object> queryParams, Class<?> clazz) {
+    public ValidatableResponse getAll(String uuid, Class<?> clazz) {
+        return given()
+                .spec(requestSpecification)
+                .pathParams(PATH_PARAM_UUID, uuid)
+                .when()
+                .get(Config.getProperty(Config.API_VERSION_CONST) + endpoint.getUrl())
+                .then()
+                .assertThat()
+                .spec(responseSpecifications);
+    }
+
+    @Override
+    public ValidatableResponse getAll(Map<String, Object> queryParams, Class<?> clazz) {
         return given()
                 .spec(requestSpecification)
                 .when()
@@ -76,7 +88,7 @@ public class CrudRequester extends HttpRequest implements CrudEndpointInterface 
     }
 
     @Override
-    public Object delete(long uuid) {
+    public Object delete(String uuid) {
         return null;
     }
 
@@ -106,6 +118,10 @@ public class CrudRequester extends HttpRequest implements CrudEndpointInterface 
 
         public QueryBuilder startIndex(int startIndex) {
             return add("startIndex", startIndex);
+        }
+
+        public QueryBuilder vEqualsFull() {
+            return v("full");
         }
     }
 }

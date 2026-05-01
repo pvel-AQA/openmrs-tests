@@ -41,6 +41,11 @@ public enum Endpoint {
             "/patient/{uuid}/identifier",
             CreatePatientRequest.class,
             CreatePatientResponse.class
+    ),
+    PERSON_ADDRESS(
+            "/person/{uuid}/address",
+            BaseModel.class,
+            AddressResponse.class
     );
 
     private final String url;

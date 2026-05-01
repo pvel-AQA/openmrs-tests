@@ -34,7 +34,14 @@ public final class ModelComparator {
                 ComparisonRule nestedRule = nestedEntry.getValue();
 
                 Object nestedRequest = getFieldValue(request, path);
-                Object nestedResponse = getFieldValue(response, path);
+
+                Object nestedResponse;
+                String responsePath = nestedRule.getNestedResponsePath();
+                if (responsePath != null && !responsePath.isEmpty()) {
+                    nestedResponse = getFieldValue(response, responsePath);
+                } else {
+                    nestedResponse = response;
+                }
 
                 ComparisonResult nestedResult = compareFields(nestedRequest, nestedResponse,
                         nestedRule.getFieldMappings(),

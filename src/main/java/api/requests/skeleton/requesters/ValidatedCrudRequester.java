@@ -31,8 +31,18 @@ public class ValidatedCrudRequester<T extends BaseModel> extends HttpRequest imp
     }
 
     @Override
-    public List<T> getWithParams(Map<String, Object> params, Class<?> clazz) {
-        String jsonString = crudRequester.getWithParams(params, clazz)
+    public List<T> getAll(String uuid, Class<?> clazz) {
+        String jsonString = crudRequester.get(uuid, clazz)
+                .extract()
+                .response()
+                .asString();
+
+        return JsonUtils.extractResultsList(jsonString, (Class<T>) clazz);
+    }
+
+    @Override
+    public List<T> getAll(Map<String, Object> params, Class<?> clazz) {
+        String jsonString = crudRequester.getAll(params, clazz)
                 .extract()
                 .response()
                 .asString();
@@ -63,7 +73,7 @@ public class ValidatedCrudRequester<T extends BaseModel> extends HttpRequest imp
     }
 
     @Override
-    public T delete(long uuid) {
+    public T delete(String uuid) {
         return null;
     }
 }

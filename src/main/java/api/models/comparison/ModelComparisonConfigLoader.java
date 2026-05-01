@@ -39,6 +39,7 @@ public class ModelComparisonConfigLoader {
         private final String responseClassSimpleName;
         private final Map<String, String> fieldMappings;
         private final Map<String, ComparisonRule> nestedRules;
+        private String nestedResponsePath;
 
         public ComparisonRule(String responseClassSimpleName, List<String> fieldPairs) {
             this.responseClassSimpleName = responseClassSimpleName;
@@ -49,9 +50,14 @@ public class ModelComparisonConfigLoader {
                 if (pair.startsWith("@")) {
                     String[] nestedParts = pair.substring(1).split(":", 2);
                     if (nestedParts.length == 2) {
-                        String nestedPath = nestedParts[0].trim().split("=")[0].trim();
+                        String[] pathParts = nestedParts[0].trim().split("=", 2);
+                        String requestPath = pathParts[0].trim();
+                        String responsePath = pathParts.length > 1 ? pathParts[1].trim() : "";
+
                         String[] nestedFieldPairs = nestedParts[1].split(",");
-                        nestedRules.put(nestedPath, new ComparisonRule(null, Arrays.asList(nestedFieldPairs)));
+                        ComparisonRule nestedRule = new ComparisonRule(null, Arrays.asList(nestedFieldPairs));
+                        nestedRule.nestedResponsePath = responsePath;
+                        nestedRules.put(requestPath, nestedRule);
                     }
                 } else {
                     String[] parts = pair.split("=");
@@ -63,6 +69,11 @@ public class ModelComparisonConfigLoader {
                 }
             }
         }
+
+        public String getNestedResponsePath() {
+            return nestedResponsePath;
+        }
+
         public Map<String, ComparisonRule> getNestedRules() {
             return nestedRules;
         }
