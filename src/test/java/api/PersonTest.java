@@ -2,15 +2,9 @@ package api;
 
 import api.models.*;
 import api.models.comparison.ModelAssertions;
-import api.requests.Endpoint;
-import api.requests.skeleton.requesters.ValidatedCrudRequester;
-import api.requests.specs.RequestSpecs;
-import api.requests.specs.ResponseSpecs;
 import api.requests.steps.AdminSteps;
-import api.requests.steps.PatientSteps;
-import common.assertions.CommonAssertions;
 import common.generators.PartialEntityGenerator;
-import common.generators.RandomGenerators;
+import common.generators.RandomDataGenerator;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -43,12 +37,12 @@ public class PersonTest extends BaseTest{
         CreatePersonResponse beforeUpdate = AdminSteps.findPersonByUuid(createdUuids.getFirst());
 
         PersonName updatedName = new PersonName();
-        updatedName.setGivenName(RandomGenerators.randomString(7));
-        updatedName.setMiddleName(RandomGenerators.randomString(8));
-        updatedName.setFamilyName(RandomGenerators.randomString(5));
+        updatedName.setGivenName(RandomDataGenerator.randomString(7));
+        updatedName.setMiddleName(RandomDataGenerator.randomString(8));
+        updatedName.setFamilyName(RandomDataGenerator.randomString(5));
 
-        String newGender = RandomGenerators.randomGender().toString();
-        int newAge = RandomGenerators.randomAge(0,90);
+        String newGender = RandomDataGenerator.randomGender().toString();
+        int newAge = RandomDataGenerator.randomAge(0,90);
 
         CreatePersonRequest updateRequest = CreatePersonRequest.builder()
                 .names(List.of(updatedName))

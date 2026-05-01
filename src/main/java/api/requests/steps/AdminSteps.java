@@ -8,7 +8,6 @@ import api.requests.specs.RequestSpecs;
 import api.requests.specs.ResponseSpecs;
 import common.generators.PartialEntityGenerator;
 import common.generators.RandomDataGenerator;
-import common.generators.RandomGenerators;
 import io.restassured.response.Response;
 
 import java.util.List;
@@ -131,8 +130,8 @@ public class AdminSteps {
     public static CreatePersonResponse buildAndPostRandomPerson(PersonName personName) {
         CreatePersonRequest createPersonRequest = CreatePersonRequest.builder()
                 .names(List.of(personName))
-                .age(RandomGenerators.randomAge(0,100))
-                .gender(RandomGenerators.randomGender().toString())
+                .age(RandomDataGenerator.randomAge(0,100))
+                .gender(RandomDataGenerator.randomGender().toString())
                 .build();
 
         return new ValidatedCrudRequester<CreatePersonResponse>(

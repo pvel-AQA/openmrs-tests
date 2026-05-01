@@ -4,7 +4,7 @@ import api.models.CreatePatientResponse;
 import api.requests.steps.AdminSteps;
 import api.requests.steps.PatientSteps;
 import common.assertions.CommonAssertions;
-import common.generators.RandomGenerators;
+import common.generators.RandomDataGenerator;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class SearchPatientSecondTest extends BaseTest{
     private static List<String> createdUuids = new ArrayList<>();
-    private static String generatedString = RandomGenerators.randomString(7);
+    private static String generatedString = RandomDataGenerator.randomString(7);
 
     public static Stream<Arguments> positivePatientSearchDataGenerated() {
         createdUuids = PatientSteps.createPatientsForSearch(4, true, generatedString);

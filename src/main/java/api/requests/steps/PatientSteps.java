@@ -1,18 +1,15 @@
 package api.requests.steps;
 
 import api.models.*;
-import api.models.comparison.ModelAssertions;
 import api.requests.Endpoint;
 import api.requests.skeleton.requesters.CrudRequester;
 import api.requests.skeleton.requesters.ValidatedCrudRequester;
 import api.requests.specs.RequestSpecs;
 import api.requests.specs.ResponseSpecs;
 import common.generators.PartialEntityGenerator;
-import common.generators.RandomGenerators;
-import common.testData.PatientsDataForSearch;
+import common.generators.RandomDataGenerator;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,8 +68,8 @@ public class PatientSteps {
     public static String createUnknownPatient(){
         PersonName personName = buildPersonName("UNKNOWN", "", "UNKNOWN");
         CreatePersonRequest person = CreatePersonRequest.builder()
-                .gender(RandomGenerators.randomGender().toString())
-                .age(RandomGenerators.randomAge(0,100))
+                .gender(RandomDataGenerator.randomGender().toString())
+                .age(RandomDataGenerator.randomAge(0,100))
                 .names(List.of(personName))
                 .build();
         return buildAndPostPatient(person);
@@ -91,7 +88,7 @@ public class PatientSteps {
         PersonName personName = PartialEntityGenerator.generate(PersonName.class, fieldsToBeGenerated);
 
         CreatePersonRequest person = CreatePersonRequest.builder()
-                .gender(RandomGenerators.randomGender().toString())
+                .gender(RandomDataGenerator.randomGender().toString())
                 .names(List.of(personName)).build();
         return createdUuids;
     }
@@ -109,13 +106,13 @@ public class PatientSteps {
             firstName = generatedString.substring(0, 4).toLowerCase() + "FN" + letters.charAt(i); //abcd(e)FNa
             middleName = generatedString.substring(0, 4).toUpperCase() + "MN" + letters.charAt(i); //
             lastName = generatedString.substring(0, 5).toLowerCase() + "LN" + letters.charAt(i); //abcdeLNa
-            gender = RandomGenerators.randomGender().toString();
+            gender = RandomDataGenerator.randomGender().toString();
             if (knownDOB) {
-                dateOfBirth = RandomGenerators.randomDateBetween(LocalDate.parse("1900-01-01"), LocalDate.now());
+                dateOfBirth = RandomDataGenerator.randomDateBetween(LocalDate.parse("1900-01-01"), LocalDate.now());
                 createdUuids.add(createPatientWithDOB(firstName, middleName, lastName, gender, dateOfBirth));
             }
             else {
-                age = RandomGenerators.randomAge(20,70);
+                age = RandomDataGenerator.randomAge(20,70);
                 createdUuids.add(createPatientWithAge(firstName, middleName, lastName, gender, age));
             }
         }
