@@ -6,6 +6,8 @@ import api.requests.skeleton.requesters.CrudRequester;
 import api.requests.skeleton.requesters.ValidatedCrudRequester;
 import api.requests.specs.RequestSpecs;
 import api.requests.specs.ResponseSpecs;
+import common.generators.RandomGenerators;
+import io.restassured.response.Response;
 
 import java.util.List;
 import java.util.Map;
@@ -76,5 +78,71 @@ public class AdminSteps {
                 ResponseSpecs.requestReturnsNoContent())
                 .delete(patientUuid);
         return true;
+    }
+
+    public static boolean deletePatientByUuid(String patientUuid, Boolean purge) {
+        new ValidatedCrudRequester<CreatePatientResponse>(
+                RequestSpecs.adminSpec(),
+                Endpoint.PATIENT_DELETE,
+                ResponseSpecs.requestReturnsNoContent())
+                .delete(patientUuid);
+        return true;
+    }
+
+    public static CreatePersonResponse findPersonByUuid(String personUuid) {
+        return new ValidatedCrudRequester<CreatePersonResponse>(
+                RequestSpecs.adminSpec(),
+                Endpoint.PERSON_READ,
+                ResponseSpecs.requestReturnsOK())
+                .get(personUuid, CreatePersonResponse.class);
+    }
+
+    public static CreatePersonResponse buildAndPostRandomPerson(PersonName personName) {
+        CreatePersonRequest createPersonRequest = CreatePersonRequest.builder()
+                .names(List.of(personName))
+                .age(RandomGenerators.randomAge(0,100))
+                .gender(RandomGenerators.randomGender().toString())
+                .build();
+
+        return new ValidatedCrudRequester<CreatePersonResponse>(
+                RequestSpecs.adminSpec(),
+                Endpoint.PERSON,
+                ResponseSpecs.requestReturnsCreated())
+                .post(createPersonRequest);
+    }
+
+    public static CreatePersonResponse buildAndPostPerson(String firstName, String middleName, String lastName) {
+            PersonName personName = new PersonName();
+            personName.setGivenName(firstName);
+            personName.setMiddleName(middleName);
+            personName.setFamilyName(lastName);
+        return buildAndPostRandomPerson(personName);
+    }
+
+    public static Response buildAndPostSpecificPersonForNegativeTests(String firstName, String middleName, String lastName, int age, String gender) {
+        PersonName personName = new PersonName();
+        personName.setGivenName(firstName);
+        personName.setMiddleName(middleName);
+        personName.setFamilyName(lastName);
+
+        CreatePersonRequest createPersonRequest = CreatePersonRequest.builder()
+                .names(List.of(personName))
+                .age(age)
+                .gender(gender)
+                .build();
+
+        return new ValidatedCrudRequester<CreatePatientResponse>(
+                RequestSpecs.adminSpec(),
+                Endpoint.PERSON,
+                ResponseSpecs.requestReturnsAnyStatus())
+                .postRaw(createPersonRequest);
+    }
+
+    public static CreatePersonResponse updatePerson(String personUuid, CreatePersonRequest updateRequest) {
+        return new ValidatedCrudRequester<CreatePersonResponse>(
+                RequestSpecs.adminSpec(),
+                Endpoint.PERSON_UPDATE,   // ← needs the UUID in the path
+                ResponseSpecs.requestReturnsOK())
+                .post(updateRequest, personUuid);     // ← POST as confirmed by Postman
     }
 }

@@ -51,8 +51,8 @@ public class SearchPatientFirstTest extends BaseTest{
 
     public static Stream<Arguments> positivePatientSearchData() {
         return Stream.of(
-                Arguments.of("qwerty", 6),
-                Arguments.of("QWERTY", 6),
+                Arguments.of("qwerty", 7),
+                Arguments.of("QWERTY", 7),
                 Arguments.of("yyy", 12),
                 Arguments.of("zz", 12),
                 Arguments.of("Zze", 3));

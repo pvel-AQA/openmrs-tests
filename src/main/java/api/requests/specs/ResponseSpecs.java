@@ -39,4 +39,15 @@ public final class ResponseSpecs {
                 .build();
     }
 
+    public static ResponseSpecification requestReturnsAnyStatus() {
+        return new ResponseSpecBuilder()
+                .build();  // no status code expectation
+    }
+
+    public static ResponseSpecification requestReturnsBadRequest() {
+        return new ResponseSpecBuilder()
+                .expectStatusCode(HttpStatus.SC_BAD_REQUEST)
+                .build();
+    }
+
 }

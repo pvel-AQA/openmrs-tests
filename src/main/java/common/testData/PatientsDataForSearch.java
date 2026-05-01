@@ -15,12 +15,12 @@ public class PatientsDataForSearch {
     final static boolean preferredIdentifierTrue = true;
 
     public static String createPatient(
-            String firstName,
-            String middleName,
-            String lastName,
-            String gender,
-            int age,
-            String dateOfBirth) {
+        String firstName,
+        String middleName,
+        String lastName,
+        String gender,
+        int age,
+        String dateOfBirth){
 
         PersonName personName = new PersonName();
         personName.setGivenName(firstName);

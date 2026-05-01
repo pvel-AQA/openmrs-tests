@@ -1,6 +1,7 @@
 package api.requests.skeleton.interfaces;
 
 import api.models.BaseModel;
+import io.restassured.response.Response;
 
 import java.util.Map;
 
@@ -10,4 +11,6 @@ public interface CrudEndpointInterface {
     Object post(BaseModel model);
     Object post(BaseModel model, String uuid);
     void delete(String uuid);
+    void delete(String uuid, Boolean purge);
+    Response postRaw(BaseModel model);
 }

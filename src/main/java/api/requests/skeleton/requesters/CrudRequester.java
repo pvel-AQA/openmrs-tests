@@ -5,6 +5,7 @@ import api.models.BaseModel;
 import api.requests.Endpoint;
 import api.requests.HttpRequest;
 import api.requests.skeleton.interfaces.CrudEndpointInterface;
+import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
@@ -74,9 +75,34 @@ public class CrudRequester extends HttpRequest implements CrudEndpointInterface 
                 .assertThat()
                 .spec(responseSpecifications);
     }
+@Override
+    public Response postRaw(BaseModel model) {
+        var body = model == null ? "{}" : model;
+
+        return given()
+                .spec(requestSpecification)
+                .body(body)
+                .when()
+                .post(endpoint.getUrl())
+                .then()
+                .extract()
+                .response();  // ← raw response, no deserialization
+    }
 
     @Override
     public void delete(String uuid) {
+        given()
+                .spec(requestSpecification)
+                .pathParam(PATH_PARAM_UUID, uuid)
+                .when()
+                .delete(Config.getProperty(Config.API_VERSION_CONST) + endpoint.getUrl())
+                .then()
+                .assertThat()
+                .spec(responseSpecifications);
+    }
+
+    @Override
+    public void delete(String uuid, Boolean purge) {
          given()
                 .spec(requestSpecification)
                 .pathParam(PATH_PARAM_UUID, uuid)

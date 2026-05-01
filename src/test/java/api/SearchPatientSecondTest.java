@@ -4,7 +4,7 @@ import api.models.CreatePatientResponse;
 import api.requests.steps.AdminSteps;
 import api.requests.steps.PatientSteps;
 import common.assertions.CommonAssertions;
-import common.testData.PatientsDataForSearch;
+import common.generators.RandomGenerators;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -17,91 +17,93 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SearchPatientSecondTest extends BaseTest{
+    private static List<String> createdUuids = new ArrayList<>();
+    private static String generatedString = RandomGenerators.randomString(7);
 
-    private static final List<String> createdUuids = new ArrayList<>();
-    @BeforeEach
-    void createTestPatients(TestInfo testInfo) {
-        if (testInfo.getTags().contains("skip-setup")) {
-            return;
-        }
-        createdUuids.add(PatientsDataForSearch.createPatient("zz", "YYYYYY", "qwerty", "M", 16, "2009-09-09"));
-        createdUuids.add(PatientsDataForSearch.createPatient("Givenname", "ZZZ", "YYYYY", "F", 15, "2010-09-09"));
-        createdUuids.add(PatientsDataForSearch.createPatient("yyy", "Qwerty", "zzebra", "O", 16, "2009-09-19"));
-        createdUuids.add(PatientsDataForSearch.createPatient("QwertyName", "", "", "U", 15, "2010-09-19"));
-    }
-//-----------------------------------------------------------------------------------------
-// Test #1: checking that users that exist in DB are actually found with entered search text
-//-----------------------------------------------------------------------------------------
-    public static Stream<Arguments> positivePatientSearchData() {
+    public static Stream<Arguments> positivePatientSearchDataGenerated() {
+        createdUuids = PatientSteps.createPatientsForSearch(4, true, generatedString);
         return Stream.of(
-                Arguments.of("qwerty", 3),
-                Arguments.of("QWERTY", 3),
-                Arguments.of("yyy", 9),
-                Arguments.of("zz", 9),
-                Arguments.of("Zze", 2));
+                Arguments.of(AdminSteps.findPatientByUuid(createdUuids.get(0)).getDisplay().substring(0,7), 1),
+                Arguments.of(AdminSteps.findPatientByUuid(createdUuids.get(1)).getDisplay().substring(4,7), 1),
+                Arguments.of(generatedString.substring(0,4).toLowerCase() + " " + AdminSteps.findPatientByUuid(createdUuids.get(2)).getDisplay().substring(4,7), 1),
+                Arguments.of(generatedString.substring(0,4).toLowerCase() + "FN", 4),
+                Arguments.of(generatedString.substring(0,5).toLowerCase() + "LN", 4),
+                Arguments.of(generatedString.substring(0,4).toUpperCase() + "MN", 4),
+                Arguments.of(generatedString.substring(0,3).toLowerCase(), 4));
     }
-    @MethodSource("positivePatientSearchData")
+    @MethodSource("positivePatientSearchDataGenerated")
     @ParameterizedTest
-    @Tag("skip-setup")
     public void searchPatient_withMatchingTest(String searchText, int resultCount) {
-        List<CreatePatientResponse> results = PatientSteps.searchPatients(searchText);
+        List<CreatePatientResponse> results = PatientSteps.searchPatientsByString(searchText);
         assertThat(results).hasSize(resultCount);
         CommonAssertions.assertFieldContainText(results, searchText);
     }
-//-----------------------------------------------------------------------------------------
-// Test #2: checking that 0 results are found when DB is empty
-//-----------------------------------------------------------------------------------------
-    public static Stream<Arguments> negativePatientSearchData() {
+
+    public static Stream<Arguments> negativePatientSearchDataWhenDBisEmpty() {
         return Stream.of(
                 Arguments.of("m"),
                 Arguments.of("abrakadabra"));
     }
-    @MethodSource("negativePatientSearchData")
+    @MethodSource("negativePatientSearchDataWhenDBisEmpty")
     @ParameterizedTest
-    @Tag("skip-setup")
     public void searchPatient_withoutMatching_WhenDB_isEmptyTest(String searchText) {
-        List<CreatePatientResponse> results = PatientSteps.searchPatients(searchText);
+        List<CreatePatientResponse> results = PatientSteps.searchPatientsByString(searchText);
         assertThat(results).isEmpty();
     }
-//-----------------------------------------------------------------------------------------
-// Test #3: checking that 0 results are found when DB is NOT empty
-//-----------------------------------------------------------------------------------------
+
+    public static Stream<Arguments> negativePatientSearchData() {
+        createdUuids.addAll(PatientSteps.createPatientsForSearch(4, true, generatedString));
+        return Stream.of(
+            Arguments.of("m"),
+            Arguments.of("abrakadabra"));
+    }
     @MethodSource("negativePatientSearchData")
     @ParameterizedTest
     public void searchPatient_withoutMatchingTest(String searchText) {
-        List<CreatePatientResponse> results = PatientSteps.searchPatients(searchText);
+        List<CreatePatientResponse> results = PatientSteps.searchPatientsByString(searchText);
         assertThat(results).isEmpty();
     }
-//-----------------------------------------------------------------------------------------
-// Test #: checking that user without name
-//-----------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------
-// Test #: checking that UNKNOWN users
-//-----------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------
-// Test #: checking that user with extra "   " in the names
-//-----------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------
-// Test #: checking that
-// refine search sex: any/M, F, O, U + Reset fields
-//-----------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------
-// Test #: checking that
-// refine search DOB: day+month+year/year/year+month + Reset fields
-//-----------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------
-// Test #: checking that
-//refine search Age: + Reset fields
-//-----------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------
-// Test #: checking that
-//refine search Postcode + Reset fields
-//-----------------------------------------------------------------------------------------
-    @AfterEach
-   void deleteTestPatients() {
+
+    public static Stream<Arguments> unknownPatientSearchDataGenerated() {
+        // I will need to uncomment this once my DB is empty before each test
+        //createdUuids.add(PatientSteps.createUnknownPatient());
+            //createdUuids.add(PatientSteps.createUnknownPatient());
+        return Stream.of(
+            //Arguments.of("Unknown" + " " + AdminSteps.findPatientByUuid(createdUuids.getLast()).getDisplay().substring(4,7), 1),
+            Arguments.of("unknown", 16),
+            Arguments.of("Unknown", 16),
+            Arguments.of("UNKNOWN", 16));
+    }
+    @MethodSource("unknownPatientSearchDataGenerated")
+    @ParameterizedTest
+    public void searchUnknownPatientTest(String searchText, int resultCount) {
+        List<CreatePatientResponse> results = PatientSteps.searchPatientsByString(searchText);
+        assertThat(results).hasSize(resultCount);
+        CommonAssertions.assertFieldContainText(results, searchText);
+    }
+
+  /*  public static Stream<Arguments> refineByGenderData() {
+        return Stream.of(
+                Arguments.of("M", "mi", 4),
+                Arguments.of("F", "mi", 4),
+                Arguments.of("O", "1000", 5),
+                Arguments.of("U", "1000", 6));
+    }
+    @MethodSource("refineByGenderData")
+    @ParameterizedTest
+    public void searchPatientRefineBySexTest(String gender, String searchText, int resultCount) {
+        List<CreatePatientResponse> results = PatientSteps.searchPatients(searchText);
+        System.out.println("\u001B[35m" + searchText + "\u001B[0m");
+        System.out.println("\u001B[35m" + results + "\u001B[0m");
+        assertThat(results).hasSize(resultCount);
+        //CommonAssertions.assertFieldContainText(results, searchText);
+    }*/
+
+    @AfterAll
+    static void deleteTestPatients() {
         createdUuids.forEach(uuid -> {
             try {
-                AdminSteps.deletePatientByUuid(uuid);
+                AdminSteps.deletePatientByUuid(uuid, true);
             } catch (Exception e) {
                 System.err.println("Failed to delete patient: " + uuid + " — " + e.getMessage());
             }

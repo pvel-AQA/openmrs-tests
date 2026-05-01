@@ -13,12 +13,12 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CreatePersonRequest {
+public class CreatePersonRequest extends BaseModel{
     private List<PersonName> names;
     private String gender;                  // "M", "F", "U"
     private Integer age;                    // estimated age in years
-    private String birthDate;               // date of birth (string format, e.g., "YYYY-MM-DD")
-    private Boolean birthDateEstimated;     // true if estimated
+    private String birthdate;               // date of birth (string format, e.g., "YYYY-MM-DD")
+    private Boolean birthdateEstimated;     // true if estimated
     private String birthTime;               // time of birth
     private Boolean dead;                   // true if patient is dead
     private String deathDate;               // date of death

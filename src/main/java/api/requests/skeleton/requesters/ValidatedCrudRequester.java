@@ -5,11 +5,14 @@ import api.requests.Endpoint;
 import api.requests.HttpRequest;
 import api.requests.skeleton.interfaces.CrudEndpointInterface;
 import api.utils.JsonUtils;
+import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 
 import java.util.List;
 import java.util.Map;
+
+import static io.restassured.RestAssured.given;
 
 public class ValidatedCrudRequester<T extends BaseModel> extends HttpRequest implements CrudEndpointInterface {
     private final CrudRequester crudRequester;
@@ -63,7 +66,15 @@ public class ValidatedCrudRequester<T extends BaseModel> extends HttpRequest imp
     }
 
     @Override
+    public Response postRaw(BaseModel model) {
+        return crudRequester.postRaw(model);
+    }
+
+    @Override
     public void delete(String uuid) {
         crudRequester.delete(uuid);
     }
+
+    @Override
+    public void delete(String uuid, Boolean purge) { crudRequester.delete(uuid, purge);}
 }
