@@ -7,10 +7,10 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class PreferredAddress {
+@NoArgsConstructor
+public class PersonAttributesInPatientResponse {
     private String uuid;
     private String display;
-    List<Link> links;
+    private List<Link> links;
 }

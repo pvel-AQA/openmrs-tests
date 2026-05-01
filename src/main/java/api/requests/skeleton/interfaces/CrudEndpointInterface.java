@@ -6,8 +6,9 @@ import java.util.Map;
 
 public interface CrudEndpointInterface {
     Object get(String uuid, Class<?> clazz);
-    Object getWithParams(Map<String, Object> params, Class<?> clazz);
+    Object getAll(String uuid, Class<?> clazz);
+    Object getAll(Map<String, Object> params, Class<?> clazz);
     Object post(BaseModel model);
     Object post(BaseModel model, String uuid);
-    Object delete(long uuid);
+    Object delete(String uuid);
 }

@@ -8,6 +8,8 @@ import api.requests.specs.RequestSpecs;
 import api.requests.specs.ResponseSpecs;
 import api.requests.steps.AdminSteps;
 import common.generators.PartialEntityGenerator;
+import common.generators.RandomDataGenerator;
+import common.utils.DateUtils;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -15,20 +17,19 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CreatePatientTest extends BaseTest {
-    @Test
-    public void patientCanBeCreatedWithValidDataTest() {
-        final String ClinicNameToGetLocationUuid = "Outpatient";
-        final boolean preferredIdentifierTrue = true;
-        final String[] fieldsToBeGenerated = new String[]{"givenName", "middleName", "familyName"};
+    private static final boolean PREFERRED_IDENTIFIER_TRUE = true;
+    private static final String[] NAMES_FIELDS_TO_BE_GENERATED = new String[]{"givenName", "middleName", "familyName"};
 
-        PersonName personName = PartialEntityGenerator.generate(PersonName.class, fieldsToBeGenerated);
+    @Test
+    public void knownPatientCanBeCreatedWithOnlyMandatoryDataTest() {
+        PersonName personName = PartialEntityGenerator.generate(PersonName.class, NAMES_FIELDS_TO_BE_GENERATED);
 
         CreatePersonRequest person = CreatePersonRequest.builder()
                 .gender(Gender.M.toString())
                 .names(List.of(personName)).build();
 
         IdentifiersForPatientCreation identifiers = AdminSteps.prepareIdentifiersForPatientCreation(
-                ClinicNameToGetLocationUuid, preferredIdentifierTrue);
+                ClinicName.OUTPATIENT.getClinicName(), PREFERRED_IDENTIFIER_TRUE);
 
         CreatePatientRequest createPatientRequest = CreatePatientRequest.builder()
                 .identifiers(List.of(identifiers))
@@ -41,15 +42,65 @@ public class CreatePatientTest extends BaseTest {
                 ResponseSpecs.requestReturnsCreated())
                 .post(createPatientRequest);
 
-        assertThat(createdPatient.getUuid()).isNotEmpty();
-        assertThat(createdPatient.getPerson().getGender()).isEqualTo(person.getGender());
-        assertThat(createdPatient.getDisplay())
+        softly.assertThat(createdPatient.getUuid()).isNotEmpty();
+        softly.assertThat(createdPatient.getUuid()).isEqualTo(createdPatient.getPerson().getUuid());
+        softly.assertThat(createdPatient.getPerson().getGender()).isEqualTo(person.getGender());
+        softly.assertThat(createdPatient.getDisplay())
                 .isEqualTo(String.format("%s - %s %s %s", identifiers.getIdentifier(), personName.getGivenName(),
                         personName.getMiddleName(), personName.getFamilyName()));
 
-        CreatePatientResponse foundPatientList = AdminSteps.findPatientByUuid(createdPatient.getUuid());
+        CreatePatientResponse foundPatient = AdminSteps.findPatientByUuid(createdPatient.getUuid());
 
-        ModelAssertions.assertThatModels(createdPatient, foundPatientList).match();
+        ModelAssertions.assertThatModels(createdPatient, foundPatient).match();
     }
 
+    @Test
+    public void knownPatientCanBeCreatedWithValidDataTest() {
+        final String identifierResponsePrefix = "OpenMRS ID = ";
+        final String[] personFieldsToBeGenerated = new String[]{"gender", "birthdate", "birthdateEstimated",
+                "dead", "addresses", "attributes"};
+
+        PersonName personName = PartialEntityGenerator.generate(PersonName.class, NAMES_FIELDS_TO_BE_GENERATED);
+
+        CreatePersonRequest person = PartialEntityGenerator.generate(CreatePersonRequest.class, personFieldsToBeGenerated);
+        person.setNames(List.of(personName));
+        person.setBirthdate(RandomDataGenerator.generateValidDate());
+        int expectedDate = DateUtils.calculateAge(person.getBirthdate());
+
+        IdentifiersForPatientCreation identifiers = AdminSteps.prepareIdentifiersForPatientCreation(
+                ClinicName.OUTPATIENT.getClinicName(), PREFERRED_IDENTIFIER_TRUE);
+
+        CreatePatientRequest createPatientRequest = CreatePatientRequest.builder()
+                .identifiers(List.of(identifiers))
+                .person(person)
+                .build();
+
+        CreatePatientResponse createdPatient = new ValidatedCrudRequester<CreatePatientResponse>(
+                RequestSpecs.adminSpec(),
+                Endpoint.PATIENT,
+                ResponseSpecs.requestReturnsCreated())
+                .post(createPatientRequest);
+
+        ModelAssertions.assertThatModels(createPatientRequest, createdPatient).match();
+        softly.assertThat(createdPatient.getUuid()).isNotEmpty();
+        softly.assertThat(createdPatient.getUuid()).isEqualTo(createdPatient.getPerson().getUuid());
+        softly.assertThat(createdPatient.getDisplay())
+                .isEqualTo(String.format("%s - %s %s %s", identifiers.getIdentifier(), personName.getGivenName(),
+                        personName.getMiddleName(), personName.getFamilyName()));
+        softly.assertThat(createdPatient.getIdentifiers().getFirst().getDisplay())
+                .isEqualTo("%s%s", identifierResponsePrefix,
+                        createPatientRequest.getIdentifiers().getFirst().getIdentifier());
+        softly.assertThat(createdPatient.getPerson().getDisplay())
+                .isEqualTo("%s %s %s", createPatientRequest.getPerson().getNames().getFirst().getGivenName(),
+                        createPatientRequest.getPerson().getNames().getFirst().getMiddleName(),
+                        createPatientRequest.getPerson().getNames().getFirst().getFamilyName());
+        softly.assertThat(expectedDate).isEqualTo(createdPatient.getPerson().getAge());
+
+        AddressResponse personAddress = AdminSteps.getPersonAddress(createdPatient.getPerson().getUuid());
+        ModelAssertions.assertThatModels(person, personAddress).match();
+
+        CreatePatientResponse foundPatient = AdminSteps.findPatientByUuid(createdPatient.getUuid());
+
+        assertThat(createdPatient).usingRecursiveComparison().isEqualTo(foundPatient);
+    }
 }
