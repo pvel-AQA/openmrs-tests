@@ -23,7 +23,7 @@ public class CreatePersonResponse extends BaseModel{
     private String causeOfDeath;
     private PreferredName preferredName;
     private PreferredAddress preferredAddress;
-    private List<Object> attributes;
+    private List<PersonAttributesInPatientResponse> attributes;
     private Boolean voided;
     private String birthtime;
     private Boolean deathdateEstimated;

@@ -12,8 +12,6 @@ import io.restassured.specification.ResponseSpecification;
 import java.util.List;
 import java.util.Map;
 
-import static io.restassured.RestAssured.given;
-
 public class ValidatedCrudRequester<T extends BaseModel> extends HttpRequest implements CrudEndpointInterface {
     private final CrudRequester crudRequester;
 
@@ -34,8 +32,18 @@ public class ValidatedCrudRequester<T extends BaseModel> extends HttpRequest imp
     }
 
     @Override
-    public List<T> getWithParams(Map<String, Object> params, Class<?> clazz) {
-        String jsonString = crudRequester.getWithParams(params, clazz)
+    public List<T> getAll(String uuid, Class<?> clazz) {
+        String jsonString = crudRequester.get(uuid, clazz)
+                .extract()
+                .response()
+                .asString();
+
+        return JsonUtils.extractResultsList(jsonString, (Class<T>) clazz);
+    }
+
+    @Override
+    public List<T> getAll(Map<String, Object> params, Class<?> clazz) {
+        String jsonString = crudRequester.getAll(params, clazz)
                 .extract()
                 .response()
                 .asString();

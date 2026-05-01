@@ -4,10 +4,13 @@ import com.github.curiousoddman.rgxgen.RgxGen;
 import common.annotations.GeneratingRule;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.*;
 
 public final class PartialEntityGenerator {
-    private PartialEntityGenerator() { }
+    private PartialEntityGenerator() {
+    }
 
     private static final Random RANDOM = new Random();
 
@@ -43,7 +46,14 @@ public final class PartialEntityGenerator {
             return generateFromRegex(rule.regex(), type);
         }
 
+        if (type.equals(List.class)) {
+            return generateRandomList(field);
+        }
 
+        return generateRandomValue(type);
+    }
+
+    private static Object generateRandomValue(Class<?> type) {
         if (type.equals(String.class)) {
             return UUID.randomUUID().toString().substring(0, 8);
         } else if (type.equals(Integer.class) || type.equals(int.class)) {
@@ -59,6 +69,23 @@ public final class PartialEntityGenerator {
         }
     }
 
+    private static List<Object> generateRandomList(Field field) {
+        Type genericType = field.getGenericType();
+        if (genericType instanceof ParameterizedType) {
+            ParameterizedType pt = (ParameterizedType) genericType;
+            Type actualType = pt.getActualTypeArguments()[0];
+
+            if (actualType instanceof Class<?> elementType) {
+                List<Object> list = new ArrayList<>();
+
+                list.add(generateRandomValue(elementType));
+
+                return list;
+            }
+        }
+        return Collections.emptyList();
+    }
+
     private static Object generateFromRegex(String regex, Class<?> type) {
         RgxGen rgxGen = new RgxGen(regex);
         String result = rgxGen.generate();
@@ -66,6 +93,8 @@ public final class PartialEntityGenerator {
             return Integer.parseInt(result);
         } else if (type.equals(Long.class) || type.equals(long.class)) {
             return Long.parseLong(result);
+        } else if (type.equals(Boolean.class) || type.equals(boolean.class)) {
+            return Boolean.parseBoolean(result);
         }
         return result;
     }

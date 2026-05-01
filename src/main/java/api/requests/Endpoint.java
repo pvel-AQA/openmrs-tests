@@ -37,6 +37,11 @@ public enum Endpoint {
             BaseModel.class,
             CreatePatientResponse.class
     ),
+    PATIENT_UPDATE(
+            "/patient/{uuid}/identifier",
+            CreatePatientRequest.class,
+            CreatePatientResponse.class
+    ),
     PATIENT_DELETE(
             "/patient/{uuid}",
             CreatePatientRequest.class,
@@ -61,8 +66,12 @@ public enum Endpoint {
             "/person/{uuid}",
             CreatePersonRequest.class,
             BaseModel.class
+    ),
+    PERSON_ADDRESS(
+            "/person/{uuid}/address",
+            BaseModel.class,
+            AddressResponse.class
     );
-
 
     private final String url;
     private final Class<? extends BaseModel> requestModel;
