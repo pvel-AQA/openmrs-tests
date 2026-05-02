@@ -37,6 +37,31 @@ public enum Endpoint {
             BaseModel.class,
             CreatePatientResponse.class
     ),
+    VISIT(
+            "/visit",
+            CreateVisitRequest.class,
+            CreateVisitResponse.class
+    ),
+    VISIT_BY_UUID(
+            "/visit/{uuid}",
+            BaseModel.class,
+            CreateVisitResponse.class
+    ),
+    VISIT_TYPE(
+            "/visittype",
+            BaseModel.class,
+            VisitTypeResponse.class
+    ),
+    VISIT_TYPE_BY_UUID(
+            "/visittype/{uuid}",
+            BaseModel.class,
+            VisitTypeResponse.class
+    ),
+    VISIT_DELETE(
+            "/visit/{uuid}",
+            BaseModel.class,
+            BaseModel.class
+    ),
     PATIENT_UPDATE(
             "/patient/{uuid}/identifier",
             CreatePatientRequest.class,
