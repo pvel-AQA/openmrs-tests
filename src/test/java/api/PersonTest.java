@@ -163,7 +163,7 @@ public class PersonTest extends BaseTest{
     // Test idea for list: Retrieve a person by their UUID. Returns a 404 Not Found status if the person does not exist in the system. If the user is not logged in to perform this action, a 401 Unauthorized status is returned.
 
     @AfterEach
-    public void deleteTestPersons() {
+    public  void deleteTestPersons() {
         System.out.println("\u001B[1m" + "\u001B[34m" + createdUuids + "\u001B[0m");
         createdUuids.forEach(uuid -> {
             try {
