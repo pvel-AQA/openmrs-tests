@@ -19,6 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class SearchPatientSecondTest extends BaseTest{
     private static List<String> createdUuids = new ArrayList<>();
     private static String generatedString = RandomDataGenerator.randomString(7);
+    private static Boolean PATH_PARAM_PURGE = true;
 
     public static Stream<Arguments> positivePatientSearchDataGenerated() {
         createdUuids = PatientSteps.createPatientsForSearch(4, true, generatedString);
@@ -103,7 +104,7 @@ public class SearchPatientSecondTest extends BaseTest{
     static void deleteTestPatients() {
         createdUuids.forEach(uuid -> {
             try {
-                AdminSteps.deletePatientByUuid(uuid, true);
+                AdminSteps.deletePatientByUuid(uuid, PATH_PARAM_PURGE);
             } catch (Exception e) {
                 System.err.println("Failed to delete patient: " + uuid + " — " + e.getMessage());
             }
