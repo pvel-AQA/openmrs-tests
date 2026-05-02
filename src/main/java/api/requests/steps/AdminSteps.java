@@ -268,35 +268,16 @@ public class AdminSteps {
                 .post(createPersonRequest);
     }
 
-    public static CreatePersonResponse buildAndPostPerson(String firstName, String middleName, String lastName) {
-            PersonName personName = new PersonName();
-            personName.setGivenName(firstName);
-            personName.setMiddleName(middleName);
-            personName.setFamilyName(lastName);
-        return buildAndPostRandomPerson(personName);
-    }
-
-    public static Response buildAndPostSpecificPersonForNegativeTests(String firstName, String middleName, String lastName, int age, String gender) {
-        PersonName personName = new PersonName();
-        personName.setGivenName(firstName);
-        personName.setMiddleName(middleName);
-        personName.setFamilyName(lastName);
-
-        CreatePersonRequest createPersonRequest = CreatePersonRequest.builder()
-                .names(List.of(personName))
-                .age(age)
-                .gender(gender)
-                .build();
-
-        return new ValidatedCrudRequester<CreatePatientResponse>(
+    public static void deletePersonByUuid(String uuid, Boolean purge) {
+        new ValidatedCrudRequester<CreatePatientResponse>(
                 RequestSpecs.adminSpec(),
-                Endpoint.PERSON,
-                ResponseSpecs.requestReturnsAnyStatus())
-                .postRaw(createPersonRequest);
+                Endpoint.PERSON_DELETE,
+                ResponseSpecs.requestReturnsNoContent())
+                .delete(uuid, purge);
     }
 
-    public static CreatePersonResponse updatePerson(String personUuid, CreatePersonRequest updateRequest) {
-        return new ValidatedCrudRequester<CreatePersonResponse>(
+    public static void updatePerson(String personUuid, CreatePersonRequest updateRequest) {
+            new ValidatedCrudRequester<CreatePersonResponse>(
                 RequestSpecs.adminSpec(),
                 Endpoint.PERSON_UPDATE,   // ← needs the UUID in the path
                 ResponseSpecs.requestReturnsOK())
