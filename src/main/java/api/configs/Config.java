@@ -8,6 +8,7 @@ public final class Config {
     public static final String API_BASE_URL_CONST = "apiBaseUrl";
     public static final String API_VERSION_CONST = "apiVersion";
     public static final String ADMIN_TOKEN_CONST = "admin.token";
+    public static final String ADMIN_USERNAME_CONST = "admin.username";
 
     private static final Config INSTANCE = new Config();
     private final Properties properties = new Properties();

@@ -9,12 +9,13 @@ import api.requests.specs.ResponseSpecs;
 import common.generators.PartialEntityGenerator;
 import common.generators.RandomDataGenerator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AdminSteps {
-    private static final boolean PREFERRED_IDENTIFIER_TRUE = true;
-    private static final String[] NAMES_FIELDS_TO_BE_GENERATED = new String[]{"givenName", "middleName", "familyName"};
-    private static final String[] PERSON_FIELDS_TO_BE_GENERATED = new String[]{"gender", "birthdate", "birthdateEstimated",
+    public static final boolean PREFERRED_IDENTIFIER_TRUE = true;
+    public static final String[] NAMES_FIELDS_TO_BE_GENERATED = new String[]{"givenName", "middleName", "familyName"};
+    public static final String[] PERSON_FIELDS_TO_BE_GENERATED = new String[]{"gender", "birthdate", "birthdateEstimated",
             "dead", "addresses", "attributes"};
 
     public static String getIdentifierSourceUuid() {
@@ -95,10 +96,40 @@ public class AdminSteps {
                 .person(person)
                 .build();
 
+        return createPatient(createPatientRequest);
+    }
+
+    public static CreatePatientResponse createPatient(CreatePatientRequest createPatientRequest) {
         return new ValidatedCrudRequester<CreatePatientResponse>(
                 RequestSpecs.adminSpec(),
                 Endpoint.PATIENT,
                 ResponseSpecs.requestReturnsCreated())
                 .post(createPatientRequest);
+    }
+
+    public static CreatePersonRequest createPerson() {
+        PersonName personName = PartialEntityGenerator.generate(PersonName.class, NAMES_FIELDS_TO_BE_GENERATED);
+
+        CreatePersonRequest person = PartialEntityGenerator.generate(CreatePersonRequest.class, PERSON_FIELDS_TO_BE_GENERATED);
+        person.setNames(List.of(personName));
+        person.setBirthdate(RandomDataGenerator.generateValidDate());
+
+        return person;
+    }
+
+    public static CreatePatientRequest createPatientRequest() {
+        PersonName personName = PartialEntityGenerator.generate(PersonName.class, NAMES_FIELDS_TO_BE_GENERATED);
+
+        CreatePersonRequest person = PartialEntityGenerator.generate(CreatePersonRequest.class, PERSON_FIELDS_TO_BE_GENERATED);
+        person.setNames(List.of(personName));
+        person.setBirthdate(RandomDataGenerator.generateValidDate());
+
+        IdentifiersForPatientCreation identifiers = AdminSteps.prepareIdentifiersForPatientCreation(
+                ClinicName.OUTPATIENT.getClinicName(), PREFERRED_IDENTIFIER_TRUE);
+
+        return CreatePatientRequest.builder()
+                .identifiers(List.of(identifiers))
+                .person(person)
+                .build();
     }
 }
