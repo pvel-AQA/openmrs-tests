@@ -61,5 +61,4 @@ public final class ResponseSpecs {
                 .expectStatusCode(HttpStatus.SC_MOVED_TEMPORARILY)
                 .build();
     }
-
 }
