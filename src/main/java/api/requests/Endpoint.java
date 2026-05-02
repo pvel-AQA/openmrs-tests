@@ -63,7 +63,7 @@ public enum Endpoint {
             BaseModel.class
     ),
     PATIENT_UPDATE(
-            "/patient/{uuid}/identifier",
+            "/patient/{uuid}",
             CreatePatientRequest.class,
             CreatePatientResponse.class
     ),

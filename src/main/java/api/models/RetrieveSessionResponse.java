@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RetrieveSessionResponse extends BaseModel{
+public class RetrieveSessionResponse extends BaseModel {
     private boolean authenticated;
     private String locale;
     private List<String> allowedLocales;

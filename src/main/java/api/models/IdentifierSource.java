@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class IdentifierSource extends BaseModel{
+public class IdentifierSource extends BaseModel {
     private String uuid;
     private IdentifierType identifierType;
 }
