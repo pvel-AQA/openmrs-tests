@@ -51,7 +51,7 @@ public class CreatePatientTest extends BaseTest {
 
         CreatePatientResponse foundPatient = AdminSteps.findPatientByUuid(createdPatient.getUuid());
 
-        ModelAssertions.assertThatModels(createdPatient, foundPatient).match();
+        assertThat(createdPatient).usingRecursiveComparison().isEqualTo(foundPatient);
     }
 
     @Test
