@@ -32,5 +32,4 @@ public final class ResponseSpecs {
                 .expectHeader("Set-Cookie", containsString("JSESSIONID"))
                 .build();
     }
-
 }
