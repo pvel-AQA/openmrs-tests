@@ -67,6 +67,31 @@ public enum Endpoint {
             CreatePatientRequest.class,
             CreatePatientResponse.class
     ),
+    PATIENT_DELETE(
+            "/patient/{uuid}",
+            CreatePatientRequest.class,
+            BaseModel.class
+    ),
+    PERSON(
+            "/person/",
+            CreatePersonRequest.class,
+            CreatePersonResponse.class
+    ),
+    PERSON_READ(
+            "/person/{uuid}",
+            BaseModel.class,
+            CreatePersonResponse.class
+    ),
+    PERSON_UPDATE(
+            "/person/{uuid}",
+            CreatePersonRequest.class,
+            CreatePersonResponse.class
+    ),
+    PERSON_DELETE(
+            "/person/{uuid}",
+            CreatePersonRequest.class,
+            BaseModel.class
+    ),
     PERSON_ADDRESS(
             "/person/{uuid}/address",
             BaseModel.class,

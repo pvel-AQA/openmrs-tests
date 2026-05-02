@@ -27,9 +27,38 @@ public final class ResponseSpecs {
                 .build();
     }
 
+    public static ResponseSpecification requestReturnsNoContent() {
+        return defaultResponseBuilder()
+                .expectStatusCode(HttpStatus.SC_NO_CONTENT)
+                .build();
+    }
+
     public static ResponseSpecification requestReturnsSetCookieHeader() {
         return defaultResponseBuilder()
                 .expectHeader("Set-Cookie", containsString("JSESSIONID"))
+                .build();
+    }
+
+    public static ResponseSpecification requestReturnsAnyStatus() {
+        return new ResponseSpecBuilder()
+                .build();  // no status code expectation
+    }
+
+    public static ResponseSpecification requestReturnsBadRequest() {
+        return new ResponseSpecBuilder()
+                .expectStatusCode(HttpStatus.SC_BAD_REQUEST)
+                .build();
+    }
+
+    public static ResponseSpecification requestReturnsNotFound() {
+        return new ResponseSpecBuilder()
+                .expectStatusCode(HttpStatus.SC_NOT_FOUND)
+                .build();
+    }
+
+    public static ResponseSpecification requestReturnsMovedTemporarily() {
+        return new ResponseSpecBuilder()
+                .expectStatusCode(HttpStatus.SC_MOVED_TEMPORARILY)
                 .build();
     }
 }
