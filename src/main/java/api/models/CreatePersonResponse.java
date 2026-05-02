@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CreatePersonResponse extends BaseModel{
+public class CreatePersonResponse extends BaseModel {
     private String uuid;
     private String display;
     private String gender;
