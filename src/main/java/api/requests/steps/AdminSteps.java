@@ -2,6 +2,10 @@ package api.requests.steps;
 
 import api.configs.Config;
 import api.models.*;
+import api.models.patient.IdentifiersForPatientUpdate;
+import api.models.patient.PersonForPatientUpdate;
+import api.models.patient.PersonNameForPatientUpdate;
+import api.models.patient.UpdatePatientRequest;
 import api.requests.Endpoint;
 import api.requests.skeleton.requesters.CrudRequester;
 import api.requests.skeleton.requesters.ValidatedCrudRequester;
@@ -257,7 +261,7 @@ public class AdminSteps {
     public static CreatePersonResponse buildAndPostRandomPerson(PersonName personName) {
         CreatePersonRequest createPersonRequest = CreatePersonRequest.builder()
                 .names(List.of(personName))
-                .age(RandomDataGenerator.randomAge(0,100))
+                .age(RandomDataGenerator.randomAge(0, 100))
                 .gender(RandomDataGenerator.randomGender().toString())
                 .build();
 
@@ -277,10 +281,46 @@ public class AdminSteps {
     }
 
     public static void updatePerson(String personUuid, CreatePersonRequest updateRequest) {
-            new ValidatedCrudRequester<CreatePersonResponse>(
+        new ValidatedCrudRequester<CreatePersonResponse>(
                 RequestSpecs.adminSpec(),
                 Endpoint.PERSON_UPDATE,   // ← needs the UUID in the path
                 ResponseSpecs.requestReturnsOK())
                 .post(updateRequest, personUuid);     // ← POST as confirmed by Postman
+    }
+
+    public static UpdatePatientRequest prepareUpdatePatientRequest(CreatePatientRequest createPatientRequest, CreatePatientResponse createPatientResponse) {
+        PersonName personName = createPatientRequest.getPerson().getNames().getFirst();
+        PersonNameForPatientUpdate personNameForPatientUpdate = PersonNameForPatientUpdate.builder()
+                .givenName(personName.getGivenName())
+                .middleName(personName.getMiddleName())
+                .familyName(personName.getFamilyName())
+                .preferred(personName.getPreferred())
+                .uuid(createPatientResponse.getPerson().getPreferredName().getUuid())
+                .build();
+
+        CreatePersonRequest createPersonRequest = createPatientRequest.getPerson();
+        PersonForPatientUpdate personForPatientUpdate = PersonForPatientUpdate.builder()
+                .names(List.of(personNameForPatientUpdate))
+                .gender(createPersonRequest.getGender())
+                .birthdate(createPersonRequest.getBirthdate())
+                .birthdateEstimated(createPersonRequest.getBirthdateEstimated())
+                .dead(createPersonRequest.getDead())
+                .addresses(createPersonRequest.getAddresses())
+                .attributes(createPersonRequest.getAttributes())
+                .build();
+
+        IdentifiersForPatientCreation identifiersForPatientCreation = createPatientRequest.getIdentifiers().getFirst();
+        IdentifiersForPatientUpdate identifiersForPatientUpdate = IdentifiersForPatientUpdate.builder()
+                .uuid(createPatientResponse.getIdentifiers().getFirst().getUuid())
+                .identifier(identifiersForPatientCreation.getIdentifier())
+                .identifierType(identifiersForPatientCreation.getIdentifierType())
+                .location(identifiersForPatientCreation.getLocation())
+                .preferred(identifiersForPatientCreation.isPreferred())
+                .build();
+
+        return UpdatePatientRequest.builder()
+                .identifiers(List.of(identifiersForPatientUpdate))
+                .person(personForPatientUpdate)
+                .build();
     }
 }

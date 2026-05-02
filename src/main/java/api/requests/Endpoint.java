@@ -1,6 +1,7 @@
 package api.requests;
 
 import api.models.*;
+import api.models.patient.UpdatePatientRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -64,7 +65,7 @@ public enum Endpoint {
     ),
     PATIENT_UPDATE(
             "/patient/{uuid}",
-            CreatePatientRequest.class,
+            UpdatePatientRequest.class,
             CreatePatientResponse.class
     ),
     PATIENT_DELETE(
