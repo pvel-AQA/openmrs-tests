@@ -1,4 +1,4 @@
-package common.assertions;
+package api.assertions;
 
 import api.models.CreatePatientResponse;
 
