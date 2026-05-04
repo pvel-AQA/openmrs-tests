@@ -165,11 +165,7 @@ public class PersonTest extends BaseTest {
     public void deleteTestPersons() {
         System.out.println("\u001B[1m" + "\u001B[34m" + createdUuids + "\u001B[0m");
         createdUuids.forEach(uuid -> {
-            try {
-                AdminSteps.deletePersonByUuid(uuid, PATH_PARAM_PURGE);
-            } catch (Exception e) {
-                System.err.println("Failed to delete patient: " + uuid + " — " + e.getMessage());
-            }
+            AdminSteps.deletePersonByUuid(uuid, PATH_PARAM_PURGE);
         });
     }
 }
