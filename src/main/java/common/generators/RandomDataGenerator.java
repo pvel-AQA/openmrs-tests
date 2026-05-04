@@ -1,6 +1,8 @@
 package common.generators;
 
 import api.models.Gender;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.RandomUtils;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -29,6 +31,14 @@ public class RandomDataGenerator {
             sb.append(letters.charAt(RANDOM.nextInt(letters.length())));
         }
         return sb.toString();
+    }
+
+    public static String generateName() {
+        int minLength = 3;
+        int maxLength = 15;
+        int length = RandomUtils.secure().randomInt(minLength, maxLength + 1);
+
+        return RandomStringUtils.secure().nextAlphabetic(length);
     }
 
     public static Gender randomGender(){
