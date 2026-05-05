@@ -1,6 +1,7 @@
 package api.requests.steps;
 
 import api.configs.Config;
+import api.constants.Constants;
 import api.models.*;
 import api.models.patient.IdentifiersForPatientUpdate;
 import api.models.patient.PersonForPatientUpdate;
@@ -24,9 +25,8 @@ import java.util.Map;
 
 public class AdminSteps {
     public static final boolean PREFERRED_IDENTIFIER_TRUE = true;
-    public static final String[] NAMES_FIELDS_TO_BE_GENERATED = new String[]{"givenName", "middleName", "familyName"};
-    public static final String[] PERSON_FIELDS_TO_BE_GENERATED = new String[]{"gender", "birthdate", "birthdateEstimated",
-            "dead", "addresses", "attributes"};
+    public static final String[] NAMES_FIELDS_TO_BE_GENERATED = Constants.nameFieldsToBeGenerated;
+    public static final String[] PERSON_FIELDS_TO_BE_GENERATED = Constants.personFieldsToBeGenerated;
     final static String ClinicNameToGetLocationUuid = "Outpatient";
     final static boolean preferredIdentifierTrue = true;
 
