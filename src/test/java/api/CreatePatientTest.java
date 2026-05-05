@@ -9,7 +9,6 @@ import api.requests.skeleton.requesters.ValidatedCrudRequester;
 import api.requests.specs.RequestSpecs;
 import api.requests.specs.ResponseSpecs;
 import api.requests.steps.AdminSteps;
-import api.requests.steps.PatientSteps;
 import api.utils.EntityTestUtils;
 import common.generators.PartialEntityGenerator;
 import common.generators.RandomDataGenerator;
@@ -135,7 +134,7 @@ public class CreatePatientTest extends BaseTest {
                 ResponseSpecs.requestReturnBadRequestForIncorrectName(fieldName, errorMessage))
                 .post(createPatientRequest);
 
-        List<CreatePatientResponse> list = PatientSteps
+        List<CreatePatientResponse> list = AdminSteps
                 .searchPatientsByString(createPatientRequest.getPerson().getNames().getFirst().getGivenName()).stream()
                 .filter(patient -> patient.getIdentifiers().getFirst().getDisplay()
                         .contains(identifiers.getIdentifier())).toList();
