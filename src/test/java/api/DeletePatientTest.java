@@ -6,11 +6,7 @@ import api.requests.skeleton.requesters.ValidatedCrudRequester;
 import api.requests.specs.RequestSpecs;
 import api.requests.specs.ResponseSpecs;
 import api.requests.steps.AdminSteps;
-import api.requests.steps.PatientSteps;
-import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -19,7 +15,7 @@ public class DeletePatientTest extends BaseTest{
 
     @Test
     void deletePatientTest() {
-        String createdUuid = PatientSteps.createUnknownPatient();
+        String createdUuid = AdminSteps.createUnknownPatient();
         new ValidatedCrudRequester<CreatePatientResponse>(
                 RequestSpecs.adminSpec(),
                 Endpoint.PATIENT_DELETE,
@@ -30,7 +26,7 @@ public class DeletePatientTest extends BaseTest{
 
     @Test
     void deletePatientFromDBTest(){
-        String createdUuid = PatientSteps.createUnknownPatient();
+        String createdUuid = AdminSteps.createUnknownPatient();
         new ValidatedCrudRequester<CreatePatientResponse>(
                 RequestSpecs.adminSpec(),
                 Endpoint.PATIENT_DELETE,
