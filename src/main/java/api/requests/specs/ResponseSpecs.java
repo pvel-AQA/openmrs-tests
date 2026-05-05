@@ -4,7 +4,7 @@ import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.specification.ResponseSpecification;
 import org.apache.http.HttpStatus;
 
-import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.*;
 
 public final class ResponseSpecs {
 
@@ -47,6 +47,17 @@ public final class ResponseSpecs {
     public static ResponseSpecification requestReturnsBadRequest() {
         return new ResponseSpecBuilder()
                 .expectStatusCode(HttpStatus.SC_BAD_REQUEST)
+                .build();
+    }
+
+    public static ResponseSpecification requestReturnBadRequestForIncorrectName(String fieldName, String errorValue) {
+        return defaultResponseBuilder()
+                .expectStatusCode(HttpStatus.SC_BAD_REQUEST)
+                .expectBody("error.fieldErrors",
+                        hasEntry(
+                                equalTo("names[0]." + fieldName),
+                                hasItem(hasEntry("message", errorValue))
+                        ))
                 .build();
     }
 
