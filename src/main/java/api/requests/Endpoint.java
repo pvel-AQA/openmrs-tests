@@ -2,6 +2,9 @@ package api.requests;
 
 import api.models.*;
 import api.models.patient.UpdatePatientRequest;
+import api.models.visit.CreateVisitRequest;
+import api.models.visit.CreateVisitResponse;
+import api.models.visit.VisitTypeResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

@@ -1,5 +1,9 @@
-package api.models;
+package api.models.visit;
 
+import api.models.BaseModel;
+import api.models.Link;
+import api.models.LocationResponse;
+import api.models.PatientResponse;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,5 +1,8 @@
-package api.models;
+package api.models.visit;
 
+import api.models.AuditInfo;
+import api.models.BaseModel;
+import api.models.Link;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;

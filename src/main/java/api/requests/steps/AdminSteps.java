@@ -7,6 +7,9 @@ import api.models.patient.IdentifiersForPatientUpdate;
 import api.models.patient.PersonForPatientUpdate;
 import api.models.patient.PersonNameForPatientUpdate;
 import api.models.patient.UpdatePatientRequest;
+import api.models.visit.CreateVisitRequest;
+import api.models.visit.CreateVisitResponse;
+import api.models.visit.VisitTypeResponse;
 import api.requests.Endpoint;
 import api.requests.skeleton.requesters.CrudRequester;
 import api.requests.skeleton.requesters.ValidatedCrudRequester;
@@ -18,6 +21,8 @@ import common.generators.RandomDataGenerator;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -170,6 +175,16 @@ public final class AdminSteps {
                 .build();
     }
 
+    public static CreatePatientRequest createPatientRequest(CreatePersonRequest personRequest) {
+        IdentifiersForPatientCreation identifiers = AdminSteps.prepareIdentifiersForPatientCreation(
+                ClinicName.OUTPATIENT.getClinicName(), PREFERRED_IDENTIFIER_TRUE);
+
+        return CreatePatientRequest.builder()
+                .identifiers(List.of(identifiers))
+                .person(personRequest)
+                .build();
+    }
+
     public static CreateVisitResponse createVisit(CreatePatientResponse patient) {
         String startDatetime = "2026-05-02T10:00:00.000+0200";
 
@@ -261,13 +276,7 @@ public final class AdminSteps {
                 .get(personUuid, CreatePersonResponse.class);
     }
 
-    public static CreatePersonResponse buildAndPostRandomPerson(PersonName personName) {
-        CreatePersonRequest createPersonRequest = CreatePersonRequest.builder()
-                .names(List.of(personName))
-                .age(RandomDataGenerator.randomAge(0, 100))
-                .gender(RandomDataGenerator.randomGender().toString())
-                .build();
-
+    public static CreatePersonResponse createPerson(CreatePersonRequest createPersonRequest) {
         return new ValidatedCrudRequester<CreatePersonResponse>(
                 RequestSpecs.adminSpec(),
                 Endpoint.PERSON,
@@ -325,5 +334,81 @@ public final class AdminSteps {
                 .identifiers(List.of(identifiersForPatientUpdate))
                 .person(personForPatientUpdate)
                 .build();
+    }
+
+    private static PersonName buildPersonName(String firstName, String middleName, String lastName) {
+        PersonName personName = new PersonName();
+        personName.setGivenName(firstName);
+        personName.setMiddleName(middleName);
+        personName.setFamilyName(lastName);
+        return personName;
+    }
+
+    public static CreatePatientResponse createPatientWithAge(String firstName, String middleName, String lastName, String gender, int age){
+        PersonName personName = buildPersonName(firstName, middleName, lastName);
+        CreatePersonRequest person = CreatePersonRequest.builder()
+                .gender(gender)
+                .age(age)
+                .names(List.of(personName))
+                .build();
+
+        CreatePatientRequest patient = createPatientRequest(person);
+        return createPatient(patient);
+    }
+
+    public static CreatePatientResponse createPatientWithDOB(String firstName, String middleName, String lastName, String gender, String dateOfBirth) {
+        PersonName personName = buildPersonName(firstName, middleName, lastName);
+        CreatePersonRequest person = CreatePersonRequest.builder()
+                .gender(gender)
+                .birthdate(dateOfBirth)
+                .names(List.of(personName))
+                .build();
+        CreatePatientRequest patient = createPatientRequest(person);
+        return createPatient(patient);
+    }
+
+    public static CreatePatientResponse createUnknownPatient(){
+        PersonName personName = buildPersonName("UNKNOWN", "", "UNKNOWN");
+        CreatePersonRequest person = CreatePersonRequest.builder()
+                .gender(RandomDataGenerator.randomGender().toString())
+                .age(RandomDataGenerator.randomAge(0,100))
+                .names(List.of(personName))
+                .build();
+        CreatePatientRequest patient = createPatientRequest(person);
+        return createPatient(patient);
+    }
+
+    public static List<String> createPatientsForSearch(int count, Boolean knownDOB, String generatedString) {
+        List<String> createdUuids = new ArrayList<>();
+        String letters = "abcdefghijklmnopqrstuvwxyz";
+        String firstName;
+        String middleName;
+        String lastName;
+        String gender;
+        int age;
+        String dateOfBirth;
+        for (int i = 0; i < count; i++) {
+            firstName = generatedString.substring(0, 4).toLowerCase() + "FN" + letters.charAt(i); //abcd(e)FNa
+            middleName = generatedString.substring(0, 4).toUpperCase() + "MN" + letters.charAt(i); //
+            lastName = generatedString.substring(0, 5).toLowerCase() + "LN" + letters.charAt(i); //abcdeLNa
+            gender = RandomDataGenerator.randomGender().toString();
+            if (knownDOB) {
+                dateOfBirth = RandomDataGenerator.randomDateBetween(LocalDate.parse("1900-01-01"), LocalDate.now());
+                createdUuids.add(createPatientWithDOB(firstName, middleName, lastName, gender, dateOfBirth).getUuid());
+            }
+            else {
+                age = RandomDataGenerator.randomAge(20,70);
+                createdUuids.add(createPatientWithAge(firstName, middleName, lastName, gender, age).getUuid());
+            }
+        }
+        return createdUuids;
+    }
+
+    public static List<CreatePatientResponse> searchPatientsByString(String searchText) {
+        return new ValidatedCrudRequester<CreatePatientResponse>(
+                RequestSpecs.adminSpec(),
+                Endpoint.PATIENT,
+                ResponseSpecs.requestReturnsOK())
+                .getAll(new CrudRequester.QueryBuilder().q(searchText).build(), CreatePatientResponse.class);
     }
 }

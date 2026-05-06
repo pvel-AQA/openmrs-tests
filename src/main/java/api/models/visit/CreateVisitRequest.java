@@ -1,6 +1,7 @@
-package api.models;
+package api.models.visit;
 
 
+import api.models.BaseModel;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CreateVisitRequest extends BaseModel{
+public class CreateVisitRequest extends BaseModel {
     private String patient;
     private String visitType;
     private String startDatetime;
