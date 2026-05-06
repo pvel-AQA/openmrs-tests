@@ -9,10 +9,10 @@ import java.lang.reflect.Type;
 import java.util.*;
 
 public final class PartialEntityGenerator {
+    private static final Random RANDOM = new Random();
+
     private PartialEntityGenerator() {
     }
-
-    private static final Random RANDOM = new Random();
 
     public static <T> T generate(Class<T> clazz, Set<String> fieldsToGenerate) {
         try {
