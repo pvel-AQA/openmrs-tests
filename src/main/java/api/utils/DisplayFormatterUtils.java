@@ -4,7 +4,7 @@ import api.models.IdentifiersForPatientCreation;
 import api.models.PersonName;
 import api.models.patient.PersonNameForPatientUpdate;
 
-public class DisplayFormatterUtils {
+public final class DisplayFormatterUtils {
     private DisplayFormatterUtils() {
 
     }

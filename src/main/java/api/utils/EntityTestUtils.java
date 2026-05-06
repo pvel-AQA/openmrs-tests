@@ -5,7 +5,7 @@ import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.function.Consumer;
 
-public class EntityTestUtils {
+public final class EntityTestUtils {
     private EntityTestUtils() {
 
     }

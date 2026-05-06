@@ -23,12 +23,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class AdminSteps {
+public final class AdminSteps {
     public static final boolean PREFERRED_IDENTIFIER_TRUE = true;
     public static final String[] NAMES_FIELDS_TO_BE_GENERATED = Constants.nameFieldsToBeGenerated;
     public static final String[] PERSON_FIELDS_TO_BE_GENERATED = Constants.personFieldsToBeGenerated;
     final static String ClinicNameToGetLocationUuid = "Outpatient";
     final static boolean preferredIdentifierTrue = true;
+
+    private AdminSteps() {
+
+    }
 
     public static String getIdentifierSourceUuid() {
         IdentifierSource sourceResponse = new ValidatedCrudRequester<IdentifierSource>(

@@ -7,7 +7,11 @@ import tools.jackson.databind.json.JsonMapper;
 
 import java.util.List;
 
-public class JsonUtils {
+public final class JsonUtils {
+    private JsonUtils() {
+
+    }
+
     private static final ObjectMapper objectMapper = JsonMapper.builder().build();
 
     public static <T> List<T> extractResultsList(String jsonString, Class<T> clazz) {

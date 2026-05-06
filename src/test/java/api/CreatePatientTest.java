@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CreatePatientTest extends BaseTest {
-    private static final boolean PREFERRED_IDENTIFIER_TRUE = true;
+    private static final boolean PREFERRED_IDENTIFIER_TRUE = Constants.PREFERRED_IDENTIFIER_TRUE;
     private static final String[] NAMES_FIELDS_TO_BE_GENERATED = Constants.nameFieldsToBeGenerated;
 
     @Test
