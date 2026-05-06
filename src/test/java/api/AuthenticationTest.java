@@ -15,16 +15,18 @@ public class AuthenticationTest extends BaseTest {
     @Test
     public void adminCanBeAuthenticatedTest() {
         final String adminRole = "Super User";
+        AdminLogin admin = AdminLogin.getAdmin();
 
         RetrieveSessionResponse session = new ValidatedAuthRequester(
-                RequestSpecs.adminSpec(),
+                RequestSpecs.unauthSpec(),
                 Endpoint.SESSION,
                 ResponseSpecs.requestReturnsOK(),
-                ResponseSpecs.requestReturnsSetCookieHeader()).getSession();
+                ResponseSpecs.requestReturnsSetCookieHeader())
+                .getSession(admin.getUsername(), admin.getPassword());
 
         assertThat(session.isAuthenticated()).isTrue();
-        assertThat(session.getUser().getDisplay()).isEqualTo(Config.ADMIN_USERNAME_CONST);
-        assertThat(session.getUser().getSystemId()).isEqualTo(Config.ADMIN_USERNAME_CONST);
+        assertThat(session.getUser().getDisplay()).isEqualTo(admin.getUsername());
+        assertThat(session.getUser().getSystemId()).isEqualTo(admin.getUsername());
         assertThat(session.getUser().getPerson().getDisplay()).isEqualTo(adminRole);
     }
 }

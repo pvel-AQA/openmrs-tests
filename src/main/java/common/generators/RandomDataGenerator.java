@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Random;
 
-public class RandomDataGenerator {
+public final class RandomDataGenerator {
     private static final Random RANDOM = new Random();
     private static final int MAX_AGE = 130;
 

@@ -9,6 +9,11 @@ public final class Config {
     public static final String API_VERSION_CONST = "apiVersion";
     public static final String ADMIN_TOKEN_CONST = "admin.token";
     public static final String ADMIN_USERNAME_CONST = "admin.username";
+    public static final String ADMIN_PASSWORD_CONST = "admin.password";
+    public static final String UI_BASE_URL_CONST = "uiBaseUrl";
+    public static final String BROWSER_CONST = "browser";
+    public static final String BROWSER_SIZE_CONST = "browserSize";
+    public static final String BROWSER_REMOTE_CONST = "browserRemote";
 
     private static final Config INSTANCE = new Config();
     private final Properties properties = new Properties();

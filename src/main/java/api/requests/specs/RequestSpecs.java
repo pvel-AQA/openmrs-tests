@@ -1,16 +1,22 @@
 package api.requests.specs;
 
 import api.configs.Config;
+import api.requests.Endpoint;
+import api.requests.skeleton.requesters.AuthRequester;
+import com.codeborne.selenide.WebDriverRunner;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
+import org.openqa.selenium.Cookie;
 
 import java.util.List;
 
 public final class RequestSpecs {
     private static final String AUTHORIZATION_HEADER = "Authorization";
+    private static final String JSESSION_ID = "JSESSIONID";
+    private static final String ADMIN_TOKEN = Config.getProperty(Config.ADMIN_TOKEN_CONST);
 
     private RequestSpecs() {
     }
@@ -32,7 +38,29 @@ public final class RequestSpecs {
 
     public static RequestSpecification adminSpec() {
         return defaultRequestSpecBuilder()
-                .addHeader(AUTHORIZATION_HEADER, "Basic YWRtaW46QWRtaW4xMjM=")
+                .addHeader(AUTHORIZATION_HEADER, "Basic ".concat(ADMIN_TOKEN))
                 .build();
+    }
+
+    public static io.restassured.http.Cookie fetchSessionCookie(String username, String password) {
+        return new AuthRequester(
+                unauthSpec(),
+                Endpoint.SESSION,
+                ResponseSpecs.requestReturnsSetCookieHeader())
+                .getSession(username, password)
+                .extract()
+                .detailedCookie(JSESSION_ID);
+    }
+
+    public static void setCookieInBrowser(io.restassured.http.Cookie cookie) {
+        Cookie.Builder builder = new Cookie.Builder(cookie.getName(), cookie.getValue());
+
+        if (cookie.getDomain() != null) builder.domain(cookie.getDomain());
+        if (cookie.getPath() != null) builder.path(cookie.getPath());
+        if (cookie.getExpiryDate() != null) builder.expiresOn(cookie.getExpiryDate());
+        builder.isHttpOnly(cookie.isHttpOnly());
+        builder.isSecure(cookie.isSecured());
+
+        WebDriverRunner.getWebDriver().manage().addCookie(builder.build());
     }
 }
