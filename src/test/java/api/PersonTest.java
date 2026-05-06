@@ -58,9 +58,6 @@ public class PersonTest extends BaseTest {
     @MethodSource("negativeCreatePersonData")
     @ParameterizedTest
     public void negativeCreatePersonTest(String firstName, String middleName, String lastName, int age, String gender) {
-        CreatePersonResponse person = AdminSteps.buildAndPostRandomPerson(personName);
-        createdUuids.add(person.getUuid());
-
         PersonName testName = new PersonName();
         testName.setGivenName(firstName);
         testName.setMiddleName(middleName);
@@ -83,9 +80,10 @@ public class PersonTest extends BaseTest {
 
     @Test
     public void positiveUpdatePersonMandatoryFieldsTest() {
-        CreatePersonResponse person = AdminSteps.buildAndPostRandomPerson(personName);
+        CreatePersonRequest personRequest = AdminSteps.createPerson();
+        CreatePersonResponse person = AdminSteps.createPerson(personRequest);
         createdUuids.add(person.getUuid());
-        String uuidForUpdate = createdUuids.getLast();
+        String uuidForUpdate = person.getUuid();
         CreatePersonResponse beforeUpdate = AdminSteps.findPersonByUuid(uuidForUpdate);
 
         PersonName updatedName = new PersonName();
@@ -125,9 +123,10 @@ public class PersonTest extends BaseTest {
 
     @Test
     public void deletePersonVoidedTest() {
-        CreatePersonResponse person = AdminSteps.buildAndPostRandomPerson(personName);
+        CreatePersonRequest personRequest = AdminSteps.createPerson();
+        CreatePersonResponse person = AdminSteps.createPerson(personRequest);
         createdUuids.add(person.getUuid());
-        String uuidForDelete = createdUuids.getLast();
+        String uuidForDelete = person.getUuid();
 
         new ValidatedCrudRequester<CreatePatientResponse>(
                 RequestSpecs.adminSpec(),
@@ -141,9 +140,10 @@ public class PersonTest extends BaseTest {
 
     @Test
     public void deletePersonPurgeTest() {
-        CreatePersonResponse person = AdminSteps.buildAndPostRandomPerson(personName);
+        CreatePersonRequest personRequest = AdminSteps.createPerson();
+        CreatePersonResponse person = AdminSteps.createPerson(personRequest);
         createdUuids.add(person.getUuid());
-        String uuidForDelete = createdUuids.getLast();
+        String uuidForDelete = person.getUuid();
 
         new ValidatedCrudRequester<CreatePatientResponse>(
                 RequestSpecs.adminSpec(),

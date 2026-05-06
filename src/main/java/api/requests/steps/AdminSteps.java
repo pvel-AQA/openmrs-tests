@@ -7,6 +7,9 @@ import api.models.patient.IdentifiersForPatientUpdate;
 import api.models.patient.PersonForPatientUpdate;
 import api.models.patient.PersonNameForPatientUpdate;
 import api.models.patient.UpdatePatientRequest;
+import api.models.visit.CreateVisitRequest;
+import api.models.visit.CreateVisitResponse;
+import api.models.visit.VisitTypeResponse;
 import api.requests.Endpoint;
 import api.requests.skeleton.requesters.CrudRequester;
 import api.requests.skeleton.requesters.ValidatedCrudRequester;
@@ -27,8 +30,6 @@ public final class AdminSteps {
     public static final boolean PREFERRED_IDENTIFIER_TRUE = true;
     public static final String[] NAMES_FIELDS_TO_BE_GENERATED = Constants.nameFieldsToBeGenerated;
     public static final String[] PERSON_FIELDS_TO_BE_GENERATED = Constants.personFieldsToBeGenerated;
-    final static String ClinicNameToGetLocationUuid = "Outpatient";
-    final static boolean preferredIdentifierTrue = true;
 
     private AdminSteps() {
 
@@ -174,6 +175,16 @@ public final class AdminSteps {
                 .build();
     }
 
+    public static CreatePatientRequest createPatientRequest(CreatePersonRequest personRequest) {
+        IdentifiersForPatientCreation identifiers = AdminSteps.prepareIdentifiersForPatientCreation(
+                ClinicName.OUTPATIENT.getClinicName(), PREFERRED_IDENTIFIER_TRUE);
+
+        return CreatePatientRequest.builder()
+                .identifiers(List.of(identifiers))
+                .person(personRequest)
+                .build();
+    }
+
     public static CreateVisitResponse createVisit(CreatePatientResponse patient) {
         String startDatetime = "2026-05-02T10:00:00.000+0200";
 
@@ -265,13 +276,7 @@ public final class AdminSteps {
                 .get(personUuid, CreatePersonResponse.class);
     }
 
-    public static CreatePersonResponse buildAndPostRandomPerson(PersonName personName) {
-        CreatePersonRequest createPersonRequest = CreatePersonRequest.builder()
-                .names(List.of(personName))
-                .age(RandomDataGenerator.randomAge(0, 100))
-                .gender(RandomDataGenerator.randomGender().toString())
-                .build();
-
+    public static CreatePersonResponse createPerson(CreatePersonRequest createPersonRequest) {
         return new ValidatedCrudRequester<CreatePersonResponse>(
                 RequestSpecs.adminSpec(),
                 Endpoint.PERSON,
@@ -339,70 +344,38 @@ public final class AdminSteps {
         return personName;
     }
 
-    private static String buildAndPostPatient(CreatePersonRequest person) {
-        IdentifiersForPatientCreation identifiers = AdminSteps.prepareIdentifiersForPatientCreation(
-                ClinicNameToGetLocationUuid, preferredIdentifierTrue);
-
-        CreatePatientRequest createPatientRequest = CreatePatientRequest.builder()
-                .identifiers(List.of(identifiers))
-                .person(person)
-                .build();
-
-        CreatePatientResponse newPatient = new ValidatedCrudRequester<CreatePatientResponse>(
-                RequestSpecs.adminSpec(),
-                Endpoint.PATIENT,
-                ResponseSpecs.requestReturnsCreated())
-                .post(createPatientRequest);
-
-        return newPatient.getUuid();
-    }
-
-    public static String createPatientWithAge(String firstName, String middleName, String lastName, String gender, int age){
+    public static CreatePatientResponse createPatientWithAge(String firstName, String middleName, String lastName, String gender, int age){
         PersonName personName = buildPersonName(firstName, middleName, lastName);
         CreatePersonRequest person = CreatePersonRequest.builder()
                 .gender(gender)
                 .age(age)
                 .names(List.of(personName))
                 .build();
-        return buildAndPostPatient(person);
+
+        CreatePatientRequest patient = createPatientRequest(person);
+        return createPatient(patient);
     }
 
-    public static String createPatientWithDOB(String firstName, String middleName, String lastName, String gender, String dateOfBirth) {
+    public static CreatePatientResponse createPatientWithDOB(String firstName, String middleName, String lastName, String gender, String dateOfBirth) {
         PersonName personName = buildPersonName(firstName, middleName, lastName);
         CreatePersonRequest person = CreatePersonRequest.builder()
                 .gender(gender)
                 .birthdate(dateOfBirth)
                 .names(List.of(personName))
                 .build();
-        return buildAndPostPatient(person);
+        CreatePatientRequest patient = createPatientRequest(person);
+        return createPatient(patient);
     }
 
-    public static String createUnknownPatient(){
+    public static CreatePatientResponse createUnknownPatient(){
         PersonName personName = buildPersonName("UNKNOWN", "", "UNKNOWN");
         CreatePersonRequest person = CreatePersonRequest.builder()
                 .gender(RandomDataGenerator.randomGender().toString())
                 .age(RandomDataGenerator.randomAge(0,100))
                 .names(List.of(personName))
                 .build();
-        return buildAndPostPatient(person);
-    }
-
-    public static List<String> createPatients(int count, Boolean nameKnown, Boolean dateOfBirthKnown) {
-        final String[] fieldsToBeGenerated = new String[]{"givenName", "middleName", "familyName"};
-        List<String> createdUuids = new ArrayList<>();
-        String firstName;
-        String middleName;
-        String lastName;
-        String gender;
-        int age;
-        String dateOfBirth;
-        createdUuids.add("12345");
-        PersonName personName = PartialEntityGenerator.generate(PersonName.class, fieldsToBeGenerated);
-
-        CreatePersonRequest person = CreatePersonRequest.builder()
-                .gender(RandomDataGenerator.randomGender().toString())
-                .names(List.of(personName)).build();
-        return createdUuids;
+        CreatePatientRequest patient = createPatientRequest(person);
+        return createPatient(patient);
     }
 
     public static List<String> createPatientsForSearch(int count, Boolean knownDOB, String generatedString) {
@@ -421,11 +394,11 @@ public final class AdminSteps {
             gender = RandomDataGenerator.randomGender().toString();
             if (knownDOB) {
                 dateOfBirth = RandomDataGenerator.randomDateBetween(LocalDate.parse("1900-01-01"), LocalDate.now());
-                createdUuids.add(createPatientWithDOB(firstName, middleName, lastName, gender, dateOfBirth));
+                createdUuids.add(createPatientWithDOB(firstName, middleName, lastName, gender, dateOfBirth).getUuid());
             }
             else {
                 age = RandomDataGenerator.randomAge(20,70);
-                createdUuids.add(createPatientWithAge(firstName, middleName, lastName, gender, age));
+                createdUuids.add(createPatientWithAge(firstName, middleName, lastName, gender, age).getUuid());
             }
         }
         return createdUuids;

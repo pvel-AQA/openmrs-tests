@@ -15,7 +15,7 @@ public class DeletePatientTest extends BaseTest{
 
     @Test
     void deletePatientTest() {
-        String createdUuid = AdminSteps.createUnknownPatient();
+        String createdUuid = AdminSteps.createUnknownPatient().getUuid();
         new ValidatedCrudRequester<CreatePatientResponse>(
                 RequestSpecs.adminSpec(),
                 Endpoint.PATIENT_DELETE,
@@ -26,7 +26,7 @@ public class DeletePatientTest extends BaseTest{
 
     @Test
     void deletePatientFromDBTest(){
-        String createdUuid = AdminSteps.createUnknownPatient();
+        String createdUuid = AdminSteps.createUnknownPatient().getUuid();
         new ValidatedCrudRequester<CreatePatientResponse>(
                 RequestSpecs.adminSpec(),
                 Endpoint.PATIENT_DELETE,
