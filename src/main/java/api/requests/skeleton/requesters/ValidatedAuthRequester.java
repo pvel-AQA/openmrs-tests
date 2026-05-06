@@ -16,7 +16,7 @@ public class ValidatedAuthRequester extends HttpRequest implements SessionEndpoi
     }
 
     @Override
-    public RetrieveSessionResponse getSession() {
-        return authRequester.getSession().extract().as(RetrieveSessionResponse.class);
+    public RetrieveSessionResponse getSession(String username, String password) {
+        return authRequester.getSession(username, password).extract().as(RetrieveSessionResponse.class);
     }
 }
