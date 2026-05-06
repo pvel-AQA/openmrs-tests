@@ -60,5 +60,4 @@
             <scope>test</scope> <!-- Use 'runtime' if you need it outside of tests -->
         </dependency>
     </dependencies>
-
 </project>

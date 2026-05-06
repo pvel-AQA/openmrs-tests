@@ -16,7 +16,8 @@ public class AuthenticationTest extends BaseTest {
     public void adminCanBeAuthenticatedTest() {
         final String adminRole = "Super User";
 
-        RetrieveSessionResponse session = new ValidatedAuthRequester(RequestSpecs.adminSpec(),
+        RetrieveSessionResponse session = new ValidatedAuthRequester(
+                RequestSpecs.adminSpec(),
                 Endpoint.SESSION,
                 ResponseSpecs.requestReturnsOK(),
                 ResponseSpecs.requestReturnsSetCookieHeader()).getSession();
