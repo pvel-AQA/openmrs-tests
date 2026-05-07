@@ -10,7 +10,7 @@ import java.util.Map;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class LoginUserTest {
+public class SearchPatientTest extends BaseUiTest{
     @BeforeAll
     public static void setupSelenoid(){
         Configuration.remote = "http://localhost:4444/wd/hub";

@@ -2,6 +2,7 @@ package api;
 
 import api.configs.Config;
 import api.models.RetrieveSessionResponse;
+import api.models.roles.AdminLogin;
 import api.requests.Endpoint;
 import api.requests.skeleton.requesters.ValidatedAuthRequester;
 import api.requests.specs.RequestSpecs;
