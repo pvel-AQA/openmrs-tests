@@ -83,7 +83,7 @@ public enum Endpoint {
     ),
     PERSON_READ(
             "/person/{uuid}",
-            CreatePersonRequest.class,
+            BaseModel.class,
             CreatePersonResponse.class
     ),
     PERSON_UPDATE(
