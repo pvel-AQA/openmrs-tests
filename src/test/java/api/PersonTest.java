@@ -41,7 +41,9 @@ public class PersonTest extends BaseTest {
                 Endpoint.PERSON,
                 ResponseSpecs.requestReturnsCreated())
                 .post(createPersonRequest);
+
         createdUuids.add(createdPerson.getUuid());
+
         CreatePersonResponse foundPerson = AdminSteps.findPersonByUuid(createdPerson.getUuid()); //checked READ too
         ModelAssertions.assertThatModels(createdPerson, foundPerson).match();
     }
