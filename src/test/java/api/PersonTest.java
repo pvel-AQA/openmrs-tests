@@ -82,14 +82,14 @@ public class PersonTest extends BaseTest {
         CreatePersonResponse person = AdminSteps.createPerson(personRequest);
         createdUuids.add(person.getUuid());
         String uuidForUpdate = person.getUuid();
-        CreatePersonResponse beforeUpdate = AdminSteps.findPersonByUuid(uuidForUpdate);
+        CreatePersonResponse personBeforeUpdate = AdminSteps.findPersonByUuid(uuidForUpdate);
 
         PersonName updatedName = new PersonName();
         updatedName.setGivenName(RandomDataGenerator.randomString(7));
         updatedName.setMiddleName(RandomDataGenerator.randomString(8));
         updatedName.setFamilyName(RandomDataGenerator.randomString(5));
 
-        String newGender = RandomDataGenerator.randomGender(beforeUpdate.getGender()).toString();
+        String newGender = RandomDataGenerator.randomGender(personBeforeUpdate.getGender()).toString();
         int newAge = RandomDataGenerator.randomAge(0, 90);
 
         CreatePersonRequest updateRequest = CreatePersonRequest.builder()
@@ -102,11 +102,9 @@ public class PersonTest extends BaseTest {
 
         CreatePersonResponse afterUpdate = AdminSteps.findPersonByUuid(uuidForUpdate);
 
-        if (beforeUpdate.getGender() != afterUpdate.getGender()) {
-            softly.assertThat(afterUpdate.getGender())
+        softly.assertThat(afterUpdate.getGender())
                     .as("Gender should be updated")
                     .isEqualTo(newGender);
-        }
 
         softly.assertThat(afterUpdate.getPreferredName().getDisplay())
                 .as("Name should be updated")
@@ -114,7 +112,7 @@ public class PersonTest extends BaseTest {
 
         softly.assertThat(afterUpdate.getGender())
                 .as("Gender should have changed")
-                .isNotEqualTo(beforeUpdate.getGender()); //flacky result
+                .isNotEqualTo(personBeforeUpdate.getGender()); //flacky result
     }
     // Test idea: public void positiveUpdatePersonAddressTest(){
     // Test idea: public void positiveUpdatePersonAttributes(){
