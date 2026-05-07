@@ -1,6 +1,8 @@
 package api;
 
 import api.models.*;
+import api.models.visit.CreateVisitResponse;
+import api.models.visit.VisitTypeResponse;
 import api.requests.Endpoint;
 import api.requests.skeleton.requesters.CrudRequester;
 import api.requests.skeleton.requesters.ValidatedCrudRequester;

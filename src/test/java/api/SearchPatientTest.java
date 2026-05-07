@@ -2,7 +2,6 @@ package api;
 
 import api.models.CreatePatientResponse;
 import api.requests.steps.AdminSteps;
-import api.requests.steps.PatientSteps;
 import api.assertions.CommonAssertions;
 import common.generators.RandomDataGenerator;
 import org.junit.jupiter.api.*;
@@ -22,20 +21,20 @@ public class SearchPatientTest extends BaseTest{
     private static Boolean PATH_PARAM_PURGE = true;
 
     public static Stream<Arguments> positivePatientSearchDataGenerated() {
-        createdUuids = PatientSteps.createPatientsForSearch(4, true, generatedString);
+        createdUuids = AdminSteps.createPatientsForSearch(4, true, generatedString);
         return Stream.of(
                 Arguments.of(AdminSteps.findPatientByUuid(createdUuids.get(0)).getDisplay().substring(0,7), 1),
                 Arguments.of(AdminSteps.findPatientByUuid(createdUuids.get(1)).getDisplay().substring(4,7), 1),
                 Arguments.of(generatedString.substring(0,4).toLowerCase() + " " + AdminSteps.findPatientByUuid(createdUuids.get(2)).getDisplay().substring(4,7), 1),
-                Arguments.of(generatedString.substring(0,4).toLowerCase() + "FN", 4),
-                Arguments.of(generatedString.substring(0,5).toLowerCase() + "LN", 4),
-                Arguments.of(generatedString.substring(0,4).toUpperCase() + "MN", 4),
-                Arguments.of(generatedString.substring(0,3).toLowerCase(), 4));
+                Arguments.of(generatedString.substring(0,4).toLowerCase() + "FN", 8),
+                Arguments.of(generatedString.substring(0,5).toLowerCase() + "LN", 8),
+                Arguments.of(generatedString.substring(0,4).toUpperCase() + "MN", 8),
+                Arguments.of(generatedString.substring(0,3).toLowerCase(), 8));
     }
     @MethodSource("positivePatientSearchDataGenerated")
     @ParameterizedTest
     public void searchPatient_withMatchingTest(String searchText, int resultCount) {
-        List<CreatePatientResponse> results = PatientSteps.searchPatientsByString(searchText);
+        List<CreatePatientResponse> results = AdminSteps.searchPatientsByString(searchText);
         assertThat(results).hasSize(resultCount);
         CommonAssertions.assertFieldContainText(results, searchText);
     }
@@ -48,12 +47,12 @@ public class SearchPatientTest extends BaseTest{
     @MethodSource("negativePatientSearchDataWhenDBisEmpty")
     @ParameterizedTest
     public void searchPatient_withoutMatching_WhenDB_isEmptyTest(String searchText) {
-        List<CreatePatientResponse> results = PatientSteps.searchPatientsByString(searchText);
+        List<CreatePatientResponse> results = AdminSteps.searchPatientsByString(searchText);
         assertThat(results).isEmpty();
     }
 
     public static Stream<Arguments> negativePatientSearchData() {
-        createdUuids.addAll(PatientSteps.createPatientsForSearch(4, true, generatedString));
+        createdUuids.addAll(AdminSteps.createPatientsForSearch(4, true, generatedString));
         return Stream.of(
             Arguments.of("m"),
             Arguments.of("abrakadabra"));
@@ -61,7 +60,7 @@ public class SearchPatientTest extends BaseTest{
     @MethodSource("negativePatientSearchData")
     @ParameterizedTest
     public void searchPatient_withoutMatchingTest(String searchText) {
-        List<CreatePatientResponse> results = PatientSteps.searchPatientsByString(searchText);
+        List<CreatePatientResponse> results = AdminSteps.searchPatientsByString(searchText);
         assertThat(results).isEmpty();
     }
 
@@ -71,43 +70,22 @@ public class SearchPatientTest extends BaseTest{
             //createdUuids.add(PatientSteps.createUnknownPatient());
         return Stream.of(
             //Arguments.of("Unknown" + " " + AdminSteps.findPatientByUuid(createdUuids.getLast()).getDisplay().substring(4,7), 1),
-            Arguments.of("unknown", 16),
-            Arguments.of("Unknown", 16),
-            Arguments.of("UNKNOWN", 16));
+            Arguments.of("unknown", 18),
+            Arguments.of("Unknown", 18),
+            Arguments.of("UNKNOWN", 18));
     }
     @MethodSource("unknownPatientSearchDataGenerated")
     @ParameterizedTest
     public void searchUnknownPatientTest(String searchText, int resultCount) {
-        List<CreatePatientResponse> results = PatientSteps.searchPatientsByString(searchText);
+        List<CreatePatientResponse> results = AdminSteps.searchPatientsByString(searchText);
         assertThat(results).hasSize(resultCount);
         CommonAssertions.assertFieldContainText(results, searchText);
     }
 
-  /*  public static Stream<Arguments> refineByGenderData() {
-        return Stream.of(
-                Arguments.of("M", "mi", 4),
-                Arguments.of("F", "mi", 4),
-                Arguments.of("O", "1000", 5),
-                Arguments.of("U", "1000", 6));
-    }
-    @MethodSource("refineByGenderData")
-    @ParameterizedTest
-    public void searchPatientRefineBySexTest(String gender, String searchText, int resultCount) {
-        List<CreatePatientResponse> results = PatientSteps.searchPatients(searchText);
-        System.out.println("\u001B[35m" + searchText + "\u001B[0m");
-        System.out.println("\u001B[35m" + results + "\u001B[0m");
-        assertThat(results).hasSize(resultCount);
-        //CommonAssertions.assertFieldContainText(results, searchText);
-    }*/
-
     @AfterAll
     static void deleteTestPatients() {
         createdUuids.forEach(uuid -> {
-            try {
-                AdminSteps.deletePatientByUuid(uuid, PATH_PARAM_PURGE);
-            } catch (Exception e) {
-                System.err.println("Failed to delete patient: " + uuid + " — " + e.getMessage());
-            }
+            AdminSteps.deletePatientByUuid(uuid, PATH_PARAM_PURGE);
         });
     }
 

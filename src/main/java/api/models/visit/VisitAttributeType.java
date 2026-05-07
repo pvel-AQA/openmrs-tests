@@ -1,5 +1,6 @@
-package api.models;
+package api.models.visit;
 
+import api.models.BaseModel;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
