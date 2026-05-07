@@ -45,14 +45,21 @@ public final class ResponseSpecs {
                 .build();
     }
 
-    public static ResponseSpecification requestReturnBadRequestForIncorrectName(String fieldName, String errorValue) {
+    public static ResponseSpecification requestReturnBadRequestForIncorrectData(String fieldName, String errorValue) {
         return defaultResponseBuilder()
                 .expectStatusCode(HttpStatus.SC_BAD_REQUEST)
                 .expectBody("error.fieldErrors",
                         hasEntry(
-                                equalTo("names[0]." + fieldName),
+                                equalTo(fieldName),
                                 hasItem(hasEntry("message", errorValue))
                         ))
+                .build();
+    }
+
+    public static ResponseSpecification requestReturnNotFoundForDeletedObject(String fieldName, String errorValue) {
+        return defaultResponseBuilder()
+                .expectStatusCode(HttpStatus.SC_NOT_FOUND)
+                .expectBody(fieldName, equalTo(errorValue))
                 .build();
     }
 

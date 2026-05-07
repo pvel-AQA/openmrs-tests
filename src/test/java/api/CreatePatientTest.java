@@ -131,7 +131,7 @@ public class CreatePatientTest extends BaseTest {
         new CrudRequester(
                 RequestSpecs.adminSpec(),
                 Endpoint.PATIENT,
-                ResponseSpecs.requestReturnBadRequestForIncorrectName(fieldName, errorMessage))
+                ResponseSpecs.requestReturnBadRequestForIncorrectData(fieldName, errorMessage))
                 .post(createPatientRequest);
 
         List<CreatePatientResponse> list = AdminSteps

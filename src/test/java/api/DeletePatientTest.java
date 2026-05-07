@@ -27,12 +27,13 @@ public class DeletePatientTest extends BaseTest{
     @Test
     void deletePatientFromDBTest(){
         String createdUuid = AdminSteps.createUnknownPatient().getUuid();
+        String errorMessage = "Object with given uuid doesn't exist [null]";
         new ValidatedCrudRequester<CreatePatientResponse>(
                 RequestSpecs.adminSpec(),
                 Endpoint.PATIENT_DELETE,
                 ResponseSpecs.requestReturnsNoContent()) //404
                 .delete(createdUuid, PATH_PARAM_PURGE);
 
-
+        softly.assertThat(AdminSteps.attemptToFindDeletedPatientByUuid(createdUuid, "error.message", errorMessage));
     }
 }

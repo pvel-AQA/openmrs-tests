@@ -81,6 +81,22 @@ public final class AdminSteps {
                 .get(patientUuid, CreatePatientResponse.class);
     }
 
+    public static CreatePatientResponse attemptToFindDeletedPatientByUuid(String patientUuid, String fieldName, String errorMessage) {
+        return new ValidatedCrudRequester<CreatePatientResponse>(
+                RequestSpecs.adminSpec(),
+                Endpoint.PATIENT_SEARCH,
+                ResponseSpecs.requestReturnNotFoundForDeletedObject(fieldName, errorMessage))
+                .get(patientUuid, CreatePatientResponse.class);
+    }
+
+    public static CreatePersonResponse attemptToFindDeletedPersonByUuid(String personUuid, String fieldName, String errorMessage) {
+        return new ValidatedCrudRequester<CreatePersonResponse>(
+                RequestSpecs.adminSpec(),
+                Endpoint.PERSON_READ,
+                ResponseSpecs.requestReturnNotFoundForDeletedObject(fieldName, errorMessage))
+                .get(personUuid, CreatePersonResponse.class);
+    }
+
     private static List<VisitTypeResponse> searchVisitTypeByName(String name) {
         return new ValidatedCrudRequester<VisitTypeResponse>(
                 RequestSpecs.adminSpec(),

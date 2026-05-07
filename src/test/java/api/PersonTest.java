@@ -50,14 +50,14 @@ public class PersonTest extends BaseTest {
 
     public static Stream<Arguments> negativeCreatePersonData() {
         return Stream.of(
-                Arguments.of("", "middle", "LastName", 21, "M", "You must define the Given Name"),
-                Arguments.of("First", "middle", "LastName", -2, "F", "Cannot be a date in the future"),
-                Arguments.of("first", "middle", "LastName", 210, "U", "Nonsensical date, please check."));
+                Arguments.of("", "middle", "LastName", 21, "M", "names[0].givenName", "You must define the Given Name"),
+                Arguments.of("First", "middle", "LastName", -2, "F", "birthdate", "Cannot be a date in the future"),
+                Arguments.of("first", "middle", "LastName", 210, "U", "birthdate", "Nonsensical date, please check."));
     }
 
     @MethodSource("negativeCreatePersonData")
     @ParameterizedTest
-    public void negativeCreatePersonTest(String firstName, String middleName, String lastName, int age, String gender) {
+    public void negativeCreatePersonTest(String firstName, String middleName, String lastName, int age, String gender, String fieldName, String errorMessage) {
         PersonName testName = new PersonName();
         testName.setGivenName(firstName);
         testName.setMiddleName(middleName);
@@ -72,10 +72,8 @@ public class PersonTest extends BaseTest {
         new ValidatedCrudRequester<CreatePersonResponse>(
                 RequestSpecs.adminSpec(),
                 Endpoint.PERSON,
-                ResponseSpecs.requestReturnsBadRequest())
+                ResponseSpecs.requestReturnBadRequestForIncorrectData(fieldName, errorMessage))
                 .post(createPersonRequest);
-
-        //how to check error message?
     }
 
     @Test
@@ -91,7 +89,7 @@ public class PersonTest extends BaseTest {
         updatedName.setMiddleName(RandomDataGenerator.randomString(8));
         updatedName.setFamilyName(RandomDataGenerator.randomString(5));
 
-        String newGender = RandomDataGenerator.randomGender().toString();
+        String newGender = RandomDataGenerator.randomGender(beforeUpdate.getGender()).toString();
         int newAge = RandomDataGenerator.randomAge(0, 90);
 
         CreatePersonRequest updateRequest = CreatePersonRequest.builder()
@@ -140,22 +138,19 @@ public class PersonTest extends BaseTest {
 
     @Test
     public void deletePersonPurgeTest() {
+        String errorMessage = "Object with given uuid doesn't exist [null]";
         CreatePersonRequest personRequest = AdminSteps.createPerson();
         CreatePersonResponse person = AdminSteps.createPerson(personRequest);
         createdUuids.add(person.getUuid());
         String uuidForDelete = person.getUuid();
 
-        new ValidatedCrudRequester<CreatePatientResponse>(
+        new ValidatedCrudRequester<CreatePersonResponse>(
                 RequestSpecs.adminSpec(),
                 Endpoint.PERSON_DELETE,
                 ResponseSpecs.requestReturnsNoContent())
                 .delete(uuidForDelete, PATH_PARAM_PURGE);
 
-        new ValidatedCrudRequester<CreatePatientResponse>(
-                RequestSpecs.adminSpec(),
-                Endpoint.PERSON_READ,
-                ResponseSpecs.requestReturnsNotFound())
-                .get(uuidForDelete, CreatePersonResponse.class);
+        softly.assertThat(AdminSteps.attemptToFindDeletedPersonByUuid(uuidForDelete, "error.message", errorMessage));
     }
 
     // Test idea for delete: If not authenticated or authenticated user does not have sufficient privileges, 401 Unauthorized status is returned.
@@ -163,7 +158,6 @@ public class PersonTest extends BaseTest {
 
     @AfterEach
     public void deleteTestPersons() {
-        System.out.println("\u001B[1m" + "\u001B[34m" + createdUuids + "\u001B[0m");
         createdUuids.forEach(uuid -> {
             AdminSteps.deletePersonByUuid(uuid, PATH_PARAM_PURGE);
         });
