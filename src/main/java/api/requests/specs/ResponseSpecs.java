@@ -62,4 +62,10 @@ public final class ResponseSpecs {
                 .build();
     }
 
+    public static ResponseSpecification requestReturnsNotFoundWithMessage(String expectedMessage) {
+        return new ResponseSpecBuilder()
+                .expectStatusCode(HttpStatus.SC_NOT_FOUND)
+                .expectBody("error.message", equalTo(expectedMessage))
+                .build();
+    }
 }
