@@ -45,14 +45,9 @@ public final class ResponseSpecs {
                 .build();
     }
 
-    public static ResponseSpecification requestReturnBadRequestAndCompareErrorMessageForIncorrectData(String fieldName, String errorValue) {
+    public static ResponseSpecification requestReturnBadRequestAndCompareErrorMessageForIncorrectData() {
         return defaultResponseBuilder()
                 .expectStatusCode(HttpStatus.SC_BAD_REQUEST)
-                .expectBody("error.fieldErrors",
-                        hasEntry(
-                                equalTo(fieldName),
-                                hasItem(hasEntry("message", errorValue))
-                        ))
                 .build();
     }
 

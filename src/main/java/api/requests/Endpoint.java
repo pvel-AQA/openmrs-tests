@@ -86,6 +86,11 @@ public enum Endpoint {
             CreatePersonRequest.class,
             CreatePersonResponse.class
     ),
+    PERSON_WITH_ERROR(
+            "/person/",
+            CreatePersonRequest.class,
+            ErrorResponse.class
+    ),
     PERSON_READ(
             "/person/{uuid}",
             BaseModel.class,

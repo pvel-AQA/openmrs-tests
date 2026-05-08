@@ -72,11 +72,13 @@ public class PersonTest extends BaseTest {
                 .gender(gender)
                 .build();
 
-        new ValidatedCrudRequester<CreatePersonResponse>(
+        ErrorResponse response = new ValidatedCrudRequester<ErrorResponse>(
                 RequestSpecs.adminSpec(),
-                Endpoint.PERSON,
-                ResponseSpecs.requestReturnBadRequestAndCompareErrorMessageForIncorrectData(fieldName, errorMessage))
+                Endpoint.PERSON_WITH_ERROR,
+                ResponseSpecs.requestReturnBadRequestAndCompareErrorMessageForIncorrectData())
                 .post(createPersonRequest);
+        String responseErrorMessage = response.getError().getFieldErrors().get(fieldName).get(0).getMessage();
+        assertThat(responseErrorMessage).isEqualTo(errorMessage);
     }
 
     @Test
