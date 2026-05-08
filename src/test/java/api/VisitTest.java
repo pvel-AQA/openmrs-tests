@@ -93,24 +93,6 @@ public class VisitTest extends BaseTest {
         });
     }
 
- // @Test
- // public void deleteVisitTest() {
- //     CreatePatientResponse patient = AdminSteps.createPatient();
- //     CreateVisitResponse createdVisit = AdminSteps.createVisit(patient);
-
- //     new ValidatedCrudRequester<CreateVisitResponse>(
- //             RequestSpecs.adminSpec(),
- //             Endpoint.VISIT_BY_UUID,
- //             ResponseSpecs.requestReturnsNoContent())
- //             .delete(createdVisit.getUuid(), true);
-
- //     new ValidatedCrudRequester<CreateVisitResponse>(
- //             RequestSpecs.adminSpec(),
- //             Endpoint.VISIT_BY_UUID,
- //             ResponseSpecs.requestReturnsNotFoundWithMessage("Object with given uuid doesn't exist [null]"))
- //             .get(createdVisit.getUuid(), CreateVisitResponse.class);
- // }
-
     @Test
     public void deleteVisitTest() {
         CreatePatientResponse patient = AdminSteps.createPatient();
