@@ -10,6 +10,7 @@ import api.models.patient.UpdatePatientRequest;
 import api.models.visit.CreateVisitRequest;
 import api.models.visit.CreateVisitResponse;
 import api.models.visit.VisitTypeResponse;
+import api.models.*;
 import api.requests.Endpoint;
 import api.requests.skeleton.requesters.CrudRequester;
 import api.requests.skeleton.requesters.ValidatedCrudRequester;
@@ -268,16 +269,8 @@ public final class AdminSteps {
                 .get(Config.getProperty(Config.API_VERSION_CONST) + Endpoint.VISIT_BY_UUID.getUrl());
     }
 
-    public static void deletePatientByUuid(String patientUuid) {
-        new ValidatedCrudRequester<CreatePatientResponse>(
-                RequestSpecs.adminSpec(),
-                Endpoint.PATIENT_DELETE,
-                ResponseSpecs.requestReturnsNoContent())
-                .delete(patientUuid);
-    }
-
     public static void deletePatientByUuid(String patientUuid, Boolean purge) {
-        new ValidatedCrudRequester<CreatePatientResponse>(
+        new CrudRequester(
                 RequestSpecs.adminSpec(),
                 Endpoint.PATIENT_DELETE,
                 ResponseSpecs.requestReturnsNotFound())
@@ -353,11 +346,11 @@ public final class AdminSteps {
     }
 
     private static PersonName buildPersonName(String firstName, String middleName, String lastName) {
-        PersonName personName = new PersonName();
-        personName.setGivenName(firstName);
-        personName.setMiddleName(middleName);
-        personName.setFamilyName(lastName);
-        return personName;
+        return PersonName.builder()
+                .givenName(firstName)
+                .middleName(middleName)
+                .familyName(lastName)
+                .build();
     }
 
     public static CreatePatientResponse createPatientWithAge(String firstName, String middleName, String lastName, String gender, int age){
