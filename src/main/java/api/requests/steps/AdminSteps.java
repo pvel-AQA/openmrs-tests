@@ -16,7 +16,6 @@ import api.requests.specs.RequestSpecs;
 import api.requests.specs.ResponseSpecs;
 import common.generators.PartialEntityGenerator;
 import common.generators.RandomDataGenerator;
-import io.restassured.response.Response;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -390,7 +389,7 @@ public final class AdminSteps {
                 Endpoint.SESSION,
                 ResponseSpecs.requestReturnsOK(),
                 ResponseSpecs.requestReturnsSetCookieHeader())
-                .getSession(username, password)
+                .get(username, password)
                 .extract()
                 .sessionId();
     }

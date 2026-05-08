@@ -18,7 +18,7 @@ public class AuthRequester extends HttpRequest implements SessionEndpointInterfa
     }
 
     @Override
-    public ValidatableResponse getSession(String username, String password) {
+    public ValidatableResponse get(String username, String password) {
         return given()
                 .auth().preemptive().basic(username, password)
                 .spec(requestSpecification)

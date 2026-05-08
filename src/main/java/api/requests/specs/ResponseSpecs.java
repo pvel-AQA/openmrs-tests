@@ -7,6 +7,8 @@ import org.apache.http.HttpStatus;
 import static org.hamcrest.Matchers.*;
 
 public final class ResponseSpecs {
+    public final static String GIVEN_NAME_FIELD = "givenName";
+    public final static String YOU_MUST_DEFINE_THE_GIVEN_NAME_ERROR = "You must define the Given Name";
 
     private ResponseSpecs() {
     }

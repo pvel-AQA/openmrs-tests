@@ -110,8 +110,6 @@ public class CreatePatientTest extends BaseTest {
     @Test
     public void patientCannotBeCreatedWithEmptyGivenName() {
         final String emptyGivenName = "";
-        final String fieldName = "givenName";
-        final String errorMessage = "You must define the Given Name";
 
         PersonName personName = PartialEntityGenerator.generate(PersonName.class, NAMES_FIELDS_TO_BE_GENERATED);
         personName.setGivenName(emptyGivenName);
@@ -131,7 +129,7 @@ public class CreatePatientTest extends BaseTest {
         new CrudRequester(
                 RequestSpecs.adminSpec(),
                 Endpoint.PATIENT,
-                ResponseSpecs.requestReturnBadRequestForIncorrectName(fieldName, errorMessage))
+                ResponseSpecs.requestReturnBadRequestForIncorrectName(ResponseSpecs.GIVEN_NAME_FIELD, ResponseSpecs.YOU_MUST_DEFINE_THE_GIVEN_NAME_ERROR))
                 .post(createPatientRequest);
 
         List<CreatePatientResponse> list = AdminSteps

@@ -1,7 +1,6 @@
 package ui;
 
 import api.models.CreatePatientRequest;
-import api.models.CreatePatientResponse;
 import api.requests.steps.AdminSteps;
 import api.utils.DisplayFormatterUtils;
 import common.annotations.AdminSession;
@@ -15,8 +14,6 @@ public class RegisterPatientTest extends BaseUiTest {
     public void knownPatientCanBeRegisteredWithValidDataTest() {
         CreatePatientRequest patient = AdminSteps.createPatientRequest();
         patient.getPerson().setBirthdate(RandomDataGenerator.generateValidDateUiFormat());
-
-
 
         new PickLocationPage().open()
                 .pickOutpatientLocationAndConfirm()
