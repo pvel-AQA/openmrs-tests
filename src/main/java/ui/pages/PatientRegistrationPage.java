@@ -1,11 +1,12 @@
 package ui.pages;
 
+import api.models.CreatePatientRequest;
 import api.models.ui.GenderUi;
 import com.codeborne.selenide.*;
+import common.generators.RandomDataGenerator;
 import org.openqa.selenium.By;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.*;
 
 public class PatientRegistrationPage extends BasePage<PatientRegistrationPage> {
     private final SelenideElement registerPatientButton = $(By.xpath("//button[text()='Register patient']"));
@@ -16,7 +17,7 @@ public class PatientRegistrationPage extends BasePage<PatientRegistrationPage> {
     private final SelenideElement familyNameField = $("#familyName");
     private final ElementsCollection sexRadioButtons = $$("fieldset>div");
     private final SelenideElement dateOfBirthKnownYesButton = $(By.xpath("//div/span[text()='Date of Birth Known?']/../following-sibling::div/button/span[text()='Yes']"));
-    private final SelenideElement birthdateField = $("#birthdate");
+    private final SelenideElement birthdateDayPartOfField = $(By.xpath("//span[@role='spinbutton' and text()='dd']"));
     private final SelenideElement addressField = $("#address1");
     private final SelenideElement address2Field = $("#address2");
     private final SelenideElement cityVillageField = $("#cityVillage");
@@ -37,11 +38,25 @@ public class PatientRegistrationPage extends BasePage<PatientRegistrationPage> {
         return this;
     }
 
+    public PatientRegistrationPage clickOnRegisterPatientButton() {
+        registerPatientButton.shouldBe(Condition.visible);
+        registerPatientButton.click();
+
+        return this;
+    }
+
+    public PatientRegistrationPage clickOnCancelButton() {
+        cancelButton.shouldBe(Condition.visible);
+        cancelButton.click();
+
+        return this;
+    }
+
     public PatientRegistrationPage selectRandomGender() {
         String randomGender = GenderUi.getRandomGender().getGender();
 
         sexRadioButtons.filterBy(Condition.visible).shouldHave(CollectionCondition.size(sexRadioButtons.size()));
-        sexRadioButtons.findBy(Condition.text(randomGender));
+        sexRadioButtons.findBy(Condition.text(randomGender)).click();
 
         return this;
     }
@@ -68,8 +83,8 @@ public class PatientRegistrationPage extends BasePage<PatientRegistrationPage> {
     }
 
     public PatientRegistrationPage populateBirthdayField(String dateOfBirth) {
-        birthdateField.shouldBe(Condition.visible);
-        birthdateField.sendKeys(dateOfBirth);
+        birthdateDayPartOfField.shouldBe(Condition.visible);
+        birthdateDayPartOfField.sendKeys(dateOfBirth);
 
         return this;
     }
@@ -109,6 +124,13 @@ public class PatientRegistrationPage extends BasePage<PatientRegistrationPage> {
         return this;
     }
 
+    public PatientRegistrationPage populateStateProvinceField(String stateProvince) {
+        stateProvinceField.shouldBe(Condition.visible);
+        stateProvinceField.sendKeys(stateProvince);
+
+        return this;
+    }
+
     public PatientRegistrationPage populatePostalCodeField(String postalCode) {
         postalCodeField.shouldBe(Condition.visible);
         postalCodeField.sendKeys(postalCode);
@@ -123,5 +145,25 @@ public class PatientRegistrationPage extends BasePage<PatientRegistrationPage> {
         return this;
     }
 
+    public PatientSummaryPage registerPatientWithAllFieldsPopulatedCorrectly(CreatePatientRequest patient) {
+        clickOnPatientNameIsKnownYesButton();
+        populateFirstNameField(patient.getPerson().getNames().getFirst().getGivenName());
+        populateMiddleNameField(patient.getPerson().getNames().getFirst().getMiddleName());
+        populateFamilyNameField(patient.getPerson().getNames().getFirst().getFamilyName());
+        selectRandomGender();
+        clickOnDateOfBirthKnownYesButton();
+        populateBirthdayField(patient.getPerson().getBirthdate());
+        populateAddressField(patient.getPerson().getAddresses().getFirst().getAddress1());
+        populateAddress2Field(patient.getPerson().getAddresses().getFirst().getAddress2());
+        populateCityVillageField(patient.getPerson().getAddresses().getFirst().getCityVillage());
+        populateStateProvinceField(patient.getPerson().getAddresses().getFirst().getStateProvince());
+        populateCountryField(patient.getPerson().getAddresses().getFirst().getCountry());
+        populatePostalCodeField(patient.getPerson().getAddresses().getFirst().getPostalCode());
+        populateTelephoneNumberField(patient.getPerson().getAttributes().getFirst().getValue());
+
+        clickOnRegisterPatientButton();
+
+        return new PatientSummaryPage();
+    }
 
 }
