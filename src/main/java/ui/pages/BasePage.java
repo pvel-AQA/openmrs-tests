@@ -1,5 +1,6 @@
 package ui.pages;
 
+import api.models.roles.AdminLogin;
 import com.codeborne.selenide.Selenide;
 
 import static api.requests.specs.RequestSpecs.fetchSessionCookie;
@@ -23,5 +24,9 @@ public abstract class BasePage<T extends BasePage> {
 
         io.restassured.http.Cookie sessionCookie = fetchSessionCookie(username, password);
         setCookieInBrowser(sessionCookie);
+    }
+
+    public static void authAsUser(AdminLogin admin) {
+        authAsUser(admin.getUsername(), admin.getPassword());
     }
 }

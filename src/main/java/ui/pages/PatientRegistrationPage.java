@@ -1,0 +1,127 @@
+package ui.pages;
+
+import api.models.ui.GenderUi;
+import com.codeborne.selenide.*;
+import org.openqa.selenium.By;
+
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
+
+public class PatientRegistrationPage extends BasePage<PatientRegistrationPage> {
+    private final SelenideElement registerPatientButton = $(By.xpath("//button[text()='Register patient']"));
+    private final SelenideElement cancelButton = $(By.xpath("//button[text()='Cancel']"));
+    private final SelenideElement patientNameIsKnownYesButton = $(By.xpath("//div/span[text()=\"Patient's Name is Known?\"]/../following-sibling::div/button/span[text()='Yes']"));
+    private final SelenideElement firstNameField = $("#givenName");
+    private final SelenideElement middleNameField = $("#middleName");
+    private final SelenideElement familyNameField = $("#familyName");
+    private final ElementsCollection sexRadioButtons = $$("fieldset>div");
+    private final SelenideElement dateOfBirthKnownYesButton = $(By.xpath("//div/span[text()='Date of Birth Known?']/../following-sibling::div/button/span[text()='Yes']"));
+    private final SelenideElement birthdateField = $("#birthdate");
+    private final SelenideElement addressField = $("#address1");
+    private final SelenideElement address2Field = $("#address2");
+    private final SelenideElement cityVillageField = $("#cityVillage");
+    private final SelenideElement stateProvinceField = $("#stateProvince");
+    private final SelenideElement countryField = $("#country");
+    private final SelenideElement postalCodeField = $("#postalCode");
+    private final SelenideElement telephoneNumberField = $("#phone");
+
+    @Override
+    public String url() {
+        return "/patient-registration";
+    }
+
+    public PatientRegistrationPage clickOnPatientNameIsKnownYesButton() {
+        patientNameIsKnownYesButton.shouldBe(Condition.visible);
+        patientNameIsKnownYesButton.click();
+
+        return this;
+    }
+
+    public PatientRegistrationPage selectRandomGender() {
+        String randomGender = GenderUi.getRandomGender().getGender();
+
+        sexRadioButtons.filterBy(Condition.visible).shouldHave(CollectionCondition.size(sexRadioButtons.size()));
+        sexRadioButtons.findBy(Condition.text(randomGender));
+
+        return this;
+    }
+
+    public PatientRegistrationPage populateFirstNameField(String firstname) {
+        firstNameField.shouldBe(Condition.visible);
+        firstNameField.sendKeys(firstname);
+
+        return this;
+    }
+
+    public PatientRegistrationPage populateMiddleNameField(String middleName) {
+        middleNameField.shouldBe(Condition.visible);
+        middleNameField.sendKeys(middleName);
+
+        return this;
+    }
+
+    public PatientRegistrationPage populateFamilyNameField(String familyName) {
+        familyNameField.shouldBe(Condition.visible);
+        familyNameField.sendKeys(familyName);
+
+        return this;
+    }
+
+    public PatientRegistrationPage populateBirthdayField(String dateOfBirth) {
+        birthdateField.shouldBe(Condition.visible);
+        birthdateField.sendKeys(dateOfBirth);
+
+        return this;
+    }
+
+    public PatientRegistrationPage clickOnDateOfBirthKnownYesButton() {
+        dateOfBirthKnownYesButton.shouldBe(Condition.visible);
+        dateOfBirthKnownYesButton.click();
+
+        return this;
+    }
+
+    public PatientRegistrationPage populateAddressField(String address) {
+        addressField.shouldBe(Condition.visible);
+        addressField.sendKeys(address);
+
+        return this;
+    }
+
+    public PatientRegistrationPage populateAddress2Field(String address) {
+        address2Field.shouldBe(Condition.visible);
+        address2Field.sendKeys(address);
+
+        return this;
+    }
+
+    public PatientRegistrationPage populateCityVillageField(String cityVillage) {
+        cityVillageField.shouldBe(Condition.visible);
+        cityVillageField.sendKeys(cityVillage);
+
+        return this;
+    }
+
+    public PatientRegistrationPage populateCountryField(String country) {
+        countryField.shouldBe(Condition.visible);
+        countryField.sendKeys(country);
+
+        return this;
+    }
+
+    public PatientRegistrationPage populatePostalCodeField(String postalCode) {
+        postalCodeField.shouldBe(Condition.visible);
+        postalCodeField.sendKeys(postalCode);
+
+        return this;
+    }
+
+    public PatientRegistrationPage populateTelephoneNumberField(String number) {
+        telephoneNumberField.shouldBe(Condition.visible);
+        telephoneNumberField.sendKeys(number);
+
+        return this;
+    }
+
+
+}

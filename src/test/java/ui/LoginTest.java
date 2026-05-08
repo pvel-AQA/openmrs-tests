@@ -1,16 +1,21 @@
 package ui;
 
 import api.models.roles.AdminLogin;
+import api.requests.steps.AdminSteps;
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.remote.SessionId;
 import ui.pages.LoginPage;
 import ui.pages.PickLocationPage;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class LoginTest extends BaseUiTest {
 
     @Test
     public void adminCanLoginTest() {
-        String welcomeText = "Welcome Admin";
+        final String welcomeText = "Welcome Admin";
         AdminLogin admin = AdminLogin.getAdmin();
 
         new LoginPage().open()
@@ -20,5 +25,10 @@ public class LoginTest extends BaseUiTest {
                 .clickLogInButton()
                 .getPage(PickLocationPage.class)
                 .getWelcomeText().shouldBe(Condition.visible).shouldHave(Condition.text(welcomeText));
+
+        SessionId sessionId = Selenide.webdriver().driver().getSessionId();
+        String adminJSessionValue = AdminSteps.retrieveJSessionValue(admin);
+
+        assertThat(sessionId.toString()).isEqualTo(adminJSessionValue);
     }
 }
