@@ -98,7 +98,7 @@ public class VisitTest extends BaseTest {
                         ResponseSpecs.requestReturnsOK())
                         .get(facilityUuid, VisitTypeResponse.class);
 
-        SoftAssertions.assertSoftly(softly -> {
+        //SoftAssertions.assertSoftly(softly -> {
             softly.assertThat(visitType.getUuid())
                     .as("UUID should match requested UUID")
                     .isEqualTo(facilityUuid);
@@ -106,7 +106,6 @@ public class VisitTest extends BaseTest {
             softly.assertThat(visitType.getName())
                     .as("Name should be '" + VisitTypeEnum.FACILITY_VISIT.getDisplayName() + "'")
                     .isEqualTo(VisitTypeEnum.FACILITY_VISIT.getDisplayName());
-        });
     }
 
     @Test

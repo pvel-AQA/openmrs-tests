@@ -81,20 +81,20 @@ public final class AdminSteps {
                 .get(patientUuid, CreatePatientResponse.class);
     }
 
-    public static CreatePatientResponse attemptToFindDeletedPatientByUuid(String patientUuid, String fieldName, String errorMessage) {
-        return new ValidatedCrudRequester<CreatePatientResponse>(
+    public static ErrorResponse attemptToFindDeletedPatientByUuid(String patientUuid) {
+        return new ValidatedCrudRequester<ErrorResponse>(
                 RequestSpecs.adminSpec(),
-                Endpoint.PATIENT_SEARCH,
-                ResponseSpecs.requestReturnNotFoundForDeletedObject(fieldName, errorMessage))
-                .get(patientUuid, CreatePatientResponse.class);
+                Endpoint.PATIENT_SEARCH_AFTER_DELETE,
+                ResponseSpecs.requestReturnNotFoundForDeletedObject())
+                .get(patientUuid, ErrorResponse.class);
     }
 
-    public static CreatePersonResponse attemptToFindDeletedPersonByUuid(String personUuid, String fieldName, String errorMessage) {
-        return new ValidatedCrudRequester<CreatePersonResponse>(
+    public static ErrorResponse attemptToFindDeletedPersonByUuid(String personUuid){
+        return new ValidatedCrudRequester<ErrorResponse>(
                 RequestSpecs.adminSpec(),
-                Endpoint.PERSON_READ,
-                ResponseSpecs.requestReturnNotFoundForDeletedObject(fieldName, errorMessage))
-                .get(personUuid, CreatePersonResponse.class);
+                Endpoint.PERSON_READ_DELETED,
+                ResponseSpecs.requestReturnNotFoundForDeletedObject())
+                .get(personUuid, ErrorResponse.class);
     }
 
     private static List<VisitTypeResponse> searchVisitTypeByName(String name) {
@@ -301,7 +301,7 @@ public final class AdminSteps {
     }
 
     public static void deletePersonByUuid(String uuid, Boolean purge) {
-        new ValidatedCrudRequester<CreatePatientResponse>(
+        new ValidatedCrudRequester<CreatePersonResponse>(
                 RequestSpecs.adminSpec(),
                 Endpoint.PERSON_DELETE,
                 ResponseSpecs.requestReturnsNoContent())

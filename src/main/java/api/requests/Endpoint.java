@@ -41,6 +41,11 @@ public enum Endpoint {
             BaseModel.class,
             CreatePatientResponse.class
     ),
+    PATIENT_SEARCH_AFTER_DELETE(
+            "/patient/{uuid}",
+            BaseModel.class,
+            ErrorResponse.class
+    ),
     VISIT(
             "/visit",
             CreateVisitRequest.class,
@@ -74,7 +79,7 @@ public enum Endpoint {
     PATIENT_DELETE(
             "/patient/{uuid}",
             CreatePatientRequest.class,
-            BaseModel.class
+            ErrorResponse.class
     ),
     PERSON(
             "/person/",
@@ -86,6 +91,11 @@ public enum Endpoint {
             BaseModel.class,
             CreatePersonResponse.class
     ),
+    PERSON_READ_DELETED(
+            "/person/{uuid}",
+            BaseModel.class,
+            ErrorResponse.class
+    ),
     PERSON_UPDATE(
             "/person/{uuid}",
             CreatePersonRequest.class,
@@ -94,7 +104,7 @@ public enum Endpoint {
     PERSON_DELETE(
             "/person/{uuid}",
             CreatePersonRequest.class,
-            BaseModel.class
+            ErrorResponse.class
     ),
     PERSON_ADDRESS(
             "/person/{uuid}/address",

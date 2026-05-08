@@ -45,7 +45,7 @@ public final class ResponseSpecs {
                 .build();
     }
 
-    public static ResponseSpecification requestReturnBadRequestForIncorrectData(String fieldName, String errorValue) {
+    public static ResponseSpecification requestReturnBadRequestAndCompareErrorMessageForIncorrectData(String fieldName, String errorValue) {
         return defaultResponseBuilder()
                 .expectStatusCode(HttpStatus.SC_BAD_REQUEST)
                 .expectBody("error.fieldErrors",
@@ -56,7 +56,24 @@ public final class ResponseSpecs {
                 .build();
     }
 
-    public static ResponseSpecification requestReturnNotFoundForDeletedObject(String fieldName, String errorValue) {
+    public static ResponseSpecification requestReturnBadRequestForIncorrectName(String fieldName, String errorValue) {
+        return defaultResponseBuilder()
+                .expectStatusCode(HttpStatus.SC_BAD_REQUEST)
+                .expectBody("error.fieldErrors",
+                        hasEntry(
+                                equalTo("names[0]." + fieldName),
+                                hasItem(hasEntry("message", errorValue))
+                        ))
+                .build();
+    }
+
+    public static ResponseSpecification requestReturnNotFoundForDeletedObject(){
+        return defaultResponseBuilder()
+                .expectStatusCode(HttpStatus.SC_NOT_FOUND)
+                .build();
+    }
+
+    public static ResponseSpecification requestReturnNotFoundForDeletedObject2(String fieldName, String errorValue) {
         return defaultResponseBuilder()
                 .expectStatusCode(HttpStatus.SC_NOT_FOUND)
                 .expectBody(fieldName, equalTo(errorValue))
