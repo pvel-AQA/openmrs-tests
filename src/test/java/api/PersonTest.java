@@ -1,11 +1,9 @@
 package api;
 
-import api.models.CreatePatientResponse;
-import api.models.CreatePersonRequest;
-import api.models.CreatePersonResponse;
-import api.models.PersonName;
+import api.models.*;
 import api.models.comparison.ModelAssertions;
 import api.requests.Endpoint;
+import api.requests.skeleton.requesters.CrudRequester;
 import api.requests.skeleton.requesters.ValidatedCrudRequester;
 import api.requests.specs.RequestSpecs;
 import api.requests.specs.ResponseSpecs;
@@ -18,18 +16,21 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class PersonTest extends BaseTest {
     final static String[] fieldsToBeGenerated = new String[]{"givenName", "middleName", "familyName"};
-    private final PersonName personName = PartialEntityGenerator.generate(PersonName.class, fieldsToBeGenerated);
     private final static List<String> createdUuids = new ArrayList<>();
     private static Boolean PATH_PARAM_PURGE = true;
 
     @Test
     public void positiveCreatePersonWithMandatoryFieldsTest() {
+        PersonName personName = PartialEntityGenerator.generate(PersonName.class, fieldsToBeGenerated);
         CreatePersonRequest createPersonRequest = CreatePersonRequest.builder()
                 .names(List.of(personName))
                 .age(RandomDataGenerator.randomAge(0, 100))
@@ -41,8 +42,9 @@ public class PersonTest extends BaseTest {
                 Endpoint.PERSON,
                 ResponseSpecs.requestReturnsCreated())
                 .post(createPersonRequest);
+
         createdUuids.add(createdPerson.getUuid());
-        CreatePersonResponse foundPerson = AdminSteps.findPersonByUuid(createdPerson.getUuid()); //checked READ too
+        CreatePersonResponse foundPerson = AdminSteps.findPersonByUuid(createdPerson.getUuid());
         ModelAssertions.assertThatModels(createdPerson, foundPerson).match();
     }
     // Test idea: public void positiveCreatePersonWithAddressTest(){
@@ -50,18 +52,19 @@ public class PersonTest extends BaseTest {
 
     public static Stream<Arguments> negativeCreatePersonData() {
         return Stream.of(
-                Arguments.of("", "middle", "LastName", 21, "M", "You must define the Given Name"),
-                Arguments.of("First", "middle", "LastName", -2, "F", "Cannot be a date in the future"),
-                Arguments.of("first", "middle", "LastName", 210, "U", "Nonsensical date, please check."));
+                Arguments.of("", "middle", "LastName", 21, "M", "names[0].givenName", "You must define the Given Name"),
+                Arguments.of("First", "middle", "LastName", -2, "F", "birthdate", "Cannot be a date in the future"),
+                Arguments.of("first", "middle", "LastName", 210, "U", "birthdate", "Nonsensical date, please check."));
     }
 
     @MethodSource("negativeCreatePersonData")
     @ParameterizedTest
-    public void negativeCreatePersonTest(String firstName, String middleName, String lastName, int age, String gender) {
-        PersonName testName = new PersonName();
-        testName.setGivenName(firstName);
-        testName.setMiddleName(middleName);
-        testName.setFamilyName(lastName);
+    public void negativeCreatePersonTest(String firstName, String middleName, String lastName, int age, String gender, String fieldName, String errorMessage) {
+        PersonName testName = PersonName.builder()
+                .givenName(firstName)
+                .middleName(middleName)
+                .familyName(lastName)
+                .build();
 
         CreatePersonRequest createPersonRequest = CreatePersonRequest.builder()
                 .names(List.of(testName))
@@ -69,54 +72,69 @@ public class PersonTest extends BaseTest {
                 .gender(gender)
                 .build();
 
-        new ValidatedCrudRequester<CreatePersonResponse>(
+        ErrorResponse response = new ValidatedCrudRequester<ErrorResponse>(
                 RequestSpecs.adminSpec(),
-                Endpoint.PERSON,
-                ResponseSpecs.requestReturnsBadRequest())
+                Endpoint.PERSON_WITH_ERROR,
+                ResponseSpecs.requestReturnBadRequestAndCompareErrorMessageForIncorrectData())
                 .post(createPersonRequest);
-
-        //how to check error message?
+        String responseErrorMessage = response.getError().getFieldErrors().get(fieldName).get(0).getMessage();
+        assertThat(responseErrorMessage).isEqualTo(errorMessage);
     }
 
     @Test
     public void positiveUpdatePersonMandatoryFieldsTest() {
-        CreatePersonRequest personRequest = AdminSteps.createPerson();
-        CreatePersonResponse person = AdminSteps.createPerson(personRequest);
-        createdUuids.add(person.getUuid());
-        String uuidForUpdate = person.getUuid();
-        CreatePersonResponse beforeUpdate = AdminSteps.findPersonByUuid(uuidForUpdate);
+        CreatePersonRequest createPersonRequest = AdminSteps.createPerson();
+        CreatePersonResponse personBeforeUpdate = AdminSteps.createPerson(createPersonRequest);
+        createdUuids.add(personBeforeUpdate.getUuid());
+        String uuidForUpdate = personBeforeUpdate.getUuid();
 
-        PersonName updatedName = new PersonName();
-        updatedName.setGivenName(RandomDataGenerator.randomString(7));
-        updatedName.setMiddleName(RandomDataGenerator.randomString(8));
-        updatedName.setFamilyName(RandomDataGenerator.randomString(5));
+        String newGender = RandomDataGenerator.randomGender(personBeforeUpdate.getGender()).toString();
+        String newDate = RandomDataGenerator.randomDateBetween(LocalDate.parse("1980-06-15"), LocalDate.parse("1990-06-15"));
 
-        String newGender = RandomDataGenerator.randomGender().toString();
-        int newAge = RandomDataGenerator.randomAge(0, 90);
-
+        PersonName personName = PartialEntityGenerator.generate(PersonName.class, fieldsToBeGenerated);
         CreatePersonRequest updateRequest = CreatePersonRequest.builder()
-                .names(List.of(updatedName))
+                .names(List.of(personName))
                 .gender(newGender)
-                .age(newAge)
+                .birthdate(newDate)
                 .build();
 
-        AdminSteps.updatePerson(uuidForUpdate, updateRequest);
+        new ValidatedCrudRequester<CreatePersonResponse>(
+                RequestSpecs.adminSpec(),
+                Endpoint.PERSON_UPDATE,
+                ResponseSpecs.requestReturnsOK())
+                .post(updateRequest, uuidForUpdate);     // ←
 
-        CreatePersonResponse afterUpdate = AdminSteps.findPersonByUuid(uuidForUpdate);
+        CreatePersonResponse personAfterUpdate = AdminSteps.findPersonByUuid(uuidForUpdate);
 
-        if (beforeUpdate.getGender() != afterUpdate.getGender()) {
-            softly.assertThat(afterUpdate.getGender())
-                    .as("Gender should be updated")
-                    .isEqualTo(newGender);
-        }
-
-        softly.assertThat(afterUpdate.getPreferredName().getDisplay())
+        softly.assertThat(personAfterUpdate.getDisplay())
                 .as("Name should be updated")
-                .contains(updatedName.getGivenName());
+                .contains(personName.getGivenName());
 
-        softly.assertThat(afterUpdate.getGender())
+        softly.assertThat(personAfterUpdate.getDisplay())
+                .as("MiddleName should be updated")
+                .contains(personName.getMiddleName());
+
+        softly.assertThat(personAfterUpdate.getDisplay())
+                .as("LastName should be updated")
+                .contains(personName.getFamilyName());
+
+        softly.assertThat(personAfterUpdate.getGender())
                 .as("Gender should have changed")
-                .isNotEqualTo(beforeUpdate.getGender()); //flacky result
+                .isNotEqualTo(personBeforeUpdate.getGender());
+
+        softly.assertThat(personAfterUpdate.getDisplay())
+                .as("Names should have changed")
+                .isNotEqualTo(personBeforeUpdate.getDisplay());
+
+        softly.assertThat(personAfterUpdate.getBirthdate())
+                .as("Birthdate should not be the same as was before")
+                .isNotEqualTo(personBeforeUpdate.getBirthdate());
+
+        softly.assertThat(personAfterUpdate.getBirthdate().substring(0, 10))
+                .as("Birthdate should have changed to the new value")
+                .isEqualTo(newDate);
+
+        softly.assertAll();
     }
     // Test idea: public void positiveUpdatePersonAddressTest(){
     // Test idea: public void positiveUpdatePersonAttributes(){
@@ -125,7 +143,6 @@ public class PersonTest extends BaseTest {
     public void deletePersonVoidedTest() {
         CreatePersonRequest personRequest = AdminSteps.createPerson();
         CreatePersonResponse person = AdminSteps.createPerson(personRequest);
-        createdUuids.add(person.getUuid());
         String uuidForDelete = person.getUuid();
 
         new ValidatedCrudRequester<CreatePatientResponse>(
@@ -135,27 +152,24 @@ public class PersonTest extends BaseTest {
                 .delete(uuidForDelete);
 
         CreatePersonResponse personDataAfterDelete = AdminSteps.findPersonByUuid(uuidForDelete);
-        softly.assertThat(personDataAfterDelete.getVoided()).isEqualTo(true);
+        assertThat(personDataAfterDelete.getVoided()).isEqualTo(true);
     }
 
     @Test
     public void deletePersonPurgeTest() {
+        String errorMessage = "Object with given uuid doesn't exist [null]";
         CreatePersonRequest personRequest = AdminSteps.createPerson();
         CreatePersonResponse person = AdminSteps.createPerson(personRequest);
-        createdUuids.add(person.getUuid());
         String uuidForDelete = person.getUuid();
 
-        new ValidatedCrudRequester<CreatePatientResponse>(
+        new CrudRequester(
                 RequestSpecs.adminSpec(),
                 Endpoint.PERSON_DELETE,
                 ResponseSpecs.requestReturnsNoContent())
                 .delete(uuidForDelete, PATH_PARAM_PURGE);
 
-        new ValidatedCrudRequester<CreatePatientResponse>(
-                RequestSpecs.adminSpec(),
-                Endpoint.PERSON_READ,
-                ResponseSpecs.requestReturnsNotFound())
-                .get(uuidForDelete, CreatePersonResponse.class);
+        ErrorResponse response = AdminSteps.attemptToFindDeletedPersonByUuid(uuidForDelete);//, "message", "Object with given uuid doesn't exist [null]");
+        assertThat(response.getError().getMessage()).isEqualTo(errorMessage);
     }
 
     // Test idea for delete: If not authenticated or authenticated user does not have sufficient privileges, 401 Unauthorized status is returned.
@@ -163,7 +177,6 @@ public class PersonTest extends BaseTest {
 
     @AfterEach
     public void deleteTestPersons() {
-        System.out.println("\u001B[1m" + "\u001B[34m" + createdUuids + "\u001B[0m");
         createdUuids.forEach(uuid -> {
             AdminSteps.deletePersonByUuid(uuid, PATH_PARAM_PURGE);
         });
