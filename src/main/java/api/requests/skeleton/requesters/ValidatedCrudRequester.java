@@ -75,13 +75,6 @@ public class ValidatedCrudRequester<T extends BaseModel> extends HttpRequest imp
 
     @Override
     public void delete(String uuid) {
-
-        /*BaseModel response = crudRequester.delete(uuid).extract().as(endpoint.getResponseModel());
-
-        if (!endpoint.getResponseModel().isInstance(response)) {
-            throw new IllegalStateException("Unexpected response type: " + response.getClass());
-        }
-*/
         crudRequester.delete(uuid);
     }
 
