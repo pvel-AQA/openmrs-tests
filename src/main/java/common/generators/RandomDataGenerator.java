@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Random;
+import java.util.UUID;
 
 public final class RandomDataGenerator {
     private static final Random RANDOM = new Random();
@@ -24,7 +25,7 @@ public final class RandomDataGenerator {
         return String.format("%04d-%02d-%02d", year, month, day);
     }
 
-    public static String randomString(int length){
+    public static String randomString(int length) {
         String letters = "abcdefghijklmnopqrstuvwxyz";
         StringBuilder sb = new StringBuilder(length);
         for (int i = 0; i < length; i++) {
@@ -41,7 +42,7 @@ public final class RandomDataGenerator {
         return RandomStringUtils.secure().nextAlphabetic(length);
     }
 
-    public static Gender randomGender(){
+    public static Gender randomGender() {
         Gender[] genders = Gender.values();
         return genders[RANDOM.nextInt(genders.length)];
     }
@@ -57,7 +58,7 @@ public final class RandomDataGenerator {
     }
 
     public static int randomAge(int minAge, int maxAge) {
-        return RANDOM.nextInt(maxAge-minAge+1)+minAge;
+        return RANDOM.nextInt(maxAge - minAge + 1) + minAge;
     }
 
     public static String randomDateBetween(LocalDate from, LocalDate to) {
@@ -66,5 +67,15 @@ public final class RandomDataGenerator {
                 RANDOM.nextLong(daysBetween + 1));
         return randomDate.format(DateTimeFormatter.ISO_LOCAL_DATE);
         // produces "1990-06-15"
+    }
+
+    public static String generateVisitStartDatetime() {
+        String dateStr = randomDateBetween(LocalDate.now(), LocalDate.now().plusDays(30));
+        int hour = RANDOM.nextInt(20) + 4;
+        return dateStr + String.format("T%02d:00:00.000Z", hour); // ← UTC
+    }
+
+    public static String generateVisitIndication() {
+        return "API Test Visit " + UUID.randomUUID();
     }
 }
