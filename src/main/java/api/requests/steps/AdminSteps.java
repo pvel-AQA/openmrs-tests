@@ -6,13 +6,12 @@ import api.models.patient.IdentifiersForPatientUpdate;
 import api.models.patient.PersonForPatientUpdate;
 import api.models.patient.PersonNameForPatientUpdate;
 import api.models.patient.UpdatePatientRequest;
+import api.models.roles.AdminLogin;
 import api.models.visit.CreateVisitRequest;
 import api.models.visit.CreateVisitResponse;
 import api.models.visit.VisitTypeResponse;
 import api.requests.Endpoint;
-import api.requests.skeleton.requesters.CrudRequester;
-import api.requests.skeleton.requesters.ValidatedCrudRequester;
-import api.requests.skeleton.requesters.VisitTypeEnum;
+import api.requests.skeleton.requesters.*;
 import api.requests.specs.RequestSpecs;
 import api.requests.specs.ResponseSpecs;
 import common.generators.PartialEntityGenerator;
@@ -367,5 +366,20 @@ public final class AdminSteps {
                 Endpoint.PATIENT,
                 ResponseSpecs.requestReturnsOK())
                 .getAll(new CrudRequester.QueryBuilder().q(searchText).build(), CreatePatientResponse.class);
+    }
+
+    public static String retrieveJSessionValue(String username, String password) {
+        return new AuthRequester(
+                RequestSpecs.unauthSpec(),
+                Endpoint.SESSION,
+                ResponseSpecs.requestReturnsOK(),
+                ResponseSpecs.requestReturnsSetCookieHeader())
+                .getSession(username, password)
+                .extract()
+                .sessionId();
+    }
+
+    public static String retrieveJSessionValue(AdminLogin admin) {
+        return retrieveJSessionValue(admin.getUsername(), admin.getPassword());
     }
 }

@@ -12,10 +12,10 @@ public class LoginPage extends BasePage<LoginPage> {
         return "/login";
     }
 
-    private SelenideElement usernameField = $("#username");
-    private SelenideElement passwordField = $("#password");
-    private SelenideElement continueButton = $(Selectors.byXpath("//button[text()='Continue']"));
-    private SelenideElement logInButton = $(Selectors.byXpath("//button[text()='Log in']"));
+    private final SelenideElement usernameField = $("#username");
+    private final SelenideElement passwordField = $("#password");
+    private final SelenideElement continueButton = $(Selectors.byXpath("//button[text()='Continue']"));
+    private final SelenideElement logInButton = $(Selectors.byXpath("//button[text()='Log in']"));
 
     public LoginPage populateUserNameField(String username) {
         usernameField.shouldBe(Condition.visible);
