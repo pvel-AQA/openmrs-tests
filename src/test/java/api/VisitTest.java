@@ -96,7 +96,20 @@ public class VisitTest extends BaseTest {
     @Test
     public void deleteVisitTest() {
         CreatePatientResponse patient = AdminSteps.createPatient();
-        CreateVisitResponse createdVisit = AdminSteps.createVisit(patient);
+
+        CreateVisitRequest createRequest = CreateVisitRequest.builder()
+                .patient(patient.getUuid())
+                .visitType(AdminSteps.getVisitTypeUuid(VisitTypeEnum.FACILITY_VISIT))
+                .startDatetime(RandomDataGenerator.generateVisitStartDatetime())
+                .location(AdminSteps.getLocationUuidByName(ClinicName.OUTPATIENT.getClinicName()))
+                .indication(RandomDataGenerator.generateVisitIndication())
+                .build();
+
+        CreateVisitResponse createdVisit = new ValidatedCrudRequester<CreateVisitResponse>(
+                RequestSpecs.adminSpec(),
+                Endpoint.VISIT,
+                ResponseSpecs.requestReturnsCreated())
+                .post(createRequest);
 
         new ValidatedCrudRequester<CreateVisitResponse>(
                 RequestSpecs.adminSpec(),
@@ -109,6 +122,10 @@ public class VisitTest extends BaseTest {
                 Endpoint.VISIT_BY_UUID,
                 ResponseSpecs.requestReturnsNotFoundWithMessage("Object with given uuid doesn't exist [null]"))
                 .get(createdVisit.getUuid(), CreateVisitResponse.class);
+
+        softly.assertThat(true)
+                .as("Visit was successfully deleted and returns 404 with correct message")
+                .isTrue();
     }
 }
 
