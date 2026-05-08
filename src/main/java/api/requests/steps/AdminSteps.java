@@ -77,6 +77,22 @@ public final class AdminSteps {
                 .get(patientUuid, CreatePatientResponse.class);
     }
 
+    public static ErrorResponse attemptToFindDeletedPatientByUuid(String patientUuid) {
+        return new ValidatedCrudRequester<ErrorResponse>(
+                RequestSpecs.adminSpec(),
+                Endpoint.PATIENT_SEARCH_AFTER_DELETE,
+                ResponseSpecs.requestReturnNotFoundForDeletedObject())
+                .get(patientUuid, ErrorResponse.class);
+    }
+
+    public static ErrorResponse attemptToFindDeletedPersonByUuid(String personUuid){
+        return new ValidatedCrudRequester<ErrorResponse>(
+                RequestSpecs.adminSpec(),
+                Endpoint.PERSON_READ_DELETED,
+                ResponseSpecs.requestReturnNotFoundForDeletedObject())
+                .get(personUuid, ErrorResponse.class);
+    }
+
     private static List<VisitTypeResponse> searchVisitTypeByName(String name) {
         return new ValidatedCrudRequester<VisitTypeResponse>(
                 RequestSpecs.adminSpec(),
@@ -218,7 +234,7 @@ public final class AdminSteps {
     }
 
     public static void deletePatientByUuid(String patientUuid, Boolean purge) {
-        new ValidatedCrudRequester<CreatePatientResponse>(
+        new CrudRequester(
                 RequestSpecs.adminSpec(),
                 Endpoint.PATIENT_DELETE,
                 ResponseSpecs.requestReturnsNotFound())
@@ -242,7 +258,7 @@ public final class AdminSteps {
     }
 
     public static void deletePersonByUuid(String uuid, Boolean purge) {
-        new ValidatedCrudRequester<CreatePatientResponse>(
+        new CrudRequester(
                 RequestSpecs.adminSpec(),
                 Endpoint.PERSON_DELETE,
                 ResponseSpecs.requestReturnsNoContent())
@@ -294,11 +310,11 @@ public final class AdminSteps {
     }
 
     private static PersonName buildPersonName(String firstName, String middleName, String lastName) {
-        PersonName personName = new PersonName();
-        personName.setGivenName(firstName);
-        personName.setMiddleName(middleName);
-        personName.setFamilyName(lastName);
-        return personName;
+        return PersonName.builder()
+                .givenName(firstName)
+                .middleName(middleName)
+                .familyName(lastName)
+                .build();
     }
 
     public static CreatePatientResponse createPatientWithAge(String firstName, String middleName, String lastName, String gender, int age) {

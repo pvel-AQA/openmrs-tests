@@ -47,6 +47,16 @@ public final class RandomDataGenerator {
         return genders[RANDOM.nextInt(genders.length)];
     }
 
+    public static Gender randomGender(String currentGender){
+        Gender[] genders = Gender.values();
+        Gender newGender;
+        do {
+            newGender = genders[RANDOM.nextInt(genders.length)];
+        } while (newGender.toString().equals(currentGender));
+
+        return newGender;
+    }
+
     public static int randomAge(int minAge, int maxAge) {
         return RANDOM.nextInt(maxAge - minAge + 1) + minAge;
     }

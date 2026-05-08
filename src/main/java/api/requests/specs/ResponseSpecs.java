@@ -45,6 +45,12 @@ public final class ResponseSpecs {
                 .build();
     }
 
+    public static ResponseSpecification requestReturnBadRequestAndCompareErrorMessageForIncorrectData() {
+        return defaultResponseBuilder()
+                .expectStatusCode(HttpStatus.SC_BAD_REQUEST)
+                .build();
+    }
+
     public static ResponseSpecification requestReturnBadRequestForIncorrectName(String fieldName, String errorValue) {
         return defaultResponseBuilder()
                 .expectStatusCode(HttpStatus.SC_BAD_REQUEST)
@@ -53,6 +59,19 @@ public final class ResponseSpecs {
                                 equalTo("names[0]." + fieldName),
                                 hasItem(hasEntry("message", errorValue))
                         ))
+                .build();
+    }
+
+    public static ResponseSpecification requestReturnNotFoundForDeletedObject(){
+        return defaultResponseBuilder()
+                .expectStatusCode(HttpStatus.SC_NOT_FOUND)
+                .build();
+    }
+
+    public static ResponseSpecification requestReturnNotFoundForDeletedObject2(String fieldName, String errorValue) {
+        return defaultResponseBuilder()
+                .expectStatusCode(HttpStatus.SC_NOT_FOUND)
+                .expectBody(fieldName, equalTo(errorValue))
                 .build();
     }
 

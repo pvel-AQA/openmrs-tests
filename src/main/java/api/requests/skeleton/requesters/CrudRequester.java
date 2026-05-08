@@ -88,23 +88,10 @@ public class CrudRequester extends HttpRequest implements CrudEndpointInterface 
                 .assertThat()
                 .spec(responseSpecifications);
     }
-@Override
-    public Response postRaw(BaseModel model) {
-        var body = model == null ? "{}" : model;
-
-        return given()
-                .spec(requestSpecification)
-                .body(body)
-                .when()
-                .post(endpoint.getUrl())
-                .then()
-                .extract()
-                .response();  // ← raw response, no deserialization
-    }
 
     @Override
     public void delete(String uuid) {
-        Response response =  given()
+          given()
                 .spec(requestSpecification)
                 .pathParam(PATH_PARAM_UUID, uuid)
                 .when()
@@ -113,7 +100,7 @@ public class CrudRequester extends HttpRequest implements CrudEndpointInterface 
 
     @Override
     public void delete(String uuid, Boolean purge) {
-        Response response =   given()
+            given()
                 .spec(requestSpecification)
                 .pathParam(PATH_PARAM_UUID, uuid)
                 .queryParam(PATH_PARAM_PURGE, purge)        // ← adds ?purge=true to the URL
