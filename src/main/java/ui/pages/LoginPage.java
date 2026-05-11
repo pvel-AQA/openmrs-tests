@@ -3,9 +3,11 @@ package ui.pages;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.SelenideElement;
+import lombok.Getter;
 
 import static com.codeborne.selenide.Selenide.$;
 
+@Getter
 public class LoginPage extends BasePage<LoginPage> {
     @Override
     public String url() {
@@ -16,6 +18,8 @@ public class LoginPage extends BasePage<LoginPage> {
     private final SelenideElement passwordField = $("#password");
     private final SelenideElement continueButton = $(Selectors.byXpath("//button[text()='Continue']"));
     private final SelenideElement logInButton = $(Selectors.byXpath("//button[text()='Log in']"));
+    private SelenideElement errorMessage = $(".cds--inline-notification__subtitle");
+    private SelenideElement errorMessageCloseButton = $(".cds--inline-notification__close-button");
 
     public LoginPage populateUserNameField(String username) {
         usernameField.shouldBe(Condition.visible);
@@ -41,6 +45,12 @@ public class LoginPage extends BasePage<LoginPage> {
 
     public LoginPage clickLogInButton() {
         logInButton.click();
+
+        return this;
+    }
+
+    public LoginPage clickErrorMessageCloseButton() {
+        errorMessageCloseButton.click();
 
         return this;
     }

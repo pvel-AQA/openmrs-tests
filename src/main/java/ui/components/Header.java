@@ -11,6 +11,7 @@ public class Header extends BaseComponent {
     private final SelenideElement self = $("#omrs-top-nav-app-container");
 
     private final SelenideElement addPatientButton = $(By.xpath("//button[@data-tutorial-target='add-patient']"));
+    //private SelenideElement changeClinicButton = $("button[aria-label='Change location']");
 
     @Override
     protected SelenideElement getSelf() {
@@ -23,4 +24,11 @@ public class Header extends BaseComponent {
 
         return new PatientRegistrationPage();
     }
+
+   /* public PatientRegistrationPage clickAddPatientButton() {
+        addPatientButton.shouldBe(Condition.visible);
+        addPatientButton.click();
+
+        return new PatientRegistrationPage();
+    }*/
 }
