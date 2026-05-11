@@ -13,5 +13,5 @@ public interface CrudEndpointInterface {
     Object post(BaseModel model, String uuid);
     void delete(String uuid);
     void delete(String uuid, Boolean purge);
-    Response postRaw(BaseModel model);
+
 }

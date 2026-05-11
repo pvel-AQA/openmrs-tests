@@ -6,13 +6,12 @@ import api.models.patient.IdentifiersForPatientUpdate;
 import api.models.patient.PersonForPatientUpdate;
 import api.models.patient.PersonNameForPatientUpdate;
 import api.models.patient.UpdatePatientRequest;
+import api.models.roles.AdminLogin;
 import api.models.visit.CreateVisitRequest;
 import api.models.visit.CreateVisitResponse;
 import api.models.visit.VisitTypeResponse;
 import api.requests.Endpoint;
-import api.requests.skeleton.requesters.CrudRequester;
-import api.requests.skeleton.requesters.ValidatedCrudRequester;
-import api.requests.skeleton.requesters.VisitTypeEnum;
+import api.requests.skeleton.requesters.*;
 import api.requests.specs.RequestSpecs;
 import api.requests.specs.ResponseSpecs;
 import common.generators.PartialEntityGenerator;
@@ -76,6 +75,22 @@ public final class AdminSteps {
                 Endpoint.PATIENT_SEARCH,
                 ResponseSpecs.requestReturnsOK())
                 .get(patientUuid, CreatePatientResponse.class);
+    }
+
+    public static ErrorResponse attemptToFindDeletedPatientByUuid(String patientUuid) {
+        return new ValidatedCrudRequester<ErrorResponse>(
+                RequestSpecs.adminSpec(),
+                Endpoint.PATIENT_SEARCH_AFTER_DELETE,
+                ResponseSpecs.requestReturnNotFoundForDeletedObject())
+                .get(patientUuid, ErrorResponse.class);
+    }
+
+    public static ErrorResponse attemptToFindDeletedPersonByUuid(String personUuid){
+        return new ValidatedCrudRequester<ErrorResponse>(
+                RequestSpecs.adminSpec(),
+                Endpoint.PERSON_READ_DELETED,
+                ResponseSpecs.requestReturnNotFoundForDeletedObject())
+                .get(personUuid, ErrorResponse.class);
     }
 
     private static List<VisitTypeResponse> searchVisitTypeByName(String name) {
@@ -219,7 +234,7 @@ public final class AdminSteps {
     }
 
     public static void deletePatientByUuid(String patientUuid, Boolean purge) {
-        new ValidatedCrudRequester<CreatePatientResponse>(
+        new CrudRequester(
                 RequestSpecs.adminSpec(),
                 Endpoint.PATIENT_DELETE,
                 ResponseSpecs.requestReturnsNotFound())
@@ -243,7 +258,7 @@ public final class AdminSteps {
     }
 
     public static void deletePersonByUuid(String uuid, Boolean purge) {
-        new ValidatedCrudRequester<CreatePatientResponse>(
+        new CrudRequester(
                 RequestSpecs.adminSpec(),
                 Endpoint.PERSON_DELETE,
                 ResponseSpecs.requestReturnsNoContent())
@@ -295,11 +310,11 @@ public final class AdminSteps {
     }
 
     private static PersonName buildPersonName(String firstName, String middleName, String lastName) {
-        PersonName personName = new PersonName();
-        personName.setGivenName(firstName);
-        personName.setMiddleName(middleName);
-        personName.setFamilyName(lastName);
-        return personName;
+        return PersonName.builder()
+                .givenName(firstName)
+                .middleName(middleName)
+                .familyName(lastName)
+                .build();
     }
 
     public static CreatePatientResponse createPatientWithAge(String firstName, String middleName, String lastName, String gender, int age) {
@@ -367,5 +382,20 @@ public final class AdminSteps {
                 Endpoint.PATIENT,
                 ResponseSpecs.requestReturnsOK())
                 .getAll(new CrudRequester.QueryBuilder().q(searchText).build(), CreatePatientResponse.class);
+    }
+
+    public static String retrieveJSessionValue(String username, String password) {
+        return new AuthRequester(
+                RequestSpecs.unauthSpec(),
+                Endpoint.SESSION,
+                ResponseSpecs.requestReturnsOK(),
+                ResponseSpecs.requestReturnsSetCookieHeader())
+                .getSession(username, password)
+                .extract()
+                .sessionId();
+    }
+
+    public static String retrieveJSessionValue(AdminLogin admin) {
+        return retrieveJSessionValue(admin.getUsername(), admin.getPassword());
     }
 }

@@ -12,7 +12,6 @@ import java.util.UUID;
 
 public final class RandomDataGenerator {
     private static final Random RANDOM = new Random();
-    private static final int MAX_AGE = 130;
 
     private RandomDataGenerator() {
 
@@ -23,6 +22,13 @@ public final class RandomDataGenerator {
         int month = 1 + RANDOM.nextInt(12);
         int day = 1 + RANDOM.nextInt(java.time.YearMonth.of(year, month).lengthOfMonth());
         return String.format("%04d-%02d-%02d", year, month, day);
+    }
+
+    public static String generateValidDateUiFormat() {
+        int year = 1900 + RANDOM.nextInt(126); // 1900-2025
+        int month = 1 + RANDOM.nextInt(12);
+        int day = 1 + RANDOM.nextInt(java.time.YearMonth.of(year, month).lengthOfMonth());
+        return String.format("%02d%02d%04d", day, month, year);
     }
 
     public static String randomString(int length) {
@@ -45,6 +51,16 @@ public final class RandomDataGenerator {
     public static Gender randomGender() {
         Gender[] genders = Gender.values();
         return genders[RANDOM.nextInt(genders.length)];
+    }
+
+    public static Gender randomGender(String currentGender){
+        Gender[] genders = Gender.values();
+        Gender newGender;
+        do {
+            newGender = genders[RANDOM.nextInt(genders.length)];
+        } while (newGender.toString().equals(currentGender));
+
+        return newGender;
     }
 
     public static int randomAge(int minAge, int maxAge) {
