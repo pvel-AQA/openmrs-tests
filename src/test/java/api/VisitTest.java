@@ -13,6 +13,7 @@ import api.requests.specs.ResponseSpecs;
 import api.requests.steps.AdminSteps;
 import common.generators.RandomDataGenerator;
 import org.assertj.core.api.SoftAssertions;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -50,7 +51,7 @@ public class VisitTest extends BaseTest {
     }
 
     @Test
-    public void searchRecentVisitsTest() {
+    public void searchRecentVisitsTest() {//будут ли они одинаковы с первым тестом
         CreatePatientResponse patient = AdminSteps.createPatient();
         CreateVisitResponse createdVisit = AdminSteps.createVisit(patient);
 
@@ -67,7 +68,7 @@ public class VisitTest extends BaseTest {
                 ResponseSpecs.requestReturnsOK())
                 .getAll(queryParams, CreateVisitResponse.class);
 
-        assertThat(foundVisits)
+        assertThat(foundVisits)// убедиться что именно визит прикреплен к определенному визиту
                 .as("Created visit should be in search results")
                 .extracting(CreateVisitResponse::getUuid)
                 .contains(createdVisit.getUuid());
@@ -88,7 +89,7 @@ public class VisitTest extends BaseTest {
                 ResponseSpecs.requestReturnsOK())
                 .get(createdVisit.getUuid(), CreateVisitResponse.class);
 
-        SoftAssertions.assertSoftly(softly -> {
+        SoftAssertions.assertSoftly(softly -> {// переделать
             softly.assertThat(updatedVisit.getStartDatetime()).contains(newStartDatetime.substring(0, 10));
         });
     }
@@ -117,15 +118,23 @@ public class VisitTest extends BaseTest {
                 ResponseSpecs.requestReturnsNoContent())
                 .delete(createdVisit.getUuid(), true);
 
-        new ValidatedCrudRequester<CreateVisitResponse>(
-                RequestSpecs.adminSpec(),
-                Endpoint.VISIT_BY_UUID,
-                ResponseSpecs.requestReturnsNotFoundWithMessage("Object with given uuid doesn't exist [null]"))
-                .get(createdVisit.getUuid(), CreateVisitResponse.class);
+     //  new ValidatedCrudRequester<CreateVisitResponse>(
+     //          RequestSpecs.adminSpec(),
+     //          Endpoint.VISIT_BY_UUID,
+     //          ResponseSpecs.requestReturnsNotFoundWithMessage("Object with given uuid doesn't exist [null]"))
+     //          .get(createdVisit.getUuid(), CreateVisitResponse.class);
 
-        softly.assertThat(true)
-                .as("Visit was successfully deleted and returns 404 with correct message")
-                .isTrue();
+     //  softly.assertThat(true)
+     //          .as("Visit was successfully deleted and returns 404 with correct message")
+     //          .isTrue();
+
+        Assertions.assertDoesNotThrow(() ->
+                new ValidatedCrudRequester<CreateVisitResponse>(
+                        RequestSpecs.adminSpec(),
+                        Endpoint.VISIT_BY_UUID,
+                        ResponseSpecs.requestReturnsNotFoundWithMessage("Object with given uuid doesn't exist [null]"))
+                        .get(createdVisit.getUuid(), CreateVisitResponse.class)
+        );
     }
 }
 
