@@ -25,6 +25,7 @@ public class RegisterPatientTest extends BaseUiTest {
                 .pickOutpatientLocationAndConfirm()
                 .header.clickAddPatientButton()
                 .registerPatientWithAllFieldsPopulatedCorrectly(patient)
+                .verifySuccessNotification()
                 .checkPatientNameIsEqualTo(personDisplayFormatter(patient.getNames().getFirst()))
                 .checkIdPrefixIsEqualTo(PatientSummaryPage.OPEN_MRS_ID_TEXT)
                 .checkBirthDateIsEqualTo(patient.getBirthdate())

@@ -1,8 +1,8 @@
 package ui.pages;
 
+import api.models.ui.ActionableNotification;
 import api.models.ui.GenderUi;
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebDriverRunner;
 import common.utils.DateUtils;
@@ -13,7 +13,6 @@ import ui.components.ContactDetailsComponent;
 import java.util.Arrays;
 
 import static com.codeborne.selenide.Selenide.$;
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class PatientSummaryPage extends BasePage<PatientSummaryPage> {
     public static final String OPEN_MRS_ID_TEXT = "OpenMRS ID: ";
@@ -101,5 +100,17 @@ public class PatientSummaryPage extends BasePage<PatientSummaryPage> {
         String id = openMrsIdNumber.shouldBe(Condition.visible).getText();
 
         return String.format("%s = %s", text, id);
+    }
+
+    public PatientSummaryPage verifySuccessNotification() {
+        $(".cds--actionable-notification--toast").shouldBe(Condition.visible);
+
+        $(".cds--actionable-notification__title")
+                .shouldHave(Condition.exactText(ActionableNotification.NEW_PATIENT_CREATED.getNotificationTitle()));
+
+        $(".cds--actionable-notification__subtitle")
+                .shouldHave(Condition.exactText(ActionableNotification.NEW_PATIENT_CREATED.getNotificationSubTitle()));
+
+        return this;
     }
 }
