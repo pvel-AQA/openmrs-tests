@@ -7,6 +7,7 @@ import api.models.patient.PersonForPatientUpdate;
 import api.models.patient.PersonNameForPatientUpdate;
 import api.models.patient.UpdatePatientRequest;
 import api.models.roles.AdminLogin;
+import api.models.ui.RegisterPatientUi;
 import api.models.visit.CreateVisitRequest;
 import api.models.visit.CreateVisitResponse;
 import api.models.visit.VisitTypeResponse;
@@ -184,6 +185,16 @@ public final class AdminSteps {
                 .identifiers(List.of(identifiers))
                 .person(person)
                 .build();
+    }
+
+    public static RegisterPatientUi createPatientForUi() {
+        PersonName personName = PartialEntityGenerator.generate(PersonName.class, NAMES_FIELDS_TO_BE_GENERATED);
+
+        RegisterPatientUi patient = PartialEntityGenerator.generate(RegisterPatientUi.class, PERSON_FIELDS_TO_BE_GENERATED);
+        patient.setNames(List.of(personName));
+        patient.setBirthdate(RandomDataGenerator.generateValidDate());
+
+        return patient;
     }
 
     public static CreatePatientRequest createPatientRequest(CreatePersonRequest personRequest) {
