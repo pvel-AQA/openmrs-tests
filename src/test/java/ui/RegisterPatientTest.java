@@ -16,8 +16,6 @@ public class RegisterPatientTest extends BaseUiTest {
         CreatePatientRequest patient = AdminSteps.createPatientRequest();
         patient.getPerson().setBirthdate(RandomDataGenerator.generateValidDateUiFormat());
 
-
-
         new PickLocationPage().open()
                 .pickOutpatientLocationAndConfirm()
                 .header.clickAddPatientButton()

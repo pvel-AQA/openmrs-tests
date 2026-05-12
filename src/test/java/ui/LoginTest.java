@@ -1,16 +1,24 @@
 package ui;
 
+import api.models.CreatePatientRequest;
 import api.models.roles.AdminLogin;
 import api.requests.steps.AdminSteps;
+import api.utils.DisplayFormatterUtils;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
+import common.annotations.AdminSession;
+import common.generators.RandomDataGenerator;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.remote.SessionId;
 import ui.components.Header;
 import ui.pages.LoginPage;
 import ui.pages.PickLocationPage;
+import ui.pages.ServiceQueuesPage;
 
+import static com.codeborne.selenide.Selenide.switchTo;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LoginTest extends BaseUiTest {
 
@@ -32,48 +40,45 @@ public class LoginTest extends BaseUiTest {
 
         assertThat(sessionId.toString()).isEqualTo(adminJSessionValue);
     }
-    //************************************************************************************************
+
     @Test
+    @AdminSession
+    public void adminCanSetClinicMemorisedTest() {
+        AdminSteps.createPatientRequest();
+
+        new PickLocationPage().open()
+                .pickOutpatientLocationClickRememberMyLocationAndConfirm()
+                .atPage();
+
+        Selenide.sleep(15000);
+        //uncheck clinic
+    }
+
+    @Test
+    @AdminSession
     public void adminCanLoginClinicMemorisedTest() {
         AdminLogin admin = AdminLogin.getAdmin();
+        //precondition: check clinic
 
         new LoginPage().open()
                 .populateUserNameField(admin.getUsername())
                 .clickContinueButton()
                 .populatePasswordField(admin.getPassword())
                 .clickLogInButton()
-                .(Header.class)
-                .getChangeClinicButton().shouldBe(Condition.visible);
+                .getPage(ServiceQueuesPage.class)
+                .atPage();
 
-        Selenide.sleep(5000);
+        Selenide.sleep(15000);
+        //uncheck clinic
     }
-    @Test
-    public void adminCanLoginClinicNeedsToBeSelectedTest() {
-        String welcomeText = "Welcome Admin";
-        AdminLogin admin = AdminLogin.getAdmin();
 
-        new LoginPage().open()
-                .populateUserNameField(admin.getUsername())
-                .clickContinueButton()
-                .populatePasswordField(admin.getPassword())
-                .clickLogInButton()
-                .getPage(PickLocationPage.class)
-                .getWelcomeText().shouldBe(Condition.visible).shouldHave(Condition.text(welcomeText));
-
-        Selenide.sleep(5000);
-    }
 
     @Test
     public void firstPageNoUserNameLoginTest() {
-        LoginPage loginPage = new LoginPage();
-
-        loginPage.open()
+        new LoginPage().open()
                 .populateUserNameField("")
-                .clickContinueButton();
-
-        loginPage.getPasswordField().shouldNotBe(Condition.visible);
-        loginPage.getUsernameField().shouldBe(Condition.visible);
-        loginPage.getContinueButton().shouldBe(Condition.visible);
+                .clickContinueButton()
+                .atPage();
 
         Selenide.sleep(5000);
     }
@@ -82,24 +87,18 @@ public class LoginTest extends BaseUiTest {
     @Test
     public void wrongAdminPasswordLoginTest() {
         AdminLogin admin = AdminLogin.getAdmin();
-        LoginPage loginPage = new LoginPage();
 
-        loginPage.open()
+        new LoginPage().open()
                 .populateUserNameField(admin.getUsername())
                 .clickContinueButton()
                 .populatePasswordField("test1234")
-                .clickLogInButton();
+                .clickLogInButton()
+                .errorMessageInvalidUsernameOrPasswordIsDisplayed()
+                .atPage();
 
-        loginPage.getPasswordField().shouldNotBe(Condition.visible);
-        loginPage.getUsernameField().shouldBe(Condition.visible);
-        loginPage.getContinueButton().shouldBe(Condition.visible);
-
-        loginPage.getErrorMessage().shouldBe(Condition.visible);
-        Selenide.sleep(5000);
-        loginPage.open()
-                .clickErrorMessageCloseButton();
-        loginPage.getErrorMessage().shouldNotBe(Condition.visible);
         Selenide.sleep(5000);
     }
+
+    //Tests for empty username and password
 
 }

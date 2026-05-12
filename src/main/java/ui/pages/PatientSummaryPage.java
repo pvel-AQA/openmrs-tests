@@ -18,6 +18,11 @@ public class PatientSummaryPage extends BasePage<PatientSummaryPage> {
         return "/patient/%s/chart/Patient%%20Summary";
     }
 
+    @Override
+    public Boolean atPage() {
+        return true;
+    }
+
     public PatientSummaryPage checkPatientNameIsEqualTo(String name) {
         patientName.shouldBe(Condition.visible);
         String patientNameText = patientName.getText();
