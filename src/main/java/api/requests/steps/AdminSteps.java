@@ -7,6 +7,7 @@ import api.models.patient.PersonForPatientUpdate;
 import api.models.patient.PersonNameForPatientUpdate;
 import api.models.patient.UpdatePatientRequest;
 import api.models.roles.AdminLogin;
+import api.models.ui.RegisterPatientUi;
 import api.models.visit.CreateVisitRequest;
 import api.models.visit.CreateVisitResponse;
 import api.models.visit.VisitTypeResponse;
@@ -16,7 +17,6 @@ import api.requests.specs.RequestSpecs;
 import api.requests.specs.ResponseSpecs;
 import common.generators.PartialEntityGenerator;
 import common.generators.RandomDataGenerator;
-import io.restassured.response.Response;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -185,6 +185,16 @@ public final class AdminSteps {
                 .identifiers(List.of(identifiers))
                 .person(person)
                 .build();
+    }
+
+    public static RegisterPatientUi createPatientForUi() {
+        PersonName personName = PartialEntityGenerator.generate(PersonName.class, NAMES_FIELDS_TO_BE_GENERATED);
+
+        RegisterPatientUi patient = PartialEntityGenerator.generate(RegisterPatientUi.class, PERSON_FIELDS_TO_BE_GENERATED);
+        patient.setNames(List.of(personName));
+        patient.setBirthdate(RandomDataGenerator.generateValidDate());
+
+        return patient;
     }
 
     public static CreatePatientRequest createPatientRequest(CreatePersonRequest personRequest) {
@@ -390,7 +400,7 @@ public final class AdminSteps {
                 Endpoint.SESSION,
                 ResponseSpecs.requestReturnsOK(),
                 ResponseSpecs.requestReturnsSetCookieHeader())
-                .getSession(username, password)
+                .get(username, password)
                 .extract()
                 .sessionId();
     }

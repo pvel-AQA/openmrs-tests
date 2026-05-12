@@ -1,9 +1,8 @@
 package ui.pages;
 
 import api.models.CreatePatientRequest;
-import api.models.ui.GenderUi;
+import api.models.ui.RegisterPatientUi;
 import com.codeborne.selenide.*;
-import common.generators.RandomDataGenerator;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.*;
@@ -57,11 +56,9 @@ public class PatientRegistrationPage extends BasePage<PatientRegistrationPage> {
         return this;
     }
 
-    public PatientRegistrationPage selectRandomGender() {
-        String randomGender = GenderUi.getRandomGender().getGender();
-
+    public PatientRegistrationPage selectGender(String gender) {
         sexRadioButtons.filterBy(Condition.visible).shouldHave(CollectionCondition.size(sexRadioButtons.size()));
-        sexRadioButtons.findBy(Condition.text(randomGender)).click();
+        sexRadioButtons.findBy(Condition.text(gender)).click();
 
         return this;
     }
@@ -150,21 +147,21 @@ public class PatientRegistrationPage extends BasePage<PatientRegistrationPage> {
         return this;
     }
 
-    public PatientSummaryPage registerPatientWithAllFieldsPopulatedCorrectly(CreatePatientRequest patient) {
+    public PatientSummaryPage registerPatientWithAllFieldsPopulatedCorrectly(RegisterPatientUi patient) {
         clickOnPatientNameIsKnownYesButton();
-        populateFirstNameField(patient.getPerson().getNames().getFirst().getGivenName());
-        populateMiddleNameField(patient.getPerson().getNames().getFirst().getMiddleName());
-        populateFamilyNameField(patient.getPerson().getNames().getFirst().getFamilyName());
-        selectRandomGender();
+        populateFirstNameField(patient.getNames().getFirst().getGivenName());
+        populateMiddleNameField(patient.getNames().getFirst().getMiddleName());
+        populateFamilyNameField(patient.getNames().getFirst().getFamilyName());
+        selectGender(patient.getGender());
         clickOnDateOfBirthKnownYesButton();
-        populateBirthdayField(patient.getPerson().getBirthdate());
-        populateAddressField(patient.getPerson().getAddresses().getFirst().getAddress1());
-        populateAddress2Field(patient.getPerson().getAddresses().getFirst().getAddress2());
-        populateCityVillageField(patient.getPerson().getAddresses().getFirst().getCityVillage());
-        populateStateProvinceField(patient.getPerson().getAddresses().getFirst().getStateProvince());
-        populateCountryField(patient.getPerson().getAddresses().getFirst().getCountry());
-        populatePostalCodeField(patient.getPerson().getAddresses().getFirst().getPostalCode());
-        populateTelephoneNumberField(patient.getPerson().getAttributes().getFirst().getValue());
+        populateBirthdayField(patient.getBirthdate());
+        populateAddressField(patient.getAddresses().getFirst().getAddress1());
+        populateAddress2Field(patient.getAddresses().getFirst().getAddress2());
+        populateCityVillageField(patient.getAddresses().getFirst().getCityVillage());
+        populateStateProvinceField(patient.getAddresses().getFirst().getStateProvince());
+        populateCountryField(patient.getAddresses().getFirst().getCountry());
+        populatePostalCodeField(patient.getAddresses().getFirst().getPostalCode());
+        populateTelephoneNumberField(patient.getAttributes().getFirst().getValue());
 
         clickOnRegisterPatientButton();
 

@@ -47,7 +47,7 @@ public final class RequestSpecs {
                 unauthSpec(),
                 Endpoint.SESSION,
                 ResponseSpecs.requestReturnsSetCookieHeader())
-                .getSession(username, password)
+                .get(username, password)
                 .extract()
                 .detailedCookie(JSESSION_ID);
     }

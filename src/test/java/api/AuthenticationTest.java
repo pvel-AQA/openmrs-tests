@@ -23,7 +23,7 @@ public class AuthenticationTest extends BaseTest {
                 Endpoint.SESSION,
                 ResponseSpecs.requestReturnsOK(),
                 ResponseSpecs.requestReturnsSetCookieHeader())
-                .getSession(admin.getUsername(), admin.getPassword());
+                .get(admin.getUsername(), admin.getPassword());
 
         assertThat(session.isAuthenticated()).isTrue();
         assertThat(session.getUser().getDisplay()).isEqualTo(admin.getUsername());
