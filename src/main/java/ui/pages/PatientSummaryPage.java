@@ -12,6 +12,7 @@ public class PatientSummaryPage extends BasePage<PatientSummaryPage> {
     private final SelenideElement genderText = $("div.qIV9qXAs11cCtcKxvIip4w\\=\\=>span");
     private final SelenideElement ageText = $("div.m8jQX0Xu7TIqdLMfGF5vMw\\=\\= > span:nth-child(1)");
     private final SelenideElement birthDateText = $("div.m8jQX0Xu7TIqdLMfGF5vMw\\=\\= > span:nth-child(3)");
+    private final SelenideElement vitalsHistoryLink = $("a[href*='Vitals ']");
 
     @Override
     public String url() {
@@ -20,7 +21,7 @@ public class PatientSummaryPage extends BasePage<PatientSummaryPage> {
 
     @Override
     public Boolean atPage() {
-        return true;
+        return vitalsHistoryLink.is(Condition.visible) && openMrsIdNumber.is(Condition.visible);
     }
 
     public PatientSummaryPage checkPatientNameIsEqualTo(String name) {

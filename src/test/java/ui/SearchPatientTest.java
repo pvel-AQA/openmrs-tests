@@ -1,38 +1,73 @@
 package ui;
 
-import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.Selectors;
+import api.models.CreatePatientResponse;
+import api.models.PatientResponse;
+import api.models.comparison.ModelAssertions;
+import api.requests.steps.AdminSteps;
 import com.codeborne.selenide.Selenide;
-import org.junit.jupiter.api.BeforeAll;
+import common.annotations.AdminSession;
 import org.junit.jupiter.api.Test;
+import ui.pages.ServiceQueuesPage;
 
-import java.util.Map;
+import java.util.List;
 
-import static com.codeborne.selenide.Selenide.$;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class SearchPatientTest extends BaseUiTest{
-    @BeforeAll
-    public static void setupSelenoid(){
-        Configuration.remote = "http://localhost:4444/wd/hub";
-        Configuration.baseUrl = "http://192.168.1.214/openmrs/spa";
-        Configuration.browser = "chrome";
-        Configuration.browserVersion = "128.0";
-        Configuration.browserSize = "1920x1080";
-
-        Configuration.browserCapabilities.setCapability("selenoid:options", Map.of("enableVNC", true, "enableLog", true));
-    }
 
     @Test
-    public void adminCanLoginWithCorrectDataTest(){
-        Selenide.open("/login"); //should be in BaseUiTest?
-
-        $(Selectors.byId("username")).sendKeys("admin");
-        Selenide.sleep(5000);
-        $(Selectors.byText("Continue")).click(); //add button
-
-        //check that Username contains "admin"?
-        //$(Selectors.byId("username")).sendKeys("Admin123");
+    @AdminSession
+    public void emptySearchPatientModalTest(){
+        //check default text and Error message
         Selenide.sleep(5000);
 
     }
+
+    // Test: start search "barb" close search frame and nothing is changed on the main screen. Just search frame is closed.
+
+    // Test: start search "barb" click x-btn and search field is empty. Search results drop-down shows ""
+
+    @Test
+    @AdminSession
+    public void searchPatientDropDownResultsTest(){
+        //create test data
+        String searchText = "barb";
+        ServiceQueuesPage searchBarb = new ServiceQueuesPage();
+        searchBarb.open()
+                .header.enterSearchPatientString(searchText);
+        int countInDropDown = searchBarb.header.searchResultsCount(searchText);
+
+        //API results
+        List<CreatePatientResponse> foundPatientsViaAPI = AdminSteps.searchPatientsByString(searchText);
+        //Assert
+        assertEquals(foundPatientsViaAPI.size(),countInDropDown);
+        List<CreatePatientResponse> patientsInDropDown = searchBarb.header.foundPatientsDisplayedInDropDown(searchText);
+        //ModelAssertions.assertThatModels(patientsInDropDown, foundPatientsViaAPI).match();
+        //assertThat(foundPatientsViaAPI).containsExactlyInAnyOrderElementsOf(patientsInDropDown);
+        System.out.println(patientsInDropDown);
+
+        Selenide.sleep(5000);
+
+
+        // check number results in drop down
+        // check names of the results
+
+        //clickSearchBtn -> test
+        //clickEnter -> test
+
+        // check number results on the results page
+        // check names of the results
+
+
+    }
+//ByFirstNameFrameTest
+    public void searchPatientByMiddleNameTest(){}
+
+    public void searchPatientByLastNameTest(){}
+
+    public void searchPatientByIDTest(){}
+
+    public void searchPatientByNamesAndIDTest(){}
 }

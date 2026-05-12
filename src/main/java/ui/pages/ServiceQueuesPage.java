@@ -18,10 +18,6 @@ public class ServiceQueuesPage extends AuthBasePage<ServiceQueuesPage> {
 
     @Override
     public Boolean atPage() {
-        if (clinicName.getText().equals("Clinic") && tabName.getText().equals("Service queues")){
-            return true;
-        } else {
-            return false;
-        }
+        return clinicName.getText().equals("Clinic") && tabName.getText().equals("Service queues");
     }
 }

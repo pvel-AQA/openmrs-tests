@@ -44,8 +44,6 @@ public class LoginTest extends BaseUiTest {
     @Test
     @AdminSession
     public void adminCanSetClinicMemorisedTest() {
-        AdminSteps.createPatientRequest();
-
         new PickLocationPage().open()
                 .pickOutpatientLocationClickRememberMyLocationAndConfirm()
                 .atPage();
