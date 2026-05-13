@@ -1,13 +1,21 @@
 package ui.pages;
 
-import api.models.CreatePatientRequest;
+import api.models.ui.RegisterMandatoryFieldsPatientUi;
 import api.models.ui.RegisterPatientUi;
-import com.codeborne.selenide.*;
+import com.codeborne.selenide.CollectionCondition;
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
 
 public class PatientRegistrationPage extends BasePage<PatientRegistrationPage> {
+    public static String[] uiMandatoryNameFieldsToBeGenerated = new String[]{"givenName", "familyName"};
+    public static String[] uiPatientFieldsToBeGenerated = new String[]{"gender", "birthdate", "birthdateEstimated",
+            "dead"};
+
     private final SelenideElement registerPatientButton = $(By.xpath("//button[text()='Register patient']"));
     private final SelenideElement cancelButton = $(By.xpath("//button[text()='Cancel']"));
     private final SelenideElement patientNameIsKnownYesButton = $(By.xpath("//div/span[text()=\"Patient's Name is Known?\"]/../following-sibling::div/button/span[text()='Yes']"));
@@ -157,6 +165,19 @@ public class PatientRegistrationPage extends BasePage<PatientRegistrationPage> {
         populateCountryField(patient.getAddresses().getFirst().getCountry());
         populatePostalCodeField(patient.getAddresses().getFirst().getPostalCode());
         populateTelephoneNumberField(patient.getAttributes().getFirst().getValue());
+
+        clickOnRegisterPatientButton();
+
+        return new PatientSummaryPage();
+    }
+
+    public PatientSummaryPage registerPatientWithValidMandatoryFields(RegisterMandatoryFieldsPatientUi patient) {
+        clickOnPatientNameIsKnownYesButton();
+        populateFirstNameField(patient.getNames().getFirst().getGivenName());
+        populateFamilyNameField(patient.getNames().getFirst().getFamilyName());
+        selectGender(patient.getGender());
+        clickOnDateOfBirthKnownYesButton();
+        populateBirthdayField(patient.getBirthdate());
 
         clickOnRegisterPatientButton();
 
