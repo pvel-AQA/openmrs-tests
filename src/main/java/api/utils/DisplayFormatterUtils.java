@@ -10,7 +10,7 @@ public final class DisplayFormatterUtils {
     }
 
     public static String personDisplayFormatter(PersonName name) {
-        if (name.getMiddleName().isEmpty()) {
+        if (name.getMiddleName() == null || name.getMiddleName().isEmpty()) {
             return String.format("%s %s", name.getGivenName(), name.getFamilyName());
         } else if (name.getFamilyName().isEmpty()) {
             return String.format("%s %s", name.getGivenName(), name.getMiddleName());

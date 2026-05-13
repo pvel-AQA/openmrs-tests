@@ -7,16 +7,21 @@ import api.models.patient.PersonForPatientUpdate;
 import api.models.patient.PersonNameForPatientUpdate;
 import api.models.patient.UpdatePatientRequest;
 import api.models.roles.AdminLogin;
+import api.models.ui.RegisterMandatoryFieldsPatientUi;
+import api.models.ui.RegisterPatientUi;
 import api.models.visit.CreateVisitRequest;
 import api.models.visit.CreateVisitResponse;
 import api.models.visit.VisitTypeResponse;
 import api.requests.Endpoint;
-import api.requests.skeleton.requesters.*;
+import api.requests.skeleton.requesters.AuthRequester;
+import api.requests.skeleton.requesters.CrudRequester;
+import api.requests.skeleton.requesters.ValidatedCrudRequester;
+import api.requests.skeleton.requesters.VisitTypeEnum;
 import api.requests.specs.RequestSpecs;
 import api.requests.specs.ResponseSpecs;
 import common.generators.PartialEntityGenerator;
 import common.generators.RandomDataGenerator;
-import io.restassured.response.Response;
+import ui.pages.PatientRegistrationPage;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -26,6 +31,8 @@ public final class AdminSteps {
     public static final boolean PREFERRED_IDENTIFIER_TRUE = true;
     public static final String[] NAMES_FIELDS_TO_BE_GENERATED = Constants.nameFieldsToBeGenerated;
     public static final String[] PERSON_FIELDS_TO_BE_GENERATED = Constants.personFieldsToBeGenerated;
+    public static final String[] UI_MANDATORY_NAMES_FIELDS_TO_BE_GENERATED = PatientRegistrationPage.uiMandatoryNameFieldsToBeGenerated;
+    public static final String[] UI_MANDATORY_PATIENT_FIELDS_TO_BE_GENERATED = PatientRegistrationPage.uiPatientFieldsToBeGenerated;
 
     private AdminSteps() {
 
@@ -85,7 +92,7 @@ public final class AdminSteps {
                 .get(patientUuid, ErrorResponse.class);
     }
 
-    public static ErrorResponse attemptToFindDeletedPersonByUuid(String personUuid){
+    public static ErrorResponse attemptToFindDeletedPersonByUuid(String personUuid) {
         return new ValidatedCrudRequester<ErrorResponse>(
                 RequestSpecs.adminSpec(),
                 Endpoint.PERSON_READ_DELETED,
@@ -185,6 +192,27 @@ public final class AdminSteps {
                 .identifiers(List.of(identifiers))
                 .person(person)
                 .build();
+    }
+
+    public static RegisterPatientUi createPatientForUi() {
+        PersonName personName = PartialEntityGenerator.generate(PersonName.class, NAMES_FIELDS_TO_BE_GENERATED);
+
+        RegisterPatientUi patient = PartialEntityGenerator.generate(RegisterPatientUi.class, PERSON_FIELDS_TO_BE_GENERATED);
+        patient.setNames(List.of(personName));
+        patient.setBirthdate(RandomDataGenerator.generateValidDateUiFormat());
+
+        return patient;
+    }
+
+    public static RegisterMandatoryFieldsPatientUi createPatientWithMandatoryFieldsForUi() {
+        PersonName personName = PartialEntityGenerator.generate(PersonName.class, UI_MANDATORY_NAMES_FIELDS_TO_BE_GENERATED);
+
+        RegisterMandatoryFieldsPatientUi patient = PartialEntityGenerator
+                .generate(RegisterMandatoryFieldsPatientUi.class, UI_MANDATORY_PATIENT_FIELDS_TO_BE_GENERATED);
+        patient.setNames(List.of(personName));
+        patient.setBirthdate(RandomDataGenerator.generateValidDateUiFormat());
+
+        return patient;
     }
 
     public static CreatePatientRequest createPatientRequest(CreatePersonRequest personRequest) {
@@ -390,7 +418,7 @@ public final class AdminSteps {
                 Endpoint.SESSION,
                 ResponseSpecs.requestReturnsOK(),
                 ResponseSpecs.requestReturnsSetCookieHeader())
-                .getSession(username, password)
+                .get(username, password)
                 .extract()
                 .sessionId();
     }

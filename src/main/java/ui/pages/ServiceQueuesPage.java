@@ -1,9 +1,6 @@
 package ui.pages;
 
-import ui.components.Header;
-
-public class ServiceQueuesPage extends BasePage<ServiceQueuesPage> {
-    public Header header = new Header();
+public class ServiceQueuesPage extends AuthBasePage<ServiceQueuesPage> {
 
     @Override
     public String url() {
