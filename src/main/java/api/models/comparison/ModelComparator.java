@@ -43,6 +43,15 @@ public final class ModelComparator {
                     nestedResponse = response;
                 }
 
+                if (nestedRequest == null && nestedResponse == null) {
+                    continue;
+                }
+
+                if (nestedRequest == null || nestedResponse == null) {
+                    mismatches.add(new Mismatch(path, nestedRequest, nestedResponse));
+                    continue;
+                }
+
                 ComparisonResult nestedResult = compareFields(nestedRequest, nestedResponse,
                         nestedRule.getFieldMappings(),
                         nestedRule.getNestedRules());
@@ -71,7 +80,10 @@ public final class ModelComparator {
 
             if (current instanceof List) {
                 List<?> list = (List<?>) current;
-                current = list.isEmpty() ? null : list.getFirst();
+                if (list.isEmpty()) {
+                    return list;
+                }
+                current = list.getFirst();
             }
 
             Class<?> clazz = current.getClass();
