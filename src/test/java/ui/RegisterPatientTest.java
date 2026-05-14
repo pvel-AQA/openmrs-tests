@@ -22,20 +22,17 @@ public class RegisterPatientTest extends BaseUiTest {
         patient.setBirthdate(RandomDataGenerator.generateValidDateUiFormat());
 
         String patientUuid = new PickLocationPage().open()
-    public void knownPatientCanBeRegisteredWithValidDataTest() {
-        CreatePatientRequest patient = AdminSteps.createPatientRequest();
-        patient.getPerson().setBirthdate(RandomDataGenerator.generateValidDateUiFormat());
-
-        new PickLocationPage().open()
                 .pickOutpatientLocationAndConfirm()
                 .header.clickAddPatientButton()
                 .registerPatientWithAllFieldsPopulatedCorrectly(patient)
                 .verifySuccessNotification()
+
                 .checkPatientNameIsEqualTo(personDisplayFormatter(patient.getNames().getFirst()))
                 .checkIdPrefixIsEqualTo(PatientSummaryPage.OPEN_MRS_ID_TEXT)
                 .checkBirthDateIsEqualTo(patient.getBirthdate())
                 .checkGenderIsEqualTo(patient.getGender())
                 .checkGenderIconIsCorrect()
+
                 .clickShowMoreButton()
                 .getAddressComponent().checkAllAddressFieldsAreCorrect(patient.getAddresses().getFirst())
                 .getContactDetailsComponent().checkTelephoneNumberIsEqualTo(patient.getAttributes().getFirst().getValue())

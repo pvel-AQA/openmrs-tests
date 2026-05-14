@@ -16,7 +16,6 @@ public class LoginPage extends BasePage<LoginPage> {
         return "/login";
     }
 
-    @Override
     public Boolean atPage() {
         return !passwordField.is(Condition.visible) &&
                 usernameField.is(Condition.visible) &&

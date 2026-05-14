@@ -16,7 +16,6 @@ public class ServiceQueuesPage extends AuthBasePage<ServiceQueuesPage> {
         return "/home/service-queues";
     }
 
-    @Override
     public Boolean atPage() {
         return clinicName.getText().equals("Clinic") && tabName.getText().equals("Service queues");
     }

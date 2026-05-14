@@ -278,9 +278,9 @@ public final class AdminSteps {
     public static void updatePerson(String personUuid, CreatePersonRequest updateRequest) {
         new ValidatedCrudRequester<CreatePersonResponse>(
                 RequestSpecs.adminSpec(),
-                Endpoint.PERSON_UPDATE,   // ← needs the UUID in the path
+                Endpoint.PERSON_UPDATE,
                 ResponseSpecs.requestReturnsOK())
-                .post(updateRequest, personUuid);     // ← POST as confirmed by Postman
+                .post(updateRequest, personUuid);
     }
 
     public static UpdatePatientRequest prepareUpdatePatientRequest(CreatePatientRequest createPatientRequest, CreatePatientResponse createPatientResponse) {

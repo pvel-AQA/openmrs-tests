@@ -46,16 +46,11 @@ public class LoginTest extends BaseUiTest {
         new PickLocationPage().open()
                 .pickOutpatientLocationClickRememberMyLocationAndConfirm()
                 .atPage();
-
-        Selenide.sleep(15000);
-        //uncheck clinic
     }
 
     @Test
-    @AdminSession
     public void adminCanLoginClinicMemorisedTest() {
         AdminLogin admin = AdminLogin.getAdmin();
-        //precondition: check clinic
 
         new LoginPage().open()
                 .populateUserNameField(admin.getUsername())
@@ -64,9 +59,6 @@ public class LoginTest extends BaseUiTest {
                 .clickLogInButton()
                 .getPage(ServiceQueuesPage.class)
                 .atPage();
-
-        Selenide.sleep(15000);
-        //uncheck clinic
     }
 
 
@@ -76,8 +68,6 @@ public class LoginTest extends BaseUiTest {
                 .populateUserNameField("")
                 .clickContinueButton()
                 .atPage();
-
-        Selenide.sleep(5000);
     }
 
 
@@ -92,10 +82,6 @@ public class LoginTest extends BaseUiTest {
                 .clickLogInButton()
                 .errorMessageInvalidUsernameOrPasswordIsDisplayed()
                 .atPage();
-
-        Selenide.sleep(5000);
     }
-
-    //Tests for empty username and password
 
 }

@@ -1,31 +1,38 @@
 package ui.components;
 
-import api.models.CreatePatientResponse;
-import api.models.PatientResponse;
-import com.codeborne.selenide.*;
+import api.models.ui.UiPatientMandatoryInfo;
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selectors;
+import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import ui.pages.PatientRegistrationPage;
 import ui.pages.PickLocationPage;
+import ui.pages.SearchResultsPage;
+import ui.pages.ServiceQueuesPage;
+import ui.parsers.PatientSearchResultParser;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.codeborne.selenide.Selenide.$;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Header extends BaseComponent {
     private final SelenideElement self = $("#omrs-top-nav-app-container");
 
     private final SelenideElement addPatientButton = $(By.xpath("//button[@data-tutorial-target='add-patient']"));
-    private final SelenideElement searchPatientButton = $("button[data-testid='searchPatientIcon']");
-    //private final SelenideElement searchTextInputField = $("button[data-testid='patientSearchBar']");
-    private final SelenideElement searchTextInputField = $("[data-testid='patientSearchBar']");
+    private final SelenideElement searchPatientIcon = $("button[data-testid='searchPatientIcon']");
+    private final SelenideElement searchTextInputField = $("input[data-testid='patientSearchBar']");
+    private final SelenideElement clearTextInputFieldButton = $("button[aria-label='Clear']");
     private final SelenideElement changeClinicButton = $("button[aria-label='Change location']");
-    private final SelenideElement searchButton = $(Selectors.byText("Search"));
-
+    public final SelenideElement searchButton = $(Selectors.byText("Search"));
+    private final SelenideElement closeSearchPanelButton = $("button[data-testid='closeSearchIcon']");
     private final SelenideElement searchResultsCount = $("[class*='resultsText']");
     private final SelenideElement searchResultsContainer = $("[data-testid='floatingSearchResultsContainer']");
+    private final SelenideElement errorTitle = $("p[class*='errorMessage']");
+    private final SelenideElement errorMessage = $("p[class*='errorCopy']");
 
+
+    private final PatientSearchResultParser parser = new PatientSearchResultParser();
 
     @Override
     protected SelenideElement getSelf() {
@@ -39,65 +46,106 @@ public class Header extends BaseComponent {
         return new PatientRegistrationPage();
     }
 
-    public Header clickSearchPatientButton() {
-        searchPatientButton.shouldBe(Condition.visible);
-        searchPatientButton.click();
-
-        return new Header();
-    }
-
-    public PickLocationPage clickChangeClinicButton(){
-        changeClinicButton.shouldBe(Condition.visible);
-        changeClinicButton.click();
+    public PickLocationPage clickChangeClinicButton() {
+        changeClinicButton.shouldBe(Condition.visible).click();
 
         return new PickLocationPage();
     }
 
-    public Header enterSearchPatientString(String searchText) {
-        searchPatientButton.shouldBe(Condition.visible);
-        searchPatientButton.click();
-        Selenide.sleep(5000);
-        //Selenide.switchTo().frame("-esm-patient-search__patient-search-bar__searchArea___AwmMr");
+    public Header populateSearchPatientString(String searchText) {
+        searchPatientIcon.shouldBe(Condition.visible).click();
         searchTextInputField.shouldBe(Condition.visible, Condition.enabled);
         searchTextInputField.sendKeys(searchText);
-        Selenide.sleep(5000);
-        //searchButton.click();;
+
         return this;
     }
 
-    public int searchResultsCount(String searchText) {
-        String text = searchResultsCount.getText();
-        int count = Integer.parseInt(text.split(" ")[0]);
-
-        return count;
+    public boolean isSearchIconHidden() {
+        return searchPatientIcon.is(Condition.hidden);
     }
 
-    public List<CreatePatientResponse> foundPatientsDisplayedInDropDown(String searchText) {
-        ElementsCollection patientsDisplayedInDropDownResults = $("[data-testid='floatingSearchResultsContainer']").findAll("a");
-        System.out.println(patientsDisplayedInDropDownResults);
-        //return patientsDisplayedInDropDownResults;
+    public boolean isSearchInputVisible() {
+        return searchTextInputField.is(Condition.visible);
+    }
 
-        //compare that count of API list = count of Displayed list
+    public boolean isSearchInputEnabled() {
+        return searchTextInputField.is(Condition.enabled);
+    }
+
+    public boolean isResultsContainerVisible() {
+        return searchResultsContainer.is(Condition.visible);
+    }
+
+    public boolean isClearButtonVisible() {
+        return clearTextInputFieldButton.is(Condition.visible);
+    }
+
+    public boolean isCloseButtonVisible() {
+        return closeSearchPanelButton.is(Condition.visible);
+    }
+
+
+    public Header clickSearchPatientIcon() {
+        searchPatientIcon.shouldBe(Condition.visible).click();
+
+        return this;
+    }
+
+    public ServiceQueuesPage clickCloseSearchPanelButton() {
+        closeSearchPanelButton.shouldBe(Condition.visible).click();
+
+        return new ServiceQueuesPage();
+    }
+
+    public Header clickClearTextInputFieldButton() {
+        clearTextInputFieldButton.shouldBe(Condition.visible).click();
+
+        return this;
+    }
+
+    public SearchResultsPage clickSearchButton() {
+        searchButton.shouldBe(Condition.visible).click();
+
+        return new SearchResultsPage();
+    }
+
+    public SearchResultsPage pressEnterButton() {
+        searchTextInputField.shouldBe(Condition.visible).click();
+        searchTextInputField.pressEnter();
+
+        return new SearchResultsPage();
+    }
+
+    public String getSearchInputPlaceholder() {
+        return searchTextInputField
+                .shouldBe(Condition.visible)
+                .getAttribute("placeholder");
+    }
+
+    public String getErrorTitleText() {
+        return errorTitle
+                .shouldBe(Condition.visible)
+                .getText();
+    }
+
+    public String getErrorMessageText() {
+        return errorMessage
+                .shouldBe(Condition.visible)
+                .getText();
+    }
+
+    public int getSearchResultsCount() {
         String text = searchResultsCount.getText();
-        int searchResultsCountInDropDown = Integer.parseInt(text.split(" ")[0]);
-        int countActuallyDisplayedInDropDown = patientsDisplayedInDropDownResults.size();
-        assertEquals(searchResultsCountInDropDown, countActuallyDisplayedInDropDown);
 
-        return patientsDisplayedInDropDownResults.stream()
-                .map(element -> {
-                    CreatePatientResponse patient = new CreatePatientResponse();
-                    patient.setDisplay(element.getText());
-                    patient.setUuid(element.getAttribute("href")
-                            .replace("/patient/", "")
-                            .replace("/chart/", "")); // adjust to your URL pattern
-                    return patient;
-                })
+        return Integer.parseInt(text.split(" ")[0]);
+    }
+
+    public List<UiPatientMandatoryInfo> getSearchDropdownResults() {
+
+        return searchResultsContainer
+                .findAll("a")
+                .stream()
+                .map(parser::parse)
                 .collect(Collectors.toList());
     }
-
-    //how to get server error 404 in black message modal?
-
-
-
-
 }

@@ -22,7 +22,6 @@ public class PatientSearchResultsPage extends AuthBasePage<PatientSearchResultsP
         return "http://localhost/openmrs/spa/search?query=%s";
     }
 
-    @Override
     public Boolean atPage() {
         return searchResultsCount.is(Condition.visible);
     }
