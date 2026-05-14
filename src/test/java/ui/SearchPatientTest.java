@@ -13,7 +13,6 @@ import ui.pages.ServiceQueuesPage;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class SearchPatientTest extends BaseUiTest {
     String errorMessageText = "Sorry, there was a an error. You can try to reload this page, or contact the site administrator and quote the error code above.";
     String errorTitleText = "Error";

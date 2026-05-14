@@ -61,7 +61,6 @@ public class LoginTest extends BaseUiTest {
                 .atPage();
     }
 
-
     @Test
     public void firstPageNoUserNameLoginTest() {
         new LoginPage().open()
@@ -69,7 +68,6 @@ public class LoginTest extends BaseUiTest {
                 .clickContinueButton()
                 .atPage();
     }
-
 
     @Test
     public void wrongAdminPasswordLoginTest() {
