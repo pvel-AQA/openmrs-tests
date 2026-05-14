@@ -94,4 +94,10 @@ public class AddressComponent extends BaseComponent {
 
         return new PatientSummaryPage();
     }
+
+    public PatientSummaryPage checkAddressSectionIsEmpty() {
+        assertThat(isEmpty).isTrue();
+
+        return new PatientSummaryPage();
+    }
 }

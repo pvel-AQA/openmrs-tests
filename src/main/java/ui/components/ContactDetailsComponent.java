@@ -39,4 +39,10 @@ public class ContactDetailsComponent extends BaseComponent {
 
         return new PatientSummaryPage();
     }
+
+    public PatientSummaryPage checkContactDetailsSectionIsEmpty() {
+        assertThat(isEmpty).isTrue();
+
+        return new PatientSummaryPage();
+    }
 }
