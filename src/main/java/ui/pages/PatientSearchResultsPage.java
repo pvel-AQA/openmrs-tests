@@ -13,10 +13,6 @@ public class PatientSearchResultsPage extends AuthBasePage<PatientSearchResultsP
     private final SelenideElement errorHint = $(Selectors.byXpath(""));
     private final SelenideElement searchResultsCount = $(Selectors.byText("search results"));
 
-    //user-block
-
-    //Refine panel
-
     @Override
     public String url() {
         return "http://localhost/openmrs/spa/search?query=%s";
