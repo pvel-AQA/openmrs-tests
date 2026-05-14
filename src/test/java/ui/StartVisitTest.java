@@ -1,110 +1,48 @@
 package ui;
 
-import api.models.CreatePatientRequest;
 import api.models.CreatePatientResponse;
-import api.models.roles.AdminLogin;
+import api.models.ui.VisitTab;
+import api.requests.skeleton.requesters.VisitTypeEnum;
 import api.requests.steps.AdminSteps;
+import com.codeborne.selenide.WebDriverRunner;
 import common.annotations.AdminSession;
-import common.generators.RandomDataGenerator;
 import org.junit.jupiter.api.Test;
-import ui.pages.BasePage;
-import ui.pages.LoginPage;
-import ui.pages.PickLocationPage;
-import ui.pages.VisitPage;
+
+import ui.pages.*;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class StartVisitTest extends BaseUiTest {
 
     @Test
     @AdminSession
     public void startVisit() {
-
-     //  AdminLogin admin = AdminLogin.getAdmin();
-
-     //  new LoginPage().open()
-     //          .populateUserNameField(admin.getUsername())
-     //          .clickContinueButton()
-     //          .populatePasswordField(admin.getPassword())
-     //          .clickLogInButton()
-     //          .getPage(PickLocationPage.class)
-     //          .pickOutpatientLocationAndConfirm();
-
-     //  //CREATE PATIENT
-     //  CreatePatientRequest patient = AdminSteps.createPatientRequest();
-     //  patient.getPerson().setBirthdate(RandomDataGenerator.generateValidDate());
-
-     //  CreatePatientResponse createdPatient =
-     //          AdminSteps.createPatient(patient);
-
-     //  String patientUuid = createdPatient.getUuid();
-
-     //  System.out.println("PATIENT UUID = " + patientUuid);
-
-     //  //OPEN PATIENT PAGE
-     //  VisitPage visitPage = new VisitPage(patientUuid);
-
-     //  visitPage
-     //          .open()
-     //          .waitPatientSummaryLoaded();
-
-     //  System.out.println("CURRENT URL = " +
-     //          com.codeborne.selenide.WebDriverRunner.url());
-     //
-
-     //  //OPEN ACTIONS MENU
-     //  visitPage
-     //          .openActionsMenu()
-     //          .selectAddVisit();
-
-     //  //WAIT VISIT MODAL
-     //  visitPage
-     //          .waitStartVisitModal();
-
-     //  //CONFIGURE VISIT
-     //  visitPage
-     //          .selectVisitTab("new")
-     //          .selectUbuntuHospitalLocation()
-     //          .selectVisitType("Facility Visit");
-
-     //  // ASSERTIONS
-     //  visitPage
-     //          .checkStartVisitHeaderIsVisible()
-     //          .checkTheVisitIsLegendIsVisible()
-     //          .checkVisitLocationTextIsVisible()
-     //          .checkVisitTypeTextIsVisible();
-
-        // CREATE PATIENT
-        CreatePatientRequest patient = AdminSteps.createPatientRequest();
-        patient.getPerson().setBirthdate(RandomDataGenerator.generateValidDate());
-
-        CreatePatientResponse createdPatient =
-                AdminSteps.createPatient(patient);
-
+        CreatePatientResponse createdPatient = AdminSteps.createPatient();
         String patientUuid = createdPatient.getUuid();
-        System.out.println("PATIENT UUID = " + patientUuid);
 
-        //OPEN PATIENT
-        VisitPage visitPage = new VisitPage(patientUuid);
+        new PickLocationPage().open().pickOutpatientLocationAndConfirm();
 
-        visitPage.open()
-                .waitPatientSummaryLoaded();
+        VisitPage visitPage = new VisitPage().open(patientUuid);
+        visitPage.waitPatientSummaryLoaded();
 
-        System.out.println("CURRENT URL = " +
-                com.codeborne.selenide.WebDriverRunner.url());
-
-        // ACTIONS
         visitPage.openActionsMenu()
                 .selectAddVisit()
-                .waitStartVisitModal();
-
-        // CONFIGURE VISIT
-        visitPage.selectVisitTab("new")
+                .waitStartVisitModal()
+                .selectVisitTab(VisitTab.NEW)
                 .selectUbuntuHospitalLocation()
-                .selectVisitType("facility visit");
+                .selectVisitType(VisitTypeEnum.FACILITY_VISIT)
+                .confirmStartVisitAndWaitForClose();
 
-        // ASSERT
-        visitPage.checkStartVisitHeaderIsVisible()
-                .checkTheVisitIsLegendIsVisible();
+        visitPage.checkActiveVisitIsStarted();
+
+        assertThat(WebDriverRunner.url())
+                .as("URL should contain patient UUID")
+                .contains(patientUuid);
+
+        boolean visitExists = AdminSteps.isVisitExists(patientUuid);
+        assertThat(visitExists)
+                .as("Visit should exist in API response")
+                .isTrue();
     }
 }
-
 
