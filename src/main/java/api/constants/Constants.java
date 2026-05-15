@@ -5,8 +5,6 @@ public final class Constants {
             "dead", "addresses", "attributes"};
     public static String[] nameFieldsToBeGenerated = new String[]{"givenName", "middleName", "familyName"};
     public static String ClinicNameToGetLocationUuid = "Outpatient";
-    public static boolean preferredIdentifierTrue = true;
-
     public static final boolean PREFERRED_IDENTIFIER_TRUE = true;
 
     private Constants() {

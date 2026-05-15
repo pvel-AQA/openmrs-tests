@@ -119,6 +119,4 @@ public class PatientSummaryPage extends BasePage<PatientSummaryPage> {
 
         return this;
     }
-
-
 }

@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class SearchResultsPage extends AuthBasePage{
+public class SearchResultsPage extends AuthBasePage<SearchResultsPage>{
     public Header header = new Header();
     private final SelenideElement refineSearchTitle = $(Selectors.byText("Refine search"));
     private final SelenideElement searchResultsCount = $(Selectors.byXpath("//h2[contains(text(), 'search results')]"));
@@ -25,6 +25,7 @@ public class SearchResultsPage extends AuthBasePage{
         return "/search?query=%s";
     }
 
+    @Override
     public Boolean atPage() {
         return (refineSearchTitle.is(Condition.visible) && searchResultsCount.is(Condition.visible)); //+ buttons "Apply" and "Reset fields"
     }

@@ -7,7 +7,6 @@ import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import ui.pages.PatientRegistrationPage;
 import ui.pages.PickLocationPage;
-import ui.pages.SearchResultsPage;
 import ui.pages.ServiceQueuesPage;
 import ui.parsers.PatientSearchResultParser;
 
@@ -21,7 +20,7 @@ public class Header extends BaseComponent {
 
     private final SelenideElement addPatientButton = $(By.xpath("//button[@data-tutorial-target='add-patient']"));
     private final SelenideElement searchPatientIcon = $("button[data-testid='searchPatientIcon']");
-    private final SelenideElement searchTextInputField = $("input[data-testid='patientSearchBar']");
+    public final SelenideElement searchTextInputField = $("input[data-testid='patientSearchBar']");
     private final SelenideElement clearTextInputFieldButton = $("button[aria-label='Clear']");
     private final SelenideElement changeClinicButton = $("button[aria-label='Change location']");
     public final SelenideElement searchButton = $(Selectors.byText("Search"));
@@ -52,12 +51,12 @@ public class Header extends BaseComponent {
         return new PickLocationPage();
     }
 
-    public Header populateSearchPatientString(String searchText) {
+    public ServiceQueuesPage populateSearchPatientString(String searchText) {
         searchPatientIcon.shouldBe(Condition.visible).click();
         searchTextInputField.shouldBe(Condition.visible, Condition.enabled);
         searchTextInputField.sendKeys(searchText);
 
-        return this;
+        return new ServiceQueuesPage();
     }
 
     public boolean isSearchIconHidden() {
@@ -101,19 +100,6 @@ public class Header extends BaseComponent {
         clearTextInputFieldButton.shouldBe(Condition.visible).click();
 
         return this;
-    }
-
-    public SearchResultsPage clickSearchButton() {
-        searchButton.shouldBe(Condition.visible).click();
-
-        return new SearchResultsPage();
-    }
-
-    public SearchResultsPage pressEnterButton() {
-        searchTextInputField.shouldBe(Condition.visible).click();
-        searchTextInputField.pressEnter();
-
-        return new SearchResultsPage();
     }
 
     public String getSearchInputPlaceholder() {

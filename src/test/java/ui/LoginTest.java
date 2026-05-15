@@ -35,7 +35,6 @@ public class LoginTest extends BaseUiTest {
                 .getWelcomeText().shouldBe(Condition.visible).shouldHave(Condition.text(welcomeText));
 
         SessionId sessionId = Selenide.webdriver().driver().getSessionId();
-        String adminJSessionValue = AdminSteps.retrieveJSessionValue(admin);
 
         assertThat(sessionId.toString()).isNotEmpty();
     }

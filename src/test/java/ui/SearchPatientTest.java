@@ -6,6 +6,7 @@ import api.requests.steps.AdminSteps;
 import common.annotations.AdminSession;
 import common.generators.RandomDataGenerator;
 import org.junit.jupiter.api.Test;
+import ui.components.Header;
 import ui.pages.PickLocationPage;
 import ui.pages.SearchResultsPage;
 import ui.pages.ServiceQueuesPage;
@@ -22,17 +23,16 @@ public class SearchPatientTest extends BaseUiTest {
     @Test
     @AdminSession
     public void searchDropDownShouldShowDefaultMessagesTest() {
-        new PickLocationPage().open().pickOutpatientLocationAndConfirm();
-        ServiceQueuesPage page = new ServiceQueuesPage();
-        page.open().header.clickSearchPatientIcon();
+        Header header = new PickLocationPage().open().pickOutpatientLocationAndConfirm()
+                .header.clickSearchPatientIcon();
 
-        softly.assertThat(page.header.getSearchInputPlaceholder())
+        softly.assertThat(header.getSearchInputPlaceholder())
                 .isEqualTo(inputFieldDefaultText);
 
-        softly.assertThat(page.header.getErrorTitleText())
+        softly.assertThat(header.getErrorTitleText())
                 .isEqualTo(errorTitleText);
 
-        softly.assertThat(page.header.getErrorMessageText())
+        softly.assertThat(header.getErrorMessageText())
                 .isEqualTo(errorMessageText);
     }
 
@@ -163,11 +163,9 @@ public class SearchPatientTest extends BaseUiTest {
         createdUuids = AdminSteps.createPatientsForSearch(4, true, generatedString);
         String searchText = generatedString.substring(0, 4);
 
-        new PickLocationPage().open().pickOutpatientLocationAndConfirm()
+        SearchResultsPage searchResultsPage = new PickLocationPage().open().pickOutpatientLocationAndConfirm()
                 .header.populateSearchPatientString(searchText)
                 .clickSearchButton();
-
-        SearchResultsPage searchResultsPage = new SearchResultsPage();
 
         softly.assertThat(searchResultsPage.atPage()).isTrue();
 
@@ -194,11 +192,9 @@ public class SearchPatientTest extends BaseUiTest {
         createdUuids = AdminSteps.createPatientsForSearch(4, true, generatedString);
         String searchText = generatedString.substring(0, 3);
 
-        new PickLocationPage().open().pickOutpatientLocationAndConfirm()
+        SearchResultsPage searchResultsPage = new PickLocationPage().open().pickOutpatientLocationAndConfirm()
                 .header.populateSearchPatientString(searchText)
                 .pressEnterButton();
-
-        SearchResultsPage searchResultsPage = new SearchResultsPage();
 
         softly.assertThat(searchResultsPage.atPage()).isTrue();
 
