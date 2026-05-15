@@ -219,5 +219,3 @@ public class VisitPage extends BasePage<VisitPage> {
         return this;
     }
 }
-
-
