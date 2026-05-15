@@ -25,7 +25,9 @@ import ui.pages.PatientRegistrationPage;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public final class AdminSteps {
     public static final boolean PREFERRED_IDENTIFIER_TRUE = true;
@@ -425,5 +427,27 @@ public final class AdminSteps {
 
     public static String retrieveJSessionValue(AdminLogin admin) {
         return retrieveJSessionValue(admin.getUsername(), admin.getPassword());
+    }
+
+    public static boolean isVisitExists(String patientUuid) {
+        try {
+            Map<String, Object> params = new HashMap<>();
+            params.put("includeInactive", "false");
+            params.put("v", "full");
+            params.put("limit", 100);
+
+            CrudRequester requester = new CrudRequester(
+                    RequestSpecs.adminSpec(),
+                    Endpoint.VISIT,
+                    ResponseSpecs.requestReturnsOK());
+
+            var response = requester.getAll(params, BaseModel.class);
+            String responseString = response.extract().asString();
+
+            return responseString.contains(patientUuid);
+        } catch (Exception e) {
+            System.out.println("API check failed: " + e.getMessage());
+            return false;
+        }
     }
 }
