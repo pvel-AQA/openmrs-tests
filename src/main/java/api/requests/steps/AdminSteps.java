@@ -9,6 +9,7 @@ import api.models.patient.UpdatePatientRequest;
 import api.models.roles.AdminLogin;
 import api.models.ui.RegisterMandatoryFieldsPatientUi;
 import api.models.ui.RegisterPatientUi;
+import api.models.ui.RegisterUnknownPatientUi;
 import api.models.visit.CreateVisitRequest;
 import api.models.visit.CreateVisitResponse;
 import api.models.visit.VisitTypeResponse;
@@ -33,6 +34,8 @@ public final class AdminSteps {
     public static final String[] PERSON_FIELDS_TO_BE_GENERATED = Constants.personFieldsToBeGenerated;
     public static final String[] UI_MANDATORY_NAMES_FIELDS_TO_BE_GENERATED = PatientRegistrationPage.uiMandatoryNameFieldsToBeGenerated;
     public static final String[] UI_MANDATORY_PATIENT_FIELDS_TO_BE_GENERATED = PatientRegistrationPage.uiPatientFieldsToBeGenerated;
+    public static final String[] UI_UNKNOWN_PATIENT_FIELDS_TO_BE_GENERATED = PatientRegistrationPage.uiUnknownPatientFieldsToBeGenerated;
+    public static final String UNKNOWN_NAME = "UNKNOWN";
 
     private AdminSteps() {
 
@@ -211,6 +214,18 @@ public final class AdminSteps {
                 .generate(RegisterMandatoryFieldsPatientUi.class, UI_MANDATORY_PATIENT_FIELDS_TO_BE_GENERATED);
         patient.setNames(List.of(personName));
         patient.setBirthdate(RandomDataGenerator.generateValidDateUiFormat());
+
+        return patient;
+    }
+
+    public static RegisterUnknownPatientUi createUnknownPatientForUi() {
+        PersonName personName = PartialEntityGenerator.generate(PersonName.class, UI_MANDATORY_NAMES_FIELDS_TO_BE_GENERATED);
+        personName.setGivenName(UNKNOWN_NAME);
+        personName.setFamilyName(UNKNOWN_NAME);
+
+        RegisterUnknownPatientUi patient = PartialEntityGenerator
+                .generate(RegisterUnknownPatientUi.class, UI_UNKNOWN_PATIENT_FIELDS_TO_BE_GENERATED);
+        patient.setNames(List.of(personName));
 
         return patient;
     }

@@ -6,8 +6,10 @@ import api.models.comparison.ModelAssertions;
 import api.models.ui.GenderUi;
 import api.models.ui.RegisterMandatoryFieldsPatientUi;
 import api.models.ui.RegisterPatientUi;
+import api.models.ui.RegisterUnknownPatientUi;
 import api.requests.steps.AdminSteps;
 import common.annotations.AdminSession;
+import common.utils.DateUtils;
 import org.junit.jupiter.api.Test;
 import ui.pages.PatientSummaryPage;
 import ui.pages.PickLocationPage;
@@ -76,6 +78,42 @@ public class RegisterPatientTest extends BaseUiTest {
         CreatePatientResponse foundPatient = AdminSteps.findPatientByUuid(patientUuid);
 
         patient.setGender(GenderUi.toShortGender(patient.getGender()));
+
+        ModelAssertions.assertThatModels(foundPatient, patient).match();
+        softly.assertThat(openMrsIdText).isEqualTo(foundPatient.getIdentifiers().getFirst().getDisplay());
+        softly.assertThat(personDisplayFormatter(patient.getNames().getFirst()))
+                .isEqualTo(foundPatient.getPerson().getPreferredName().getDisplay());
+        softly.assertThat(foundPatient.getPerson().getPreferredAddress()).isNull();
+        softly.assertThat(foundPatient.getPerson().getAttributes()).isEmpty();
+    }
+
+    @Test
+    @AdminSession
+    public void unknownPatientCanBeRegisteredWithValidDataTest() {
+        RegisterUnknownPatientUi patient = AdminSteps.createUnknownPatientForUi();
+        patient.setAge(5);
+
+        String patientUuid = new PickLocationPage().open()
+                .pickOutpatientLocationAndConfirm()
+                .header.clickAddPatientButton()
+                .registerUnknownPatientTest(patient)
+
+                .checkPatientNameIsEqualTo(personDisplayFormatter(patient.getNames().getFirst()))
+                .checkIdPrefixIsEqualTo(PatientSummaryPage.OPEN_MRS_ID_TEXT)
+                .checkEstimatedBirthDateIsEqualTo(patient.getAge())
+                .checkGenderIsEqualTo(patient.getGender())
+                .checkGenderIconIsCorrect()
+
+                .clickShowMoreButton()
+                .getAddressComponent().checkAddressSectionIsEmpty()
+                .getContactDetailsComponent().checkContactDetailsSectionIsEmpty()
+                .getPatientUuid();
+
+        String openMrsIdText = new PatientSummaryPage().getOpenMrsIdTextInApiFormat();
+        CreatePatientResponse foundPatient = AdminSteps.findPatientByUuid(patientUuid);
+
+        patient.setGender(GenderUi.toShortGender(patient.getGender()));
+        patient.setBirthdate(DateUtils.convertMmmYyyyToFullDate(patient.getBirthdate()));
 
         ModelAssertions.assertThatModels(foundPatient, patient).match();
         softly.assertThat(openMrsIdText).isEqualTo(foundPatient.getIdentifiers().getFirst().getDisplay());
