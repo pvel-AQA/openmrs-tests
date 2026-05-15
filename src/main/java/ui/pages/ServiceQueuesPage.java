@@ -9,7 +9,6 @@ import ui.components.Header;
 import static com.codeborne.selenide.Selenide.$;
 
 public class ServiceQueuesPage extends AuthBasePage<ServiceQueuesPage> {
-    public Header header = new Header();
     private final SelenideElement clinicName = $(Selectors.byXpath("//*[@data-testid='patient-queue-header']//p[text()='Clinic']"));
     private final SelenideElement tabName = $(Selectors.byXpath("//*[@data-testid='patient-queue-header']//p[text()='Service queues']"));
 
