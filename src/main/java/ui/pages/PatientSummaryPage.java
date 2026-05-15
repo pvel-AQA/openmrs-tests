@@ -57,6 +57,14 @@ public class PatientSummaryPage extends BasePage<PatientSummaryPage> {
         return this;
     }
 
+    public PatientSummaryPage checkEstimatedBirthDateIsEqualTo(Integer age) {
+        final String expectedDateFormat = DateUtils.convertAgeToMmmYyyy(age);
+        birthDateText.shouldBe(Condition.visible);
+        birthDateText.shouldHave(Condition.exactText(expectedDateFormat));
+
+        return this;
+    }
+
     public PatientSummaryPage checkIdPrefixIsEqualTo(String idPrefix) {
         openMrsIdText.shouldBe(Condition.visible);
         openMrsIdText.shouldHave(Condition.exactText(idPrefix));

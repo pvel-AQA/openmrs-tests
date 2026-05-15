@@ -2,6 +2,7 @@ package ui.pages;
 
 import api.models.roles.AdminLogin;
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
 
 import static api.requests.specs.RequestSpecs.fetchSessionCookie;
 import static api.requests.specs.RequestSpecs.setCookieInBrowser;
@@ -34,5 +35,14 @@ public abstract class BasePage<T extends BasePage> {
 
     public static void authAsUser(AdminLogin admin) {
         authAsUser(admin.getUsername(), admin.getPassword());
+    }
+
+    public void reactSendKeys(SelenideElement input, String text) {
+        Selenide.executeJavaScript(
+                "arguments[0].value = arguments[1];" +
+                        "arguments[0].dispatchEvent(new Event('input', { bubbles: true }));" +
+                        "arguments[0].dispatchEvent(new Event('change', { bubbles: true }));",
+                input, text
+        );
     }
 }

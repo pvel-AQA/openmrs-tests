@@ -35,6 +35,16 @@ public class ModelComparisonConfigLoader {
         return rules.get(requestClass.getSimpleName());
     }
 
+    public ComparisonRule getRuleFor(Class<?> requestClass, Class<?> responseClass) {
+        String key = requestClass.getSimpleName() + "->" + responseClass.getSimpleName();
+        ComparisonRule rule = rules.get(key);
+        if (rule != null) {
+            return rule;
+        }
+
+        return rules.get(requestClass.getSimpleName());
+    }
+
     public static class ComparisonRule {
         private final String responseClassSimpleName;
         private final Map<String, String> fieldMappings;

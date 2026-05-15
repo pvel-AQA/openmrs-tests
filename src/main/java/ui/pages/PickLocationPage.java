@@ -10,6 +10,8 @@ import static com.codeborne.selenide.Selenide.$;
 
 @Getter
 public class PickLocationPage extends BasePage<PickLocationPage> {
+    public static final String WELCOME_ADMIN_TEXT = "Welcome Admin";
+
     @Override
     public String url() {
         return "/login/location";
