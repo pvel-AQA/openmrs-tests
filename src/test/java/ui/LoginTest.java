@@ -80,5 +80,4 @@ public class LoginTest extends BaseUiTest {
                 .errorMessageInvalidUsernameOrPasswordIsDisplayed()
                 .atPage();
     }
-
 }
