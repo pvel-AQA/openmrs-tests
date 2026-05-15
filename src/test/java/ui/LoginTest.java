@@ -14,7 +14,6 @@ public class LoginTest extends BaseUiTest {
 
     @Test
     public void adminCanLoginTest() {
-        final String welcomeText = "Welcome Admin";
         AdminLogin admin = AdminLogin.getAdmin();
 
         new LoginPage().open()
@@ -23,7 +22,8 @@ public class LoginTest extends BaseUiTest {
                 .populatePasswordField(admin.getPassword())
                 .clickLogInButton()
                 .getPage(PickLocationPage.class)
-                .getWelcomeText().shouldBe(Condition.visible).shouldHave(Condition.text(welcomeText));
+                .getWelcomeText().shouldBe(Condition.visible)
+                .shouldHave(Condition.text(PickLocationPage.WELCOME_ADMIN_TEXT));
 
         SessionId sessionId = Selenide.webdriver().driver().getSessionId();
 

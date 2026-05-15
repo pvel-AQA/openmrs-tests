@@ -53,7 +53,7 @@ public final class RandomDataGenerator {
         return genders[RANDOM.nextInt(genders.length)];
     }
 
-    public static Gender randomGender(String currentGender){
+    public static Gender randomGender(String currentGender) {
         Gender[] genders = Gender.values();
         Gender newGender;
         do {
