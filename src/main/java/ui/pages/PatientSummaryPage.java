@@ -13,6 +13,7 @@ import ui.components.ContactDetailsComponent;
 import java.util.Arrays;
 
 import static com.codeborne.selenide.Selenide.$;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class PatientSummaryPage extends BasePage<PatientSummaryPage> {
     public static final String OPEN_MRS_ID_TEXT = "OpenMRS ID: ";
@@ -29,10 +30,16 @@ public class PatientSummaryPage extends BasePage<PatientSummaryPage> {
     private final SelenideElement ageText = $("div.m8jQX0Xu7TIqdLMfGF5vMw\\=\\= > span:nth-child(1)");
     private final SelenideElement birthDateText = $("div.m8jQX0Xu7TIqdLMfGF5vMw\\=\\= > span:nth-child(3)");
     private final SelenideElement showMoreButton = $(By.xpath("//button[text()='Show more']"));
+    private final SelenideElement vitalsHistoryLink = $("a[href*='Vitals ']");
 
     @Override
     public String url() {
         return "/patient/%s/chart/Patient%%20Summary";
+    }
+
+    @Override
+    public Boolean atPage() {
+        return vitalsHistoryLink.is(Condition.visible) && openMrsIdNumber.is(Condition.visible);
     }
 
     public PatientSummaryPage checkPatientNameIsEqualTo(String name) {

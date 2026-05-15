@@ -1,5 +1,6 @@
 package api;
 
+import api.configs.Config;
 import api.models.RetrieveSessionResponse;
 import api.models.roles.AdminLogin;
 import api.requests.Endpoint;
