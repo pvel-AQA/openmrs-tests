@@ -13,6 +13,7 @@ import api.requests.specs.ResponseSpecs;
 import api.requests.steps.AdminSteps;
 import common.generators.RandomDataGenerator;
 import org.assertj.core.api.SoftAssertions;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -117,15 +118,13 @@ public class VisitTest extends BaseTest {
                 ResponseSpecs.requestReturnsNoContent())
                 .delete(createdVisit.getUuid(), true);
 
-        new ValidatedCrudRequester<CreateVisitResponse>(
-                RequestSpecs.adminSpec(),
-                Endpoint.VISIT_BY_UUID,
-                ResponseSpecs.requestReturnsNotFoundWithMessage("Object with given uuid doesn't exist [null]"))
-                .get(createdVisit.getUuid(), CreateVisitResponse.class);
-
-        softly.assertThat(true)
-                .as("Visit was successfully deleted and returns 404 with correct message")
-                .isTrue();
+        Assertions.assertDoesNotThrow(() ->
+                new ValidatedCrudRequester<CreateVisitResponse>(
+                        RequestSpecs.adminSpec(),
+                        Endpoint.VISIT_BY_UUID,
+                        ResponseSpecs.requestReturnsNotFoundWithMessage("Object with given uuid doesn't exist [null]"))
+                        .get(createdVisit.getUuid(), CreateVisitResponse.class)
+        );
     }
 }
 
