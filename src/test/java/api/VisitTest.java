@@ -51,7 +51,7 @@ public class VisitTest extends BaseTest {
     }
 
     @Test
-    public void searchRecentVisitsTest() {//будут ли они одинаковы с первым тестом
+    public void searchRecentVisitsTest() {
         CreatePatientResponse patient = AdminSteps.createPatient();
         CreateVisitResponse createdVisit = AdminSteps.createVisit(patient);
 
@@ -68,7 +68,7 @@ public class VisitTest extends BaseTest {
                 ResponseSpecs.requestReturnsOK())
                 .getAll(queryParams, CreateVisitResponse.class);
 
-        assertThat(foundVisits)// убедиться что именно визит прикреплен к определенному визиту
+        assertThat(foundVisits)
                 .as("Created visit should be in search results")
                 .extracting(CreateVisitResponse::getUuid)
                 .contains(createdVisit.getUuid());
@@ -89,7 +89,7 @@ public class VisitTest extends BaseTest {
                 ResponseSpecs.requestReturnsOK())
                 .get(createdVisit.getUuid(), CreateVisitResponse.class);
 
-        SoftAssertions.assertSoftly(softly -> {// переделать
+        SoftAssertions.assertSoftly(softly -> {
             softly.assertThat(updatedVisit.getStartDatetime()).contains(newStartDatetime.substring(0, 10));
         });
     }
@@ -117,16 +117,6 @@ public class VisitTest extends BaseTest {
                 Endpoint.VISIT_BY_UUID,
                 ResponseSpecs.requestReturnsNoContent())
                 .delete(createdVisit.getUuid(), true);
-
-     //  new ValidatedCrudRequester<CreateVisitResponse>(
-     //          RequestSpecs.adminSpec(),
-     //          Endpoint.VISIT_BY_UUID,
-     //          ResponseSpecs.requestReturnsNotFoundWithMessage("Object with given uuid doesn't exist [null]"))
-     //          .get(createdVisit.getUuid(), CreateVisitResponse.class);
-
-     //  softly.assertThat(true)
-     //          .as("Visit was successfully deleted and returns 404 with correct message")
-     //          .isTrue();
 
         Assertions.assertDoesNotThrow(() ->
                 new ValidatedCrudRequester<CreateVisitResponse>(
