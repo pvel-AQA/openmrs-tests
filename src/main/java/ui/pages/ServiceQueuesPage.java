@@ -33,6 +33,6 @@ public class ServiceQueuesPage extends AuthBasePage<ServiceQueuesPage> {
     public SearchResultsPage clickSearchButton() {
         header.searchButton.shouldBe(Condition.visible).click();
         Selenide.sleep(5000);
-        return new SearchResultsPage();
+        return getPage(SearchResultsPage.class);
     }
 }

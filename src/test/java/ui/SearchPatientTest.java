@@ -158,9 +158,8 @@ public class SearchPatientTest extends BaseUiTest {
     @Test
     @AdminSession
     public void searchPatientClickSearchButtonTest() {
-        List<String> createdUuids = new ArrayList<>();
         String generatedString = RandomDataGenerator.randomString(7);
-        createdUuids = AdminSteps.createPatientsForSearch(4, true, generatedString);
+        List<String> createdUuids = AdminSteps.createPatientsForSearch(4, true, generatedString);
         String searchText = generatedString.substring(0, 4);
 
         SearchResultsPage searchResultsPage = new PickLocationPage().open().pickOutpatientLocationAndConfirm()
