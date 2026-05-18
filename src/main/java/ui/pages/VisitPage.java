@@ -19,6 +19,12 @@ public class VisitPage extends BasePage<VisitPage> {
         return "/patient/%s/chart/Patient%%20Summary";
     }
 
+    @Override
+    public Boolean atPage() {
+        return startVisitHeader.is(Condition.visible);
+    }
+
+
     private final ElementsCollection actionsMenuItems = $$("div[role='menu'] button[role='menuitem']");
     private final SelenideElement actionButton = $("button.cds--overflow-menu__trigger");
     private final SelenideElement showMoreButton = $(By.xpath("//button[text()='Show more']"));

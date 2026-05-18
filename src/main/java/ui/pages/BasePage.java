@@ -12,6 +12,8 @@ public abstract class BasePage<T extends BasePage> {
 
     public abstract String url();
 
+    public abstract Boolean atPage();
+
     public T open() {
         return Selenide.open(url(), (Class<T>) this.getClass());
     }
