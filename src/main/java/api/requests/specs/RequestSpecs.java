@@ -42,6 +42,24 @@ public final class RequestSpecs {
                 .build();
     }
 
+    public static RequestSpecification authWithJSessionId(String jSessionId) {
+        return defaultRequestSpecBuilder()
+                .addCookie(JSESSION_ID, jSessionId)
+                .build();
+    }
+
+    public static String getBrowserSessionCookieValue() {
+        org.openqa.selenium.Cookie seleniumCookie = WebDriverRunner.getWebDriver()
+                .manage()
+                .getCookieNamed(JSESSION_ID);
+
+        if (seleniumCookie == null) {
+            throw new IllegalStateException("No session cookie found in browser");
+        }
+
+        return seleniumCookie.getValue();
+    }
+
     public static io.restassured.http.Cookie fetchSessionCookie(String username, String password) {
         return new AuthRequester(
                 unauthSpec(),
