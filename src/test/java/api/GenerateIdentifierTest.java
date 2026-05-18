@@ -1,5 +1,6 @@
 package api;
 
+import api.constants.Constants;
 import api.models.IdentifierResponse;
 import api.models.IdentifierSource;
 import api.requests.Endpoint;
@@ -11,13 +12,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class GenerateIdentifierTest extends BaseTest{
+public class GenerateIdentifierTest extends BaseTest {
 
     @Test
     public void newIdentifierCanBeGeneratedTest() {
-        final String identifierSourceUuid = "8549f706-7e85-4c1d-9424-217d50a2988b";
-        final String identifierTypeUuid = "05a29f94-c0ed-11e2-94be-8c13b969e334";
-
         IdentifierSource sourceResponse = new ValidatedCrudRequester<IdentifierSource>(
                 RequestSpecs.adminSpec(),
                 Endpoint.IDENTIFIER_SOURCE,
@@ -34,8 +32,8 @@ public class GenerateIdentifierTest extends BaseTest{
                 ResponseSpecs.requestReturnsCreated()
         ).post(null, uuidOfIdentifierSource).getIdentifier();
 
-        assertThat(uuidOfIdentifierSource).isEqualTo(identifierSourceUuid);
-        assertThat(uuidOfIdentifierType).isEqualTo(identifierTypeUuid);
+        assertThat(uuidOfIdentifierSource).isEqualTo(Constants.IDENTIFIER_SOURCE_UUID);
+        assertThat(uuidOfIdentifierType).isEqualTo(Constants.IDENTIFIER_TYPE_UUID);
         assertThat(identifier).hasSize(7);
 
     }

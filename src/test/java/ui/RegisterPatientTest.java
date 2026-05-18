@@ -91,7 +91,6 @@ public class RegisterPatientTest extends BaseUiTest {
     @AdminSession
     public void unknownPatientCanBeRegisteredWithValidDataTest() {
         RegisterUnknownPatientUi patient = AdminSteps.createUnknownPatientForUi();
-        patient.setAge(5);
 
         String patientUuid = new PickLocationPage().open()
                 .pickOutpatientLocationAndConfirm()

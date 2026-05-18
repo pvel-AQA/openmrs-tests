@@ -1,30 +1,23 @@
 package ui;
 
-import api.models.CreatePatientRequest;
+import api.constants.Constants;
 import api.models.roles.AdminLogin;
+import api.requests.specs.RequestSpecs;
 import api.requests.steps.AdminSteps;
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
 import common.annotations.AdminSession;
-import common.generators.RandomDataGenerator;
+import common.annotations.InjectAdmin;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.remote.SessionId;
-import ui.components.Header;
 import ui.pages.LoginPage;
 import ui.pages.PickLocationPage;
 import ui.pages.ServiceQueuesPage;
 
-import static com.codeborne.selenide.Selenide.switchTo;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LoginTest extends BaseUiTest {
 
     @Test
-    public void adminCanLoginTest() {
-        AdminLogin admin = AdminLogin.getAdmin();
-
+    public void adminCanLoginTest(@InjectAdmin AdminLogin admin) {
         new LoginPage().open()
                 .populateUserNameField(admin.getUsername())
                 .clickContinueButton()
@@ -34,9 +27,10 @@ public class LoginTest extends BaseUiTest {
                 .getWelcomeText().shouldBe(Condition.visible)
                 .shouldHave(Condition.text(PickLocationPage.WELCOME_ADMIN_TEXT));
 
-        SessionId sessionId = Selenide.webdriver().driver().getSessionId();
+        String browserSessionCookieValue = RequestSpecs.getBrowserSessionCookieValue();
+        String identifierTypeUuid = AdminSteps.getIdentifierTypeUuidUsingJSessionId(browserSessionCookieValue);
 
-        assertThat(sessionId.toString()).isNotEmpty();
+        assertThat(identifierTypeUuid).isEqualTo(Constants.IDENTIFIER_TYPE_UUID);
     }
 
     @Test
@@ -48,9 +42,7 @@ public class LoginTest extends BaseUiTest {
     }
 
     @Test
-    public void adminCanLoginClinicMemorisedTest() {
-        AdminLogin admin = AdminLogin.getAdmin();
-
+    public void adminCanLoginClinicMemorisedTest(@InjectAdmin AdminLogin admin) {
         new LoginPage().open()
                 .populateUserNameField(admin.getUsername())
                 .clickContinueButton()
@@ -69,9 +61,7 @@ public class LoginTest extends BaseUiTest {
     }
 
     @Test
-    public void wrongAdminPasswordLoginTest() {
-        AdminLogin admin = AdminLogin.getAdmin();
-
+    public void wrongAdminPasswordLoginTest(@InjectAdmin AdminLogin admin) {
         new LoginPage().open()
                 .populateUserNameField(admin.getUsername())
                 .clickContinueButton()
