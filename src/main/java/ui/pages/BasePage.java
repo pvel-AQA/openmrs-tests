@@ -26,10 +26,6 @@ public abstract class BasePage<T extends BasePage> {
         return Selenide.page(pageClass);
     }
 
-    /*public <T extends BasePage> T goToPage(Class<T> pageClass) {
-        return Selenide.open().page(pageClass);
-    }*/
-
     public static void authAsUser(String username, String password) {
         Selenide.open("/");
 

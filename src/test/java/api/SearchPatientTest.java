@@ -81,9 +81,7 @@ public class SearchPatientTest extends BaseTest{
 
     @AfterAll
     static void deleteTestPatients() {
-        createdUuids.forEach(uuid -> {
-            AdminSteps.deletePatientByUuid(uuid, PATH_PARAM_PURGE);
-        });
+        createdUuids.forEach(uuid -> AdminSteps.deletePatientByUuid(uuid, PATH_PARAM_PURGE));
     }
 
 }

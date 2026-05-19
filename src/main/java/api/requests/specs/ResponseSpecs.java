@@ -42,12 +42,6 @@ public final class ResponseSpecs {
                 .build();
     }
 
-    public static ResponseSpecification requestReturnsBadRequest() {
-        return new ResponseSpecBuilder()
-                .expectStatusCode(HttpStatus.SC_BAD_REQUEST)
-                .build();
-    }
-
     public static ResponseSpecification requestReturnBadRequestAndCompareErrorMessageForIncorrectData() {
         return defaultResponseBuilder()
                 .expectStatusCode(HttpStatus.SC_BAD_REQUEST)
