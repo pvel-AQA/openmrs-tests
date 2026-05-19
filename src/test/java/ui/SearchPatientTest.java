@@ -55,9 +55,7 @@ public class SearchPatientTest extends BaseUiTest {
         apiResults.forEach(apiPatient -> softly.assertThat(resultsFromUIDropDownList)
                 .anyMatch(ui -> (ui.getOpenMRSuuid() + " - " + ui.getNames()).equals(apiPatient.getDisplay())));
 
-        createdUuids.forEach(uuid -> {
-            AdminSteps.deletePatientByUuid(uuid, PATH_PARAM_PURGE);
-        });
+        createdUuids.forEach(uuid -> AdminSteps.deletePatientByUuid(uuid, PATH_PARAM_PURGE));
     }
 
     @Test
