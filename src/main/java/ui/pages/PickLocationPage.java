@@ -17,7 +17,7 @@ public class PickLocationPage extends BasePage<PickLocationPage> {
         return "/login/location";
     }
 
-    public Boolean atPage() {
+    public Boolean pageIsReady() {
         return outpatientLocationRadioButton.is(Condition.visible);
     }
 

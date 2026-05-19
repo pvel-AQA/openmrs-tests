@@ -21,5 +21,6 @@ public class BaseUiTest extends BaseTest {
 
         Configuration.browserCapabilities.setCapability("selenoid:options",
                 Map.of("enableVNC", true, "enableLog", true));
+
     }
 }

@@ -2,6 +2,7 @@ package api;
 
 import api.models.CreatePatientResponse;
 import api.models.ErrorResponse;
+import api.models.ui.Messages;
 import api.requests.Endpoint;
 import api.requests.skeleton.requesters.CrudRequester;
 import api.requests.skeleton.requesters.ValidatedCrudRequester;
@@ -32,14 +33,13 @@ public class DeletePatientTest extends BaseTest{
     @Test
     void deletePatientFromDBTest(){
         String createdUuid = AdminSteps.createUnknownPatient().getUuid();
-        String errorMessage = "Object with given uuid doesn't exist [null]";
+        //String errorMessage = "Object with given uuid doesn't exist [null]";
         new CrudRequester(
                 RequestSpecs.adminSpec(),
                 Endpoint.PATIENT_DELETE,
                 ResponseSpecs.requestReturnsNoContent()) //404
                 .delete(createdUuid, PATH_PARAM_PURGE);
 
-       ErrorResponse response = AdminSteps.attemptToFindDeletedPatientByUuid(createdUuid);
-       assertThat(response.getError().getMessage()).isEqualTo(errorMessage);
+       assertThat(AdminSteps.findDeletedPatientByUuidReturnsError(createdUuid).getError().getMessage()).isEqualTo(ResponseSpecs.OBJECT_WITH_GIVEN_UUID_DOES_NOT_EXIST);
     }
 }

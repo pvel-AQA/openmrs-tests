@@ -10,6 +10,7 @@ import api.requests.specs.ResponseSpecs;
 import api.requests.steps.AdminSteps;
 import common.generators.PartialEntityGenerator;
 import common.generators.RandomDataGenerator;
+import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -21,12 +22,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static api.constants.Constants.PATH_PARAM_PURGE;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PersonTest extends BaseTest {
     final static String[] fieldsToBeGenerated = new String[]{"givenName", "middleName", "familyName"};
     private final static List<String> createdUuids = new ArrayList<>();
-    private static Boolean PATH_PARAM_PURGE = true;
 
     @Test
     public void positiveCreatePersonWithMandatoryFieldsTest() {
@@ -157,7 +158,6 @@ public class PersonTest extends BaseTest {
 
     @Test
     public void deletePersonPurgeTest() {
-        String errorMessage = "Object with given uuid doesn't exist [null]";
         CreatePersonRequest personRequest = AdminSteps.createPerson();
         CreatePersonResponse person = AdminSteps.createPerson(personRequest);
         String uuidForDelete = person.getUuid();
@@ -167,9 +167,8 @@ public class PersonTest extends BaseTest {
                 Endpoint.PERSON_DELETE,
                 ResponseSpecs.requestReturnsNoContent())
                 .delete(uuidForDelete, PATH_PARAM_PURGE);
-
-        ErrorResponse response = AdminSteps.attemptToFindDeletedPersonByUuid(uuidForDelete);//, "message", "Object with given uuid doesn't exist [null]");
-        assertThat(response.getError().getMessage()).isEqualTo(errorMessage);
+        ;
+        assertThat(AdminSteps.findDeletedPersonByUuidReturnsError(uuidForDelete).getError().getMessage()).isEqualTo(ResponseSpecs.OBJECT_WITH_GIVEN_UUID_DOES_NOT_EXIST);
     }
 
     // Test idea for delete: If not authenticated or authenticated user does not have sufficient privileges, 401 Unauthorized status is returned.

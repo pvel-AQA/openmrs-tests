@@ -12,7 +12,7 @@ public abstract class BasePage<T extends BasePage> {
 
     public abstract String url();
 
-    public abstract Boolean atPage();
+    public abstract Boolean pageIsReady();
 
     public T open() {
         return Selenide.open(url(), (Class<T>) this.getClass());
@@ -25,6 +25,10 @@ public abstract class BasePage<T extends BasePage> {
     public <T extends BasePage> T getPage(Class<T> pageClass) {
         return Selenide.page(pageClass);
     }
+
+    /*public <T extends BasePage> T goToPage(Class<T> pageClass) {
+        return Selenide.open().page(pageClass);
+    }*/
 
     public static void authAsUser(String username, String password) {
         Selenide.open("/");

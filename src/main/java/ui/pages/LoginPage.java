@@ -1,7 +1,9 @@
 package ui.pages;
 
+import api.models.ui.Messages;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selectors;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import lombok.Getter;
 
@@ -15,7 +17,7 @@ public class LoginPage extends BasePage<LoginPage> {
         return "/login";
     }
 
-    public Boolean atPage() {
+    public Boolean pageIsReady() {
         return !passwordField.is(Condition.visible) &&
                 usernameField.is(Condition.visible) &&
                 continueButton.is(Condition.visible);
@@ -49,26 +51,22 @@ public class LoginPage extends BasePage<LoginPage> {
 
     public LoginPage clickContinueButton() {
         continueButton.click();
+        Selenide.sleep(3000);
 
         return this;
     }
 
     public LoginPage clickLogInButton() {
         logInButton.click();
-
-        return this;
-    }
-
-    public LoginPage clickErrorMessageCloseButton() {
-        errorMessageCloseButton.click();
+        Selenide.sleep(3000);
 
         return this;
     }
 
     public LoginPage errorMessageInvalidUsernameOrPasswordIsDisplayed(){
         errorWrapper.shouldBe(Condition.visible);
-        assertEquals("Error", errorTitle.getText());
-        assertEquals("Invalid username or password", errorMessage.getText() );
+        assertEquals(Messages.ERROR_TITLE_TEXT.getText(), errorTitle.getText());
+        assertEquals(Messages.LOGIN_ERROR_MESSAGE.getText(), errorMessage.getText() );
         errorMessageCloseButton.click();
 
         return this;

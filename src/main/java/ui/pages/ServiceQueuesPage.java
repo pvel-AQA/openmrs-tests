@@ -17,21 +17,23 @@ public class ServiceQueuesPage extends AuthBasePage<ServiceQueuesPage> {
         return "/home/service-queues";
     }
 
-    public Boolean atPage() {
+    public Boolean pageIsReady() {
         return clinicName.getText().equals("Clinic") && tabName.getText().equals("Service queues");
     }
 
     public SearchResultsPage pressEnterButton() {
         header.searchTextInputField.shouldBe(Condition.visible).click();
+        header.searchResultsCount.click();
+        header.searchTextInputField.click();
         header.searchTextInputField.pressEnter();
-        Selenide.sleep(5000);
 
         return getPage(SearchResultsPage.class);
     }
 
     public SearchResultsPage clickSearchButton() {
+        header.searchResultsCount.click();
         header.searchButton.shouldBe(Condition.visible).click();
-        Selenide.sleep(5000);
+
         return getPage(SearchResultsPage.class);
     }
 }

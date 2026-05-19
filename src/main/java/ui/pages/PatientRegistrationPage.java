@@ -46,7 +46,7 @@ public class PatientRegistrationPage extends BasePage<PatientRegistrationPage> {
     }
 
     @Override
-    public Boolean atPage() {
+    public Boolean pageIsReady() {
         return patientNameIsKnownYesButton.is(Condition.visible);
     }
 

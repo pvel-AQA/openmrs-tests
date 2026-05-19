@@ -5,6 +5,7 @@ public final class Constants {
             "dead", "addresses", "attributes"};
     public static String[] nameFieldsToBeGenerated = new String[]{"givenName", "middleName", "familyName"};
     public static final boolean PREFERRED_IDENTIFIER_TRUE = true;
+    public static final Boolean PATH_PARAM_PURGE = true;
 
     private Constants() {
     }

@@ -25,7 +25,7 @@ public class SearchResultsPage extends AuthBasePage<SearchResultsPage>{
     }
 
     @Override
-    public Boolean atPage() {
+    public Boolean pageIsReady() {
         return (refineSearchTitle.is(Condition.visible) && searchResultsCount.is(Condition.visible)); //+ buttons "Apply" and "Reset fields"
     }
 
