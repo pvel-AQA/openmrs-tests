@@ -12,7 +12,6 @@ import ui.pages.PickLocationPage;
 import ui.pages.SearchResultsPage;
 import ui.pages.ServiceQueuesPage;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static api.constants.Constants.PATH_PARAM_PURGE;
