@@ -4,6 +4,7 @@ import api.configs.Config;
 import api.requests.Endpoint;
 import api.requests.skeleton.requesters.AuthRequester;
 import com.codeborne.selenide.WebDriverRunner;
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
@@ -27,7 +28,8 @@ public final class RequestSpecs {
                 .setAccept(ContentType.JSON)
                 .addFilters(List.of(
                         new RequestLoggingFilter(),
-                        new ResponseLoggingFilter()
+                        new ResponseLoggingFilter(),
+                        new AllureRestAssured()
                 ))
                 .setBaseUri(Config.getProperty(Config.API_BASE_URL_CONST));
     }
