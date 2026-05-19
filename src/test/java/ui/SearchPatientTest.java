@@ -39,7 +39,7 @@ public class SearchPatientTest extends BaseUiTest {
     void searchDropdownShouldShowCorrectResultsTest() {
 
         String generatedString = RandomDataGenerator.randomString(7);
-        List<String> createdUuids createdUuids = AdminSteps.createPatientsForSearch(4, true, generatedString);
+        List<String> createdUuids = AdminSteps.createPatientsForSearch(4, true, generatedString);
         String searchText = generatedString.substring(0, 4);
 
         new PickLocationPage().open().pickOutpatientLocationAndConfirm();
