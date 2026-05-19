@@ -3,7 +3,6 @@ package ui.pages;
 import api.models.ui.Messages;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selectors;
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -49,14 +48,12 @@ public class LoginPage extends BasePage<LoginPage> {
 
     public LoginPage clickContinueButton() {
         continueButton.click();
-        Selenide.sleep(3000);
 
         return this;
     }
 
     public LoginPage clickLogInButton() {
         logInButton.click();
-        Selenide.sleep(3000);
 
         return this;
     }
