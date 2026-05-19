@@ -4,6 +4,7 @@ import api.configs.Config;
 import api.requests.Endpoint;
 import api.requests.skeleton.requesters.AuthRequester;
 import com.codeborne.selenide.WebDriverRunner;
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
@@ -27,7 +28,8 @@ public final class RequestSpecs {
                 .setAccept(ContentType.JSON)
                 .addFilters(List.of(
                         new RequestLoggingFilter(),
-                        new ResponseLoggingFilter()
+                        new ResponseLoggingFilter(),
+                        new AllureRestAssured()
                 ))
                 .setBaseUri(Config.getProperty(Config.API_BASE_URL_CONST));
     }
@@ -40,6 +42,24 @@ public final class RequestSpecs {
         return defaultRequestSpecBuilder()
                 .addHeader(AUTHORIZATION_HEADER, "Basic ".concat(ADMIN_TOKEN))
                 .build();
+    }
+
+    public static RequestSpecification authWithJSessionId(String jSessionId) {
+        return defaultRequestSpecBuilder()
+                .addCookie(JSESSION_ID, jSessionId)
+                .build();
+    }
+
+    public static String getBrowserSessionCookieValue() {
+        org.openqa.selenium.Cookie seleniumCookie = WebDriverRunner.getWebDriver()
+                .manage()
+                .getCookieNamed(JSESSION_ID);
+
+        if (seleniumCookie == null) {
+            throw new IllegalStateException("No session cookie found in browser");
+        }
+
+        return seleniumCookie.getValue();
     }
 
     public static io.restassured.http.Cookie fetchSessionCookie(String username, String password) {

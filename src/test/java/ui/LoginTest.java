@@ -1,10 +1,13 @@
 package ui;
 
+import api.constants.Constants;
 import api.models.roles.AdminLogin;
+import api.requests.specs.RequestSpecs;
+import api.requests.steps.AdminSteps;
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
 import common.annotations.AdminSession;
 import common.generators.RandomPasswordGenerator;
+import common.annotations.InjectAdmin;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.remote.SessionId;
 import ui.pages.LoginPage;
@@ -16,9 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class LoginTest extends BaseUiTest {
 
     @Test
-    public void adminCanLoginTest() {
-        AdminLogin admin = AdminLogin.getAdmin();
-
+    public void adminCanLoginTest(@InjectAdmin AdminLogin admin) {
         new LoginPage().open()
                 .populateUserNameField(admin.getUsername())
                 .clickContinueButton()
@@ -28,9 +29,10 @@ public class LoginTest extends BaseUiTest {
                 .getWelcomeText().shouldBe(Condition.visible)
                 .shouldHave(Condition.text(PickLocationPage.WELCOME_ADMIN_TEXT));
 
-        SessionId sessionId = Selenide.webdriver().driver().getSessionId();
+        String browserSessionCookieValue = RequestSpecs.getBrowserSessionCookieValue();
+        String identifierTypeUuid = AdminSteps.getIdentifierTypeUuidUsingJSessionId(browserSessionCookieValue);
 
-        assertThat(sessionId.toString()).isNotEmpty();
+        assertThat(identifierTypeUuid).isEqualTo(Constants.IDENTIFIER_TYPE_UUID);
     }
 
     @Test
@@ -42,9 +44,7 @@ public class LoginTest extends BaseUiTest {
     }
 
     @Test
-    public void adminCanLoginClinicMemorisedTest() {
-        AdminLogin admin = AdminLogin.getAdmin();
-
+    public void adminCanLoginClinicMemorisedTest(@InjectAdmin AdminLogin admin) {
         assertThat(new LoginPage().open()
                 .populateUserNameField(admin.getUsername())
                 .clickContinueButton()
@@ -63,9 +63,7 @@ public class LoginTest extends BaseUiTest {
     }
 
     @Test
-    public void wrongAdminPasswordLoginTest() {
-        AdminLogin admin = AdminLogin.getAdmin();
-
+    public void wrongAdminPasswordLoginTest(@InjectAdmin AdminLogin admin) {
         assertThat(new LoginPage().open()
                 .populateUserNameField(admin.getUsername())
                 .clickContinueButton()

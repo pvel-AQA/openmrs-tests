@@ -1,6 +1,7 @@
 package common.utils;
 
 import com.codeborne.selenide.Selenide;
+import common.helpers.StepLogger;
 
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
@@ -30,7 +31,7 @@ public final class RetryUtils {
             attempts++;
 
             try {
-                result = action.get();
+                result = StepLogger.log("Attempt" + attempts + ": " + title, () -> action.get());
 
                 if (condition.test(result)) {
                     return result;
@@ -59,7 +60,7 @@ public final class RetryUtils {
         T current = null;
 
         for (int attempt = 1; attempt <= maxAttempts; attempt++) {
-            current = action.get();
+            current = StepLogger.log("Attempt " + attempt + ": " + title, () -> action.get());
 
             if (previous != null && isStable.test(previous, current)) {
                 return current;

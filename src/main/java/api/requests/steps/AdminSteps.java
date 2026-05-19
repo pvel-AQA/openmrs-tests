@@ -66,6 +66,17 @@ public final class AdminSteps {
         return sourceResponse.getIdentifierType().getUuid();
     }
 
+    public static String getIdentifierTypeUuidUsingJSessionId(String id) {
+        IdentifierSource sourceResponse = new ValidatedCrudRequester<IdentifierSource>(
+                RequestSpecs.authWithJSessionId(id),
+                Endpoint.IDENTIFIER_SOURCE,
+                ResponseSpecs.requestReturnsOK())
+                .getAll(new CrudRequester.QueryBuilder().vEqualsFull().build(),
+                        IdentifierSource.class).getFirst();
+
+        return sourceResponse.getIdentifierType().getUuid();
+    }
+
     public static String generatePatientIdentifier(String identifierSourceUuid) {
         return new ValidatedCrudRequester<IdentifierResponse>(
                 RequestSpecs.adminSpec(),
