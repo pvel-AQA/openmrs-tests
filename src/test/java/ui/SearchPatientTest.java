@@ -4,14 +4,9 @@ import api.models.CreatePatientResponse;
 import api.models.ui.Messages;
 import api.models.ui.UiPatientMandatoryInfo;
 import api.requests.steps.AdminSteps;
-import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.WebDriverRunner;
 import common.annotations.AdminSession;
 import common.generators.RandomDataGenerator;
-import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.Cookie;
-import org.openqa.selenium.remote.SessionId;
 import ui.components.Header;
 import ui.pages.PickLocationPage;
 import ui.pages.SearchResultsPage;
@@ -21,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static api.constants.Constants.PATH_PARAM_PURGE;
-import static io.restassured.RestAssured.config;
 
 public class SearchPatientTest extends BaseUiTest {
     @Test

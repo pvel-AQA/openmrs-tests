@@ -3,20 +3,16 @@ package ui.components;
 import api.models.ui.UiPatientMandatoryInfo;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selectors;
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import ui.pages.PatientRegistrationPage;
 import ui.pages.PickLocationPage;
-import ui.pages.SearchResultsPage;
 import ui.pages.ServiceQueuesPage;
 import ui.parsers.PatientSearchResultParser;
 
-import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 
 public class Header extends BaseComponent {

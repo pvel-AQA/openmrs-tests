@@ -1,8 +1,6 @@
 package api;
 
 import api.models.CreatePatientResponse;
-import api.models.ErrorResponse;
-import api.models.ui.Messages;
 import api.requests.Endpoint;
 import api.requests.skeleton.requesters.CrudRequester;
 import api.requests.skeleton.requesters.ValidatedCrudRequester;
