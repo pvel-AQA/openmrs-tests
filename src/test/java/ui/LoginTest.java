@@ -63,7 +63,6 @@ public class LoginTest extends BaseUiTest {
     }
 
     @Test
-    //@RepeatedTest(30)
     public void wrongAdminPasswordLoginTest() {
         AdminLogin admin = AdminLogin.getAdmin();
 

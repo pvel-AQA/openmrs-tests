@@ -12,11 +12,11 @@ import api.requests.steps.AdminSteps;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
+import static api.constants.Constants.PATH_PARAM_PURGE;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
 public class DeletePatientTest extends BaseTest{
-    private static Boolean PATH_PARAM_PURGE = true;
 
     @Test
     void deletePatientTest() {
