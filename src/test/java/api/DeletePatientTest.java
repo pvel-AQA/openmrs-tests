@@ -31,7 +31,6 @@ public class DeletePatientTest extends BaseTest{
     @Test
     void deletePatientFromDBTest(){
         String createdUuid = AdminSteps.createUnknownPatient().getUuid();
-        //String errorMessage = "Object with given uuid doesn't exist [null]";
         new CrudRequester(
                 RequestSpecs.adminSpec(),
                 Endpoint.PATIENT_DELETE,
