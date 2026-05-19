@@ -4,7 +4,6 @@ import api.models.ui.UiPatientMandatoryInfo;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.SelenideElement;
-import ui.components.Header;
 import ui.parsers.PatientSearchResultParser;
 
 import java.util.List;

@@ -10,7 +10,6 @@ import api.requests.specs.ResponseSpecs;
 import api.requests.steps.AdminSteps;
 import common.generators.PartialEntityGenerator;
 import common.generators.RandomDataGenerator;
-import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -78,7 +77,7 @@ public class PersonTest extends BaseTest {
                 Endpoint.PERSON_WITH_ERROR,
                 ResponseSpecs.requestReturnBadRequestAndCompareErrorMessageForIncorrectData())
                 .post(createPersonRequest);
-        String responseErrorMessage = response.getError().getFieldErrors().get(fieldName).get(0).getMessage();
+        String responseErrorMessage = response.getError().getFieldErrors().get(fieldName).getFirst().getMessage();
         assertThat(responseErrorMessage).isEqualTo(errorMessage);
     }
 
@@ -167,7 +166,7 @@ public class PersonTest extends BaseTest {
                 Endpoint.PERSON_DELETE,
                 ResponseSpecs.requestReturnsNoContent())
                 .delete(uuidForDelete, PATH_PARAM_PURGE);
-        ;
+
         assertThat(AdminSteps.findDeletedPersonByUuidReturnsError(uuidForDelete).getError().getMessage()).isEqualTo(ResponseSpecs.OBJECT_WITH_GIVEN_UUID_DOES_NOT_EXIST);
     }
 
@@ -176,8 +175,6 @@ public class PersonTest extends BaseTest {
 
     @AfterEach
     public void deleteTestPersons() {
-        createdUuids.forEach(uuid -> {
-            AdminSteps.deletePersonByUuid(uuid, PATH_PARAM_PURGE);
-        });
+        createdUuids.forEach(uuid -> AdminSteps.deletePersonByUuid(uuid, PATH_PARAM_PURGE));
     }
 }
