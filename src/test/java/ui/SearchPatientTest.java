@@ -110,9 +110,9 @@ public class SearchPatientTest extends BaseUiTest {
         softly.assertThat(page.header.isClearButtonVisible()).isFalse();
         softly.assertThat(page.header.isCloseButtonVisible()).isFalse();
 
-        createdUuids.forEach(uuid -> {
+        for (String uuid : createdUuids) {
             AdminSteps.deletePatientByUuid(uuid, PATH_PARAM_PURGE);
-        });
+        }
     }
 
     @Test
@@ -147,9 +147,9 @@ public class SearchPatientTest extends BaseUiTest {
         softly.assertThat(searchPatients.header.getErrorMessageText())
                 .isEqualTo(Messages.SEARCH_RESULTS_ERROR_MESSAGE.getText());
 
-        createdUuids.forEach(uuid -> {
+        for (String uuid : createdUuids) {
             AdminSteps.deletePatientByUuid(uuid, PATH_PARAM_PURGE);
-        });
+        }
     }
 
     @Test
@@ -183,9 +183,9 @@ public class SearchPatientTest extends BaseUiTest {
         apiResults.forEach(apiPatient -> softly.assertThat(resultsFromUIResultsPage)
                 .anyMatch(ui -> (ui.getOpenMRSuuid() + " - " + ui.getNames()).equals(apiPatient.getDisplay())));
 
-        createdUuids.forEach(uuid -> {
+        for (String uuid : createdUuids) {
             AdminSteps.deletePatientByUuid(uuid, PATH_PARAM_PURGE);
-        });
+        }
     }
 
     @Test
@@ -221,8 +221,8 @@ public class SearchPatientTest extends BaseUiTest {
         apiResults.forEach(apiPatient -> softly.assertThat(resultsFromUIResultsPage)
                 .anyMatch(ui -> (ui.getOpenMRSuuid() + " - " + ui.getNames()).equals(apiPatient.getDisplay())));
 
-        createdUuids.forEach(uuid -> {
+        for (String uuid : createdUuids) {
             AdminSteps.deletePatientByUuid(uuid, PATH_PARAM_PURGE);
-        });
+        }
     }
 }
