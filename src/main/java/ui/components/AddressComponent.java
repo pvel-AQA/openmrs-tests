@@ -11,7 +11,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Getter
 public class AddressComponent extends BaseComponent {
-    private final SelenideElement self;
     private final boolean isEmpty;
     private final String address1;
     private final String address2;
@@ -21,7 +20,7 @@ public class AddressComponent extends BaseComponent {
     private final String country;
 
     public AddressComponent(SelenideElement self) {
-        this.self = self;
+        super(self);
 
         List<String> items = self.findAll("li").texts();
 
