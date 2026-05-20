@@ -149,7 +149,6 @@ public class SearchPatientTest extends BaseUiTest {
     }
 
     @Test
-    //@RepeatedTest(30)
     @AdminSession
     public void searchPatientClickSearchButtonTest() {
         String generatedString = RandomDataGenerator.randomString(7);
@@ -185,7 +184,6 @@ public class SearchPatientTest extends BaseUiTest {
     }
 
     @Test
-    //@RepeatedTest(30)
     @AdminSession
     public void searchPatientClickEnterTest() {
         String generatedString = RandomDataGenerator.randomString(7);

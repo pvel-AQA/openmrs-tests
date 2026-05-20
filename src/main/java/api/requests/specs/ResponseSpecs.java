@@ -42,7 +42,7 @@ public final class ResponseSpecs {
                 .build();
     }
 
-    public static ResponseSpecification requestReturnBadRequestAndCompareErrorMessageForIncorrectData() {
+    public static ResponseSpecification requestReturnBadRequest() {
         return defaultResponseBuilder()
                 .expectStatusCode(HttpStatus.SC_BAD_REQUEST)
                 .build();

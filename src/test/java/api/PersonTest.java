@@ -75,7 +75,7 @@ public class PersonTest extends BaseTest {
         ErrorResponse response = new ValidatedCrudRequester<ErrorResponse>(
                 RequestSpecs.adminSpec(),
                 Endpoint.PERSON_WITH_ERROR,
-                ResponseSpecs.requestReturnBadRequestAndCompareErrorMessageForIncorrectData())
+                ResponseSpecs.requestReturnBadRequest())
                 .post(createPersonRequest);
         String responseErrorMessage = response.getError().getFieldErrors().get(fieldName).getFirst().getMessage();
         assertThat(responseErrorMessage).isEqualTo(errorMessage);

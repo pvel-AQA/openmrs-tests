@@ -8,6 +8,7 @@ import com.codeborne.selenide.Condition;
 import common.annotations.AdminSession;
 import common.annotations.InjectAdmin;
 import common.generators.RandomPasswordGenerator;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import ui.pages.LoginPage;
 import ui.pages.PickLocationPage;
@@ -62,6 +63,7 @@ public class LoginTest extends BaseUiTest {
     }
 
     @Test
+    //@RepeatedTest(100)
     public void wrongAdminPasswordLoginTest(@InjectAdmin AdminLogin admin) {
         assertThat(new LoginPage().open()
                 .populateUserNameField(admin.getUsername())

@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class SearchResultsPage extends AuthBasePage<SearchResultsPage>{
+public class SearchResultsPage extends AuthBasePage<SearchResultsPage> {
     private final SelenideElement refineSearchTitle = $(Selectors.byText("Refine search"));
     private final SelenideElement searchResultsCount = $(Selectors.byXpath("//h2[contains(text(), 'search results')]"));
     private final SelenideElement searchResultsList = $("div[data-openmrs-role='Search Results']");
@@ -25,7 +25,7 @@ public class SearchResultsPage extends AuthBasePage<SearchResultsPage>{
 
     @Override
     public Boolean pageIsReady() {
-        return (refineSearchTitle.is(Condition.visible) && searchResultsCount.is(Condition.visible)); //+ buttons "Apply" and "Reset fields"
+        return (refineSearchTitle.is(Condition.visible) && searchResultsCount.is(Condition.visible));
     }
 
     public int getSearchResultsCount() {
