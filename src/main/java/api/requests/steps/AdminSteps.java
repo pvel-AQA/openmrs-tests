@@ -456,23 +456,6 @@ public final class AdminSteps {
         return retrieveJSessionValue(admin.getUsername(), admin.getPassword());
     }
 
-
-   // public static List<CreateVisitResponse> getVisitsForPatient(String patientUuid) {
-   //     return new ValidatedCrudRequester<CreateVisitResponse>(
-   //             RequestSpecs.adminSpec(),
-   //             Endpoint.VISIT,
-   //             ResponseSpecs.requestReturnsOK())
-   //             .getAll(
-   //                     new CrudRequester.QueryBuilder()
-   //                             .add("patient", patientUuid)
-   //                             .add("includeInactive", "false")
-   //                             .vEqualsFull()
-   //                             .limit(5)
-   //                             .build(),
-   //                     CreateVisitResponse.class
-   //             );
-   // }
-
     public static List<CreateVisitResponse> getVisitsForPatient(String patientUuid) {
         return new ValidatedCrudRequester<CreateVisitResponse>(
                 RequestSpecs.adminSpec(),
