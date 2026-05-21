@@ -455,25 +455,36 @@ public final class AdminSteps {
         return retrieveJSessionValue(admin.getUsername(), admin.getPassword());
     }
 
-    public static boolean isVisitExists(String patientUuid) {
-        try {
-            Map<String, Object> params = new HashMap<>();
-            params.put("includeInactive", "false");
-            params.put("v", "full");
-            params.put("limit", 100);
 
-            CrudRequester requester = new CrudRequester(
-                    RequestSpecs.adminSpec(),
-                    Endpoint.VISIT,
-                    ResponseSpecs.requestReturnsOK());
+   // public static List<CreateVisitResponse> getVisitsForPatient(String patientUuid) {
+   //     return new ValidatedCrudRequester<CreateVisitResponse>(
+   //             RequestSpecs.adminSpec(),
+   //             Endpoint.VISIT,
+   //             ResponseSpecs.requestReturnsOK())
+   //             .getAll(
+   //                     new CrudRequester.QueryBuilder()
+   //                             .add("patient", patientUuid)
+   //                             .add("includeInactive", "false")
+   //                             .vEqualsFull()
+   //                             .limit(5)
+   //                             .build(),
+   //                     CreateVisitResponse.class
+   //             );
+   // }
 
-            var response = requester.getAll(params, BaseModel.class);
-            String responseString = response.extract().asString();
-
-            return responseString.contains(patientUuid);
-        } catch (Exception e) {
-            System.out.println("API check failed: " + e.getMessage());
-            return false;
-        }
+    public static List<CreateVisitResponse> getVisitsForPatient(String patientUuid) {
+        return new ValidatedCrudRequester<CreateVisitResponse>(
+                RequestSpecs.adminSpec(),
+                Endpoint.VISIT,
+                ResponseSpecs.requestReturnsOK())
+                .getAll(
+                        new CrudRequester.QueryBuilder()
+                                .add("patient", patientUuid)
+                                .add("includeInactive", "false")
+                                .vEqualsFull()
+                                .limit(10)
+                                .build(),
+                        CreateVisitResponse.class
+                );
     }
 }
