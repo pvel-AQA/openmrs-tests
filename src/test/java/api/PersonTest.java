@@ -59,7 +59,7 @@ public class PersonTest extends BaseTest {
 
     @MethodSource("negativeCreatePersonData")
     @ParameterizedTest
-    public void negativeCreatePersonTest(String firstName, String middleName, String lastName, int age, String gender, String fieldName, String errorMessage) {
+    public void negativeCreatePersonTest(String firstName, String middleName, String lastName, int age, String gender, String errorMessage) {
         PersonName testName = PersonName.builder()
                 .givenName(firstName)
                 .middleName(middleName)
@@ -75,7 +75,7 @@ public class PersonTest extends BaseTest {
         new CrudRequester(
                 RequestSpecs.adminSpec(),
                 Endpoint.PERSON_WITH_ERROR,
-                ResponseSpecs.requestReturnBadRequest())
+                ResponseSpecs.requestReturnsBadRequest())
                 .post(createPersonRequest);
     }
 

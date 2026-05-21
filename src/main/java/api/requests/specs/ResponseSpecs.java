@@ -42,7 +42,7 @@ public final class ResponseSpecs {
                 .build();
     }
 
-    public static ResponseSpecification requestReturnBadRequest() {
+    public static ResponseSpecification requestReturnsBadRequest() {
         return defaultResponseBuilder()
                 .expectStatusCode(HttpStatus.SC_BAD_REQUEST)
                 .build();

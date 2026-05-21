@@ -87,7 +87,7 @@ public final class RandomDataGenerator {
         return "API Test Visit " + UUID.randomUUID();
     }
 
-    public static String getPassword(){
+    public static String getIncorrectPassword(){
         return RandomStringUtils.randomAlphanumeric(3).toUpperCase() +
                 RandomStringUtils.randomAlphanumeric(3).toLowerCase() +
                 RandomStringUtils.randomNumeric(3) + "!@#$%^&*()-_=+[]{};:,.<>?";

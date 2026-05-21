@@ -66,7 +66,7 @@ public class LoginTest extends BaseUiTest {
         new LoginPage().open()
                 .populateUserNameField(admin.getUsername())
                 .clickContinueButton()
-                .populatePasswordField(RandomDataGenerator.getPassword())
+                .populatePasswordField(RandomDataGenerator.getIncorrectPassword())
                 .clickLogInButton()
                 .errorMessageInvalidUsernameOrPasswordIsDisplayed()
                 .pageIsReady();

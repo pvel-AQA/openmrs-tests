@@ -62,8 +62,8 @@ public class LoginPage extends BasePage<LoginPage> {
 
     public LoginPage errorMessageInvalidUsernameOrPasswordIsDisplayed(){
         errorWrapper.shouldBe(Condition.visible);
-        assertEquals(Messages.ERROR_TITLE_TEXT.getText(), errorTitle.getText());
-        assertEquals(Messages.LOGIN_ERROR_MESSAGE.getText(), errorMessage.getText() );
+        errorTitle.shouldHave(Condition.exactText(Messages.ERROR_TITLE_TEXT.getText()));
+        errorMessage.shouldHave(Condition.exactText(Messages.LOGIN_ERROR_MESSAGE.getText()));
         errorMessageCloseButton.click();
 
         return this;

@@ -57,7 +57,7 @@ public class Header extends BaseComponent {
         searchTextInputField.sendKeys(searchText);
         searchResultsContainer.shouldBe(Condition.visible);
 
-        return new ServiceQueuesPage();
+        return getPage(ServiceQueuesPage.class);
     }
 
     public boolean isSearchIconHidden() {
