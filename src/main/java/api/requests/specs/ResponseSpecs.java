@@ -9,6 +9,7 @@ import static org.hamcrest.Matchers.*;
 public final class ResponseSpecs {
     public final static String GIVEN_NAME_FIELD = "givenName";
     public final static String YOU_MUST_DEFINE_THE_GIVEN_NAME_ERROR = "You must define the Given Name";
+    public final static String OBJECT_WITH_GIVEN_UUID_DOES_NOT_EXIST = "Object with given uuid doesn't exist [null]";
 
     private ResponseSpecs() {
     }
@@ -42,12 +43,6 @@ public final class ResponseSpecs {
     }
 
     public static ResponseSpecification requestReturnsBadRequest() {
-        return new ResponseSpecBuilder()
-                .expectStatusCode(HttpStatus.SC_BAD_REQUEST)
-                .build();
-    }
-
-    public static ResponseSpecification requestReturnBadRequestAndCompareErrorMessageForIncorrectData() {
         return defaultResponseBuilder()
                 .expectStatusCode(HttpStatus.SC_BAD_REQUEST)
                 .build();
@@ -61,25 +56,6 @@ public final class ResponseSpecs {
                                 equalTo("names[0]." + fieldName),
                                 hasItem(hasEntry("message", errorValue))
                         ))
-                .build();
-    }
-
-    public static ResponseSpecification requestReturnNotFoundForDeletedObject(){
-        return defaultResponseBuilder()
-                .expectStatusCode(HttpStatus.SC_NOT_FOUND)
-                .build();
-    }
-
-    public static ResponseSpecification requestReturnNotFoundForDeletedObject2(String fieldName, String errorValue) {
-        return defaultResponseBuilder()
-                .expectStatusCode(HttpStatus.SC_NOT_FOUND)
-                .expectBody(fieldName, equalTo(errorValue))
-                .build();
-    }
-
-    public static ResponseSpecification requestReturnsNotFound() {
-        return new ResponseSpecBuilder()
-                .expectStatusCode(HttpStatus.SC_NOT_FOUND)
                 .build();
     }
 

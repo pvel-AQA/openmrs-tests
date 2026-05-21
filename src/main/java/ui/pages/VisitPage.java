@@ -18,8 +18,10 @@ public class VisitPage extends BasePage<VisitPage> {
     }
 
     @Override
-    public Boolean atPage() {
-        return startVisitHeader.is(Condition.visible);
+    public VisitPage pageIsReady() {
+        startVisitHeader.shouldBe(Condition.visible);
+
+        return this;
     }
 
     private final ElementsCollection actionsMenuItems = $$("div[role='menu'] button[role='menuitem']");

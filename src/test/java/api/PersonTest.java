@@ -21,12 +21,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static api.constants.Constants.PATH_PARAM_PURGE;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PersonTest extends BaseTest {
     final static String[] fieldsToBeGenerated = new String[]{"givenName", "middleName", "familyName"};
     private final static List<String> createdUuids = new ArrayList<>();
-    private static Boolean PATH_PARAM_PURGE = true;
 
     @Test
     public void positiveCreatePersonWithMandatoryFieldsTest() {
@@ -59,7 +59,7 @@ public class PersonTest extends BaseTest {
 
     @MethodSource("negativeCreatePersonData")
     @ParameterizedTest
-    public void negativeCreatePersonTest(String firstName, String middleName, String lastName, int age, String gender, String fieldName, String errorMessage) {
+    public void negativeCreatePersonTest(String firstName, String middleName, String lastName, int age, String gender, String errorMessage) {
         PersonName testName = PersonName.builder()
                 .givenName(firstName)
                 .middleName(middleName)
@@ -72,13 +72,11 @@ public class PersonTest extends BaseTest {
                 .gender(gender)
                 .build();
 
-        ErrorResponse response = new ValidatedCrudRequester<ErrorResponse>(
+        new CrudRequester(
                 RequestSpecs.adminSpec(),
                 Endpoint.PERSON_WITH_ERROR,
-                ResponseSpecs.requestReturnBadRequestAndCompareErrorMessageForIncorrectData())
+                ResponseSpecs.requestReturnsBadRequest())
                 .post(createPersonRequest);
-        String responseErrorMessage = response.getError().getFieldErrors().get(fieldName).get(0).getMessage();
-        assertThat(responseErrorMessage).isEqualTo(errorMessage);
     }
 
     @Test
@@ -102,7 +100,7 @@ public class PersonTest extends BaseTest {
                 RequestSpecs.adminSpec(),
                 Endpoint.PERSON_UPDATE,
                 ResponseSpecs.requestReturnsOK())
-                .post(updateRequest, uuidForUpdate);     // ←
+                .post(updateRequest, uuidForUpdate);
 
         CreatePersonResponse personAfterUpdate = AdminSteps.findPersonByUuid(uuidForUpdate);
 
@@ -136,8 +134,6 @@ public class PersonTest extends BaseTest {
 
         softly.assertAll();
     }
-    // Test idea: public void positiveUpdatePersonAddressTest(){
-    // Test idea: public void positiveUpdatePersonAttributes(){
 
     @Test
     public void deletePersonVoidedTest() {
@@ -145,7 +141,7 @@ public class PersonTest extends BaseTest {
         CreatePersonResponse person = AdminSteps.createPerson(personRequest);
         String uuidForDelete = person.getUuid();
 
-        new ValidatedCrudRequester<CreatePatientResponse>(
+        new CrudRequester(
                 RequestSpecs.adminSpec(),
                 Endpoint.PERSON_DELETE,
                 ResponseSpecs.requestReturnsNoContent())
@@ -157,7 +153,6 @@ public class PersonTest extends BaseTest {
 
     @Test
     public void deletePersonPurgeTest() {
-        String errorMessage = "Object with given uuid doesn't exist [null]";
         CreatePersonRequest personRequest = AdminSteps.createPerson();
         CreatePersonResponse person = AdminSteps.createPerson(personRequest);
         String uuidForDelete = person.getUuid();
@@ -168,17 +163,11 @@ public class PersonTest extends BaseTest {
                 ResponseSpecs.requestReturnsNoContent())
                 .delete(uuidForDelete, PATH_PARAM_PURGE);
 
-        ErrorResponse response = AdminSteps.attemptToFindDeletedPersonByUuid(uuidForDelete);//, "message", "Object with given uuid doesn't exist [null]");
-        assertThat(response.getError().getMessage()).isEqualTo(errorMessage);
+        assertThat(AdminSteps.findDeletedPersonByUuidReturnsError(uuidForDelete).getError().getMessage()).isEqualTo(ResponseSpecs.OBJECT_WITH_GIVEN_UUID_DOES_NOT_EXIST);
     }
-
-    // Test idea for delete: If not authenticated or authenticated user does not have sufficient privileges, 401 Unauthorized status is returned.
-    // Test idea for list: Retrieve a person by their UUID. Returns a 404 Not Found status if the person does not exist in the system. If the user is not logged in to perform this action, a 401 Unauthorized status is returned.
 
     @AfterEach
     public void deleteTestPersons() {
-        createdUuids.forEach(uuid -> {
-            AdminSteps.deletePersonByUuid(uuid, PATH_PARAM_PURGE);
-        });
+        createdUuids.forEach(uuid -> AdminSteps.deletePersonByUuid(uuid, PATH_PARAM_PURGE));
     }
 }

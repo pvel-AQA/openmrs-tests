@@ -30,8 +30,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static api.constants.Constants.PREFERRED_IDENTIFIER_TRUE;
+
 public final class AdminSteps {
-    public static final boolean PREFERRED_IDENTIFIER_TRUE = true;
     public static final String[] NAMES_FIELDS_TO_BE_GENERATED = Constants.nameFieldsToBeGenerated;
     public static final String[] PERSON_FIELDS_TO_BE_GENERATED = Constants.personFieldsToBeGenerated;
     public static final String[] UI_MANDATORY_NAMES_FIELDS_TO_BE_GENERATED = PatientRegistrationPage.uiMandatoryNameFieldsToBeGenerated;
@@ -100,19 +101,19 @@ public final class AdminSteps {
                 .get(patientUuid, CreatePatientResponse.class);
     }
 
-    public static ErrorResponse attemptToFindDeletedPatientByUuid(String patientUuid) {
+    public static ErrorResponse findDeletedPatientByUuidReturnsError(String patientUuid) {
         return new ValidatedCrudRequester<ErrorResponse>(
                 RequestSpecs.adminSpec(),
                 Endpoint.PATIENT_SEARCH_AFTER_DELETE,
-                ResponseSpecs.requestReturnNotFoundForDeletedObject())
+                ResponseSpecs.requestReturnsNotFoundWithMessage(ResponseSpecs.OBJECT_WITH_GIVEN_UUID_DOES_NOT_EXIST))
                 .get(patientUuid, ErrorResponse.class);
     }
 
-    public static ErrorResponse attemptToFindDeletedPersonByUuid(String personUuid) {
+    public static ErrorResponse findDeletedPersonByUuidReturnsError(String personUuid) {
         return new ValidatedCrudRequester<ErrorResponse>(
                 RequestSpecs.adminSpec(),
                 Endpoint.PERSON_READ_DELETED,
-                ResponseSpecs.requestReturnNotFoundForDeletedObject())
+                ResponseSpecs.requestReturnsNotFoundWithMessage(ResponseSpecs.OBJECT_WITH_GIVEN_UUID_DOES_NOT_EXIST))
                 .get(personUuid, ErrorResponse.class);
     }
 
@@ -282,7 +283,7 @@ public final class AdminSteps {
     }
 
     public static void deletePatientByUuid(String patientUuid) {
-        new ValidatedCrudRequester<CreatePatientResponse>(
+        new CrudRequester(
                 RequestSpecs.adminSpec(),
                 Endpoint.PATIENT_DELETE,
                 ResponseSpecs.requestReturnsNoContent())
@@ -293,7 +294,7 @@ public final class AdminSteps {
         new CrudRequester(
                 RequestSpecs.adminSpec(),
                 Endpoint.PATIENT_DELETE,
-                ResponseSpecs.requestReturnsNotFound())
+                ResponseSpecs.requestReturnsNoContent())
                 .delete(patientUuid, purge);
     }
 
@@ -322,7 +323,7 @@ public final class AdminSteps {
     }
 
     public static void updatePerson(String personUuid, CreatePersonRequest updateRequest) {
-        new ValidatedCrudRequester<CreatePersonResponse>(
+        new CrudRequester(
                 RequestSpecs.adminSpec(),
                 Endpoint.PERSON_UPDATE,
                 ResponseSpecs.requestReturnsOK())
@@ -419,7 +420,7 @@ public final class AdminSteps {
         for (int i = 0; i < count; i++) {
             firstName = generatedString.substring(0, 4).toLowerCase() + "FN" + letters.charAt(i); //abcd(e)FNa
             middleName = generatedString.substring(0, 4).toUpperCase() + "MN" + letters.charAt(i); //
-            lastName = generatedString.substring(0, 5).toLowerCase() + "LN" + letters.charAt(i); //abcdeLNa
+            lastName = generatedString.substring(0, 4).toLowerCase() + "LN" + letters.charAt(i); //abcdeLNa
             gender = RandomDataGenerator.randomGender().toString();
             if (knownDOB) {
                 dateOfBirth = RandomDataGenerator.randomDateBetween(LocalDate.parse("1900-01-01"), LocalDate.now());

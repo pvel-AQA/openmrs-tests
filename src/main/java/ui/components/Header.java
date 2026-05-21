@@ -7,6 +7,7 @@ import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import ui.pages.PatientRegistrationPage;
 import ui.pages.PickLocationPage;
+import ui.pages.SearchResultsPage;
 import ui.pages.ServiceQueuesPage;
 import ui.parsers.PatientSearchResultParser;
 
@@ -20,16 +21,15 @@ public class Header extends BaseComponent {
 
     private final SelenideElement addPatientButton = $(By.xpath("//button[@data-tutorial-target='add-patient']"));
     private final SelenideElement searchPatientIcon = $("button[data-testid='searchPatientIcon']");
-    public final SelenideElement searchTextInputField = $("input[data-testid='patientSearchBar']");
+    private final SelenideElement searchTextInputField = $("input[data-testid='patientSearchBar']");
     private final SelenideElement clearTextInputFieldButton = $("button[aria-label='Clear']");
     private final SelenideElement changeClinicButton = $("button[aria-label='Change location']");
-    public final SelenideElement searchButton = $(Selectors.byText("Search"));
+    private final SelenideElement searchButton = $(Selectors.byText("Search"));
     private final SelenideElement closeSearchPanelButton = $("button[data-testid='closeSearchIcon']");
     private final SelenideElement searchResultsCount = $("[class*='resultsText']");
     private final SelenideElement searchResultsContainer = $("[data-testid='floatingSearchResultsContainer']");
     private final SelenideElement errorTitle = $("p[class*='errorMessage']");
     private final SelenideElement errorMessage = $("p[class*='errorCopy']");
-
 
     private final PatientSearchResultParser parser = new PatientSearchResultParser();
 
@@ -55,8 +55,9 @@ public class Header extends BaseComponent {
         searchPatientIcon.shouldBe(Condition.visible).click();
         searchTextInputField.shouldBe(Condition.visible, Condition.enabled);
         searchTextInputField.sendKeys(searchText);
+        searchResultsContainer.shouldBe(Condition.visible);
 
-        return new ServiceQueuesPage();
+        return getPage(ServiceQueuesPage.class);
     }
 
     public boolean isSearchIconHidden() {
@@ -100,6 +101,22 @@ public class Header extends BaseComponent {
         clearTextInputFieldButton.shouldBe(Condition.visible).click();
 
         return this;
+    }
+
+    public SearchResultsPage pressEnterButton() {
+        searchTextInputField.shouldBe(Condition.visible).click();
+        searchResultsCount.click();
+        searchTextInputField.click();
+        searchTextInputField.pressEnter();
+
+        return getPage(SearchResultsPage.class);
+    }
+
+    public SearchResultsPage clickSearchButton() {
+        searchResultsCount.click();
+        searchButton.shouldBe(Condition.visible).click();
+
+        return getPage(SearchResultsPage.class);
     }
 
     public String getSearchInputPlaceholder() {

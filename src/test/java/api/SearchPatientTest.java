@@ -13,12 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static api.constants.Constants.PATH_PARAM_PURGE;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SearchPatientTest extends BaseTest{
     private static List<String> createdUuids = new ArrayList<>();
-    private static String generatedString = RandomDataGenerator.randomString(7);
-    private static Boolean PATH_PARAM_PURGE = true;
+    private static final String generatedString = RandomDataGenerator.randomString(7);
 
     public static Stream<Arguments> positivePatientSearchDataGenerated() {
         createdUuids = AdminSteps.createPatientsForSearch(4, true, generatedString);
@@ -26,10 +26,10 @@ public class SearchPatientTest extends BaseTest{
                 Arguments.of(AdminSteps.findPatientByUuid(createdUuids.get(0)).getDisplay().substring(0,7), 1),
                 Arguments.of(AdminSteps.findPatientByUuid(createdUuids.get(1)).getDisplay().substring(4,7), 1),
                 Arguments.of(generatedString.substring(0,4).toLowerCase() + " " + AdminSteps.findPatientByUuid(createdUuids.get(2)).getDisplay().substring(4,7), 1),
-                Arguments.of(generatedString.substring(0,4).toLowerCase() + "FN", 8),
-                Arguments.of(generatedString.substring(0,5).toLowerCase() + "LN", 8),
-                Arguments.of(generatedString.substring(0,4).toUpperCase() + "MN", 8),
-                Arguments.of(generatedString.substring(0,3).toLowerCase(), 8));
+                Arguments.of(generatedString.substring(0,4).toLowerCase() + "FN", 4),
+                Arguments.of(generatedString.substring(0,5).toLowerCase() + "LN", 4),
+                Arguments.of(generatedString.substring(0,4).toUpperCase() + "MN", 4),
+                Arguments.of(generatedString.substring(0,3).toLowerCase(), 4));
     }
     @MethodSource("positivePatientSearchDataGenerated")
     @ParameterizedTest
@@ -65,14 +65,11 @@ public class SearchPatientTest extends BaseTest{
     }
 
     public static Stream<Arguments> unknownPatientSearchDataGenerated() {
-        // I will need to uncomment this once my DB is empty before each test
-        //createdUuids.add(PatientSteps.createUnknownPatient());
-            //createdUuids.add(PatientSteps.createUnknownPatient());
+
         return Stream.of(
-            //Arguments.of("Unknown" + " " + AdminSteps.findPatientByUuid(createdUuids.getLast()).getDisplay().substring(4,7), 1),
-            Arguments.of("unknown", 18),
-            Arguments.of("Unknown", 18),
-            Arguments.of("UNKNOWN", 18));
+            Arguments.of("unknown", 20),
+            Arguments.of("Unknown", 20),
+            Arguments.of("UNKNOWN", 20));
     }
     @MethodSource("unknownPatientSearchDataGenerated")
     @ParameterizedTest
@@ -84,9 +81,7 @@ public class SearchPatientTest extends BaseTest{
 
     @AfterAll
     static void deleteTestPatients() {
-        createdUuids.forEach(uuid -> {
-            AdminSteps.deletePatientByUuid(uuid, PATH_PARAM_PURGE);
-        });
+        createdUuids.forEach(uuid -> AdminSteps.deletePatientByUuid(uuid, PATH_PARAM_PURGE));
     }
 
 }

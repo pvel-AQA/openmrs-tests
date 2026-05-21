@@ -5,7 +5,6 @@ import api.models.BaseModel;
 import api.requests.Endpoint;
 import api.requests.HttpRequest;
 import api.requests.skeleton.interfaces.CrudEndpointInterface;
-import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
@@ -16,7 +15,6 @@ import java.util.Map;
 import static io.restassured.RestAssured.given;
 
 public class CrudRequester extends HttpRequest implements CrudEndpointInterface {
-    private static String UUID = "uuid";
     private static String PATH_PARAM_UUID = "uuid";
     private static String PATH_PARAM_PURGE = "purge";
 
@@ -103,7 +101,7 @@ public class CrudRequester extends HttpRequest implements CrudEndpointInterface 
             given()
                 .spec(requestSpecification)
                 .pathParam(PATH_PARAM_UUID, uuid)
-                .queryParam(PATH_PARAM_PURGE, purge)        // ← adds ?purge=true to the URL
+                .queryParam(PATH_PARAM_PURGE, purge)
                 .when()
                 .delete(Config.getProperty(Config.API_VERSION_CONST) + endpoint.getUrl());
     }
