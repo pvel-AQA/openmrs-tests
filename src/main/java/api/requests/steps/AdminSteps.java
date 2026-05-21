@@ -283,7 +283,7 @@ public final class AdminSteps {
     }
 
     public static void deletePatientByUuid(String patientUuid) {
-        new ValidatedCrudRequester<CreatePatientResponse>(
+        new CrudRequester(
                 RequestSpecs.adminSpec(),
                 Endpoint.PATIENT_DELETE,
                 ResponseSpecs.requestReturnsNoContent())
@@ -323,7 +323,7 @@ public final class AdminSteps {
     }
 
     public static void updatePerson(String personUuid, CreatePersonRequest updateRequest) {
-        new ValidatedCrudRequester<CreatePersonResponse>(
+        new CrudRequester(
                 RequestSpecs.adminSpec(),
                 Endpoint.PERSON_UPDATE,
                 ResponseSpecs.requestReturnsOK())
@@ -420,7 +420,7 @@ public final class AdminSteps {
         for (int i = 0; i < count; i++) {
             firstName = generatedString.substring(0, 4).toLowerCase() + "FN" + letters.charAt(i); //abcd(e)FNa
             middleName = generatedString.substring(0, 4).toUpperCase() + "MN" + letters.charAt(i); //
-            lastName = generatedString.substring(0, 5).toLowerCase() + "LN" + letters.charAt(i); //abcdeLNa
+            lastName = generatedString.substring(0, 4).toLowerCase() + "LN" + letters.charAt(i); //abcdeLNa
             gender = RandomDataGenerator.randomGender().toString();
             if (knownDOB) {
                 dateOfBirth = RandomDataGenerator.randomDateBetween(LocalDate.parse("1900-01-01"), LocalDate.now());

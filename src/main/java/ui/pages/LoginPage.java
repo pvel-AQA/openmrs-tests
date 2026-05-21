@@ -14,10 +14,12 @@ public class LoginPage extends BasePage<LoginPage> {
         return "/login";
     }
 
-    public Boolean pageIsReady() {
-        return !passwordField.is(Condition.visible) &&
-                usernameField.is(Condition.visible) &&
-                continueButton.is(Condition.visible);
+    public LoginPage pageIsReady() {
+        passwordField.shouldNotBe(Condition.visible);
+        usernameField.shouldBe(Condition.visible);
+        continueButton.shouldBe(Condition.visible);
+
+        return this;
     }
 
     private final SelenideElement usernameField = $("#username");

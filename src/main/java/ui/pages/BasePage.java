@@ -12,7 +12,7 @@ public abstract class BasePage<T extends BasePage> {
 
     public abstract String url();
 
-    public abstract Boolean pageIsReady();
+    public abstract T pageIsReady();
 
     public T open() {
         return Selenide.open(url(), (Class<T>) this.getClass());

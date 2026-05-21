@@ -17,8 +17,10 @@ public class PickLocationPage extends BasePage<PickLocationPage> {
         return "/login/location";
     }
 
-    public Boolean pageIsReady() {
-        return outpatientLocationRadioButton.is(Condition.visible);
+    public PickLocationPage pageIsReady() {
+        outpatientLocationRadioButton.shouldBe(Condition.visible);
+
+        return this;
     }
 
     private final SelenideElement welcomeText = $("p.-esm-login__location-picker__welcomeTitle___iI\\+4Z");

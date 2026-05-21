@@ -20,7 +20,7 @@ public class DeletePatientTest extends BaseTest{
         new ValidatedCrudRequester<CreatePatientResponse>(
                 RequestSpecs.adminSpec(),
                 Endpoint.PATIENT_DELETE,
-                ResponseSpecs.requestReturnsNoContent()) //204
+                ResponseSpecs.requestReturnsNoContent())
                 .delete(createdUuid);
 
         assertThat(AdminSteps.findPatientByUuid(createdUuid).getDisplay()).isEmpty();
@@ -32,7 +32,7 @@ public class DeletePatientTest extends BaseTest{
         new CrudRequester(
                 RequestSpecs.adminSpec(),
                 Endpoint.PATIENT_DELETE,
-                ResponseSpecs.requestReturnsNoContent()) //404
+                ResponseSpecs.requestReturnsNoContent())
                 .delete(createdUuid, PATH_PARAM_PURGE);
 
        assertThat(AdminSteps.findDeletedPatientByUuidReturnsError(createdUuid).getError().getMessage()).isEqualTo(ResponseSpecs.OBJECT_WITH_GIVEN_UUID_DOES_NOT_EXIST);

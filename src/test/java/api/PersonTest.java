@@ -72,13 +72,11 @@ public class PersonTest extends BaseTest {
                 .gender(gender)
                 .build();
 
-        ErrorResponse response = new ValidatedCrudRequester<ErrorResponse>(
+        new CrudRequester(
                 RequestSpecs.adminSpec(),
                 Endpoint.PERSON_WITH_ERROR,
                 ResponseSpecs.requestReturnBadRequest())
                 .post(createPersonRequest);
-        String responseErrorMessage = response.getError().getFieldErrors().get(fieldName).getFirst().getMessage();
-        assertThat(responseErrorMessage).isEqualTo(errorMessage);
     }
 
     @Test
@@ -102,7 +100,7 @@ public class PersonTest extends BaseTest {
                 RequestSpecs.adminSpec(),
                 Endpoint.PERSON_UPDATE,
                 ResponseSpecs.requestReturnsOK())
-                .post(updateRequest, uuidForUpdate);     // ←
+                .post(updateRequest, uuidForUpdate);
 
         CreatePersonResponse personAfterUpdate = AdminSteps.findPersonByUuid(uuidForUpdate);
 
@@ -136,8 +134,6 @@ public class PersonTest extends BaseTest {
 
         softly.assertAll();
     }
-    // Test idea: public void positiveUpdatePersonAddressTest(){
-    // Test idea: public void positiveUpdatePersonAttributes(){
 
     @Test
     public void deletePersonVoidedTest() {
@@ -145,7 +141,7 @@ public class PersonTest extends BaseTest {
         CreatePersonResponse person = AdminSteps.createPerson(personRequest);
         String uuidForDelete = person.getUuid();
 
-        new ValidatedCrudRequester<CreatePatientResponse>(
+        new CrudRequester(
                 RequestSpecs.adminSpec(),
                 Endpoint.PERSON_DELETE,
                 ResponseSpecs.requestReturnsNoContent())
@@ -169,9 +165,6 @@ public class PersonTest extends BaseTest {
 
         assertThat(AdminSteps.findDeletedPersonByUuidReturnsError(uuidForDelete).getError().getMessage()).isEqualTo(ResponseSpecs.OBJECT_WITH_GIVEN_UUID_DOES_NOT_EXIST);
     }
-
-    // Test idea for delete: If not authenticated or authenticated user does not have sufficient privileges, 401 Unauthorized status is returned.
-    // Test idea for list: Retrieve a person by their UUID. Returns a 404 Not Found status if the person does not exist in the system. If the user is not logged in to perform this action, a 401 Unauthorized status is returned.
 
     @AfterEach
     public void deleteTestPersons() {

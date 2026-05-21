@@ -24,8 +24,11 @@ public class SearchResultsPage extends AuthBasePage<SearchResultsPage> {
     }
 
     @Override
-    public Boolean pageIsReady() {
-        return (refineSearchTitle.is(Condition.visible) && searchResultsCount.is(Condition.visible));
+    public SearchResultsPage pageIsReady() {
+        refineSearchTitle.shouldBe(Condition.visible);
+        searchResultsCount.shouldBe(Condition.visible);
+
+        return this;
     }
 
     public int getSearchResultsCount() {

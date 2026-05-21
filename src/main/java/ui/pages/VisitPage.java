@@ -20,8 +20,10 @@ public class VisitPage extends BasePage<VisitPage> {
     }
 
     @Override
-    public Boolean pageIsReady() {
-        return startVisitHeader.is(Condition.visible);
+    public VisitPage pageIsReady() {
+        startVisitHeader.shouldBe(Condition.visible);
+
+        return this;
     }
 
 

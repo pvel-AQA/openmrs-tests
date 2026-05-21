@@ -7,8 +7,7 @@ import api.requests.steps.AdminSteps;
 import com.codeborne.selenide.Condition;
 import common.annotations.AdminSession;
 import common.annotations.InjectAdmin;
-import common.generators.RandomPasswordGenerator;
-import org.junit.jupiter.api.RepeatedTest;
+import common.generators.RandomDataGenerator;
 import org.junit.jupiter.api.Test;
 import ui.pages.LoginPage;
 import ui.pages.PickLocationPage;
@@ -38,39 +37,38 @@ public class LoginTest extends BaseUiTest {
     @Test
     @AdminSession
     public void adminCanSetClinicMemorisedTest() {
-        assertThat(new PickLocationPage().open()
+        new PickLocationPage().open()
                 .pickOutpatientLocationClickRememberMyLocationAndConfirm()
-                .pageIsReady()).isTrue();
+                .pageIsReady();
     }
 
     @Test
     public void adminCanLoginClinicMemorisedTest(@InjectAdmin AdminLogin admin) {
-        assertThat(new LoginPage().open()
+        new LoginPage().open()
                 .populateUserNameField(admin.getUsername())
                 .clickContinueButton()
                 .populatePasswordField(admin.getPassword())
                 .clickLogInButton()
                 .getPage(ServiceQueuesPage.class)
-                .pageIsReady()).isTrue();
+                .pageIsReady();
     }
 
     @Test
     public void firstPageNoUserNameLoginTest() {
-        assertThat(new LoginPage().open()
+        new LoginPage().open()
                 .populateUserNameField("")
                 .clickContinueButton()
-                .pageIsReady()).isTrue();
+                .pageIsReady();
     }
 
     @Test
-    //@RepeatedTest(100)
     public void wrongAdminPasswordLoginTest(@InjectAdmin AdminLogin admin) {
-        assertThat(new LoginPage().open()
+        new LoginPage().open()
                 .populateUserNameField(admin.getUsername())
                 .clickContinueButton()
-                .populatePasswordField(RandomPasswordGenerator.generate())
+                .populatePasswordField(RandomDataGenerator.getPassword())
                 .clickLogInButton()
                 .errorMessageInvalidUsernameOrPasswordIsDisplayed()
-                .pageIsReady()).isTrue();
+                .pageIsReady();
     }
 }

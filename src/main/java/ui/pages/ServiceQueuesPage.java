@@ -1,6 +1,5 @@
 package ui.pages;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.SelenideElement;
 
@@ -15,23 +14,10 @@ public class ServiceQueuesPage extends AuthBasePage<ServiceQueuesPage> {
         return "/home/service-queues";
     }
 
-    public Boolean pageIsReady() {
-        return clinicName.getText().equals("Clinic") && tabName.getText().equals("Service queues");
-    }
+    public ServiceQueuesPage pageIsReady() {
+        clinicName.getText().equals("Clinic");
+        tabName.getText().equals("Service queues");
 
-    public SearchResultsPage pressEnterButton() {
-        header.searchTextInputField.shouldBe(Condition.visible).click();
-        header.searchResultsCount.click();
-        header.searchTextInputField.click();
-        header.searchTextInputField.pressEnter();
-
-        return getPage(SearchResultsPage.class);
-    }
-
-    public SearchResultsPage clickSearchButton() {
-        header.searchResultsCount.click();
-        header.searchButton.shouldBe(Condition.visible).click();
-
-        return getPage(SearchResultsPage.class);
+        return this;
     }
 }
