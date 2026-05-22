@@ -13,7 +13,6 @@ import ui.components.ContactDetailsComponent;
 import java.util.Arrays;
 
 import static com.codeborne.selenide.Selenide.$;
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class PatientSummaryPage extends BasePage<PatientSummaryPage> {
     public static final String OPEN_MRS_ID_TEXT = "OpenMRS ID: ";

@@ -16,9 +16,8 @@ import java.util.Map;
 import static io.restassured.RestAssured.given;
 
 public class CrudRequester extends HttpRequest implements CrudEndpointInterface {
-    private static String UUID = "uuid";
-    private static String PATH_PARAM_UUID = "uuid";
-    private static String PATH_PARAM_PURGE = "purge";
+    private static final String PATH_PARAM_UUID = "uuid";
+    private static final String PATH_PARAM_PURGE = "purge";
 
     public CrudRequester(RequestSpecification requestSpecification, Endpoint endpoint, ResponseSpecification... responseSpecifications) {
         super(requestSpecification, endpoint, responseSpecifications);
@@ -87,12 +86,11 @@ public class CrudRequester extends HttpRequest implements CrudEndpointInterface 
                 .then()
                 .assertThat()
                 .spec(responseSpecifications);
-        //TODO: Add method for AddingToStorage
     }
 
     @Override
     public void delete(String uuid) {
-          given()
+        given()
                 .spec(requestSpecification)
                 .pathParam(PATH_PARAM_UUID, uuid)
                 .when()
@@ -101,10 +99,10 @@ public class CrudRequester extends HttpRequest implements CrudEndpointInterface 
 
     @Override
     public void delete(String uuid, Boolean purge) {
-            given()
+        given()
                 .spec(requestSpecification)
                 .pathParam(PATH_PARAM_UUID, uuid)
-                .queryParam(PATH_PARAM_PURGE, purge)        // ← adds ?purge=true to the URL
+                .queryParam(PATH_PARAM_PURGE, purge)
                 .when()
                 .delete(Config.getProperty(Config.API_VERSION_CONST) + endpoint.getUrl());
     }
@@ -114,6 +112,7 @@ public class CrudRequester extends HttpRequest implements CrudEndpointInterface 
 
         public QueryBuilder add(String key, Object value) {
             params.put(key, value);
+
             return this;
         }
 

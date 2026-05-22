@@ -91,12 +91,12 @@ public class AddressComponent extends BaseComponent {
         checkPostalCodeIsEqualTo(address.getPostalCode());
         checkCityIsEqualTo(address.getCityVillage());
 
-        return new PatientSummaryPage();
+        return getPage(PatientSummaryPage.class);
     }
 
     public PatientSummaryPage checkAddressSectionIsEmpty() {
         assertThat(isEmpty).isTrue();
 
-        return new PatientSummaryPage();
+        return getPage(PatientSummaryPage.class);
     }
 }
