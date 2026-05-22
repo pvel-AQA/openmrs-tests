@@ -1,10 +1,12 @@
 package ui;
 
 import api.models.CreatePatientResponse;
+import api.models.ui.Messages;
 import api.models.ui.UiPatientMandatoryInfo;
 import api.requests.steps.AdminSteps;
 import common.annotations.AdminSession;
 import common.generators.RandomDataGenerator;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 import ui.components.Header;
 import ui.pages.PickLocationPage;
@@ -14,53 +16,47 @@ import ui.pages.ServiceQueuesPage;
 import java.util.ArrayList;
 import java.util.List;
 
+import static api.constants.Constants.PATH_PARAM_PURGE;
+
 public class SearchPatientTest extends BaseUiTest {
-    String errorMessageText = "Sorry, there was a an error. You can try to reload this page, or contact the site administrator and quote the error code above.";
-    String errorTitleText = "Error";
-    String inputFieldDefaultText = "Search for a patient by name or identifier number";
-    Boolean PATH_PARAM_PURGE = true;
+    private static List<String> createdUuids = new ArrayList<>();
 
     @Test
     @AdminSession
     public void searchDropDownShouldShowDefaultMessagesTest() {
-        Header header = new PickLocationPage().open().pickOutpatientLocationAndConfirm()
+        Header header = new PickLocationPage().open()
+                .pickOutpatientLocationAndConfirm()
                 .header.clickSearchPatientIcon();
 
         softly.assertThat(header.getSearchInputPlaceholder())
-                .isEqualTo(inputFieldDefaultText);
+                .isEqualTo(Messages.SEARCH_INPUT_FIELD_DEFAULT_TEXT.getText());
 
         softly.assertThat(header.getErrorTitleText())
-                .isEqualTo(errorTitleText);
+                .isEqualTo(Messages.ERROR_TITLE_TEXT.getText());
 
         softly.assertThat(header.getErrorMessageText())
-                .isEqualTo(errorMessageText);
+                .isEqualTo(Messages.SEARCH_RESULTS_ERROR_MESSAGE.getText());
     }
 
     @Test
     @AdminSession
     void searchDropdownShouldShowCorrectResultsTest() {
-        List<String> createdUuids = new ArrayList<>();
-        String generatedString = RandomDataGenerator.randomString(7);
-        createdUuids = AdminSteps.createPatientsForSearch(4, true, generatedString);
-        String searchText = generatedString.substring(0, 4);
+        String generatedPartOfTheName = RandomDataGenerator.randomString(4);
+        createdUuids.addAll(AdminSteps.createPatientsForSearch(4, true, generatedPartOfTheName));
 
         new PickLocationPage().open().pickOutpatientLocationAndConfirm();
         ServiceQueuesPage searchPatients = new ServiceQueuesPage();
-        searchPatients.open().header.populateSearchPatientString(searchText);
+        searchPatients.open().header.populateSearchPatientString(generatedPartOfTheName);
 
         int countFromUIDropDown = searchPatients.header.getSearchResultsCount();
         List<UiPatientMandatoryInfo> resultsFromUIDropDownList = searchPatients.header.getSearchDropdownResults();
         softly.assertThat(resultsFromUIDropDownList).hasSize(countFromUIDropDown);
 
-        List<CreatePatientResponse> apiResults = AdminSteps.searchPatientsByString(searchText);
+        List<CreatePatientResponse> apiResults = AdminSteps.searchPatientsByString(generatedPartOfTheName);
         softly.assertThat(resultsFromUIDropDownList).hasSize(apiResults.size());
 
         apiResults.forEach(apiPatient -> softly.assertThat(resultsFromUIDropDownList)
                 .anyMatch(ui -> (ui.getOpenMRSuuid() + " - " + ui.getNames()).equals(apiPatient.getDisplay())));
-
-        createdUuids.forEach(uuid -> {
-            AdminSteps.deletePatientByUuid(uuid, PATH_PARAM_PURGE);
-        });
     }
 
     @Test
@@ -88,14 +84,12 @@ public class SearchPatientTest extends BaseUiTest {
     @Test
     @AdminSession
     public void searchPanelActivateEnterSearchStringAndCloseTest() {
-        List<String> createdUuids = new ArrayList<>();
-        String generatedString = RandomDataGenerator.randomString(7);
-        createdUuids = AdminSteps.createPatientsForSearch(4, true, generatedString);
-        String searchText = generatedString.substring(0, 4);
+        String generatedPartOfTheName = RandomDataGenerator.randomString(4);
+        createdUuids.addAll(AdminSteps.createPatientsForSearch(4, true, generatedPartOfTheName));
 
         new PickLocationPage().open().pickOutpatientLocationAndConfirm();
         ServiceQueuesPage page = new ServiceQueuesPage();
-        page.header.populateSearchPatientString(searchText);
+        page.header.populateSearchPatientString(generatedPartOfTheName);
 
         softly.assertThat(page.header.isSearchIconHidden()).isTrue();
         softly.assertThat(page.header.isSearchInputVisible()).isTrue();
@@ -111,29 +105,24 @@ public class SearchPatientTest extends BaseUiTest {
         softly.assertThat(page.header.isResultsContainerVisible()).isFalse();
         softly.assertThat(page.header.isClearButtonVisible()).isFalse();
         softly.assertThat(page.header.isCloseButtonVisible()).isFalse();
-
-        createdUuids.forEach(uuid -> {
-            AdminSteps.deletePatientByUuid(uuid, PATH_PARAM_PURGE);
-        });
     }
 
     @Test
     @AdminSession
     void searchInputFieldPopulatedWithTextAndThenClearedTest() {
-        List<String> createdUuids = new ArrayList<>();
-        String generatedString = RandomDataGenerator.randomString(7);
-        createdUuids = AdminSteps.createPatientsForSearch(4, true, generatedString);
-        String searchText = generatedString.substring(0, 4);
+        String generatedPartOfTheName = RandomDataGenerator.randomString(4);
+        createdUuids.addAll(AdminSteps.createPatientsForSearch(4, true, generatedPartOfTheName));
+
 
         new PickLocationPage().open().pickOutpatientLocationAndConfirm();
         ServiceQueuesPage searchPatients = new ServiceQueuesPage();
-        searchPatients.open().header.populateSearchPatientString(searchText);
+        searchPatients.open().header.populateSearchPatientString(generatedPartOfTheName);
 
         int countFromUIDropDown = searchPatients.header.getSearchResultsCount();
         List<UiPatientMandatoryInfo> resultsFromUIDropDownList = searchPatients.header.getSearchDropdownResults();
         softly.assertThat(resultsFromUIDropDownList).hasSize(countFromUIDropDown);
 
-        List<CreatePatientResponse> apiResults = AdminSteps.searchPatientsByString(searchText);
+        List<CreatePatientResponse> apiResults = AdminSteps.searchPatientsByString(generatedPartOfTheName);
         softly.assertThat(resultsFromUIDropDownList).hasSize(apiResults.size());
 
         apiResults.forEach(apiPatient -> softly.assertThat(resultsFromUIDropDownList)
@@ -142,73 +131,74 @@ public class SearchPatientTest extends BaseUiTest {
         searchPatients.header.clickClearTextInputFieldButton();
 
         softly.assertThat(searchPatients.header.getSearchInputPlaceholder())
-                .isEqualTo(inputFieldDefaultText);
+                .isEqualTo(Messages.SEARCH_INPUT_FIELD_DEFAULT_TEXT.getText());
 
         softly.assertThat(searchPatients.header.getErrorTitleText())
-                .isEqualTo(errorTitleText);
+                .isEqualTo(Messages.ERROR_TITLE_TEXT.getText());
 
         softly.assertThat(searchPatients.header.getErrorMessageText())
-                .isEqualTo(errorMessageText);
-
-        createdUuids.forEach(uuid -> {
-            AdminSteps.deletePatientByUuid(uuid, PATH_PARAM_PURGE);
-        });
+                .isEqualTo(Messages.SEARCH_RESULTS_ERROR_MESSAGE.getText());
     }
 
     @Test
     @AdminSession
     public void searchPatientClickSearchButtonTest() {
-        String generatedString = RandomDataGenerator.randomString(7);
-        List<String> createdUuids = AdminSteps.createPatientsForSearch(4, true, generatedString);
-        String searchText = generatedString.substring(0, 4);
+        String generatedPartOfTheName = RandomDataGenerator.randomString(4);
+        createdUuids.addAll(AdminSteps.createPatientsForSearch(4, true, generatedPartOfTheName));
 
-        SearchResultsPage searchResultsPage = new PickLocationPage().open().pickOutpatientLocationAndConfirm()
-                .header.populateSearchPatientString(searchText)
-                .clickSearchButton();
+        new PickLocationPage().open().pickOutpatientLocationAndConfirm();
 
-        softly.assertThat(searchResultsPage.atPage()).isTrue();
+        ServiceQueuesPage searchPatients = new ServiceQueuesPage();
+        searchPatients.open().header.populateSearchPatientString(generatedPartOfTheName);
+
+        int countFromUIDropDown = searchPatients.header.getSearchResultsCount();
+        List<UiPatientMandatoryInfo> resultsFromUIDropDownList = searchPatients.header.getSearchDropdownResults();
+        softly.assertThat(resultsFromUIDropDownList).hasSize(countFromUIDropDown);
+
+        SearchResultsPage searchResultsPage = searchPatients.header.clickSearchButton();
 
         int countFromUIResultsPage = searchResultsPage.getSearchResultsCount();
         List<UiPatientMandatoryInfo> resultsFromUIResultsPage = searchResultsPage.getSearchResults();
         softly.assertThat(resultsFromUIResultsPage).hasSize(countFromUIResultsPage);
 
-        List<CreatePatientResponse> apiResults = AdminSteps.searchPatientsByString(searchText);
+        List<CreatePatientResponse> apiResults = AdminSteps.searchPatientsByString(generatedPartOfTheName);
         softly.assertThat(resultsFromUIResultsPage).hasSize(apiResults.size());
 
         apiResults.forEach(apiPatient -> softly.assertThat(resultsFromUIResultsPage)
                 .anyMatch(ui -> (ui.getOpenMRSuuid() + " - " + ui.getNames()).equals(apiPatient.getDisplay())));
-
-        createdUuids.forEach(uuid -> {
-            AdminSteps.deletePatientByUuid(uuid, PATH_PARAM_PURGE);
-        });
     }
 
     @Test
     @AdminSession
     public void searchPatientClickEnterTest() {
-        List<String> createdUuids = new ArrayList<>();
-        String generatedString = RandomDataGenerator.randomString(7);
-        createdUuids = AdminSteps.createPatientsForSearch(4, true, generatedString);
-        String searchText = generatedString.substring(0, 3);
+        String generatedPartOfTheName = RandomDataGenerator.randomString(4);
+        createdUuids.addAll(AdminSteps.createPatientsForSearch(4, true, generatedPartOfTheName));
 
-        SearchResultsPage searchResultsPage = new PickLocationPage().open().pickOutpatientLocationAndConfirm()
-                .header.populateSearchPatientString(searchText)
-                .pressEnterButton();
+        new PickLocationPage().open().pickOutpatientLocationAndConfirm();
 
-        softly.assertThat(searchResultsPage.atPage()).isTrue();
+        ServiceQueuesPage searchPatients = new ServiceQueuesPage();
+        searchPatients.header.populateSearchPatientString(generatedPartOfTheName);
+
+        int countFromUIDropDown = searchPatients.header.getSearchResultsCount();
+        List<UiPatientMandatoryInfo> resultsFromUIDropDownList = searchPatients.header.getSearchDropdownResults();
+        softly.assertThat(resultsFromUIDropDownList).hasSize(countFromUIDropDown);
+
+        SearchResultsPage searchResultsPage = searchPatients.header.pressEnterButton();
 
         int countFromUIResultsPage = searchResultsPage.getSearchResultsCount();
         List<UiPatientMandatoryInfo> resultsFromUIResultsPage = searchResultsPage.getSearchResults();
+
         softly.assertThat(resultsFromUIResultsPage).hasSize(countFromUIResultsPage);
 
-        List<CreatePatientResponse> apiResults = AdminSteps.searchPatientsByString(searchText);
+        List<CreatePatientResponse> apiResults = AdminSteps.searchPatientsByString(generatedPartOfTheName);
         softly.assertThat(resultsFromUIResultsPage).hasSize(apiResults.size());
 
         apiResults.forEach(apiPatient -> softly.assertThat(resultsFromUIResultsPage)
                 .anyMatch(ui -> (ui.getOpenMRSuuid() + " - " + ui.getNames()).equals(apiPatient.getDisplay())));
+    }
 
-        createdUuids.forEach(uuid -> {
-            AdminSteps.deletePatientByUuid(uuid, PATH_PARAM_PURGE);
-        });
+    @AfterAll
+    public static void deleteTestPatients() {
+        createdUuids.forEach(uuid -> AdminSteps.deletePatientByUuid(uuid, PATH_PARAM_PURGE));
     }
 }

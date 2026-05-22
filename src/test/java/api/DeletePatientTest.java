@@ -1,21 +1,18 @@
 package api;
 
 import api.models.CreatePatientResponse;
-import api.models.ErrorResponse;
 import api.requests.Endpoint;
 import api.requests.skeleton.requesters.CrudRequester;
 import api.requests.skeleton.requesters.ValidatedCrudRequester;
 import api.requests.specs.RequestSpecs;
 import api.requests.specs.ResponseSpecs;
 import api.requests.steps.AdminSteps;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
+import static api.constants.Constants.PATH_PARAM_PURGE;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Slf4j
 public class DeletePatientTest extends BaseTest{
-    private static Boolean PATH_PARAM_PURGE = true;
 
     @Test
     void deletePatientTest() {
@@ -23,7 +20,7 @@ public class DeletePatientTest extends BaseTest{
         new ValidatedCrudRequester<CreatePatientResponse>(
                 RequestSpecs.adminSpec(),
                 Endpoint.PATIENT_DELETE,
-                ResponseSpecs.requestReturnsNoContent()) //204
+                ResponseSpecs.requestReturnsNoContent())
                 .delete(createdUuid);
 
         assertThat(AdminSteps.findPatientByUuid(createdUuid).getDisplay()).isEmpty();
@@ -32,14 +29,12 @@ public class DeletePatientTest extends BaseTest{
     @Test
     void deletePatientFromDBTest(){
         String createdUuid = AdminSteps.createUnknownPatient().getUuid();
-        String errorMessage = "Object with given uuid doesn't exist [null]";
         new CrudRequester(
                 RequestSpecs.adminSpec(),
                 Endpoint.PATIENT_DELETE,
-                ResponseSpecs.requestReturnsNoContent()) //404
+                ResponseSpecs.requestReturnsNoContent())
                 .delete(createdUuid, PATH_PARAM_PURGE);
 
-       ErrorResponse response = AdminSteps.attemptToFindDeletedPatientByUuid(createdUuid);
-       assertThat(response.getError().getMessage()).isEqualTo(errorMessage);
+       assertThat(AdminSteps.findDeletedPatientByUuidReturnsError(createdUuid).getError().getMessage()).isEqualTo(ResponseSpecs.OBJECT_WITH_GIVEN_UUID_DOES_NOT_EXIST);
     }
 }

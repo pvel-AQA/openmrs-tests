@@ -7,6 +7,7 @@ import api.requests.steps.AdminSteps;
 import com.codeborne.selenide.Condition;
 import common.annotations.AdminSession;
 import common.annotations.InjectAdmin;
+import common.generators.RandomDataGenerator;
 import org.junit.jupiter.api.Test;
 import ui.pages.LoginPage;
 import ui.pages.PickLocationPage;
@@ -38,7 +39,7 @@ public class LoginTest extends BaseUiTest {
     public void adminCanSetClinicMemorisedTest() {
         new PickLocationPage().open()
                 .pickOutpatientLocationClickRememberMyLocationAndConfirm()
-                .atPage();
+                .pageIsReady();
     }
 
     @Test
@@ -49,7 +50,7 @@ public class LoginTest extends BaseUiTest {
                 .populatePasswordField(admin.getPassword())
                 .clickLogInButton()
                 .getPage(ServiceQueuesPage.class)
-                .atPage();
+                .pageIsReady();
     }
 
     @Test
@@ -57,7 +58,7 @@ public class LoginTest extends BaseUiTest {
         new LoginPage().open()
                 .populateUserNameField("")
                 .clickContinueButton()
-                .atPage();
+                .pageIsReady();
     }
 
     @Test
@@ -65,9 +66,9 @@ public class LoginTest extends BaseUiTest {
         new LoginPage().open()
                 .populateUserNameField(admin.getUsername())
                 .clickContinueButton()
-                .populatePasswordField("test1234")
+                .populatePasswordField(RandomDataGenerator.getIncorrectPassword())
                 .clickLogInButton()
                 .errorMessageInvalidUsernameOrPasswordIsDisplayed()
-                .atPage();
+                .pageIsReady();
     }
 }

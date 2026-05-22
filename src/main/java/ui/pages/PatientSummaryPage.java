@@ -37,8 +37,11 @@ public class PatientSummaryPage extends BasePage<PatientSummaryPage> {
     }
 
     @Override
-    public Boolean atPage() {
-        return vitalsHistoryLink.is(Condition.visible) && openMrsIdNumber.is(Condition.visible);
+    public PatientSummaryPage pageIsReady() {
+        vitalsHistoryLink.shouldBe(Condition.visible);
+        openMrsIdNumber.shouldBe(Condition.visible);
+
+        return this;
     }
 
     public PatientSummaryPage checkPatientNameIsEqualTo(String name) {

@@ -1,12 +1,11 @@
 package ui.pages;
 
+import api.models.ui.Messages;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.SelenideElement;
-import lombok.Getter;
 
 import static com.codeborne.selenide.Selenide.$;
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LoginPage extends BasePage<LoginPage> {
@@ -15,10 +14,12 @@ public class LoginPage extends BasePage<LoginPage> {
         return "/login";
     }
 
-    public Boolean atPage() {
-        return !passwordField.is(Condition.visible) &&
-                usernameField.is(Condition.visible) &&
-                continueButton.is(Condition.visible);
+    public LoginPage pageIsReady() {
+        passwordField.shouldNotBe(Condition.visible);
+        usernameField.shouldBe(Condition.visible);
+        continueButton.shouldBe(Condition.visible);
+
+        return this;
     }
 
     private final SelenideElement usernameField = $("#username");
@@ -59,16 +60,10 @@ public class LoginPage extends BasePage<LoginPage> {
         return this;
     }
 
-    public LoginPage clickErrorMessageCloseButton() {
-        errorMessageCloseButton.click();
-
-        return this;
-    }
-
     public LoginPage errorMessageInvalidUsernameOrPasswordIsDisplayed(){
         errorWrapper.shouldBe(Condition.visible);
-        assertEquals("Error", errorTitle.getText());
-        assertEquals("Invalid username or password", errorMessage.getText() );
+        errorTitle.shouldHave(Condition.exactText(Messages.ERROR_TITLE_TEXT.getText()));
+        errorMessage.shouldHave(Condition.exactText(Messages.LOGIN_ERROR_MESSAGE.getText()));
         errorMessageCloseButton.click();
 
         return this;

@@ -17,7 +17,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -55,18 +54,7 @@ public class VisitTest extends BaseTest {
         CreatePatientResponse patient = AdminSteps.createPatient();
         CreateVisitResponse createdVisit = AdminSteps.createVisit(patient);
 
-        Map<String, Object> queryParams = new CrudRequester.QueryBuilder()
-                .add("patient", patient.getUuid())
-                .add("includeInactive", "false")
-                .vEqualsFull()
-                .limit(5)
-                .build();
-
-        List<CreateVisitResponse> foundVisits = new ValidatedCrudRequester<CreateVisitResponse>(
-                RequestSpecs.adminSpec(),
-                Endpoint.VISIT,
-                ResponseSpecs.requestReturnsOK())
-                .getAll(queryParams, CreateVisitResponse.class);
+        List<CreateVisitResponse> foundVisits = AdminSteps.getVisitsForPatient(patient.getUuid());
 
         assertThat(foundVisits)
                 .as("Created visit should be in search results")
