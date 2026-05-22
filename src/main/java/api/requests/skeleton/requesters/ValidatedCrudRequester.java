@@ -5,7 +5,7 @@ import api.requests.Endpoint;
 import api.requests.HttpRequest;
 import api.requests.skeleton.interfaces.CrudEndpointInterface;
 import api.utils.JsonUtils;
-import io.restassured.response.Response;
+import common.storages.EntityStorage;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 
@@ -59,6 +59,8 @@ public class ValidatedCrudRequester<T extends BaseModel> extends HttpRequest imp
             throw new IllegalStateException("Unexpected response type: " + response.getClass());
         }
 
+        EntityStorage.add(response);
+
         return (T) response;
     }
 
@@ -69,6 +71,8 @@ public class ValidatedCrudRequester<T extends BaseModel> extends HttpRequest imp
         if (!endpoint.getResponseModel().isInstance(response)) {
             throw new IllegalStateException("Unexpected response type: " + response.getClass());
         }
+
+        EntityStorage.add(response);
 
         return (T) response;
     }

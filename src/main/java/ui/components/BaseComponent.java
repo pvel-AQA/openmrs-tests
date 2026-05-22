@@ -6,6 +6,12 @@ import com.codeborne.selenide.SelenideElement;
 import ui.pages.BasePage;
 
 public abstract class BaseComponent {
+    protected final SelenideElement self;
+
+    public BaseComponent(SelenideElement self) {
+        this.self = self;
+    }
+
     protected abstract SelenideElement getSelf();
 
     public BaseComponent shouldBeLoaded() {

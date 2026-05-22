@@ -8,12 +8,11 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ContactDetailsComponent extends BaseComponent {
-    private final SelenideElement self;
     private final boolean isEmpty;
     private final String telephoneNumber;
 
     public ContactDetailsComponent(SelenideElement self) {
-        this.self = self;
+        super(self);
 
         List<String> items = self.findAll("li").texts();
 
@@ -43,6 +42,6 @@ public class ContactDetailsComponent extends BaseComponent {
     public PatientSummaryPage checkContactDetailsSectionIsEmpty() {
         assertThat(isEmpty).isTrue();
 
-        return new PatientSummaryPage();
+        return getPage(PatientSummaryPage.class);
     }
 }

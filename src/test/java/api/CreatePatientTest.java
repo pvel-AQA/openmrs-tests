@@ -10,6 +10,7 @@ import api.requests.specs.RequestSpecs;
 import api.requests.specs.ResponseSpecs;
 import api.requests.steps.AdminSteps;
 import api.utils.EntityTestUtils;
+import common.annotations.AutoCleanup;
 import common.generators.PartialEntityGenerator;
 import common.generators.RandomDataGenerator;
 import common.utils.DateUtils;
@@ -30,6 +31,7 @@ public class CreatePatientTest extends BaseTest {
     private static final String[] NAMES_FIELDS_TO_BE_GENERATED = Constants.nameFieldsToBeGenerated;
 
     @Test
+    @AutoCleanup
     public void knownPatientCanBeCreatedWithOnlyMandatoryDataTest() {
         PersonName personName = PartialEntityGenerator.generate(PersonName.class, NAMES_FIELDS_TO_BE_GENERATED);
 

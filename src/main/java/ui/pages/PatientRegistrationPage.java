@@ -211,7 +211,7 @@ public class PatientRegistrationPage extends BasePage<PatientRegistrationPage> {
 
         clickOnRegisterPatientButton();
 
-        return new PatientSummaryPage();
+        return getPage(PatientSummaryPage.class);
     }
 
     public PatientSummaryPage registerPatientWithValidMandatoryFields(RegisterMandatoryFieldsPatientUi patient) {
@@ -224,7 +224,7 @@ public class PatientRegistrationPage extends BasePage<PatientRegistrationPage> {
 
         clickOnRegisterPatientButton();
 
-        return new PatientSummaryPage();
+        return getPage(PatientSummaryPage.class);
     }
 
     public PatientSummaryPage registerUnknownPatientTest(RegisterUnknownPatientUi patient) {
@@ -235,7 +235,7 @@ public class PatientRegistrationPage extends BasePage<PatientRegistrationPage> {
 
         clickOnRegisterPatientButton();
 
-        return new PatientSummaryPage();
+        return getPage(PatientSummaryPage.class);
     }
 
 }

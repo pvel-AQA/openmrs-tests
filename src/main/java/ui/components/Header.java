@@ -17,8 +17,6 @@ import java.util.stream.Collectors;
 import static com.codeborne.selenide.Selenide.$;
 
 public class Header extends BaseComponent {
-    private final SelenideElement self = $("#omrs-top-nav-app-container");
-
     private final SelenideElement addPatientButton = $(By.xpath("//button[@data-tutorial-target='add-patient']"));
     private final SelenideElement searchPatientIcon = $("button[data-testid='searchPatientIcon']");
     private final SelenideElement searchTextInputField = $("input[data-testid='patientSearchBar']");
@@ -32,6 +30,11 @@ public class Header extends BaseComponent {
     private final SelenideElement errorMessage = $("p[class*='errorCopy']");
 
     private final PatientSearchResultParser parser = new PatientSearchResultParser();
+
+    public Header(SelenideElement self) {
+        super(self);
+    }
+
 
     @Override
     protected SelenideElement getSelf() {
