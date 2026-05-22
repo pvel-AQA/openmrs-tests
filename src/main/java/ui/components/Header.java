@@ -8,12 +8,13 @@ import org.openqa.selenium.By;
 import ui.pages.PatientRegistrationPage;
 import ui.pages.PickLocationPage;
 import ui.pages.SearchResultsPage;
-import ui.pages.ServiceQueuesPage;
 import ui.parsers.PatientSearchResultParser;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.codeborne.selenide.Condition.hidden;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 
 public class Header extends BaseComponent {
@@ -39,72 +40,69 @@ public class Header extends BaseComponent {
     }
 
     public PatientRegistrationPage clickAddPatientButton() {
-        addPatientButton.shouldBe(Condition.visible);
+        addPatientButton.shouldBe(visible);
         addPatientButton.click();
 
         return new PatientRegistrationPage();
     }
 
     public PickLocationPage clickChangeClinicButton() {
-        changeClinicButton.shouldBe(Condition.visible).click();
+        changeClinicButton.shouldBe(visible).click();
 
         return new PickLocationPage();
     }
 
-    public ServiceQueuesPage populateSearchPatientString(String searchText) {
-        searchPatientIcon.shouldBe(Condition.visible).click();
-        searchTextInputField.shouldBe(Condition.visible, Condition.enabled);
+    public Header populateSearchPatientString(String searchText) {
+        searchPatientIcon.shouldBe(visible).click();
+        searchTextInputField.shouldBe(visible, Condition.enabled);
         searchTextInputField.sendKeys(searchText);
-        searchResultsContainer.shouldBe(Condition.visible);
-
-        return getPage(ServiceQueuesPage.class);
-    }
-
-    public boolean isSearchIconHidden() {
-        return searchPatientIcon.is(Condition.hidden);
-    }
-
-    public boolean isSearchInputVisible() {
-        return searchTextInputField.is(Condition.visible);
-    }
-
-    public boolean isSearchInputEnabled() {
-        return searchTextInputField.is(Condition.enabled);
-    }
-
-    public boolean isResultsContainerVisible() {
-        return searchResultsContainer.is(Condition.visible);
-    }
-
-    public boolean isClearButtonVisible() {
-        return clearTextInputFieldButton.is(Condition.visible);
-    }
-
-    public boolean isCloseButtonVisible() {
-        return closeSearchPanelButton.is(Condition.visible);
-    }
-
-
-    public Header clickSearchPatientIcon() {
-        searchPatientIcon.shouldBe(Condition.visible).click();
+        searchResultsContainer.shouldBe(visible);
 
         return this;
     }
 
-    public ServiceQueuesPage clickCloseSearchPanelButton() {
-        closeSearchPanelButton.shouldBe(Condition.visible).click();
+    public Header shouldHaveSearchPanelClosed() {
+        searchPatientIcon.shouldBe(visible);
+        searchTextInputField.shouldNotBe(visible);
+        //searchTextInputField.shouldNotBe(Condition.enabled);
+        searchResultsContainer.shouldNotBe(visible);
+        clearTextInputFieldButton.shouldNotBe(visible);
+        closeSearchPanelButton.shouldNotBe(visible);
 
-        return new ServiceQueuesPage();
+        return this;
+    }
+
+    public Header shouldHaveSearchPanelOpen(boolean expectClearButton) {
+        searchPatientIcon.shouldBe(hidden);
+        searchTextInputField.shouldBe(visible);
+        searchTextInputField.shouldBe(Condition.enabled);
+        searchResultsContainer.shouldBe(visible);
+        closeSearchPanelButton.shouldBe(visible);
+        clearTextInputFieldButton.shouldBe(expectClearButton ? visible : hidden);
+
+        return this;
+    }
+
+    public Header clickSearchPatientIcon() {
+        searchPatientIcon.shouldBe(visible).click();
+
+        return this;
+    }
+
+    public Header clickCloseSearchPanelButton() {
+        closeSearchPanelButton.shouldBe(visible).click();
+
+        return this;
     }
 
     public Header clickClearTextInputFieldButton() {
-        clearTextInputFieldButton.shouldBe(Condition.visible).click();
+        clearTextInputFieldButton.shouldBe(visible).click();
 
         return this;
     }
 
     public SearchResultsPage pressEnterButton() {
-        searchTextInputField.shouldBe(Condition.visible).click();
+        searchTextInputField.shouldBe(visible).click();
         searchResultsCount.click();
         searchTextInputField.click();
         searchTextInputField.pressEnter();
@@ -114,26 +112,26 @@ public class Header extends BaseComponent {
 
     public SearchResultsPage clickSearchButton() {
         searchResultsCount.click();
-        searchButton.shouldBe(Condition.visible).click();
+        searchButton.shouldBe(visible).click();
 
         return getPage(SearchResultsPage.class);
     }
 
     public String getSearchInputPlaceholder() {
         return searchTextInputField
-                .shouldBe(Condition.visible)
+                .shouldBe(visible)
                 .getAttribute("placeholder");
     }
 
     public String getErrorTitleText() {
         return errorTitle
-                .shouldBe(Condition.visible)
+                .shouldBe(visible)
                 .getText();
     }
 
     public String getErrorMessageText() {
         return errorMessage
-                .shouldBe(Condition.visible)
+                .shouldBe(visible)
                 .getText();
     }
 

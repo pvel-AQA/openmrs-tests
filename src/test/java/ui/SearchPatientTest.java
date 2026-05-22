@@ -62,49 +62,28 @@ public class SearchPatientTest extends BaseUiTest {
     @Test
     @AdminSession
     public void searchPanelActivateAndCloseTest() {
-        new PickLocationPage().open().pickOutpatientLocationAndConfirm();
-        ServiceQueuesPage page = new ServiceQueuesPage();
-        page.header.clickSearchPatientIcon();
+        boolean expectClearButtonToBeVisible = false;
 
-        softly.assertThat(page.header.isSearchIconHidden()).isTrue();
-        softly.assertThat(page.header.isSearchInputVisible()).isTrue();
-        softly.assertThat(page.header.isSearchInputEnabled()).isTrue();
-        softly.assertThat(page.header.isResultsContainerVisible()).isTrue();
-        softly.assertThat(page.header.isCloseButtonVisible()).isTrue();
-
-        page.header.clickCloseSearchPanelButton();
-        softly.assertThat(page.header.isSearchIconHidden()).isFalse();
-        softly.assertThat(page.header.isSearchInputVisible()).isFalse();
-        softly.assertThat(page.header.isSearchInputEnabled()).isFalse();
-        softly.assertThat(page.header.isResultsContainerVisible()).isFalse();
-        softly.assertThat(page.header.isClearButtonVisible()).isFalse();
-        softly.assertThat(page.header.isCloseButtonVisible()).isFalse();
+        new PickLocationPage().open()
+                .pickOutpatientLocationAndConfirm()
+                .header.clickSearchPatientIcon()
+                .shouldHaveSearchPanelOpen(expectClearButtonToBeVisible)
+                .clickCloseSearchPanelButton()
+                .shouldHaveSearchPanelClosed();
     }
 
     @Test
     @AdminSession
     public void searchPanelActivateEnterSearchStringAndCloseTest() {
         String generatedPartOfTheName = RandomDataGenerator.randomString(4);
-        createdUuids.addAll(AdminSteps.createPatientsForSearch(4, true, generatedPartOfTheName));
+        boolean expectClearButtonToBeVisible = true;
 
-        new PickLocationPage().open().pickOutpatientLocationAndConfirm();
-        ServiceQueuesPage page = new ServiceQueuesPage();
-        page.header.populateSearchPatientString(generatedPartOfTheName);
-
-        softly.assertThat(page.header.isSearchIconHidden()).isTrue();
-        softly.assertThat(page.header.isSearchInputVisible()).isTrue();
-        softly.assertThat(page.header.isSearchInputEnabled()).isTrue();
-        softly.assertThat(page.header.isResultsContainerVisible()).isTrue();
-        softly.assertThat(page.header.isClearButtonVisible()).isTrue();
-        softly.assertThat(page.header.isCloseButtonVisible()).isTrue();
-
-        page.header.clickCloseSearchPanelButton();
-        softly.assertThat(page.header.isSearchIconHidden()).isFalse();
-        softly.assertThat(page.header.isSearchInputVisible()).isFalse();
-        softly.assertThat(page.header.isSearchInputEnabled()).isFalse();
-        softly.assertThat(page.header.isResultsContainerVisible()).isFalse();
-        softly.assertThat(page.header.isClearButtonVisible()).isFalse();
-        softly.assertThat(page.header.isCloseButtonVisible()).isFalse();
+        new PickLocationPage().open()
+                .pickOutpatientLocationAndConfirm()
+                .header.populateSearchPatientString(generatedPartOfTheName)
+                .shouldHaveSearchPanelOpen(expectClearButtonToBeVisible)
+                .clickCloseSearchPanelButton()
+                .shouldHaveSearchPanelClosed();
     }
 
     @Test
@@ -112,7 +91,6 @@ public class SearchPatientTest extends BaseUiTest {
     void searchInputFieldPopulatedWithTextAndThenClearedTest() {
         String generatedPartOfTheName = RandomDataGenerator.randomString(4);
         createdUuids.addAll(AdminSteps.createPatientsForSearch(4, true, generatedPartOfTheName));
-
 
         new PickLocationPage().open().pickOutpatientLocationAndConfirm();
         ServiceQueuesPage searchPatients = new ServiceQueuesPage();
@@ -181,13 +159,13 @@ public class SearchPatientTest extends BaseUiTest {
 
         int countFromUIDropDown = searchPatients.header.getSearchResultsCount();
         List<UiPatientMandatoryInfo> resultsFromUIDropDownList = searchPatients.header.getSearchDropdownResults();
-        softly.assertThat(resultsFromUIDropDownList).hasSize(countFromUIDropDown);
 
         SearchResultsPage searchResultsPage = searchPatients.header.pressEnterButton();
 
         int countFromUIResultsPage = searchResultsPage.getSearchResultsCount();
         List<UiPatientMandatoryInfo> resultsFromUIResultsPage = searchResultsPage.getSearchResults();
 
+        softly.assertThat(resultsFromUIDropDownList).hasSize(countFromUIDropDown);
         softly.assertThat(resultsFromUIResultsPage).hasSize(countFromUIResultsPage);
 
         List<CreatePatientResponse> apiResults = AdminSteps.searchPatientsByString(generatedPartOfTheName);
