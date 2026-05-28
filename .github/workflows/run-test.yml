@@ -55,7 +55,7 @@ jobs:
         env:
           BROWSERREMOTE: http://localhost:4444/wd/hub
           UIBASEURL: http://localhost/openmrs/spa
-          APIBASEURL: http://localhost/openmrs/ws/rest/v1
+          APIBASEURL: http://localhost:80/openmrs
         run: mvn -B -ntp test -P api,ui
 
       - name: Upload test report
