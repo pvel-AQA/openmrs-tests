@@ -1,10 +1,10 @@
 name: Run tests
 
-on: [ push, workflow_dispatch ]
+on: [push, workflow_dispatch]
 
 jobs:
   run-test:
-    name: Set up services (review apps) and run tests
+    name: Set up services and run tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -21,11 +21,38 @@ jobs:
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys:
-            ${{ runner.os }}-maven-
+          restore-keys: ${{ runner.os }}-maven-
 
-      - name:  Set up services
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Set up services
         run: bash infrastructure/docker_compose/restart_docker.sh
 
+      - name: Wait for backend
+        run: |
+          for i in {1..60}; do
+            if curl -sf -u admin:Admin123 http://localhost/openmrs/ws/rest/v1/session > /dev/null; then
+              echo "Backend ready."; exit 0
+            fi
+            sleep 2
+          done
+          echo "Backend did not become ready"
+          docker compose -f infrastructure/docker_compose/docker-compose.yml logs --tail=80 backend
+          exit 1
+
       - name: Run tests
-        run:
+        run: mvn test -P api,ui -DBROWSERREMOTE=http://localhost:4444/wd/hub -DUIBASEURL=http://localhost/openmrs/spa
+
+      - name: Upload test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-report
+          path: |
+            target/surefire-reports/
+            target/site/
+
+      - name: Tear down
+        if: always()
+        run: docker compose -f infrastructure/docker_compose/docker-compose.yml down
