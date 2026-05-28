@@ -9,6 +9,7 @@ import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.util.List;
 import java.util.Map;
@@ -25,18 +26,23 @@ public class BaseUiTest extends BaseTest {
         Configuration.browserSize = Config.getProperty(Config.BROWSER_SIZE_CONST);
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
 
-        Configuration.browserCapabilities.setCapability("selenoid:options",
-                Map.of("enableVNC", true, "enableLog", true));
+        /*Configuration.browserCapabilities.setCapability("selenoid:options",
+                Map.of("enableVNC", true, "enableLog", true));*/
     }
 
     @BeforeEach
     public void setUniqueUserDataDir() {
-        // Each test session gets a unique Chrome user-data-dir so concurrent or
-        // back-to-back sessions don't collide on the default profile path.
-        String uniqueDir = "/tmp/chrome-" + UUID.randomUUID();
-        Configuration.browserCapabilities.setCapability(
-                "goog:chromeOptions",
-                Map.of("args", List.of("--user-data-dir=" + uniqueDir))
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments(
+                "--disable-dev-shm-usage",
+                "--no-sandbox",
+                "--window-size=1920,1080",
+                "--user-data-dir=/tmp/chrome-" + UUID.randomUUID()
         );
+        options.setCapability("selenoid:options", Map.of(
+                "enableVNC", true,
+                "enableLog", true
+        ));
+        Configuration.browserCapabilities = options;
     }
 }
