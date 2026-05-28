@@ -54,9 +54,20 @@ jobs:
       - name: Run tests
         env:
           BROWSERREMOTE: http://localhost:4444/wd/hub
-          UIBASEURL: http://localhost/openmrs/spa
+          UIBASEURL: http://nginx/openmrs/spa
           APIBASEURL: http://localhost:80/openmrs
         run: mvn -B -ntp test -P api,ui
+
+      - name: Generate Surefire HTML report
+        if: always()
+        run: mvn -B -ntp surefire-report:report-only -DshowSuccess=true
+
+      - name: Generate Allure report
+        if: always()
+        uses: simple-elf/allure-report-action@master
+        with:
+          allure_results: target/allure-results
+          allure_report: target/allure-report
 
       - name: Upload test report
         if: always()
@@ -66,6 +77,7 @@ jobs:
           path: |
             target/surefire-reports/
             target/site/
+            target/coverage/
 
       - name: Tear down
         if: always()
