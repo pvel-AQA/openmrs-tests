@@ -47,8 +47,6 @@ public class PersonTest extends BaseTest {
         CreatePersonResponse foundPerson = AdminSteps.findPersonByUuid(createdPerson.getUuid());
         ModelAssertions.assertThatModels(createdPerson, foundPerson).match();
     }
-    // Test idea: public void positiveCreatePersonWithAddressTest(){
-    // Test idea: public void positiveCreatePersonWithAttributes(){
 
     public static Stream<Arguments> negativeCreatePersonData() {
         return Stream.of(

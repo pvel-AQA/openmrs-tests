@@ -1,0 +1,82 @@
+services:
+  db:
+    image: mariadb:10.11.7
+    command: "mysqld --character-set-server=utf8 --collation-server=utf8_general_ci"
+    environment:
+      MYSQL_DATABASE: openmrs
+      MYSQL_USER: openmrs
+      MYSQL_PASSWORD: openmrs
+      MYSQL_ROOT_PASSWORD: openmrs
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - openMRS-tests-network
+
+  backend:
+    image: openmrs/openmrs-reference-application-3-backend:qa
+    depends_on:
+      - db
+    environment:
+      OMRS_CONFIG_MODULE_WEB_ADMIN: "true"
+      OMRS_CONFIG_AUTO_UPDATE_DATABASE: "true"
+      OMRS_CONFIG_CREATE_TABLES: "true"
+      OMRS_CONFIG_CONNECTION_SERVER: db
+      OMRS_CONFIG_CONNECTION_DATABASE: openmrs
+      OMRS_CONFIG_CONNECTION_USERNAME: openmrs
+      OMRS_CONFIG_CONNECTION_PASSWORD: openmrs
+    networks:
+      - openMRS-tests-network
+
+  frontend:
+    image: openmrs/openmrs-reference-application-3-frontend:qa
+    environment:
+      SPA_PATH: /openmrs/spa
+      API_URL: /openmrs
+    depends_on:
+      - backend
+    networks:
+      - openMRS-tests-network
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./config/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - openMRS-tests-network
+
+  selenoid:
+    image: aerokube/selenoid:latest
+    environment:
+      DOCKER_API_VERSION: "1.40"
+    ports:
+      - "4444:4444"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./config/browsers.json:/etc/selenoid/browsers.json:ro
+    command: ["-container-network", "openMRS-tests-network"]
+    depends_on:
+      - frontend
+    networks:
+      - openMRS-tests-network
+
+  selenoid-ui:
+    image: aerokube/selenoid-ui:latest-release
+    ports:
+      - "6567:8080"
+    command: ["--selenoid-uri", "http://selenoid:4444"]
+    depends_on:
+      - selenoid
+    networks:
+      - openMRS-tests-network
+
+volumes:
+  db-data:
+
+networks:
+  openMRS-tests-network:
+    name: openMRS-tests-network

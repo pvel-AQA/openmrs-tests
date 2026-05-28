@@ -1,0 +1,12 @@
+{
+  "chrome": {
+    "default": "139.0",
+    "versions": {
+      "139.0": {
+        "image": "erolatex/selenoid_chromium:139.0",
+        "port": "4444",
+        "path": "/"
+      }
+    }
+  }
+}
