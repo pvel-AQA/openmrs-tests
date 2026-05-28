@@ -18,9 +18,9 @@ docker run --rm  \
   -v "$TEST_OUTPUT_DIR/results":/app/target/surefire-reports \
   -v "$TEST_OUTPUT_DIR/report":/app/target/site \
   -e TEST_PROFILE="$TEST_PROFILE" \
-  -e APIBASEURL=http://192.168.1.214/openmrs/ \
-  -e UIBASEURL=http://192.168.1.214/openmrs/spa \
-  -e BROWSERREMOTE=http://192.168.1.214:4444/wd/hub \
+  -e APIBASEURL=http://putYourIp/openmrs/ \
+  -e UIBASEURL=http://putYourIp/openmrs/spa \
+  -e BROWSERREMOTE=http://putYourIp:4444/wd/hub \
 $IMAGE_NAME
 
 echo ">>> Tests are finished"
