@@ -42,7 +42,7 @@ jobs:
           exit 1
 
       - name: Run tests
-        run: mvn test -P api,ui -DBROWSERREMOTE=http://localhost:4444/wd/hub -DUIBASEURL=http://localhost/openmrs/spa
+        run: mvn -B -ntp test -P api,ui -DBROWSERREMOTE=http://localhost:4444/wd/hub -DUIBASEURL=http://localhost/openmrs/spa
 
       - name: Upload test report
         if: always()
