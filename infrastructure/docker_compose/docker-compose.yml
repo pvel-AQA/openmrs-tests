@@ -1,19 +1,16 @@
 services:
   db:
-    image: mariadb:10.11.7
-    command: "mysqld --character-set-server=utf8 --collation-server=utf8_general_ci"
+    image: openmrs/openmrs-reference-application-3-db:nightly-with-data
     environment:
-      MYSQL_DATABASE: openmrs
-      MYSQL_USER: openmrs
-      MYSQL_PASSWORD: openmrs
-      MYSQL_ROOT_PASSWORD: openmrs
-    volumes:
-      - db-data:/var/lib/mysql
+      MARIADB_ROOT_PASSWORD: openmrs
+      MARIADB_DATABASE: openmrs
+      MARIADB_USER: openmrs
+      MARIADB_PASSWORD: openmrs
     networks:
       - openMRS-tests-network
 
   backend:
-    image: openmrs/openmrs-reference-application-3-backend:qa
+    image: openmrs/openmrs-reference-application-3-backend:nightly
     depends_on:
       - db
     environment:
@@ -28,7 +25,7 @@ services:
       - openMRS-tests-network
 
   frontend:
-    image: openmrs/openmrs-reference-application-3-frontend:qa
+    image: openmrs/openmrs-reference-application-3-frontend:nightly
     environment:
       SPA_PATH: /openmrs/spa
       API_URL: /openmrs
@@ -73,9 +70,6 @@ services:
       - selenoid
     networks:
       - openMRS-tests-network
-
-volumes:
-  db-data:
 
 networks:
   openMRS-tests-network:
