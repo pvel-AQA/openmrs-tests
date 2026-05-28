@@ -327,7 +327,7 @@ public class VisitPage extends BasePage<VisitPage> {
         return this;
     }
 
-    public VisitPage deleteActiveVisit() {
+    public VisitPage deleteActiveVisit() {//
         Selenide.sleep(1500);
 
         Selenide.executeJavaScript("""

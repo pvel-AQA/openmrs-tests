@@ -275,7 +275,7 @@ public final class AdminSteps {
                 .startDatetime(newStartDatetime)
                 .build();
 
-        new ValidatedCrudRequester<CreateVisitResponse>(
+        new CrudRequester(
                 RequestSpecs.adminSpec(),
                 Endpoint.VISIT_BY_UUID,
                 ResponseSpecs.requestReturnsOK())

@@ -136,9 +136,9 @@ public class StartVisitTest extends BaseUiTest {
 
         new PickLocationPage()
                 .open()
-                .pickOutpatientLocationAndConfirm();
-
-        new VisitPage().open(patientUuid)
+                .pickOutpatientLocationAndConfirm()
+                .getPage(VisitPage.class)
+                .open(patientUuid)
                 .waitPatientSummaryLoaded()
                 .openActionsMenu()
                 .selectAddVisit()
