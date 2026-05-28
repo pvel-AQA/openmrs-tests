@@ -1,0 +1,34 @@
+name: Run tests
+
+on: [ push, workflow_dispatch ]
+
+jobs:
+  run-tests:
+    name: Set up services (review apps) and run tests
+    runs-on: openmrs-distro //тут правильно или нет?
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4 // какая версия
+
+      - name: Set up JDK
+        uses: action/setup-java@v4 //какая версия
+        with:
+          distribution: 'corretto'
+          java-version: '21'
+
+      - name: Cache Maven repository
+        uses: actions/cache@v4 //какая версия
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Set up services
+        run: cd infra/docker_compose && bash restart_docker.sh && cd ../..   // откуда взять
+
+      - name: Run tests
+        run: ./mvnw clean test -q
+        env:
+            APIBASEURL: http://localhost:80/openmrs
+            UIBASEURL: http://frontend
