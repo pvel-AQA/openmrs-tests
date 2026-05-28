@@ -1,4 +1,5 @@
 #!/bin/bash
+cd "$(dirname "$0")"
 
 echo ">>> Остановить Docker Compose"
 docker compose down
