@@ -78,7 +78,7 @@ jobs:
           BROWSERREMOTE: http://localhost:4444/wd/hub
           UIBASEURL: http://nginx/openmrs/spa
           APIBASEURL: http://localhost:80/openmrs
-        run: mvn -q -ntp test -P api,ui
+        run: mvn -q test -P api,ui
 
       - name: Generate Surefire HTML report
         if: always()
@@ -102,7 +102,7 @@ jobs:
             target/coverage/
             target/allure-report/
             target/allure-results/
-            
+
       - name: Tear down
         if: always()
         run: docker compose -f infrastructure/docker_compose/docker-compose.yml down
