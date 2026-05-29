@@ -36,8 +36,7 @@ public class BaseUiTest extends BaseTest {
         options.addArguments(
                 "--disable-dev-shm-usage",
                 "--no-sandbox",
-                "--window-size=1920,1080",
-                "--user-data-dir=/tmp/chrome-" + UUID.randomUUID()
+                "--window-size=1920,1080"
         );
         options.setCapability("selenoid:options", Map.of(
                 "enableVNC", true,
