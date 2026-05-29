@@ -17,7 +17,7 @@ import api.requests.Endpoint;
 import api.requests.skeleton.requesters.AuthRequester;
 import api.requests.skeleton.requesters.CrudRequester;
 import api.requests.skeleton.requesters.ValidatedCrudRequester;
-import api.requests.skeleton.requesters.VisitTypeEnum;
+import api.models.VisitTypeEnum;
 import api.requests.specs.RequestSpecs;
 import api.requests.specs.ResponseSpecs;
 import common.generators.PartialEntityGenerator;
@@ -26,9 +26,7 @@ import ui.pages.PatientRegistrationPage;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static api.constants.Constants.PREFERRED_IDENTIFIER_TRUE;
 

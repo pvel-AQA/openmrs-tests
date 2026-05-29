@@ -1,0 +1,47 @@
+name: Run tests
+
+# trigger
+on: [ push, workflow_dispatch ]
+
+# stages analogy
+jobs:
+  run-tests:
+    name: Set up services (review apps) and run tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository # copy files into CI agent
+        uses: actions/checkout@v6
+
+      - name: Set up JDK
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'corretto'
+          java-version: '21'
+
+      - name: Cache Maven repository
+        uses: actions/cache@v5
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Set up services
+        timeout-minutes: 25
+        run: |
+          cd infra/docker_compose
+          bash restart_docker.sh
+          docker compose -p openmrs wait gateway
+          cd ../..
+
+      - name: Run tests
+        env:
+          APIBASEURL: http://gateway/openmrs
+          UIBASEURL: http://gateway/openmrs/spa
+          BROWSERREMOTE: http://selenoid:4444/wd/hub
+          APIFULLPREFIX: http://gateway/openmrs/ws/rest/v1
+        run: ./mvnw clean test -q
+
+      - name: Clean up services
+        if: always()
+        run: cd infra/docker_compose && docker compose -p openmrs down
