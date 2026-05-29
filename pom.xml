@@ -82,6 +82,11 @@
             <version>2.34.0</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.9.22</version>
+        </dependency>
         <!-- OPTIONAL: schema validation against the spec (your "include schemas" goal) -->
         <dependency>
             <groupId>com.atlassian.oai</groupId>
@@ -100,6 +105,7 @@
                         <artifactId>maven-surefire-plugin</artifactId>
                         <version>3.2.5</version>
                         <configuration>
+                            <argLine>-javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/1.9.22/aspectjweaver-1.9.22.jar"</argLine>
                             <includes combine.children="append">
                                 <include>**/api/**/*Test.java</include>
                             </includes>
@@ -117,6 +123,7 @@
                         <artifactId>maven-surefire-plugin</artifactId>
                         <version>3.2.5</version>
                         <configuration>
+                            <argLine>-javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/1.9.22/aspectjweaver-1.9.22.jar"</argLine>
                             <includes combine.children="append">
                                 <include>**/ui/**/*Test.java</include>
                             </includes>
