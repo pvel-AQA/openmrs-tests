@@ -7,17 +7,23 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           distribution: 'corretto'
           java-version: '21'
+
       - name: Cache Maven repository
         uses: actions/cache@v4
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-maven-
+
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
       - name: Cache OpenMRS db data
         id: cache-db
         uses: actions/cache@v4
@@ -26,27 +32,21 @@ jobs:
           key: openmrs-db-v1-${{ hashFiles('infrastructure/docker_compose/docker-compose.yml', 'infrastructure/docker_compose/config/**') }}
           restore-keys: |
             openmrs-db-v1-
+
       - name: Fix db cache permissions
         if: steps.cache-db.outputs.cache-hit == 'true'
         run: |
-          echo "Cache hit — db data restored from cache"
-          du -sh infrastructure/docker_compose/db-data/ || true
+          echo "Cache hit — using cached db data"
           sudo chown -R 999:999 infrastructure/docker_compose/db-data || true
-      - name: Install jq
-        run: sudo apt-get update && sudo apt-get install -y jq
+          ls -la infrastructure/docker_compose/db-data/ | head -5
+
       - name: Set up services
         run: bash infrastructure/docker_compose/restart_docker.sh
+
       - name: Wait for OpenMRS to finish initial setup
         run: |
           echo "Waiting for OpenMRS to complete initial setup..."
-          if [ "${{ steps.cache-db.outputs.cache-hit }}" = "true" ]; then
-            MAX_ATTEMPTS=120
-            echo "Cache hit — expecting faster startup"
-          else
-            MAX_ATTEMPTS=240
-            echo "No cache — full initialization expected"
-          fi
-          for i in $(seq 1 $MAX_ATTEMPTS); do
+          for i in {1..60}; do
             status=$(curl -s -o /dev/null -w "%{http_code}" -u admin:Admin123 \
               -H "Accept: application/json" \
               http://localhost/openmrs/ws/rest/v1/session)
@@ -54,43 +54,50 @@ jobs:
               echo "OpenMRS is ready (after $((i*5))s)."
               exit 0
             fi
-            echo "Attempt $i/$MAX_ATTEMPTS: status=$status (still initializing)..."
+            echo "Attempt $i: status=$status (still initializing)..."
+            # Every 12 attempts (~1 min), peek at backend log tail
             if (( i % 12 == 0 )); then
               echo "--- backend log tail at $((i*5))s ---"
               docker compose -f infrastructure/docker_compose/docker-compose.yml logs --tail=20 backend
               echo "--- end backend log tail ---"
             fi
-            sleep 5
+            sleep 2
           done
-          echo "OpenMRS did not become ready within ${MAX_ATTEMPTS}*5 seconds"
+          echo "OpenMRS did not become ready within 20 minutes"
           docker compose -f infrastructure/docker_compose/docker-compose.yml logs --tail=300 backend
           exit 1
+
       - name: Run tests
         env:
           BROWSERREMOTE: http://localhost:4444/wd/hub
           UIBASEURL: http://nginx/openmrs/spa
           APIBASEURL: http://localhost:80/openmrs
         run: mvn -B -ntp test -P api,ui
+
       - name: Generate Surefire HTML report
         if: always()
         run: mvn -B -ntp surefire-report:report-only -DshowSuccess=true
+
       - name: Generate Allure report
         if: always()
         uses: simple-elf/allure-report-action@master
         with:
           allure_results: target/allure-results
           allure_report: target/allure-report
+
       - name: Upload test report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: test-report
+          if-no-files-found: warn
           path: |
             target/surefire-reports/
             target/site/
             target/coverage/
             target/allure-report/
             target/allure-results/
+
       - name: Tear down
         if: always()
         run: docker compose -f infrastructure/docker_compose/docker-compose.yml down

@@ -1,6 +1,8 @@
 services:
   db:
     image: openmrs/openmrs-reference-application-3-db:nightly-with-data
+    volumes:
+      - ./db-data:/openmrs-db
     environment:
       MARIADB_ROOT_PASSWORD: openmrs
       MARIADB_DATABASE: openmrs
