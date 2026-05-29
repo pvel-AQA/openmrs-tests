@@ -70,10 +70,10 @@ jobs:
           BROWSERREMOTE: http://localhost:4444/wd/hub
           UIBASEURL: http://nginx/openmrs/spa
           APIBASEURL: http://localhost:80/openmrs
-        run: mvn -B -ntp test -P api,ui
+        run: mvn -q -ntp test -P api,ui
       - name: Generate Surefire HTML report
         if: always()
-        run: mvn -B -ntp surefire-report:report-only -DshowSuccess=true
+        run: mvn -q surefire-report:report-only -DshowSuccess=true
       - name: Generate Allure report
         if: always()
         uses: simple-elf/allure-report-action@master
