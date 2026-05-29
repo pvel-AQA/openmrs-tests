@@ -39,7 +39,7 @@ jobs:
           UIBASEURL: http://gateway/openmrs/spa
           BROWSERREMOTE: http://selenoid:4444/wd/hub
           APIFULLPREFIX: http://gateway/openmrs/ws/rest/v1
-        run: ./mvnw clean test -q
+        run: ./mvnw clean test -P api -q
 
       - name: Clean up services
         if: always()
