@@ -52,9 +52,9 @@ jobs:
 
       - name: Run tests
         env:
-          APIBASEURL: http://localhost/openmrs
+          APIBASEURL: http://localhost:80/openmrs
           UIBASEURL: http://gateway/openmrs/spa
-          BROWSERREMOTE: http://selenoid:4444/wd/hub
+          BROWSERREMOTE: http://localhost:4444/wd/hub
           APIFULLPREFIX: http://localhost/openmrs/ws/rest/v1
         run: ./mvnw clean test -P api -q
 
