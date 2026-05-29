@@ -2,11 +2,6 @@ services:
   gateway:
     image: openmrs/openmrs-reference-application-3-gateway:${TAG:-qa}
     restart: "unless-stopped"
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost/openmrs/spa" ]
-      interval: 10s
-      timeout: 5s
-      retries: 5
     depends_on:
       frontend:
         condition: service_healthy

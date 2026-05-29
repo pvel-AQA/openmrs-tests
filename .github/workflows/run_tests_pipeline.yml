@@ -31,7 +31,6 @@ jobs:
         run: |
           cd infra/docker_compose
           bash restart_docker.sh
-          docker compose -p openmrs wait gateway
           cd ../..
 
       - name: Run tests
