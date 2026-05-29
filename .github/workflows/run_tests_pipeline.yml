@@ -27,11 +27,28 @@ jobs:
             ${{ runner.os }}-maven-
 
       - name: Set up services
-        timeout-minutes: 25
         run: |
           cd infra/docker_compose
           bash restart_docker.sh
           cd ../..
+          
+      - name: Wait for OpenMRS to be ready
+        timeout-minutes: 25
+        run: |
+          echo "Waiting for OpenMRS REST API..."
+          for i in $(seq 1 150); do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+              -u admin:Admin123 \
+              http://gateway/openmrs/ws/rest/v1/session)
+            if [ "$STATUS" = "200" ]; then
+              echo "OpenMRS is ready!"
+              exit 0
+            fi
+            echo "Attempt $i: status $STATUS, waiting 10s..."
+            sleep 10
+          done
+          echo "OpenMRS not ready after 25 minutes"
+          exit 1 
 
       - name: Run tests
         env:
