@@ -3,6 +3,7 @@ package ui;
 import api.BaseTest;
 import api.configs.Config;
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import common.extensions.AdminSessionExtension;
 import io.qameta.allure.selenide.AllureSelenide;
@@ -11,7 +12,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -32,6 +32,7 @@ public class BaseUiTest extends BaseTest {
 
     @BeforeEach
     public void setUniqueUserDataDir() {
+        Selenide.closeWebDriver();
         ChromeOptions options = new ChromeOptions();
         options.addArguments(
                 "--disable-dev-shm-usage",
