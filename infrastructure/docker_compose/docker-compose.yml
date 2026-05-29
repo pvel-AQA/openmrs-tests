@@ -1,20 +1,24 @@
 services:
   db:
-    image: openmrs/openmrs-reference-application-3-db:nightly-with-data
-    volumes:
-      - ./db-data:/openmrs-db
+    image: mariadb:10.11.7
     environment:
       MARIADB_ROOT_PASSWORD: openmrs
       MARIADB_DATABASE: openmrs
       MARIADB_USER: openmrs
       MARIADB_PASSWORD: openmrs
+    healthcheck:
+      test: [ "CMD", "healthcheck.sh", "--connect", "--innodb_initialized" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
     networks:
       - openMRS-tests-network
 
   backend:
-    image: openmrs/openmrs-reference-application-3-backend:nightly
+    image: openmrs/openmrs-reference-application-3-backend:qa
     depends_on:
-      - db
+       db:
+        condition: service_healthy
     environment:
       OMRS_CONFIG_MODULE_WEB_ADMIN: "true"
       OMRS_CONFIG_AUTO_UPDATE_DATABASE: "true"
@@ -27,12 +31,13 @@ services:
       - openMRS-tests-network
 
   frontend:
-    image: openmrs/openmrs-reference-application-3-frontend:nightly
+    image: openmrs/openmrs-reference-application-3-frontend:qa
     environment:
       SPA_PATH: /openmrs/spa
       API_URL: /openmrs
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy
     networks:
       - openMRS-tests-network
 
@@ -59,7 +64,7 @@ services:
       - ./config/browsers.json:/etc/selenoid/browsers.json:ro
     command: ["-container-network", "openMRS-tests-network"]
     depends_on:
-      - frontend
+      - nginx
     networks:
       - openMRS-tests-network
 
