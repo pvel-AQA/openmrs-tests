@@ -1,10 +1,10 @@
 #!/bin/bash
 cd "$(dirname "$0")"
 
-echo ">>> Остановить Docker Compose"
+echo ">>> Stop Docker Compose"
 docker compose down
 
-echo ">>> Docker pull все образы браузеров"
+echo ">>> Docker pull all browser images"
 
 # Путь до файла
 json_file="./config/browsers.json"
@@ -24,6 +24,6 @@ for image in $images; do
     docker pull "$image"
 done
 
-echo ">>> Запуск Docker Compose"
+echo ">>> Start Docker Compose"
 docker compose up -d
 
