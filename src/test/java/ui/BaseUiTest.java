@@ -32,7 +32,6 @@ public class BaseUiTest extends BaseTest {
 
     @BeforeEach
     public void setUniqueUserDataDir() {
-        Selenide.closeWebDriver();
         ChromeOptions options = new ChromeOptions();
         options.addArguments(
                 "--disable-dev-shm-usage",
