@@ -27,6 +27,12 @@ services:
       OMRS_CONFIG_CONNECTION_DATABASE: openmrs
       OMRS_CONFIG_CONNECTION_USERNAME: openmrs
       OMRS_CONFIG_CONNECTION_PASSWORD: openmrs
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -fsS http://localhost:8080/openmrs/health/started || exit 1" ]
+      interval: 15s
+      timeout: 10s
+      retries: 30
+      start_period: 180s
     networks:
       - openMRS-tests-network
 
@@ -36,8 +42,7 @@ services:
       SPA_PATH: /openmrs/spa
       API_URL: /openmrs
     depends_on:
-      backend:
-        condition: service_healthy
+      - backend
     networks:
       - openMRS-tests-network
 
