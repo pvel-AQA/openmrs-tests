@@ -3,10 +3,8 @@ services:
     image: openmrs/openmrs-reference-application-3-gateway:${TAG:-qa}
     restart: "unless-stopped"
     depends_on:
-      frontend:
-        condition: service_healthy
-      backend:
-        condition: service_healthy
+      - frontend
+      - backend
     ports:
       - "80:80"
 
@@ -38,11 +36,8 @@ services:
       OMRS_CONFIG_CONNECTION_USERNAME: ${OMRS_DB_USER:-openmrs}
       OMRS_CONFIG_CONNECTION_PASSWORD: ${OMRS_DB_PASSWORD:-openmrs}
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8080/openmrs/ws/rest/v1/session" ]
-      interval: 10s
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/openmrs" ]
       timeout: 5s
-      retries: 60
-      start_period: 600s
     volumes:
       - openmrs-data:/openmrs/data
 
