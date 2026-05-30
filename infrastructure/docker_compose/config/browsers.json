@@ -1,9 +1,9 @@
 {
   "chrome": {
-    "default": "139.0",
+    "default": "128.0",
     "versions": {
-      "139.0": {
-        "image": "erolatex/selenoid_chromium:139.0",
+      "128.0": {
+        "image": "selenoid/vnc_chrome:128.0",
         "port": "4444",
         "path": "/"
       }

@@ -54,11 +54,11 @@ jobs:
             echo "No cache — full initialization expected"
           fi
           for i in $(seq 1 $MAX_ATTEMPTS); do
-            status=$(curl -s -o /dev/null -w "%{http_code}" -L -u admin:Admin123 \
+            body=$(curl -s -L -u admin:Admin123 \
               -H "Accept: application/json" \
               http://localhost/openmrs/ws/rest/v1/session)
-            if [ "$status" = "200" ]; then
-              echo "OpenMRS is ready (after $((i*5))s)."
+            if echo "$body" | grep -q '"authenticated":true'; then
+              echo "OpenMRS REST is serving authenticated JSON (after $((i*5))s)."
               exit 0
             fi
             echo "Attempt $i/$MAX_ATTEMPTS: status=$status (still initializing)..."
@@ -72,6 +72,9 @@ jobs:
           echo "OpenMRS did not become ready within ${MAX_ATTEMPTS}*5 seconds"
           docker compose -f infrastructure/docker_compose/docker-compose.yml logs --tail=300 backend
           exit 1
+
+      - name: Pre-pull Chrome image
+        run: docker pull selenoid/vnc_chrome:128.0
 
       - name: Run tests
         env:
