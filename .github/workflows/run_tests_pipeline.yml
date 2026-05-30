@@ -33,7 +33,7 @@ jobs:
           cd ../..
           
       - name: Wait for OpenMRS to be ready
-        timeout-minutes: 25
+        timeout-minutes: 5
         run: |
           echo "Waiting for OpenMRS REST API..."
           for i in $(seq 1 150); do
