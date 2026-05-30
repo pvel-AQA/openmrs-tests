@@ -64,6 +64,7 @@ jobs:
             echo "Attempt $i/$MAX_ATTEMPTS: not ready. First 200 chars of body:"
             echo "$body" | head -c 200
             echo ""
+            sleep 5
           done
           echo "OpenMRS did not become ready within ${MAX_ATTEMPTS}*5 seconds"
           docker compose -f infrastructure/docker_compose/docker-compose.yml logs --tail=300 backend
