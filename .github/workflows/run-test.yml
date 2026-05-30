@@ -54,7 +54,7 @@ jobs:
             echo "No cache — full initialization expected"
           fi
           for i in $(seq 1 $MAX_ATTEMPTS); do
-            status=$(curl -s -o /dev/null -w "%{http_code}" -u admin:Admin123 \
+            status=$(curl -s -o /dev/null -w "%{http_code}" -L -u admin:Admin123 \
               -H "Accept: application/json" \
               http://localhost/openmrs/ws/rest/v1/session)
             if [ "$status" = "200" ]; then
