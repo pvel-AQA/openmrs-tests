@@ -43,6 +43,9 @@ jobs:
       - name: Set up services
         run: bash infrastructure/docker_compose/restart_docker.sh
 
+      - name: Debug resources
+        run: free -h; nproc; docker stats --no-stream
+
       - name: Wait for OpenMRS to finish initial setup
         run: |
           echo "Waiting for OpenMRS to complete initial setup..."
@@ -72,6 +75,11 @@ jobs:
 
       - name: Pre-pull Chrome image
         run: docker pull selenoid/vnc_chrome:128.0
+
+      - name: Start Selenoid
+        run: |
+            cd infrastructure/docker_compose
+            docker compose up -d selenoid selenoid-ui
 
       - name: Run tests
         env:

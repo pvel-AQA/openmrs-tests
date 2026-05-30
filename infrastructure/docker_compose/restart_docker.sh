@@ -24,6 +24,8 @@ for image in $images; do
     docker pull "$image"
 done
 
-echo ">>> Start Docker Compose"
-docker compose up -d
+#echo ">>> Start Docker Compose"
+#docker compose up -d
+echo ">>> Start core services (db, backend, frontend, nginx)"
+docker compose up -d db backend frontend nginx
 

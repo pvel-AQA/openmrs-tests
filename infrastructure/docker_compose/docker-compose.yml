@@ -29,6 +29,7 @@ services:
       OMRS_CONFIG_CONNECTION_DATABASE: openmrs
       OMRS_CONFIG_CONNECTION_USERNAME: openmrs
       OMRS_CONFIG_CONNECTION_PASSWORD: openmrs
+      OMRS_JAVA_MEMORY_OPTS: "-Xms2g -Xmx3g"
     networks:
       - openMRS-tests-network
 
