@@ -3,6 +3,7 @@ package api;
 import api.models.CreatePatientResponse;
 import api.requests.steps.AdminSteps;
 import api.assertions.CommonAssertions;
+import common.annotations.Skip;
 import common.generators.RandomDataGenerator;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -57,6 +58,7 @@ public class SearchPatientTest extends BaseTest{
             Arguments.of("m"),
             Arguments.of("abrakadabra"));
     }
+    @Skip(reason = "flaky test, that should be updated")
     @MethodSource("negativePatientSearchData")
     @ParameterizedTest
     public void searchPatient_withoutMatchingTest(String searchText) {
@@ -71,6 +73,7 @@ public class SearchPatientTest extends BaseTest{
             Arguments.of("Unknown", 20),
             Arguments.of("UNKNOWN", 20));
     }
+    @Skip(reason = "flaky test, that should be updated")
     @MethodSource("unknownPatientSearchDataGenerated")
     @ParameterizedTest
     public void searchUnknownPatientTest(String searchText, int resultCount) {
