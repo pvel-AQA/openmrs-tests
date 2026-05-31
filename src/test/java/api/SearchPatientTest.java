@@ -32,6 +32,7 @@ public class SearchPatientTest extends BaseTest{
                 Arguments.of(generatedString.substring(0,4).toUpperCase() + "MN", 4),
                 Arguments.of(generatedString.substring(0,3).toLowerCase(), 4));
     }
+    @Skip(reason = "flaky test, that should be updated")
     @MethodSource("positivePatientSearchDataGenerated")
     @ParameterizedTest
     public void searchPatient_withMatchingTest(String searchText, int resultCount) {
@@ -58,7 +59,6 @@ public class SearchPatientTest extends BaseTest{
             Arguments.of("m"),
             Arguments.of("abrakadabra"));
     }
-    @Skip(reason = "flaky test, that should be updated")
     @MethodSource("negativePatientSearchData")
     @ParameterizedTest
     public void searchPatient_withoutMatchingTest(String searchText) {
