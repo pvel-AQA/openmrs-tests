@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 import static api.constants.Constants.PATH_PARAM_PURGE;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class SearchPatientTest extends BaseTest{
+public class SearchPatientTest extends BaseTest {
     private static List<String> createdUuids = new ArrayList<>();
     private static final String generatedString = RandomDataGenerator.randomString(7);
 

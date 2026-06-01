@@ -1,4 +1,4 @@
-package api.models;
+package api.models.enums;
 
 public enum VisitTypeEnum {
     FACILITY_VISIT("Facility Visit"),

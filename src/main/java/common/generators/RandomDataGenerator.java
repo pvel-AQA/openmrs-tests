@@ -1,6 +1,6 @@
 package common.generators;
 
-import api.models.Gender;
+import api.models.enums.Gender;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 

@@ -2,6 +2,7 @@ package api.requests.steps;
 
 import api.constants.Constants;
 import api.models.*;
+import api.models.enums.ClinicName;
 import api.models.patient.IdentifiersForPatientUpdate;
 import api.models.patient.PersonForPatientUpdate;
 import api.models.patient.PersonNameForPatientUpdate;
@@ -17,7 +18,7 @@ import api.requests.Endpoint;
 import api.requests.skeleton.requesters.AuthRequester;
 import api.requests.skeleton.requesters.CrudRequester;
 import api.requests.skeleton.requesters.ValidatedCrudRequester;
-import api.models.VisitTypeEnum;
+import api.models.enums.VisitTypeEnum;
 import api.requests.specs.RequestSpecs;
 import api.requests.specs.ResponseSpecs;
 import common.generators.PartialEntityGenerator;

@@ -3,6 +3,8 @@ package api;
 import api.constants.Constants;
 import api.models.*;
 import api.models.comparison.ModelAssertions;
+import api.models.enums.ClinicName;
+import api.models.enums.Gender;
 import api.requests.Endpoint;
 import api.requests.skeleton.requesters.CrudRequester;
 import api.requests.skeleton.requesters.ValidatedCrudRequester;
