@@ -1,15 +1,13 @@
 services:
   db:
     image: mariadb:10.11.7
-    volumes:
-      - ./seed.sql:/docker-entrypoint-initdb.d/seed.sql:ro
     environment:
       MARIADB_ROOT_PASSWORD: openmrs
       MARIADB_DATABASE: openmrs
       MARIADB_USER: openmrs
       MARIADB_PASSWORD: openmrs
     healthcheck:
-      test: [ "CMD-SHELL", "mariadb -u openmrs -popenmrs -e 'SELECT COUNT(*) FROM openmrs.global_property;' || exit 1" ]
+      test: [ "CMD-SHELL", "healthcheck.sh --connect --innodb_initialized || mariadb -u openmrs -popenmrs -e 'SELECT 1;' || exit 1" ]
       interval: 10s
       timeout: 5s
       retries: 30
@@ -18,13 +16,15 @@ services:
 
   backend:
     image: openmrs/openmrs-reference-application-3-backend:qa
+    volumes:
+      - ./empty-ocl:/openmrs/distribution/openmrs_config/ocl:ro
     depends_on:
        db:
         condition: service_healthy
     environment:
       OMRS_CONFIG_MODULE_WEB_ADMIN: "true"
       OMRS_CONFIG_AUTO_UPDATE_DATABASE: "true"
-      OMRS_CONFIG_CREATE_TABLES: "false"
+      OMRS_CONFIG_CREATE_TABLES: "true"
       OMRS_CONFIG_CONNECTION_SERVER: db
       OMRS_CONFIG_CONNECTION_DATABASE: openmrs
       OMRS_CONFIG_CONNECTION_USERNAME: openmrs
