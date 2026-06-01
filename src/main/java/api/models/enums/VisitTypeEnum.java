@@ -1,4 +1,4 @@
-package api.requests.skeleton.requesters;
+package api.models.enums;
 
 public enum VisitTypeEnum {
     FACILITY_VISIT("Facility Visit"),

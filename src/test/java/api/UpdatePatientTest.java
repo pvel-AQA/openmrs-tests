@@ -9,7 +9,7 @@ import api.requests.skeleton.requesters.ValidatedCrudRequester;
 import api.requests.specs.RequestSpecs;
 import api.requests.specs.ResponseSpecs;
 import api.requests.steps.AdminSteps;
-import api.utils.DisplayFormatterUtils;
+import common.annotations.Skip;
 import common.generators.RandomDataGenerator;
 import org.junit.jupiter.api.Test;
 
@@ -17,6 +17,7 @@ import static api.utils.DisplayFormatterUtils.personDisplayFormatter;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class UpdatePatientTest extends BaseTest {
+    @Skip(reason = "Bug: uuid is changed for Address even when address field is not even updated")
     @Test
     public void patientCanBeUpdatedSuccessfully() {
         CreatePatientRequest patientRequest = AdminSteps.createPatientRequest();

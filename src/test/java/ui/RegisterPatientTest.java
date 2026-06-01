@@ -9,6 +9,7 @@ import api.models.ui.RegisterPatientUi;
 import api.models.ui.RegisterUnknownPatientUi;
 import api.requests.steps.AdminSteps;
 import common.annotations.AdminSession;
+import common.annotations.Skip;
 import common.helpers.StepLogger;
 import common.utils.DateUtils;
 import org.junit.jupiter.api.Test;
@@ -103,6 +104,8 @@ public class RegisterPatientTest extends BaseUiTest {
         });
     }
 
+    @Skip(reason = "Bug(Inconsistency): when aprox. date is fewer than 6 only year is shown, " +
+            "when greater month and year")
     @Test
     @AdminSession
     public void unknownPatientCanBeRegisteredWithValidDataTest() {

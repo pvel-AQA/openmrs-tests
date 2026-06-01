@@ -2,12 +2,13 @@ package api;
 
 import api.models.*;
 import api.models.comparison.ModelAssertions;
+import api.models.enums.ClinicName;
 import api.models.visit.CreateVisitRequest;
 import api.models.visit.CreateVisitResponse;
 import api.requests.Endpoint;
 import api.requests.skeleton.requesters.CrudRequester;
 import api.requests.skeleton.requesters.ValidatedCrudRequester;
-import api.requests.skeleton.requesters.VisitTypeEnum;
+import api.models.enums.VisitTypeEnum;
 import api.requests.specs.RequestSpecs;
 import api.requests.specs.ResponseSpecs;
 import api.requests.steps.AdminSteps;
@@ -100,7 +101,7 @@ public class VisitTest extends BaseTest {
                 ResponseSpecs.requestReturnsCreated())
                 .post(createRequest);
 
-        new ValidatedCrudRequester<CreateVisitResponse>(
+        new CrudRequester(
                 RequestSpecs.adminSpec(),
                 Endpoint.VISIT_BY_UUID,
                 ResponseSpecs.requestReturnsNoContent())

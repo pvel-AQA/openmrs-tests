@@ -2,7 +2,7 @@ package ui.pages;
 
 import api.models.ui.VisitMessage;
 import api.models.ui.VisitTab;
-import api.requests.skeleton.requesters.VisitTypeEnum;
+import api.models.enums.VisitTypeEnum;
 import com.codeborne.selenide.*;
 import org.openqa.selenium.By;
 

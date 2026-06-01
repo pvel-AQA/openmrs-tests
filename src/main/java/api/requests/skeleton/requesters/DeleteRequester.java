@@ -19,7 +19,7 @@ public class DeleteRequester extends HttpRequest implements DeleteByPathInterfac
         return given()
                 .spec(requestSpecification)
                 .when()
-                .delete(Config.getProperty(Config.API_VERSION_CONST) + path)
+                .delete(path)
                 .then()
                 .spec(responseSpecifications);
     }

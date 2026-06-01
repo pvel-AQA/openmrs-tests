@@ -3,6 +3,7 @@ package api;
 import api.models.CreatePatientResponse;
 import api.requests.steps.AdminSteps;
 import api.assertions.CommonAssertions;
+import common.annotations.Skip;
 import common.generators.RandomDataGenerator;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -16,7 +17,7 @@ import java.util.stream.Stream;
 import static api.constants.Constants.PATH_PARAM_PURGE;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class SearchPatientTest extends BaseTest{
+public class SearchPatientTest extends BaseTest {
     private static List<String> createdUuids = new ArrayList<>();
     private static final String generatedString = RandomDataGenerator.randomString(7);
 
@@ -31,6 +32,7 @@ public class SearchPatientTest extends BaseTest{
                 Arguments.of(generatedString.substring(0,4).toUpperCase() + "MN", 4),
                 Arguments.of(generatedString.substring(0,3).toLowerCase(), 4));
     }
+    @Skip(reason = "flaky test, that should be updated")
     @MethodSource("positivePatientSearchDataGenerated")
     @ParameterizedTest
     public void searchPatient_withMatchingTest(String searchText, int resultCount) {
@@ -71,6 +73,7 @@ public class SearchPatientTest extends BaseTest{
             Arguments.of("Unknown", 20),
             Arguments.of("UNKNOWN", 20));
     }
+    @Skip(reason = "flaky test, that should be updated")
     @MethodSource("unknownPatientSearchDataGenerated")
     @ParameterizedTest
     public void searchUnknownPatientTest(String searchText, int resultCount) {

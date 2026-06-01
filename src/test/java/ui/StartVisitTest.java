@@ -3,7 +3,7 @@ package ui;
 import api.models.CreatePatientResponse;
 import api.models.ui.VisitTab;
 import api.models.visit.CreateVisitResponse;
-import api.requests.skeleton.requesters.VisitTypeEnum;
+import api.models.enums.VisitTypeEnum;
 import api.requests.steps.AdminSteps;
 import com.codeborne.selenide.WebDriverRunner;
 import common.annotations.AdminSession;
