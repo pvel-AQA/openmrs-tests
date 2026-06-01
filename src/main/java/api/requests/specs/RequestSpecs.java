@@ -4,6 +4,7 @@ import api.configs.Config;
 import api.requests.Endpoint;
 import api.requests.skeleton.requesters.AuthRequester;
 import com.codeborne.selenide.WebDriverRunner;
+import coverage.CoverageFilter;
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
@@ -26,6 +27,7 @@ public final class RequestSpecs {
         return new RequestSpecBuilder()
                 .setContentType(ContentType.JSON)
                 .setAccept(ContentType.JSON)
+                .addFilter(new CoverageFilter())
                 .addFilters(List.of(
                         new RequestLoggingFilter(),
                         new ResponseLoggingFilter(),

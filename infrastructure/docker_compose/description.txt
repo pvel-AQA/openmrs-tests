@@ -1,0 +1,25 @@
+All containers that need to launch
+
+1) container of backend:
+name: openmrs-distro-referenceapplication-backend-1
+image: openmrs/openmrs-reference-application-3-backend:qa //80 -> 80
+domain: backend.openmrs-distro-referenceapplication.orb.local
+192.168.97.3
+path: /Users/natalyakashyrina/OrbStack/docker/containers/openmrs-distro-referenceapplication-backend-1
+
+2) container of frontend: openmrs/openmrs-reference-application-3-frontend:qa //4444 -> 4444
+
+3) container of Nginx: nginx:latest // nginx 80 -> 80
+
+4) container of Selenoid: aerokube/selenoid:latest-release 4444 -> 4444
+
+5) container of Selenoid UI: aerokube/selenoid-ui:latest-release 8080 ->8080
+
+6) container of DB: mariadb:10.11.7
+
+Steps:
+1) create docker-compose.yaml file
+2) describe each of docker-containers (image, port, network)
+3) script to launch all docker containers with the help of Docker
+
+!for update!

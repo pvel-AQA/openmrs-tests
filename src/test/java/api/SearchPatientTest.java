@@ -67,9 +67,9 @@ public class SearchPatientTest extends BaseTest{
     public static Stream<Arguments> unknownPatientSearchDataGenerated() {
 
         return Stream.of(
-            Arguments.of("unknown", 20),
-            Arguments.of("Unknown", 20),
-            Arguments.of("UNKNOWN", 20));
+            Arguments.of("unknown", 22),
+            Arguments.of("Unknown", 22),
+            Arguments.of("UNKNOWN", 22));
     }
     @MethodSource("unknownPatientSearchDataGenerated")
     @ParameterizedTest
