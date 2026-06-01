@@ -23,7 +23,7 @@ public class AuthRequester extends HttpRequest implements SessionEndpointInterfa
                 .auth().preemptive().basic(username, password)
                 .spec(requestSpecification)
                 .when()
-                .get(API_VERSION + Endpoint.SESSION.getUrl())
+                .get(Endpoint.SESSION.getUrl())
                 .then()
                 .assertThat()
                 .spec(responseSpecifications);

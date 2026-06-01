@@ -28,7 +28,7 @@ public class CrudRequester extends HttpRequest implements CrudEndpointInterface 
                 .spec(requestSpecification)
                 .pathParams(PATH_PARAM_UUID, uuid)
                 .when()
-                .get(Config.getProperty(Config.API_VERSION_CONST) + endpoint.getUrl())
+                .get(endpoint.getUrl())
                 .then()
                 .assertThat()
                 .spec(responseSpecifications);
@@ -40,7 +40,7 @@ public class CrudRequester extends HttpRequest implements CrudEndpointInterface 
                 .spec(requestSpecification)
                 .pathParams(PATH_PARAM_UUID, uuid)
                 .when()
-                .get(Config.getProperty(Config.API_VERSION_CONST) + endpoint.getUrl())
+                .get(endpoint.getUrl())
                 .then()
                 .assertThat()
                 .spec(responseSpecifications);
@@ -52,7 +52,7 @@ public class CrudRequester extends HttpRequest implements CrudEndpointInterface 
                 .spec(requestSpecification)
                 .when()
                 .queryParams(queryParams)
-                .get(Config.getProperty(Config.API_VERSION_CONST) + endpoint.getUrl())
+                .get(endpoint.getUrl())
                 .then()
                 .assertThat()
                 .spec(responseSpecifications);
@@ -66,7 +66,7 @@ public class CrudRequester extends HttpRequest implements CrudEndpointInterface 
                 .spec(requestSpecification)
                 .when()
                 .body(body)
-                .post(Config.getProperty(Config.API_VERSION_CONST) + endpoint.getUrl())
+                .post(endpoint.getUrl())
                 .then()
                 .assertThat()
                 .spec(responseSpecifications);
@@ -81,29 +81,33 @@ public class CrudRequester extends HttpRequest implements CrudEndpointInterface 
                 .pathParam(PATH_PARAM_UUID, uuid)
                 .when()
                 .body(body)
-                .post(Config.getProperty(Config.API_VERSION_CONST) + endpoint.getUrl())
+                .post(endpoint.getUrl())
                 .then()
                 .assertThat()
                 .spec(responseSpecifications);
     }
 
     @Override
-    public void delete(String uuid) {
-        given()
+    public ValidatableResponse delete(String uuid) {
+        return given()
                 .spec(requestSpecification)
                 .pathParam(PATH_PARAM_UUID, uuid)
                 .when()
-                .delete(Config.getProperty(Config.API_VERSION_CONST) + endpoint.getUrl());
+                .delete(endpoint.getUrl())
+                .then()
+                .spec(responseSpecifications);
     }
 
     @Override
-    public void delete(String uuid, Boolean purge) {
-        given()
+    public ValidatableResponse delete(String uuid, Boolean purge) {
+        return given()
                 .spec(requestSpecification)
                 .pathParam(PATH_PARAM_UUID, uuid)
                 .queryParam(PATH_PARAM_PURGE, purge)
                 .when()
-                .delete(Config.getProperty(Config.API_VERSION_CONST) + endpoint.getUrl());
+                .delete(endpoint.getUrl())
+                .then()
+                .spec(responseSpecifications);
     }
 
     public static class QueryBuilder {

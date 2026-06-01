@@ -11,7 +11,7 @@ public interface CrudEndpointInterface {
     Object getAll(Map<String, Object> params, Class<?> clazz);
     Object post(BaseModel model);
     Object post(BaseModel model, String uuid);
-    void delete(String uuid);
-    void delete(String uuid, Boolean purge);
+    Object delete(String uuid);
+    Object delete(String uuid, Boolean purge);
 
 }

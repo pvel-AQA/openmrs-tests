@@ -78,12 +78,12 @@ public class ValidatedCrudRequester<T extends BaseModel> extends HttpRequest imp
     }
 
     @Override
-    public void delete(String uuid) {
-        crudRequester.delete(uuid);
+    public Void delete(String uuid) {
+        return null;
     }
 
     @Override
-    public void delete(String uuid, Boolean purge) {
-        crudRequester.delete(uuid, purge);
+    public Void delete(String uuid, Boolean purge) {
+        return null;
     }
 }

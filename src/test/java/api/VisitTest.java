@@ -5,6 +5,7 @@ import api.models.comparison.ModelAssertions;
 import api.models.visit.CreateVisitRequest;
 import api.models.visit.CreateVisitResponse;
 import api.requests.Endpoint;
+import api.requests.skeleton.requesters.CrudRequester;
 import api.requests.skeleton.requesters.ValidatedCrudRequester;
 import api.models.VisitTypeEnum;
 import api.requests.specs.RequestSpecs;
@@ -99,7 +100,7 @@ public class VisitTest extends BaseTest {
                 ResponseSpecs.requestReturnsCreated())
                 .post(createRequest);
 
-        new ValidatedCrudRequester<CreateVisitResponse>(
+        new CrudRequester(
                 RequestSpecs.adminSpec(),
                 Endpoint.VISIT_BY_UUID,
                 ResponseSpecs.requestReturnsNoContent())

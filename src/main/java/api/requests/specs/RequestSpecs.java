@@ -4,6 +4,8 @@ import api.configs.Config;
 import api.requests.Endpoint;
 import api.requests.skeleton.requesters.AuthRequester;
 import com.codeborne.selenide.WebDriverRunner;
+import com.github.viclovsky.swagger.coverage.FileSystemOutputWriter;
+import com.github.viclovsky.swagger.coverage.SwaggerCoverageRestAssured;
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
@@ -12,7 +14,10 @@ import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import org.openqa.selenium.Cookie;
 
+import java.nio.file.Paths;
 import java.util.List;
+
+import static com.github.viclovsky.swagger.coverage.SwaggerCoverageConstants.OUTPUT_DIRECTORY;
 
 public final class RequestSpecs {
     private static final String AUTHORIZATION_HEADER = "Authorization";
@@ -29,9 +34,11 @@ public final class RequestSpecs {
                 .addFilters(List.of(
                         new RequestLoggingFilter(),
                         new ResponseLoggingFilter(),
-                        new AllureRestAssured()
+                        new AllureRestAssured(),
+                        new SwaggerCoverageRestAssured(
+                                new FileSystemOutputWriter(Paths.get("target/" + OUTPUT_DIRECTORY)))
                 ))
-                .setBaseUri(Config.getProperty(Config.API_BASE_URL_CONST));
+                .setBaseUri(Config.getProperty(Config.API_BASE_URL_CONST) + Config.getProperty(Config.API_VERSION_CONST));
     }
 
     public static RequestSpecification unauthSpec() {

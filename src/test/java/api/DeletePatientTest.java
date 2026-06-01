@@ -1,9 +1,7 @@
 package api;
 
-import api.models.CreatePatientResponse;
 import api.requests.Endpoint;
 import api.requests.skeleton.requesters.CrudRequester;
-import api.requests.skeleton.requesters.ValidatedCrudRequester;
 import api.requests.specs.RequestSpecs;
 import api.requests.specs.ResponseSpecs;
 import api.requests.steps.AdminSteps;
@@ -12,12 +10,12 @@ import org.junit.jupiter.api.Test;
 import static api.constants.Constants.PATH_PARAM_PURGE;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class DeletePatientTest extends BaseTest{
+public class DeletePatientTest extends BaseTest {
 
     @Test
     void deletePatientTest() {
         String createdUuid = AdminSteps.createUnknownPatient().getUuid();
-        new ValidatedCrudRequester<CreatePatientResponse>(
+        new CrudRequester(
                 RequestSpecs.adminSpec(),
                 Endpoint.PATIENT_DELETE,
                 ResponseSpecs.requestReturnsNoContent())
@@ -27,7 +25,7 @@ public class DeletePatientTest extends BaseTest{
     }
 
     @Test
-    void deletePatientFromDBTest(){
+    void deletePatientFromDBTest() {
         String createdUuid = AdminSteps.createUnknownPatient().getUuid();
         new CrudRequester(
                 RequestSpecs.adminSpec(),
@@ -35,6 +33,6 @@ public class DeletePatientTest extends BaseTest{
                 ResponseSpecs.requestReturnsNoContent())
                 .delete(createdUuid, PATH_PARAM_PURGE);
 
-       assertThat(AdminSteps.findDeletedPatientByUuidReturnsError(createdUuid).getError().getMessage()).isEqualTo(ResponseSpecs.OBJECT_WITH_GIVEN_UUID_DOES_NOT_EXIST);
+        assertThat(AdminSteps.findDeletedPatientByUuidReturnsError(createdUuid).getError().getMessage()).isEqualTo(ResponseSpecs.OBJECT_WITH_GIVEN_UUID_DOES_NOT_EXIST);
     }
 }
