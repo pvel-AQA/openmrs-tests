@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: api.GenerateIdentifierTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.033 s <<< FAILURE! -- in api.GenerateIdentifierTest
+api.GenerateIdentifierTest.newIdentifierCanBeGeneratedTest -- Time elapsed: 0.028 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.GenerateIdentifierTest.newIdentifierCanBeGeneratedTest(GenerateIdentifierTest.java:23)
+

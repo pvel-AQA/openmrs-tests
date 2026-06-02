@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: api.UpdatePatientTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.045 s <<< FAILURE! -- in api.UpdatePatientTest
+api.UpdatePatientTest.patientCanBeUpdatedSuccessfully -- Time elapsed: 0.037 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.UpdatePatientTest.patientCanBeUpdatedSuccessfully(UpdatePatientTest.java:22)
+

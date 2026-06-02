@@ -1,0 +1,758 @@
+>>> Running tests with profile api
+SLF4J(W): No SLF4J providers were found.
+SLF4J(W): Defaulting to no-operation (NOP) logger implementation
+SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
+SLF4J(W): Class path contains SLF4J bindings targeting slf4j-api versions 1.7.x or earlier.
+SLF4J(W): Ignoring binding found at [jar:file:/root/.m2/repository/ch/qos/logback/logback-classic/1.2.10/logback-classic-1.2.10.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J(W): See https://www.slf4j.org/codes.html#ignoredBindings for an explanation.
+Request method:	POST
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/person/
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:
+{
+    "addresses": [
+        {
+            "address1": "6ecea4bf",
+            "address2": "9b108fde",
+            "cityVillage": "41644a22",
+            "country": "8115be59",
+            "postalCode": "42f71a24",
+            "stateProvince": "d70484de"
+        }
+    ],
+    "attributes": [
+        {
+            "attributeType": "14d4f066-15f5-102d-96e4-000c29c2a5d7",
+            "value": "1.(067370 9145"
+        }
+    ],
+    "birthdate": "1989-08-19",
+    "birthdateEstimated": false,
+    "dead": false,
+    "gender": "M",
+    "names": [
+        {
+            "familyName": "1aff431b",
+            "givenName": "6cef1915",
+            "middleName": "ee403b97"
+        }
+    ]
+}
+Request method:	POST
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/person/
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:
+{
+    "age": 21,
+    "gender": "M",
+    "names": [
+        {
+            "familyName": "LastName",
+            "givenName": "",
+            "middleName": "middle"
+        }
+    ]
+}
+Request method:	POST
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/person/
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:
+{
+    "age": -2,
+    "gender": "F",
+    "names": [
+        {
+            "familyName": "LastName",
+            "givenName": "First",
+            "middleName": "middle"
+        }
+    ]
+}
+Request method:	POST
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/person/
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:
+{
+    "age": 210,
+    "gender": "U",
+    "names": [
+        {
+            "familyName": "LastName",
+            "givenName": "first",
+            "middleName": "middle"
+        }
+    ]
+}
+Request method:	POST
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/person/
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:
+{
+    "addresses": [
+        {
+            "address1": "3201d3d1",
+            "address2": "7d2b3808",
+            "cityVillage": "88732ef2",
+            "country": "00a5929c",
+            "postalCode": "d115cade",
+            "stateProvince": "09b5417e"
+        }
+    ],
+    "attributes": [
+        {
+            "attributeType": "14d4f066-15f5-102d-96e4-000c29c2a5d7",
+            "value": "734-6438640"
+        }
+    ],
+    "birthdate": "1928-07-04",
+    "birthdateEstimated": false,
+    "dead": false,
+    "gender": "F",
+    "names": [
+        {
+            "familyName": "0b490faf",
+            "givenName": "f2a89c96",
+            "middleName": "42865767"
+        }
+    ]
+}
+Request method:	POST
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/person/
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:
+{
+    "age": 46,
+    "gender": "M",
+    "names": [
+        {
+            "familyName": "2b5a4538",
+            "givenName": "52fe5033",
+            "middleName": "cce7863e"
+        }
+    ]
+}
+Request method:	POST
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/person/
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:
+{
+    "addresses": [
+        {
+            "address1": "174b44a8",
+            "address2": "7fa1e2cf",
+            "cityVillage": "301e93c0",
+            "country": "48f50438",
+            "postalCode": "64296fa3",
+            "stateProvince": "452a8282"
+        }
+    ],
+    "attributes": [
+        {
+            "attributeType": "14d4f066-15f5-102d-96e4-000c29c2a5d7",
+            "value": "1-(4425231088"
+        }
+    ],
+    "birthdate": "1989-11-25",
+    "birthdateEstimated": false,
+    "dead": false,
+    "gender": "M",
+    "names": [
+        {
+            "familyName": "2b95f08e",
+            "givenName": "a4898ee7",
+            "middleName": "067b29bd"
+        }
+    ]
+}
+
+=== GENERATING COVERAGE REPORT ===
+✅ Combined Report saved: target/coverage-report.html
+
+==========================================================================================
+Coverage: 0%
+==========================================================================================
+[ERROR] Tests run: 7, Failures: 0, Errors: 7, Skipped: 0, Time elapsed: 6.356 s <<< FAILURE! -- in api.PersonTest
+[ERROR] api.PersonTest.deletePersonVoidedTest -- Time elapsed: 5.703 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.PersonTest.deletePersonVoidedTest(PersonTest.java:141)
+
+[ERROR] api.PersonTest.negativeCreatePersonTest(String, String, String, int, String, String)[1] -- Time elapsed: 0.078 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.PersonTest.negativeCreatePersonTest(PersonTest.java:79)
+
+[ERROR] api.PersonTest.negativeCreatePersonTest(String, String, String, int, String, String)[2] -- Time elapsed: 0.053 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.PersonTest.negativeCreatePersonTest(PersonTest.java:79)
+
+[ERROR] api.PersonTest.negativeCreatePersonTest(String, String, String, int, String, String)[3] -- Time elapsed: 0.057 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.PersonTest.negativeCreatePersonTest(PersonTest.java:79)
+
+[ERROR] api.PersonTest.deletePersonPurgeTest -- Time elapsed: 0.050 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.PersonTest.deletePersonPurgeTest(PersonTest.java:157)
+
+[ERROR] api.PersonTest.positiveCreatePersonWithMandatoryFieldsTest -- Time elapsed: 0.067 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.PersonTest.positiveCreatePersonWithMandatoryFieldsTest(PersonTest.java:44)
+
+[ERROR] api.PersonTest.positiveUpdatePersonMandatoryFieldsTest -- Time elapsed: 0.049 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.PersonTest.positiveUpdatePersonMandatoryFieldsTest(PersonTest.java:85)
+
+Request method:	GET
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/patient/?q=unknown
+Proxy:			<none>
+Request params:	<none>
+Query params:	q=unknown
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+Request method:	GET
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/patient/?q=Unknown
+Proxy:			<none>
+Request params:	<none>
+Query params:	q=Unknown
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+Request method:	GET
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/patient/?q=UNKNOWN
+Proxy:			<none>
+Request params:	<none>
+Query params:	q=UNKNOWN
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+Request method:	GET
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/patient/?q=m
+Proxy:			<none>
+Request params:	<none>
+Query params:	q=m
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+Request method:	GET
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/patient/?q=abrakadabra
+Proxy:			<none>
+Request params:	<none>
+Query params:	q=abrakadabra
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+Request method:	GET
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/idgen/identifiersource?v=full
+Proxy:			<none>
+Request params:	<none>
+Query params:	v=full
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+Request method:	GET
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/idgen/identifiersource?v=full
+Proxy:			<none>
+Request params:	<none>
+Query params:	v=full
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+
+=== GENERATING COVERAGE REPORT ===
+✅ Combined Report saved: target/coverage-report.html
+
+==========================================================================================
+Coverage: 0%
+==========================================================================================
+[ERROR] Tests run: 7, Failures: 0, Errors: 7, Skipped: 0, Time elapsed: 0.427 s <<< FAILURE! -- in api.SearchPatientTest
+[ERROR] api.SearchPatientTest.searchUnknownPatientTest(String, int)[1] -- Time elapsed: 0.110 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.SearchPatientTest.searchUnknownPatientTest(SearchPatientTest.java:77)
+
+[ERROR] api.SearchPatientTest.searchUnknownPatientTest(String, int)[2] -- Time elapsed: 0.041 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.SearchPatientTest.searchUnknownPatientTest(SearchPatientTest.java:77)
+
+[ERROR] api.SearchPatientTest.searchUnknownPatientTest(String, int)[3] -- Time elapsed: 0.042 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.SearchPatientTest.searchUnknownPatientTest(SearchPatientTest.java:77)
+
+[ERROR] api.SearchPatientTest.searchPatient_withoutMatching_WhenDB_isEmptyTest(String)[1] -- Time elapsed: 0.049 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.SearchPatientTest.searchPatient_withoutMatching_WhenDB_isEmptyTest(SearchPatientTest.java:50)
+
+[ERROR] api.SearchPatientTest.searchPatient_withoutMatching_WhenDB_isEmptyTest(String)[2] -- Time elapsed: 0.043 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.SearchPatientTest.searchPatient_withoutMatching_WhenDB_isEmptyTest(SearchPatientTest.java:50)
+
+[ERROR] api.SearchPatientTest.searchPatient_withMatchingTest(String, int) -- Time elapsed: 0.084 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.SearchPatientTest.positivePatientSearchDataGenerated(SearchPatientTest.java:24)
+
+[ERROR] api.SearchPatientTest.searchPatient_withoutMatchingTest(String) -- Time elapsed: 0.146 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.SearchPatientTest.negativePatientSearchData(SearchPatientTest.java:55)
+
+Request method:	GET
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/idgen/identifiersource?v=full
+Proxy:			<none>
+Request params:	<none>
+Query params:	v=full
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+Request method:	GET
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/idgen/identifiersource?v=full
+Proxy:			<none>
+Request params:	<none>
+Query params:	v=full
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+Request method:	GET
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/idgen/identifiersource?v=full
+Proxy:			<none>
+Request params:	<none>
+Query params:	v=full
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+Request method:	GET
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/idgen/identifiersource?v=full
+Proxy:			<none>
+Request params:	<none>
+Query params:	v=full
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+Request method:	GET
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/idgen/identifiersource?v=full
+Proxy:			<none>
+Request params:	<none>
+Query params:	v=full
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+
+=== GENERATING COVERAGE REPORT ===
+✅ Combined Report saved: target/coverage-report.html
+
+==========================================================================================
+Coverage: 0%
+==========================================================================================
+[ERROR] Tests run: 5, Failures: 0, Errors: 5, Skipped: 0, Time elapsed: 0.287 s <<< FAILURE! -- in api.CreatePatientTest
+[ERROR] api.CreatePatientTest.knownPatientCanBeCreatedWithValidDataTest -- Time elapsed: 0.068 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.CreatePatientTest.knownPatientCanBeCreatedWithValidDataTest(CreatePatientTest.java:78)
+
+[ERROR] api.CreatePatientTest.patientCanBeCreatedWithEmptyMiddleOrGivenName(PersonName)[1] -- Time elapsed: 0.028 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.CreatePatientTest.patientCanBeCreatedWithEmptyMiddleOrGivenName(CreatePatientTest.java:161)
+
+[ERROR] api.CreatePatientTest.patientCanBeCreatedWithEmptyMiddleOrGivenName(PersonName)[2] -- Time elapsed: 0.052 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.CreatePatientTest.patientCanBeCreatedWithEmptyMiddleOrGivenName(CreatePatientTest.java:161)
+
+[ERROR] api.CreatePatientTest.knownPatientCanBeCreatedWithOnlyMandatoryDataTest -- Time elapsed: 0.052 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.CreatePatientTest.knownPatientCanBeCreatedWithOnlyMandatoryDataTest(CreatePatientTest.java:42)
+
+[ERROR] api.CreatePatientTest.patientCannotBeCreatedWithEmptyGivenName -- Time elapsed: 0.057 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.CreatePatientTest.patientCannotBeCreatedWithEmptyGivenName(CreatePatientTest.java:123)
+
+Request method:	GET
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/session
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Headers:		Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Accept=application/json, application/javascript, text/javascript, text/json
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+
+=== GENERATING COVERAGE REPORT ===
+✅ Combined Report saved: target/coverage-report.html
+
+==========================================================================================
+Coverage: 0%
+==========================================================================================
+[ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.094 s <<< FAILURE! -- in api.AuthenticationTest
+[ERROR] api.AuthenticationTest.adminCanBeAuthenticatedTest -- Time elapsed: 0.090 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.AuthenticationTest.adminCanBeAuthenticatedTest(AuthenticationTest.java:26)
+
+Request method:	GET
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/idgen/identifiersource?v=full
+Proxy:			<none>
+Request params:	<none>
+Query params:	v=full
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+
+=== GENERATING COVERAGE REPORT ===
+✅ Combined Report saved: target/coverage-report.html
+
+==========================================================================================
+Coverage: 0%
+==========================================================================================
+[ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.059 s <<< FAILURE! -- in api.GenerateIdentifierTest
+[ERROR] api.GenerateIdentifierTest.newIdentifierCanBeGeneratedTest -- Time elapsed: 0.053 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.GenerateIdentifierTest.newIdentifierCanBeGeneratedTest(GenerateIdentifierTest.java:23)
+
+Request method:	GET
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/idgen/identifiersource?v=full
+Proxy:			<none>
+Request params:	<none>
+Query params:	v=full
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+Request method:	GET
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/idgen/identifiersource?v=full
+Proxy:			<none>
+Request params:	<none>
+Query params:	v=full
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+Request method:	GET
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/idgen/identifiersource?v=full
+Proxy:			<none>
+Request params:	<none>
+Query params:	v=full
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+Request method:	GET
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/idgen/identifiersource?v=full
+Proxy:			<none>
+Request params:	<none>
+Query params:	v=full
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+
+=== GENERATING COVERAGE REPORT ===
+✅ Combined Report saved: target/coverage-report.html
+
+==========================================================================================
+Coverage: 0%
+==========================================================================================
+[ERROR] Tests run: 4, Failures: 0, Errors: 4, Skipped: 0, Time elapsed: 0.240 s <<< FAILURE! -- in api.VisitTest
+[ERROR] api.VisitTest.searchRecentVisitsTest -- Time elapsed: 0.065 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.VisitTest.searchRecentVisitsTest(VisitTest.java:54)
+
+[ERROR] api.VisitTest.deleteVisitTest -- Time elapsed: 0.052 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.VisitTest.deleteVisitTest(VisitTest.java:87)
+
+[ERROR] api.VisitTest.createVisitTest -- Time elapsed: 0.059 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.VisitTest.createVisitTest(VisitTest.java:27)
+
+[ERROR] api.VisitTest.updateVisitStartDatetimeTest -- Time elapsed: 0.043 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.VisitTest.updateVisitStartDatetimeTest(VisitTest.java:67)
+
+Request method:	GET
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/idgen/identifiersource?v=full
+Proxy:			<none>
+Request params:	<none>
+Query params:	v=full
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+
+=== GENERATING COVERAGE REPORT ===
+✅ Combined Report saved: target/coverage-report.html
+
+==========================================================================================
+Coverage: 0%
+==========================================================================================
+[ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.057 s <<< FAILURE! -- in api.UpdatePatientTest
+[ERROR] api.UpdatePatientTest.patientCanBeUpdatedSuccessfully -- Time elapsed: 0.038 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.UpdatePatientTest.patientCanBeUpdatedSuccessfully(UpdatePatientTest.java:22)
+
+Request method:	GET
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/idgen/identifiersource?v=full
+Proxy:			<none>
+Request params:	<none>
+Query params:	v=full
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+Request method:	GET
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/idgen/identifiersource?v=full
+Proxy:			<none>
+Request params:	<none>
+Query params:	v=full
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+
+=== GENERATING COVERAGE REPORT ===
+✅ Combined Report saved: target/coverage-report.html
+
+==========================================================================================
+Coverage: 0%
+==========================================================================================
+[ERROR] Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.095 s <<< FAILURE! -- in api.DeletePatientTest
+[ERROR] api.DeletePatientTest.deletePatientTest -- Time elapsed: 0.036 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.DeletePatientTest.deletePatientTest(DeletePatientTest.java:19)
+
+[ERROR] api.DeletePatientTest.deletePatientFromDBTest -- Time elapsed: 0.028 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.DeletePatientTest.deletePatientFromDBTest(DeletePatientTest.java:31)
+
+[ERROR] Errors: 
+[ERROR]   AuthenticationTest.adminCanBeAuthenticatedTest:26 » Connect Connection refused
+[ERROR]   CreatePatientTest.knownPatientCanBeCreatedWithOnlyMandatoryDataTest:42 » Connect Connection refused
+[ERROR]   CreatePatientTest.knownPatientCanBeCreatedWithValidDataTest:78 » Connect Connection refused
+[ERROR]   CreatePatientTest.patientCanBeCreatedWithEmptyMiddleOrGivenName:161 » Connect Connection refused
+[ERROR]   CreatePatientTest.patientCanBeCreatedWithEmptyMiddleOrGivenName:161 » Connect Connection refused
+[ERROR]   CreatePatientTest.patientCannotBeCreatedWithEmptyGivenName:123 » Connect Connection refused
+[ERROR]   DeletePatientTest.deletePatientFromDBTest:31 » Connect Connection refused
+[ERROR]   DeletePatientTest.deletePatientTest:19 » Connect Connection refused
+[ERROR]   GenerateIdentifierTest.newIdentifierCanBeGeneratedTest:23 » Connect Connection refused
+[ERROR]   PersonTest.deletePersonPurgeTest:157 » Connect Connection refused
+[ERROR]   PersonTest.deletePersonVoidedTest:141 » Connect Connection refused
+[ERROR]   PersonTest.negativeCreatePersonTest:79 » Connect Connection refused
+[ERROR]   PersonTest.negativeCreatePersonTest:79 » Connect Connection refused
+[ERROR]   PersonTest.negativeCreatePersonTest:79 » Connect Connection refused
+[ERROR]   PersonTest.positiveCreatePersonWithMandatoryFieldsTest:44 » Connect Connection refused
+[ERROR]   PersonTest.positiveUpdatePersonMandatoryFieldsTest:85 » Connect Connection refused
+[ERROR]   SearchPatientTest.positivePatientSearchDataGenerated:24 » Connect Connection refused
+[ERROR]   SearchPatientTest.negativePatientSearchData:55 » Connect Connection refused
+[ERROR]   SearchPatientTest.searchPatient_withoutMatching_WhenDB_isEmptyTest:50 » Connect Connection refused
+[ERROR]   SearchPatientTest.searchPatient_withoutMatching_WhenDB_isEmptyTest:50 » Connect Connection refused
+[ERROR]   SearchPatientTest.searchUnknownPatientTest:77 » Connect Connection refused
+[ERROR]   SearchPatientTest.searchUnknownPatientTest:77 » Connect Connection refused
+[ERROR]   SearchPatientTest.searchUnknownPatientTest:77 » Connect Connection refused
+[ERROR]   UpdatePatientTest.patientCanBeUpdatedSuccessfully:22 » Connect Connection refused
+[ERROR]   VisitTest.createVisitTest:27 » Connect Connection refused
+[ERROR]   VisitTest.deleteVisitTest:87 » Connect Connection refused
+[ERROR]   VisitTest.searchRecentVisitsTest:54 » Connect Connection refused
+[ERROR]   VisitTest.updateVisitStartDatetimeTest:67 » Connect Connection refused
+[ERROR] Tests run: 28, Failures: 0, Errors: 28, Skipped: 0
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.2.5:test (default-test) on project openMRS-tests: 
+[ERROR] 
+[ERROR] Please refer to /app/target/surefire-reports for the individual test results.
+[ERROR] Please refer to dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+>>> Running surefire-report:report
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------< by.openmrs.tests:openMRS-tests >-------------------
+[INFO] Building openMRS-tests 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> surefire-report:3.2.5:report (default-cli) > [surefire]test @ openMRS-tests >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ openMRS-tests ---
+[INFO] Copying 3 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ openMRS-tests ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ openMRS-tests ---
+[INFO] Copying 1 resource from src/test/resources to target/test-classes
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ openMRS-tests ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.2.5:test (default-test) @ openMRS-tests ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] <<< surefire-report:3.2.5:report (default-cli) < [surefire]test @ openMRS-tests <<<
+[INFO] 
+[INFO] 
+[INFO] --- surefire-report:3.2.5:report (default-cli) @ openMRS-tests ---
+Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/skins/maven-default-skin/1.3/maven-default-skin-1.3.jar
+Progress (1): 0.9/14 kBProgress (1): 2.3/14 kBProgress (1): 3.6/14 kBProgress (1): 5.0/14 kBProgress (1): 6.4/14 kBProgress (1): 7.7/14 kBProgress (1): 9.1/14 kBProgress (1): 10/14 kB Progress (1): 12/14 kBProgress (1): 13/14 kBProgress (1): 14 kB                      Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/skins/maven-default-skin/1.3/maven-default-skin-1.3.jar (14 kB at 25 kB/s)
+[INFO] Rendering content with org.apache.maven.skins:maven-default-skin:jar:1.3 skin.
+[WARNING] Unable to locate Test Source XRef to link to - DISABLED
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  5.338 s
+[INFO] Finished at: 2026-06-02T08:44:17Z
+[INFO] ------------------------------------------------------------------------

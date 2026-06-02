@@ -1,0 +1,32 @@
+-------------------------------------------------------------------------------
+Test set: api.SearchPatientTest
+-------------------------------------------------------------------------------
+Tests run: 7, Failures: 0, Errors: 7, Skipped: 0, Time elapsed: 0.346 s <<< FAILURE! -- in api.SearchPatientTest
+api.SearchPatientTest.searchUnknownPatientTest(String, int)[1] -- Time elapsed: 0.106 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.SearchPatientTest.searchUnknownPatientTest(SearchPatientTest.java:77)
+
+api.SearchPatientTest.searchUnknownPatientTest(String, int)[2] -- Time elapsed: 0.036 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.SearchPatientTest.searchUnknownPatientTest(SearchPatientTest.java:77)
+
+api.SearchPatientTest.searchUnknownPatientTest(String, int)[3] -- Time elapsed: 0.034 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.SearchPatientTest.searchUnknownPatientTest(SearchPatientTest.java:77)
+
+api.SearchPatientTest.searchPatient_withoutMatching_WhenDB_isEmptyTest(String)[1] -- Time elapsed: 0.030 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.SearchPatientTest.searchPatient_withoutMatching_WhenDB_isEmptyTest(SearchPatientTest.java:50)
+
+api.SearchPatientTest.searchPatient_withoutMatching_WhenDB_isEmptyTest(String)[2] -- Time elapsed: 0.031 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.SearchPatientTest.searchPatient_withoutMatching_WhenDB_isEmptyTest(SearchPatientTest.java:50)
+
+api.SearchPatientTest.searchPatient_withMatchingTest(String, int) -- Time elapsed: 0.078 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.SearchPatientTest.positivePatientSearchDataGenerated(SearchPatientTest.java:24)
+
+api.SearchPatientTest.searchPatient_withoutMatchingTest(String) -- Time elapsed: 0.111 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.SearchPatientTest.negativePatientSearchData(SearchPatientTest.java:55)
+

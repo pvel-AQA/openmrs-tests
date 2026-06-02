@@ -1,6 +1,7 @@
 package api.requests.specs;
 
 import api.configs.Config;
+import api.coverage.CoverageFilter;
 import api.requests.Endpoint;
 import api.requests.skeleton.requesters.AuthRequester;
 import com.codeborne.selenide.WebDriverRunner;
@@ -29,7 +30,8 @@ public final class RequestSpecs {
                 .addFilters(List.of(
                         new RequestLoggingFilter(),
                         new ResponseLoggingFilter(),
-                        new AllureRestAssured()
+                        new AllureRestAssured(),
+                        new CoverageFilter()        // ← Автоматический трекинг покрытия
                 ))
                 .setBaseUri(Config.getProperty(Config.API_BASE_URL_CONST));
     }

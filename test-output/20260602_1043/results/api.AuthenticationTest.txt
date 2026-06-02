@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: api.AuthenticationTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.094 s <<< FAILURE! -- in api.AuthenticationTest
+api.AuthenticationTest.adminCanBeAuthenticatedTest -- Time elapsed: 0.090 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.AuthenticationTest.adminCanBeAuthenticatedTest(AuthenticationTest.java:26)
+

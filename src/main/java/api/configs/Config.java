@@ -37,7 +37,7 @@ public final class Config {
             return systemValue;
         }
 
-        String envKey = key.toUpperCase().replaceAll("\\.", "_");
+        String envKey = key.toLowerCase().replace('.', '_');
         String envValue = System.getenv(envKey);
         if (envValue != null) {
             return envValue;

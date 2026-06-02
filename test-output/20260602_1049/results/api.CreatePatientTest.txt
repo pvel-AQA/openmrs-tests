@@ -1,0 +1,24 @@
+-------------------------------------------------------------------------------
+Test set: api.CreatePatientTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 5, Skipped: 0, Time elapsed: 0.198 s <<< FAILURE! -- in api.CreatePatientTest
+api.CreatePatientTest.knownPatientCanBeCreatedWithValidDataTest -- Time elapsed: 0.036 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.CreatePatientTest.knownPatientCanBeCreatedWithValidDataTest(CreatePatientTest.java:78)
+
+api.CreatePatientTest.patientCanBeCreatedWithEmptyMiddleOrGivenName(PersonName)[1] -- Time elapsed: 0.025 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.CreatePatientTest.patientCanBeCreatedWithEmptyMiddleOrGivenName(CreatePatientTest.java:161)
+
+api.CreatePatientTest.patientCanBeCreatedWithEmptyMiddleOrGivenName(PersonName)[2] -- Time elapsed: 0.026 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.CreatePatientTest.patientCanBeCreatedWithEmptyMiddleOrGivenName(CreatePatientTest.java:161)
+
+api.CreatePatientTest.knownPatientCanBeCreatedWithOnlyMandatoryDataTest -- Time elapsed: 0.039 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.CreatePatientTest.knownPatientCanBeCreatedWithOnlyMandatoryDataTest(CreatePatientTest.java:42)
+
+api.CreatePatientTest.patientCannotBeCreatedWithEmptyGivenName -- Time elapsed: 0.043 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.CreatePatientTest.patientCannotBeCreatedWithEmptyGivenName(CreatePatientTest.java:123)
+

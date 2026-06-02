@@ -1,0 +1,12 @@
+-------------------------------------------------------------------------------
+Test set: api.DeletePatientTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.095 s <<< FAILURE! -- in api.DeletePatientTest
+api.DeletePatientTest.deletePatientTest -- Time elapsed: 0.036 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.DeletePatientTest.deletePatientTest(DeletePatientTest.java:19)
+
+api.DeletePatientTest.deletePatientFromDBTest -- Time elapsed: 0.028 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.DeletePatientTest.deletePatientFromDBTest(DeletePatientTest.java:31)
+

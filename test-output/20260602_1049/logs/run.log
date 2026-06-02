@@ -1,0 +1,1388 @@
+>>> Running tests with profile api
+SLF4J(W): No SLF4J providers were found.
+SLF4J(W): Defaulting to no-operation (NOP) logger implementation
+SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
+SLF4J(W): Class path contains SLF4J bindings targeting slf4j-api versions 1.7.x or earlier.
+SLF4J(W): Ignoring binding found at [jar:file:/root/.m2/repository/ch/qos/logback/logback-classic/1.2.10/logback-classic-1.2.10.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J(W): See https://www.slf4j.org/codes.html#ignoredBindings for an explanation.
+Request method:	POST
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/person/
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:
+{
+    "addresses": [
+        {
+            "address1": "27507db4",
+            "address2": "e5250685",
+            "cityVillage": "a2a1ebc4",
+            "country": "1dce8c27",
+            "postalCode": "f9ab8f48",
+            "stateProvince": "88dbceab"
+        }
+    ],
+    "attributes": [
+        {
+            "attributeType": "14d4f066-15f5-102d-96e4-000c29c2a5d7",
+            "value": "1-566-831-2378"
+        }
+    ],
+    "birthdate": "1947-01-04",
+    "birthdateEstimated": true,
+    "dead": false,
+    "gender": "F",
+    "names": [
+        {
+            "familyName": "fd054feb",
+            "givenName": "ffd5c6dd",
+            "middleName": "8d6166f8"
+        }
+    ]
+}
+Request method:	POST
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/person/
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:
+{
+    "age": 21,
+    "gender": "M",
+    "names": [
+        {
+            "familyName": "LastName",
+            "givenName": "",
+            "middleName": "middle"
+        }
+    ]
+}
+Request method:	POST
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/person/
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:
+{
+    "age": -2,
+    "gender": "F",
+    "names": [
+        {
+            "familyName": "LastName",
+            "givenName": "First",
+            "middleName": "middle"
+        }
+    ]
+}
+Request method:	POST
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/person/
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:
+{
+    "age": 210,
+    "gender": "U",
+    "names": [
+        {
+            "familyName": "LastName",
+            "givenName": "first",
+            "middleName": "middle"
+        }
+    ]
+}
+Request method:	POST
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/person/
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:
+{
+    "addresses": [
+        {
+            "address1": "73319082",
+            "address2": "b366d694",
+            "cityVillage": "f0230588",
+            "country": "4ab54a63",
+            "postalCode": "59b140bc",
+            "stateProvince": "16e463db"
+        }
+    ],
+    "attributes": [
+        {
+            "attributeType": "14d4f066-15f5-102d-96e4-000c29c2a5d7",
+            "value": "+1(980 7542149"
+        }
+    ],
+    "birthdate": "2016-08-14",
+    "birthdateEstimated": false,
+    "dead": false,
+    "gender": "F",
+    "names": [
+        {
+            "familyName": "b86908ab",
+            "givenName": "8e602d2e",
+            "middleName": "37f5288c"
+        }
+    ]
+}
+Request method:	POST
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/person/
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:
+{
+    "age": 41,
+    "gender": "F",
+    "names": [
+        {
+            "familyName": "106ed1cf",
+            "givenName": "df719f23",
+            "middleName": "1ba72bda"
+        }
+    ]
+}
+Request method:	POST
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/person/
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:
+{
+    "addresses": [
+        {
+            "address1": "fa236fcb",
+            "address2": "9ee877c6",
+            "cityVillage": "bbcf1509",
+            "country": "5fe4d6b7",
+            "postalCode": "521da9b4",
+            "stateProvince": "12313154"
+        }
+    ],
+    "attributes": [
+        {
+            "attributeType": "14d4f066-15f5-102d-96e4-000c29c2a5d7",
+            "value": "841)273.8385"
+        }
+    ],
+    "birthdate": "1940-10-02",
+    "birthdateEstimated": true,
+    "dead": false,
+    "gender": "F",
+    "names": [
+        {
+            "familyName": "083a8777",
+            "givenName": "161f73ad",
+            "middleName": "3d7c4e2f"
+        }
+    ]
+}
+
+=== GENERATING COVERAGE REPORT ===
+✅ Combined Report saved: target/coverage-report.html
+
+==========================================================================================
+Coverage: 0%
+==========================================================================================
+[ERROR] Tests run: 7, Failures: 0, Errors: 7, Skipped: 0, Time elapsed: 6.358 s <<< FAILURE! -- in api.PersonTest
+[ERROR] api.PersonTest.deletePersonVoidedTest -- Time elapsed: 5.494 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.PersonTest.deletePersonVoidedTest(PersonTest.java:141)
+
+[ERROR] api.PersonTest.negativeCreatePersonTest(String, String, String, int, String, String)[1] -- Time elapsed: 0.103 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.PersonTest.negativeCreatePersonTest(PersonTest.java:79)
+
+[ERROR] api.PersonTest.negativeCreatePersonTest(String, String, String, int, String, String)[2] -- Time elapsed: 0.084 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.PersonTest.negativeCreatePersonTest(PersonTest.java:79)
+
+[ERROR] api.PersonTest.negativeCreatePersonTest(String, String, String, int, String, String)[3] -- Time elapsed: 0.079 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.PersonTest.negativeCreatePersonTest(PersonTest.java:79)
+
+[ERROR] api.PersonTest.deletePersonPurgeTest -- Time elapsed: 0.098 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.PersonTest.deletePersonPurgeTest(PersonTest.java:157)
+
+[ERROR] api.PersonTest.positiveCreatePersonWithMandatoryFieldsTest -- Time elapsed: 0.086 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.PersonTest.positiveCreatePersonWithMandatoryFieldsTest(PersonTest.java:44)
+
+[ERROR] api.PersonTest.positiveUpdatePersonMandatoryFieldsTest -- Time elapsed: 0.059 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.PersonTest.positiveUpdatePersonMandatoryFieldsTest(PersonTest.java:85)
+
+Request method:	GET
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/patient/?q=unknown
+Proxy:			<none>
+Request params:	<none>
+Query params:	q=unknown
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+Request method:	GET
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/patient/?q=Unknown
+Proxy:			<none>
+Request params:	<none>
+Query params:	q=Unknown
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+Request method:	GET
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/patient/?q=UNKNOWN
+Proxy:			<none>
+Request params:	<none>
+Query params:	q=UNKNOWN
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+Request method:	GET
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/patient/?q=m
+Proxy:			<none>
+Request params:	<none>
+Query params:	q=m
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+Request method:	GET
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/patient/?q=abrakadabra
+Proxy:			<none>
+Request params:	<none>
+Query params:	q=abrakadabra
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+Request method:	GET
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/idgen/identifiersource?v=full
+Proxy:			<none>
+Request params:	<none>
+Query params:	v=full
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+Request method:	GET
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/idgen/identifiersource?v=full
+Proxy:			<none>
+Request params:	<none>
+Query params:	v=full
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+
+=== GENERATING COVERAGE REPORT ===
+✅ Combined Report saved: target/coverage-report.html
+
+==========================================================================================
+Coverage: 0%
+==========================================================================================
+[ERROR] Tests run: 7, Failures: 0, Errors: 7, Skipped: 0, Time elapsed: 0.408 s <<< FAILURE! -- in api.SearchPatientTest
+[ERROR] api.SearchPatientTest.searchUnknownPatientTest(String, int)[1] -- Time elapsed: 0.123 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.SearchPatientTest.searchUnknownPatientTest(SearchPatientTest.java:77)
+
+[ERROR] api.SearchPatientTest.searchUnknownPatientTest(String, int)[2] -- Time elapsed: 0.035 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.SearchPatientTest.searchUnknownPatientTest(SearchPatientTest.java:77)
+
+[ERROR] api.SearchPatientTest.searchUnknownPatientTest(String, int)[3] -- Time elapsed: 0.050 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.SearchPatientTest.searchUnknownPatientTest(SearchPatientTest.java:77)
+
+[ERROR] api.SearchPatientTest.searchPatient_withoutMatching_WhenDB_isEmptyTest(String)[1] -- Time elapsed: 0.041 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.SearchPatientTest.searchPatient_withoutMatching_WhenDB_isEmptyTest(SearchPatientTest.java:50)
+
+[ERROR] api.SearchPatientTest.searchPatient_withoutMatching_WhenDB_isEmptyTest(String)[2] -- Time elapsed: 0.036 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.SearchPatientTest.searchPatient_withoutMatching_WhenDB_isEmptyTest(SearchPatientTest.java:50)
+
+[ERROR] api.SearchPatientTest.searchPatient_withMatchingTest(String, int) -- Time elapsed: 0 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.SearchPatientTest.positivePatientSearchDataGenerated(SearchPatientTest.java:24)
+
+[ERROR] api.SearchPatientTest.searchPatient_withoutMatchingTest(String) -- Time elapsed: 0.001 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.SearchPatientTest.negativePatientSearchData(SearchPatientTest.java:55)
+
+Request method:	GET
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/idgen/identifiersource?v=full
+Proxy:			<none>
+Request params:	<none>
+Query params:	v=full
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+Request method:	GET
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/idgen/identifiersource?v=full
+Proxy:			<none>
+Request params:	<none>
+Query params:	v=full
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+Request method:	GET
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/idgen/identifiersource?v=full
+Proxy:			<none>
+Request params:	<none>
+Query params:	v=full
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+Request method:	GET
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/idgen/identifiersource?v=full
+Proxy:			<none>
+Request params:	<none>
+Query params:	v=full
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+Request method:	GET
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/idgen/identifiersource?v=full
+Proxy:			<none>
+Request params:	<none>
+Query params:	v=full
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+
+=== GENERATING COVERAGE REPORT ===
+✅ Combined Report saved: target/coverage-report.html
+
+==========================================================================================
+Coverage: 0%
+==========================================================================================
+[ERROR] Tests run: 5, Failures: 0, Errors: 5, Skipped: 0, Time elapsed: 0.198 s <<< FAILURE! -- in api.CreatePatientTest
+[ERROR] api.CreatePatientTest.knownPatientCanBeCreatedWithValidDataTest -- Time elapsed: 0.036 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.CreatePatientTest.knownPatientCanBeCreatedWithValidDataTest(CreatePatientTest.java:78)
+
+[ERROR] api.CreatePatientTest.patientCanBeCreatedWithEmptyMiddleOrGivenName(PersonName)[1] -- Time elapsed: 0.025 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.CreatePatientTest.patientCanBeCreatedWithEmptyMiddleOrGivenName(CreatePatientTest.java:161)
+
+[ERROR] api.CreatePatientTest.patientCanBeCreatedWithEmptyMiddleOrGivenName(PersonName)[2] -- Time elapsed: 0.026 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.CreatePatientTest.patientCanBeCreatedWithEmptyMiddleOrGivenName(CreatePatientTest.java:161)
+
+[ERROR] api.CreatePatientTest.knownPatientCanBeCreatedWithOnlyMandatoryDataTest -- Time elapsed: 0.039 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.CreatePatientTest.knownPatientCanBeCreatedWithOnlyMandatoryDataTest(CreatePatientTest.java:42)
+
+[ERROR] api.CreatePatientTest.patientCannotBeCreatedWithEmptyGivenName -- Time elapsed: 0.043 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.CreatePatientTest.patientCannotBeCreatedWithEmptyGivenName(CreatePatientTest.java:123)
+
+Request method:	GET
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/session
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Headers:		Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Accept=application/json, application/javascript, text/javascript, text/json
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+
+=== GENERATING COVERAGE REPORT ===
+✅ Combined Report saved: target/coverage-report.html
+
+==========================================================================================
+Coverage: 0%
+==========================================================================================
+[ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.075 s <<< FAILURE! -- in api.AuthenticationTest
+[ERROR] api.AuthenticationTest.adminCanBeAuthenticatedTest -- Time elapsed: 0.070 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.AuthenticationTest.adminCanBeAuthenticatedTest(AuthenticationTest.java:26)
+
+Request method:	GET
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/idgen/identifiersource?v=full
+Proxy:			<none>
+Request params:	<none>
+Query params:	v=full
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+
+=== GENERATING COVERAGE REPORT ===
+✅ Combined Report saved: target/coverage-report.html
+
+==========================================================================================
+Coverage: 0%
+==========================================================================================
+[ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.042 s <<< FAILURE! -- in api.GenerateIdentifierTest
+[ERROR] api.GenerateIdentifierTest.newIdentifierCanBeGeneratedTest -- Time elapsed: 0.033 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.GenerateIdentifierTest.newIdentifierCanBeGeneratedTest(GenerateIdentifierTest.java:23)
+
+Request method:	GET
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/idgen/identifiersource?v=full
+Proxy:			<none>
+Request params:	<none>
+Query params:	v=full
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+Request method:	GET
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/idgen/identifiersource?v=full
+Proxy:			<none>
+Request params:	<none>
+Query params:	v=full
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+Request method:	GET
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/idgen/identifiersource?v=full
+Proxy:			<none>
+Request params:	<none>
+Query params:	v=full
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+Request method:	GET
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/idgen/identifiersource?v=full
+Proxy:			<none>
+Request params:	<none>
+Query params:	v=full
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+
+=== GENERATING COVERAGE REPORT ===
+✅ Combined Report saved: target/coverage-report.html
+
+==========================================================================================
+Coverage: 0%
+==========================================================================================
+[ERROR] Tests run: 4, Failures: 0, Errors: 4, Skipped: 0, Time elapsed: 0.167 s <<< FAILURE! -- in api.VisitTest
+[ERROR] api.VisitTest.searchRecentVisitsTest -- Time elapsed: 0.032 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.VisitTest.searchRecentVisitsTest(VisitTest.java:54)
+
+[ERROR] api.VisitTest.deleteVisitTest -- Time elapsed: 0.035 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.VisitTest.deleteVisitTest(VisitTest.java:87)
+
+[ERROR] api.VisitTest.createVisitTest -- Time elapsed: 0.043 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.VisitTest.createVisitTest(VisitTest.java:27)
+
+[ERROR] api.VisitTest.updateVisitStartDatetimeTest -- Time elapsed: 0.036 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.VisitTest.updateVisitStartDatetimeTest(VisitTest.java:67)
+
+Request method:	GET
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/idgen/identifiersource?v=full
+Proxy:			<none>
+Request params:	<none>
+Query params:	v=full
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+
+=== GENERATING COVERAGE REPORT ===
+✅ Combined Report saved: target/coverage-report.html
+
+==========================================================================================
+Coverage: 0%
+==========================================================================================
+[ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.044 s <<< FAILURE! -- in api.UpdatePatientTest
+[ERROR] api.UpdatePatientTest.patientCanBeUpdatedSuccessfully -- Time elapsed: 0.038 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.UpdatePatientTest.patientCanBeUpdatedSuccessfully(UpdatePatientTest.java:22)
+
+Request method:	GET
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/idgen/identifiersource?v=full
+Proxy:			<none>
+Request params:	<none>
+Query params:	v=full
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+Request method:	GET
+Request URI:	http://localhost:80/openmrs/ws/rest/v1/idgen/identifiersource?v=full
+Proxy:			<none>
+Request params:	<none>
+Query params:	v=full
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=application/json, application/javascript, text/javascript, text/json
+				Authorization=Basic YWRtaW46QWRtaW4xMjM=
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+
+=== GENERATING COVERAGE REPORT ===
+✅ Combined Report saved: target/coverage-report.html
+
+==========================================================================================
+Coverage: 0%
+==========================================================================================
+[ERROR] Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.091 s <<< FAILURE! -- in api.DeletePatientTest
+[ERROR] api.DeletePatientTest.deletePatientTest -- Time elapsed: 0.054 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.DeletePatientTest.deletePatientTest(DeletePatientTest.java:19)
+
+[ERROR] api.DeletePatientTest.deletePatientFromDBTest -- Time elapsed: 0.026 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.DeletePatientTest.deletePatientFromDBTest(DeletePatientTest.java:31)
+
+
+=== GENERATING COVERAGE REPORT ===
+✅ Combined Report saved: target/coverage-report.html
+
+==========================================================================================
+Coverage: 0%
+==========================================================================================
+[ERROR] Tests run: 7, Failures: 0, Errors: 7, Skipped: 0, Time elapsed: 0.673 s <<< FAILURE! -- in ui.SearchPatientTest
+[ERROR] ui.SearchPatientTest.searchPatientClickSearchButtonTest -- Time elapsed: 0.360 s <<< ERROR!
+org.openqa.selenium.SessionNotCreatedException: 
+Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+Caused by: org.openqa.selenium.remote.http.jdk.ConnectionException: Connection error (POST http://localhost:4444/wd/hub/session)
+Caused by: java.net.ConnectException
+Caused by: java.net.ConnectException
+Caused by: java.nio.channels.ClosedChannelException
+
+[ERROR] ui.SearchPatientTest.searchPatientClickEnterTest -- Time elapsed: 0.012 s <<< ERROR!
+org.openqa.selenium.SessionNotCreatedException: 
+Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+Caused by: org.openqa.selenium.remote.http.jdk.ConnectionException: Connection error (POST http://localhost:4444/wd/hub/session)
+Caused by: java.net.ConnectException
+Caused by: java.net.ConnectException
+Caused by: java.nio.channels.ClosedChannelException
+
+[ERROR] ui.SearchPatientTest.searchDropDownShouldShowDefaultMessagesTest -- Time elapsed: 0.012 s <<< ERROR!
+org.openqa.selenium.SessionNotCreatedException: 
+Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+Caused by: org.openqa.selenium.remote.http.jdk.ConnectionException: Connection error (POST http://localhost:4444/wd/hub/session)
+Caused by: java.net.ConnectException
+Caused by: java.net.ConnectException
+Caused by: java.nio.channels.ClosedChannelException
+
+[ERROR] ui.SearchPatientTest.searchDropdownShouldShowCorrectResultsTest -- Time elapsed: 0.009 s <<< ERROR!
+org.openqa.selenium.SessionNotCreatedException: 
+Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+Caused by: org.openqa.selenium.remote.http.jdk.ConnectionException: Connection error (POST http://localhost:4444/wd/hub/session)
+Caused by: java.net.ConnectException
+Caused by: java.net.ConnectException
+Caused by: java.nio.channels.ClosedChannelException
+
+[ERROR] ui.SearchPatientTest.searchPanelActivateAndCloseTest -- Time elapsed: 0.014 s <<< ERROR!
+org.openqa.selenium.SessionNotCreatedException: 
+Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+Caused by: org.openqa.selenium.remote.http.jdk.ConnectionException: Connection error (POST http://localhost:4444/wd/hub/session)
+Caused by: java.net.ConnectException
+Caused by: java.net.ConnectException
+Caused by: java.nio.channels.ClosedChannelException
+
+[ERROR] ui.SearchPatientTest.searchInputFieldPopulatedWithTextAndThenClearedTest -- Time elapsed: 0.114 s <<< ERROR!
+org.openqa.selenium.SessionNotCreatedException: 
+Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+Caused by: org.openqa.selenium.remote.http.jdk.ConnectionException: Connection error (POST http://localhost:4444/wd/hub/session)
+Caused by: java.net.ConnectException
+Caused by: java.net.ConnectException
+Caused by: java.nio.channels.ClosedChannelException
+
+[ERROR] ui.SearchPatientTest.searchPanelActivateEnterSearchStringAndCloseTest -- Time elapsed: 0.100 s <<< ERROR!
+org.openqa.selenium.SessionNotCreatedException: 
+Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+Caused by: org.openqa.selenium.remote.http.jdk.ConnectionException: Connection error (POST http://localhost:4444/wd/hub/session)
+Caused by: java.net.ConnectException
+Caused by: java.net.ConnectException
+Caused by: java.nio.channels.ClosedChannelException
+
+
+=== GENERATING COVERAGE REPORT ===
+✅ Combined Report saved: target/coverage-report.html
+
+==========================================================================================
+Coverage: 0%
+==========================================================================================
+[ERROR] Tests run: 7, Failures: 0, Errors: 7, Skipped: 0, Time elapsed: 0.193 s <<< FAILURE! -- in ui.StartVisitTest
+[ERROR] ui.StartVisitTest.deleteActiveVisitShouldRemoveItSuccessfully -- Time elapsed: 0.054 s <<< ERROR!
+org.openqa.selenium.SessionNotCreatedException: 
+Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+Caused by: org.openqa.selenium.remote.http.jdk.ConnectionException: Connection error (POST http://localhost:4444/wd/hub/session)
+Caused by: java.net.ConnectException
+Caused by: java.net.ConnectException
+Caused by: java.nio.channels.ClosedChannelException
+
+[ERROR] ui.StartVisitTest.startVisit -- Time elapsed: 0.012 s <<< ERROR!
+org.openqa.selenium.SessionNotCreatedException: 
+Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+Caused by: org.openqa.selenium.remote.http.jdk.ConnectionException: Connection error (POST http://localhost:4444/wd/hub/session)
+Caused by: java.net.ConnectException
+Caused by: java.net.ConnectException
+Caused by: java.nio.channels.ClosedChannelException
+
+[ERROR] ui.StartVisitTest.startVisitWithoutVisitTypeShouldShowError -- Time elapsed: 0.010 s <<< ERROR!
+org.openqa.selenium.SessionNotCreatedException: 
+Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+Caused by: org.openqa.selenium.remote.http.jdk.ConnectionException: Connection error (POST http://localhost:4444/wd/hub/session)
+Caused by: java.net.ConnectException
+Caused by: java.net.ConnectException
+Caused by: java.nio.channels.ClosedChannelException
+
+[ERROR] ui.StartVisitTest.startVisitAndClickCancelShouldKeepModalOpen -- Time elapsed: 0.062 s <<< ERROR!
+org.openqa.selenium.SessionNotCreatedException: 
+Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+Caused by: org.openqa.selenium.remote.http.jdk.ConnectionException: Connection error (POST http://localhost:4444/wd/hub/session)
+Caused by: java.net.ConnectException
+Caused by: java.net.ConnectException
+Caused by: java.nio.channels.ClosedChannelException
+
+[ERROR] ui.StartVisitTest.startVisitAndDiscardShouldNotCreateActiveVisit -- Time elapsed: 0.015 s <<< ERROR!
+org.openqa.selenium.SessionNotCreatedException: 
+Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+Caused by: org.openqa.selenium.remote.http.jdk.ConnectionException: Connection error (POST http://localhost:4444/wd/hub/session)
+Caused by: java.net.ConnectException
+Caused by: java.net.ConnectException
+Caused by: java.nio.channels.ClosedChannelException
+
+[ERROR] ui.StartVisitTest.endVisit -- Time elapsed: 0.011 s <<< ERROR!
+org.openqa.selenium.SessionNotCreatedException: 
+Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+Caused by: org.openqa.selenium.remote.http.jdk.ConnectionException: Connection error (POST http://localhost:4444/wd/hub/session)
+Caused by: java.net.ConnectException
+Caused by: java.net.ConnectException
+Caused by: java.nio.channels.ClosedChannelException
+
+[ERROR] ui.StartVisitTest.shouldDisplayNoUpcomingAppointmentsMessage -- Time elapsed: 0.010 s <<< ERROR!
+org.openqa.selenium.SessionNotCreatedException: 
+Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+Caused by: org.openqa.selenium.remote.http.jdk.ConnectionException: Connection error (POST http://localhost:4444/wd/hub/session)
+Caused by: java.net.ConnectException
+Caused by: java.net.ConnectException
+Caused by: java.nio.channels.ClosedChannelException
+
+
+=== GENERATING COVERAGE REPORT ===
+✅ Combined Report saved: target/coverage-report.html
+
+==========================================================================================
+Coverage: 0%
+==========================================================================================
+[ERROR] Tests run: 5, Failures: 0, Errors: 5, Skipped: 0, Time elapsed: 0.135 s <<< FAILURE! -- in ui.LoginTest
+[ERROR] ui.LoginTest.adminCanLoginTest(AdminLogin) -- Time elapsed: 0.075 s <<< ERROR!
+org.openqa.selenium.SessionNotCreatedException: 
+Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/login
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+	at ui.LoginTest.adminCanLoginTest(LoginTest.java:22)
+Caused by: org.openqa.selenium.remote.http.jdk.ConnectionException: Connection error (POST http://localhost:4444/wd/hub/session)
+Caused by: java.net.ConnectException
+Caused by: java.net.ConnectException
+Caused by: java.nio.channels.ClosedChannelException
+
+[ERROR] ui.LoginTest.adminCanSetClinicMemorisedTest -- Time elapsed: 0.009 s <<< ERROR!
+org.openqa.selenium.SessionNotCreatedException: 
+Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+Caused by: org.openqa.selenium.remote.http.jdk.ConnectionException: Connection error (POST http://localhost:4444/wd/hub/session)
+Caused by: java.net.ConnectException
+Caused by: java.net.ConnectException
+Caused by: java.nio.channels.ClosedChannelException
+
+[ERROR] ui.LoginTest.adminCanLoginClinicMemorisedTest(AdminLogin) -- Time elapsed: 0.012 s <<< ERROR!
+org.openqa.selenium.SessionNotCreatedException: 
+Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/login
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+	at ui.LoginTest.adminCanLoginClinicMemorisedTest(LoginTest.java:47)
+Caused by: org.openqa.selenium.remote.http.jdk.ConnectionException: Connection error (POST http://localhost:4444/wd/hub/session)
+Caused by: java.net.ConnectException
+Caused by: java.net.ConnectException
+Caused by: java.nio.channels.ClosedChannelException
+
+[ERROR] ui.LoginTest.firstPageNoUserNameLoginTest -- Time elapsed: 0.008 s <<< ERROR!
+org.openqa.selenium.SessionNotCreatedException: 
+Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/login
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+	at ui.LoginTest.firstPageNoUserNameLoginTest(LoginTest.java:58)
+Caused by: org.openqa.selenium.remote.http.jdk.ConnectionException: Connection error (POST http://localhost:4444/wd/hub/session)
+Caused by: java.net.ConnectException
+Caused by: java.net.ConnectException
+Caused by: java.nio.channels.ClosedChannelException
+
+[ERROR] ui.LoginTest.wrongAdminPasswordLoginTest(AdminLogin) -- Time elapsed: 0.009 s <<< ERROR!
+org.openqa.selenium.SessionNotCreatedException: 
+Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/login
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+	at ui.LoginTest.wrongAdminPasswordLoginTest(LoginTest.java:66)
+Caused by: org.openqa.selenium.remote.http.jdk.ConnectionException: Connection error (POST http://localhost:4444/wd/hub/session)
+Caused by: java.net.ConnectException
+Caused by: java.net.ConnectException
+Caused by: java.nio.channels.ClosedChannelException
+
+
+=== GENERATING COVERAGE REPORT ===
+✅ Combined Report saved: target/coverage-report.html
+
+==========================================================================================
+Coverage: 0%
+==========================================================================================
+[ERROR] Tests run: 3, Failures: 0, Errors: 3, Skipped: 0, Time elapsed: 0.041 s <<< FAILURE! -- in ui.RegisterPatientTest
+[ERROR] ui.RegisterPatientTest.unknownPatientCanBeRegisteredWithValidDataTest -- Time elapsed: 0.009 s <<< ERROR!
+org.openqa.selenium.SessionNotCreatedException: 
+Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+Caused by: org.openqa.selenium.remote.http.jdk.ConnectionException: Connection error (POST http://localhost:4444/wd/hub/session)
+Caused by: java.net.ConnectException
+Caused by: java.net.ConnectException
+Caused by: java.nio.channels.ClosedChannelException
+
+[ERROR] ui.RegisterPatientTest.knownPatientCanBeRegisteredWithMandatoryValidDataTest -- Time elapsed: 0.010 s <<< ERROR!
+org.openqa.selenium.SessionNotCreatedException: 
+Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+Caused by: org.openqa.selenium.remote.http.jdk.ConnectionException: Connection error (POST http://localhost:4444/wd/hub/session)
+Caused by: java.net.ConnectException
+Caused by: java.net.ConnectException
+Caused by: java.nio.channels.ClosedChannelException
+
+[ERROR] ui.RegisterPatientTest.knownPatientCanBeRegisteredWithAllValidDataTest -- Time elapsed: 0.010 s <<< ERROR!
+org.openqa.selenium.SessionNotCreatedException: 
+Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+Caused by: org.openqa.selenium.remote.http.jdk.ConnectionException: Connection error (POST http://localhost:4444/wd/hub/session)
+Caused by: java.net.ConnectException
+Caused by: java.net.ConnectException
+Caused by: java.nio.channels.ClosedChannelException
+
+[ERROR] Errors: 
+[ERROR]   AuthenticationTest.adminCanBeAuthenticatedTest:26 » Connect Connection refused
+[ERROR]   CreatePatientTest.knownPatientCanBeCreatedWithOnlyMandatoryDataTest:42 » Connect Connection refused
+[ERROR]   CreatePatientTest.knownPatientCanBeCreatedWithValidDataTest:78 » Connect Connection refused
+[ERROR]   CreatePatientTest.patientCanBeCreatedWithEmptyMiddleOrGivenName:161 » Connect Connection refused
+[ERROR]   CreatePatientTest.patientCanBeCreatedWithEmptyMiddleOrGivenName:161 » Connect Connection refused
+[ERROR]   CreatePatientTest.patientCannotBeCreatedWithEmptyGivenName:123 » Connect Connection refused
+[ERROR]   DeletePatientTest.deletePatientFromDBTest:31 » Connect Connection refused
+[ERROR]   DeletePatientTest.deletePatientTest:19 » Connect Connection refused
+[ERROR]   GenerateIdentifierTest.newIdentifierCanBeGeneratedTest:23 » Connect Connection refused
+[ERROR]   PersonTest.deletePersonPurgeTest:157 » Connect Connection refused
+[ERROR]   PersonTest.deletePersonVoidedTest:141 » Connect Connection refused
+[ERROR]   PersonTest.negativeCreatePersonTest:79 » Connect Connection refused
+[ERROR]   PersonTest.negativeCreatePersonTest:79 » Connect Connection refused
+[ERROR]   PersonTest.negativeCreatePersonTest:79 » Connect Connection refused
+[ERROR]   PersonTest.positiveCreatePersonWithMandatoryFieldsTest:44 » Connect Connection refused
+[ERROR]   PersonTest.positiveUpdatePersonMandatoryFieldsTest:85 » Connect Connection refused
+[ERROR]   SearchPatientTest.positivePatientSearchDataGenerated:24 » Connect Connection refused
+[ERROR]   SearchPatientTest.negativePatientSearchData:55 » Connect Connection refused
+[ERROR]   SearchPatientTest.searchPatient_withoutMatching_WhenDB_isEmptyTest:50 » Connect Connection refused
+[ERROR]   SearchPatientTest.searchPatient_withoutMatching_WhenDB_isEmptyTest:50 » Connect Connection refused
+[ERROR]   SearchPatientTest.searchUnknownPatientTest:77 » Connect Connection refused
+[ERROR]   SearchPatientTest.searchUnknownPatientTest:77 » Connect Connection refused
+[ERROR]   SearchPatientTest.searchUnknownPatientTest:77 » Connect Connection refused
+[ERROR]   UpdatePatientTest.patientCanBeUpdatedSuccessfully:22 » Connect Connection refused
+[ERROR]   VisitTest.createVisitTest:27 » Connect Connection refused
+[ERROR]   VisitTest.deleteVisitTest:87 » Connect Connection refused
+[ERROR]   VisitTest.searchRecentVisitsTest:54 » Connect Connection refused
+[ERROR]   VisitTest.updateVisitStartDatetimeTest:67 » Connect Connection refused
+[ERROR]   LoginTest.adminCanLoginClinicMemorisedTest:47 » SessionNotCreated Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/login
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+[ERROR]   LoginTest.adminCanLoginTest:22 » SessionNotCreated Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/login
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+[ERROR]   LoginTest.adminCanSetClinicMemorisedTest » SessionNotCreated Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+[ERROR]   LoginTest.firstPageNoUserNameLoginTest:58 » SessionNotCreated Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/login
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+[ERROR]   LoginTest.wrongAdminPasswordLoginTest:66 » SessionNotCreated Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/login
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+[ERROR]   RegisterPatientTest.knownPatientCanBeRegisteredWithAllValidDataTest » SessionNotCreated Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+[ERROR]   RegisterPatientTest.knownPatientCanBeRegisteredWithMandatoryValidDataTest » SessionNotCreated Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+[ERROR]   RegisterPatientTest.unknownPatientCanBeRegisteredWithValidDataTest » SessionNotCreated Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+[ERROR]   SearchPatientTest.searchDropDownShouldShowDefaultMessagesTest » SessionNotCreated Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+[ERROR]   SearchPatientTest.searchDropdownShouldShowCorrectResultsTest » SessionNotCreated Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+[ERROR]   SearchPatientTest.searchInputFieldPopulatedWithTextAndThenClearedTest » SessionNotCreated Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+[ERROR]   SearchPatientTest.searchPanelActivateAndCloseTest » SessionNotCreated Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+[ERROR]   SearchPatientTest.searchPanelActivateEnterSearchStringAndCloseTest » SessionNotCreated Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+[ERROR]   SearchPatientTest.searchPatientClickEnterTest » SessionNotCreated Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+[ERROR]   SearchPatientTest.searchPatientClickSearchButtonTest » SessionNotCreated Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+[ERROR]   StartVisitTest.deleteActiveVisitShouldRemoveItSuccessfully » SessionNotCreated Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+[ERROR]   StartVisitTest.endVisit » SessionNotCreated Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+[ERROR]   StartVisitTest.shouldDisplayNoUpcomingAppointmentsMessage » SessionNotCreated Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+[ERROR]   StartVisitTest.startVisit » SessionNotCreated Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+[ERROR]   StartVisitTest.startVisitAndClickCancelShouldKeepModalOpen » SessionNotCreated Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+[ERROR]   StartVisitTest.startVisitAndDiscardShouldNotCreateActiveVisit » SessionNotCreated Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+[ERROR]   StartVisitTest.startVisitWithoutVisitTypeShouldShowError » SessionNotCreated Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. null 
+Host info: host: 'e18c65af2d1f', ip: '172.17.0.4'
+Build info: version: '4.43.0', revision: 'dd0f534'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.153.1-microsoft-standard-WSL2', java.version: '21.0.3'
+selenide.remote: http://localhost:4444/wd/hub
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}]}]
+selenide.url: http://172.21.144.1/openmrs/spa/
+Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [--proxy-bypass-list=<-loopb..., --disable-dev-shm-usage, --disable-search-engine-cho..., --unsafely-disable-devtools..., --disable-smooth-scrolling, --window-size=1920,1080], excludeSwitches: [enable-automation, load-extension], extensions: [], prefs: {autofill.credit_card_enabled: false, autofill.profile_enabled: false, credentials_enable_service: false, plugins.always_open_pdf_externally: true, profile.default_content_setting_values.automatic_downloads: 1, profile.password_manager_enabled: false, profile.password_manager_leak_detection: false, safebrowsing.enabled: true}}, pageLoadStrategy: normal, selenoid:options: {enableLog: true, enableVNC: true}, unhandledPromptBehavior: ignore}
+selenide.baseUrl: http://172.21.144.1/openmrs/spa
+[ERROR] Tests run: 50, Failures: 0, Errors: 50, Skipped: 0
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.2.5:test (default-test) on project openMRS-tests: 
+[ERROR] 
+[ERROR] Please refer to /app/target/surefire-reports for the individual test results.
+[ERROR] Please refer to dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+>>> Running surefire-report:report
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------< by.openmrs.tests:openMRS-tests >-------------------
+[INFO] Building openMRS-tests 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> surefire-report:3.2.5:report (default-cli) > [surefire]test @ openMRS-tests >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ openMRS-tests ---
+[INFO] Copying 3 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ openMRS-tests ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ openMRS-tests ---
+[INFO] Copying 1 resource from src/test/resources to target/test-classes
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ openMRS-tests ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.2.5:test (default-test) @ openMRS-tests ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] <<< surefire-report:3.2.5:report (default-cli) < [surefire]test @ openMRS-tests <<<
+[INFO] 
+[INFO] 
+[INFO] --- surefire-report:3.2.5:report (default-cli) @ openMRS-tests ---
+Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/skins/maven-default-skin/1.3/maven-default-skin-1.3.jar
+Progress (1): 0.9/14 kBProgress (1): 2.3/14 kBProgress (1): 3.6/14 kBProgress (1): 5.0/14 kBProgress (1): 6.4/14 kBProgress (1): 7.7/14 kBProgress (1): 9.1/14 kBProgress (1): 10/14 kB Progress (1): 12/14 kBProgress (1): 13/14 kBProgress (1): 14 kB                      Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/skins/maven-default-skin/1.3/maven-default-skin-1.3.jar (14 kB at 22 kB/s)
+[INFO] Rendering content with org.apache.maven.skins:maven-default-skin:jar:1.3 skin.
+[WARNING] Unable to locate Test Source XRef to link to - DISABLED
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  4.706 s
+[INFO] Finished at: 2026-06-02T08:51:36Z
+[INFO] ------------------------------------------------------------------------

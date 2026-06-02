@@ -2,6 +2,7 @@ package api;
 
 import common.extensions.CleanupExtension;
 import org.assertj.core.api.SoftAssertions;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,5 +19,11 @@ public class BaseTest {
     @AfterEach
     public void afterTest() {
         softly.assertAll();
+    }
+
+    @AfterAll
+    static void generateCoverageReport() {
+        System.out.println("\n=== GENERATING COVERAGE REPORT ===");
+        api.coverage.CoverageHelper.showReport();
     }
 }

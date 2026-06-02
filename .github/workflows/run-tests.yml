@@ -1,34 +1,116 @@
 name: Run tests
-
-on: [ push, workflow_dispatch ]
-
+on: [push, workflow_dispatch]
 jobs:
-  run-tests:
-    name: Set up services (review apps) and run tests
-    runs-on: openmrs-distro //тут правильно или нет?
+  run-test:
+    name: Set up services and run tests
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4 // какая версия
+        uses: actions/checkout@v4
 
       - name: Set up JDK
-        uses: action/setup-java@v4 //какая версия
+        uses: actions/setup-java@v4
         with:
           distribution: 'corretto'
           java-version: '21'
 
       - name: Cache Maven repository
-        uses: actions/cache@v4 //какая версия
+        uses: actions/cache@v4
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-maven-
+
+      - name: Cache OpenMRS db data
+        id: cache-db
+        uses: actions/cache@v4
+        with:
+          path: infrastructure/docker_compose/db-data
+          key: openmrs-db-v1-${{ hashFiles('infrastructure/docker_compose/docker-compose.yml', 'infrastructure/docker_compose/config/**') }}
           restore-keys: |
-            ${{ runner.os }}-maven-
+            openmrs-db-v1-
+
+      - name: Fix db cache permissions
+        if: steps.cache-db.outputs.cache-hit == 'true'
+        run: |
+          echo "Cache hit — db data restored from cache"
+          du -sh infrastructure/docker_compose/db-data/ || true
+          sudo chown -R 999:999 infrastructure/docker_compose/db-data || true
+
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
 
       - name: Set up services
-        run: cd infra/docker_compose && bash restart_docker.sh && cd ../..   // откуда взять
+        run: bash infrastructure/docker_compose/restart_docker.sh
+
+      - name: Debug resources
+        run: free -h; nproc; docker stats --no-stream
+
+      - name: Wait for OpenMRS to finish initial setup
+        run: |
+          echo "Waiting for OpenMRS to complete initial setup..."
+          if [ "${{ steps.cache-db.outputs.cache-hit }}" = "true" ]; then
+            MAX_ATTEMPTS=120
+            echo "Cache hit — expecting faster startup"
+          else
+            MAX_ATTEMPTS=240
+            echo "No cache — full initialization expected"
+          fi
+          for i in $(seq 1 $MAX_ATTEMPTS); do
+            body=$(curl -s -L -u admin:Admin123 \
+              -H "Accept: application/json" \
+              http://localhost/openmrs/ws/rest/v1/session)
+            if echo "$body" | grep -q '"authenticated":true'; then
+              echo "OpenMRS REST is serving authenticated JSON (after $((i*5))s)."
+              exit 0
+            fi
+            echo "Attempt $i/$MAX_ATTEMPTS: not ready. First 200 chars of body:"
+            echo "$body" | head -c 200
+            echo ""
+            sleep 5
+          done
+          echo "OpenMRS did not become ready within ${MAX_ATTEMPTS}*5 seconds"
+          docker compose -f infrastructure/docker_compose/docker-compose.yml logs --tail=300 backend
+          exit 1
+
+      - name: Pre-pull Chrome image
+        run: docker pull selenoid/vnc_chrome:128.0
+
+      - name: Start Selenoid
+        run: |
+          cd infrastructure/docker_compose
+          docker compose up -d selenoid selenoid-ui
 
       - name: Run tests
-        run: ./mvnw clean test -q
         env:
-            APIBASEURL: http://localhost:80/openmrs
-            UIBASEURL: http://frontend
+          BROWSERREMOTE: http://localhost:4444/wd/hub
+          UIBASEURL: http://nginx/openmrs/spa
+          APIBASEURL: http://localhost:80/openmrs
+        run: mvn -q test -P api,ui
+
+      - name: Generate Surefire HTML report
+        if: always()
+        run: mvn -q surefire-report:report-only -DshowSuccess=true
+
+      - name: Generate Allure report
+        if: always()
+        uses: simple-elf/allure-report-action@master
+        with:
+          allure_results: target/allure-results
+          allure_report: target/allure-report
+
+      - name: Upload test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-report
+          path: |
+            target/surefire-reports/
+            target/site/
+            target/coverage/
+            target/allure-report/
+            target/allure-results/
+
+      - name: Tear down
+        if: always()
+        run: docker compose -f infrastructure/docker_compose/docker-compose.yml down

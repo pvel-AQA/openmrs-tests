@@ -1,0 +1,32 @@
+-------------------------------------------------------------------------------
+Test set: api.PersonTest
+-------------------------------------------------------------------------------
+Tests run: 7, Failures: 0, Errors: 7, Skipped: 0, Time elapsed: 6.356 s <<< FAILURE! -- in api.PersonTest
+api.PersonTest.deletePersonVoidedTest -- Time elapsed: 5.703 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.PersonTest.deletePersonVoidedTest(PersonTest.java:141)
+
+api.PersonTest.negativeCreatePersonTest(String, String, String, int, String, String)[1] -- Time elapsed: 0.078 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.PersonTest.negativeCreatePersonTest(PersonTest.java:79)
+
+api.PersonTest.negativeCreatePersonTest(String, String, String, int, String, String)[2] -- Time elapsed: 0.053 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.PersonTest.negativeCreatePersonTest(PersonTest.java:79)
+
+api.PersonTest.negativeCreatePersonTest(String, String, String, int, String, String)[3] -- Time elapsed: 0.057 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.PersonTest.negativeCreatePersonTest(PersonTest.java:79)
+
+api.PersonTest.deletePersonPurgeTest -- Time elapsed: 0.050 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.PersonTest.deletePersonPurgeTest(PersonTest.java:157)
+
+api.PersonTest.positiveCreatePersonWithMandatoryFieldsTest -- Time elapsed: 0.067 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.PersonTest.positiveCreatePersonWithMandatoryFieldsTest(PersonTest.java:44)
+
+api.PersonTest.positiveUpdatePersonMandatoryFieldsTest -- Time elapsed: 0.049 s <<< ERROR!
+java.net.ConnectException: Connection refused
+	at api.PersonTest.positiveUpdatePersonMandatoryFieldsTest(PersonTest.java:85)
+
