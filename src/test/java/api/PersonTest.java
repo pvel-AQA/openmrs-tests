@@ -8,6 +8,7 @@ import api.requests.skeleton.requesters.ValidatedCrudRequester;
 import api.requests.specs.RequestSpecs;
 import api.requests.specs.ResponseSpecs;
 import api.requests.steps.AdminSteps;
+import common.annotations.SkipAutoCleanup;
 import common.generators.PartialEntityGenerator;
 import common.generators.RandomDataGenerator;
 import org.junit.jupiter.api.AfterEach;
@@ -47,8 +48,6 @@ public class PersonTest extends BaseTest {
         CreatePersonResponse foundPerson = AdminSteps.findPersonByUuid(createdPerson.getUuid());
         ModelAssertions.assertThatModels(createdPerson, foundPerson).match();
     }
-    // Test idea: public void positiveCreatePersonWithAddressTest(){
-    // Test idea: public void positiveCreatePersonWithAttributes(){
 
     public static Stream<Arguments> negativeCreatePersonData() {
         return Stream.of(
@@ -136,6 +135,7 @@ public class PersonTest extends BaseTest {
     }
 
     @Test
+    @SkipAutoCleanup
     public void deletePersonVoidedTest() {
         CreatePersonRequest personRequest = AdminSteps.createPerson();
         CreatePersonResponse person = AdminSteps.createPerson(personRequest);
@@ -152,6 +152,7 @@ public class PersonTest extends BaseTest {
     }
 
     @Test
+    @SkipAutoCleanup
     public void deletePersonPurgeTest() {
         CreatePersonRequest personRequest = AdminSteps.createPerson();
         CreatePersonResponse person = AdminSteps.createPerson(personRequest);
@@ -164,10 +165,5 @@ public class PersonTest extends BaseTest {
                 .delete(uuidForDelete, PATH_PARAM_PURGE);
 
         assertThat(AdminSteps.findDeletedPersonByUuidReturnsError(uuidForDelete).getError().getMessage()).isEqualTo(ResponseSpecs.OBJECT_WITH_GIVEN_UUID_DOES_NOT_EXIST);
-    }
-
-    @AfterEach
-    public void deleteTestPersons() {
-        createdUuids.forEach(uuid -> AdminSteps.deletePersonByUuid(uuid, PATH_PARAM_PURGE));
     }
 }
