@@ -1,10 +1,12 @@
 package ui.pages;
 
+import api.models.CreatePatientResponse;
 import api.models.ui.ActionableNotification;
 import api.models.ui.GenderUi;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebDriverRunner;
+import common.storages.EntityStorage;
 import common.utils.DateUtils;
 import org.openqa.selenium.By;
 import ui.components.AddressComponent;
@@ -127,6 +129,12 @@ public class PatientSummaryPage extends BasePage<PatientSummaryPage> {
 
         $(".cds--actionable-notification__subtitle")
                 .shouldHave(Condition.exactText(ActionableNotification.NEW_PATIENT_CREATED.getNotificationSubTitle()));
+
+        return this;
+    }
+
+    public PatientSummaryPage addPatientToEntityStorage(CreatePatientResponse patientResponse) {
+        EntityStorage.add(patientResponse);
 
         return this;
     }
