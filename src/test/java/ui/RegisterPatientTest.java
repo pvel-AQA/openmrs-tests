@@ -46,6 +46,7 @@ public class RegisterPatientTest extends BaseUiTest {
 
         String openMrsIdText = new PatientSummaryPage().getOpenMrsIdTextInApiFormat();
         CreatePatientResponse foundPatient = AdminSteps.findPatientByUuid(patientUuid);
+        new PatientSummaryPage().addPatientToEntityStorage(foundPatient);
         AddressResponse patientAddress = AdminSteps.getPersonAddress(foundPatient.getPerson().getUuid());
 
         StepLogger.log("Set gender to API format to compare UI DTO with API response", () -> {
@@ -59,7 +60,6 @@ public class RegisterPatientTest extends BaseUiTest {
                     .isEqualTo(foundPatient.getPerson().getPreferredName().getDisplay());
             ModelAssertions.assertThatModels(patient, patientAddress);
         });
-
     }
 
     @Test
@@ -89,6 +89,7 @@ public class RegisterPatientTest extends BaseUiTest {
 
         String openMrsIdText = new PatientSummaryPage().getOpenMrsIdTextInApiFormat();
         CreatePatientResponse foundPatient = AdminSteps.findPatientByUuid(patientUuid);
+        new PatientSummaryPage().addPatientToEntityStorage(foundPatient);
 
         StepLogger.log("Set gender to API format to compare UI DTO with API response", () -> {
             patient.setGender(GenderUi.toShortGender(patient.getGender()));
@@ -132,6 +133,7 @@ public class RegisterPatientTest extends BaseUiTest {
 
         String openMrsIdText = new PatientSummaryPage().getOpenMrsIdTextInApiFormat();
         CreatePatientResponse foundPatient = AdminSteps.findPatientByUuid(patientUuid);
+        new PatientSummaryPage().addPatientToEntityStorage(foundPatient);
 
         StepLogger.log("Set gender and birthdate to API format to compare UI DTO with API response", () -> {
             patient.setGender(GenderUi.toShortGender(patient.getGender()));

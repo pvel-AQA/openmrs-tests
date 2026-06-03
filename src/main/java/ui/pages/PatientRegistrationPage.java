@@ -1,12 +1,15 @@
 package ui.pages;
 
+import api.models.CreatePatientResponse;
 import api.models.ui.RegisterMandatoryFieldsPatientUi;
 import api.models.ui.RegisterPatientUi;
 import api.models.ui.RegisterUnknownPatientUi;
+import api.requests.steps.AdminSteps;
 import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import common.storages.EntityStorage;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -237,5 +240,4 @@ public class PatientRegistrationPage extends BasePage<PatientRegistrationPage> {
 
         return getPage(PatientSummaryPage.class);
     }
-
 }
