@@ -87,10 +87,4 @@ public class SearchPatientTest extends BaseTest {
         assertThat(results).hasSize(resultCount);
         CommonAssertions.assertFieldContainText(results, searchText);
     }
-
-    @AfterAll
-    static void deleteTestPatients() {
-        createdUuids.forEach(uuid -> AdminSteps.deletePatientByUuid(uuid, PATH_PARAM_PURGE));
-    }
-
 }

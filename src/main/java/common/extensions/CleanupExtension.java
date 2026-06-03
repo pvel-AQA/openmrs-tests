@@ -6,6 +6,7 @@ import api.requests.skeleton.requesters.DeleteRequester;
 import api.requests.specs.RequestSpecs;
 import api.utils.EndpointResolverUtils;
 import common.annotations.AutoCleanup;
+import common.annotations.SkipAutoCleanup;
 import common.storages.EntityStorage;
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -25,8 +26,14 @@ public class CleanupExtension implements AfterEachCallback {
                 .map(clazz -> clazz.isAnnotationPresent(AutoCleanup.class))
                 .orElse(false);
 
-        if (hasClassAnnotation || hasMethodAnnotation) {
+        boolean hasMethodAnnotationSkipAutoCleanup = context.getTestMethod()
+                .map(method -> method.isAnnotationPresent(SkipAutoCleanup.class))
+                .orElse(false);
+
+        if ((hasClassAnnotation || hasMethodAnnotation) && !hasMethodAnnotationSkipAutoCleanup) {
             cleanup();
+        } else {
+            EntityStorage.clear();
         }
     }
 

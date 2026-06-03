@@ -5,6 +5,7 @@ import api.requests.skeleton.requesters.CrudRequester;
 import api.requests.specs.RequestSpecs;
 import api.requests.specs.ResponseSpecs;
 import api.requests.steps.AdminSteps;
+import common.annotations.SkipAutoCleanup;
 import org.junit.jupiter.api.Test;
 
 import static api.constants.Constants.PATH_PARAM_PURGE;
@@ -13,6 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class DeletePatientTest extends BaseTest {
 
     @Test
+    @SkipAutoCleanup
     void deletePatientTest() {
         String createdUuid = AdminSteps.createPatient().getUuid();
         new CrudRequester(
@@ -25,6 +27,7 @@ public class DeletePatientTest extends BaseTest {
     }
 
     @Test
+    @SkipAutoCleanup
     void deletePatientFromDBTest() {
         String createdUuid = AdminSteps.createPatient().getUuid();
         new CrudRequester(

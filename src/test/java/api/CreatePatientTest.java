@@ -33,7 +33,6 @@ public class CreatePatientTest extends BaseTest {
     private static final String[] NAMES_FIELDS_TO_BE_GENERATED = Constants.nameFieldsToBeGenerated;
 
     @Test
-    @AutoCleanup
     public void knownPatientCanBeCreatedWithOnlyMandatoryDataTest() {
         PersonName personName = PartialEntityGenerator.generate(PersonName.class, NAMES_FIELDS_TO_BE_GENERATED);
 
