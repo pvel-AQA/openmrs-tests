@@ -48,13 +48,14 @@ public class LoginTest extends BaseUiTest {
 
     @Test
     public void firstPageNoUserNameLoginTest() {
+        String emptyString = "";
         new LoginPage().open()
-                .populateUserNameField("")
+                .populateUserNameField(emptyString)
                 .clickContinueButton()
                 .pageIsReady();
     }
 
-    @Skip(reason = "flaky test, that should be updated")
+    //@Skip(reason = "flaky test, that should be updated")
     @Test
     public void wrongAdminPasswordLoginTest(@InjectAdmin AdminLogin admin) {
         new LoginPage().open()
