@@ -12,6 +12,7 @@ import api.models.enums.VisitTypeEnum;
 import api.requests.specs.RequestSpecs;
 import api.requests.specs.ResponseSpecs;
 import api.requests.steps.AdminSteps;
+import common.annotations.SkipAutoCleanup;
 import common.generators.RandomDataGenerator;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Assertions;
@@ -84,6 +85,7 @@ public class VisitTest extends BaseTest {
     }
 
     @Test
+    @SkipAutoCleanup
     public void deleteVisitTest() {
         CreatePatientResponse patient = AdminSteps.createPatient();
 

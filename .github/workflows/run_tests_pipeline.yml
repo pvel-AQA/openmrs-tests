@@ -1,6 +1,5 @@
 name: Run tests
 
-# trigger
 on: [ push, workflow_dispatch ]
 
 # stages analogy
@@ -9,7 +8,7 @@ jobs:
     name: Set up services (review apps) and run tests
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository # copy files into CI agent
+      - name: Checkout repository
         uses: actions/checkout@v6
 
       - name: Set up JDK
@@ -34,21 +33,7 @@ jobs:
           
       - name: Wait for OpenMRS to be ready
         timeout-minutes: 25
-        run: |
-          echo "Waiting for OpenMRS REST API..."
-          for i in $(seq 1 150); do
-            STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
-              -u admin:Admin123 \
-              http://localhost/openmrs/ws/rest/v1/session)
-            if [ "$STATUS" = "200" ]; then
-              echo "OpenMRS is ready!"
-              exit 0
-            fi
-            echo "Attempt $i: status $STATUS, waiting 10s..."
-            sleep 10
-          done
-          echo "OpenMRS not ready after 25 minutes"
-          exit 1 
+        uses: ./.github/actions/wait-for-openmrs
 
       - name: Run tests
         run: ./mvnw clean test -P ui -q
