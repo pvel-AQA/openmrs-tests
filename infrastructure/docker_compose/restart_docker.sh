@@ -27,4 +27,4 @@ done
 #echo ">>> Start Docker Compose"
 #docker compose up -d
 echo ">>> Start core services (db, backend, frontend, nginx)"
-docker compose up -d db backend frontend nginx
+docker compose up -d db backend frontend gateway
