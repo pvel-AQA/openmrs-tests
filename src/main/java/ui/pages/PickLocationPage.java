@@ -28,26 +28,32 @@ public class PickLocationPage extends BasePage<PickLocationPage> {
     private final SelenideElement confirmButton = $(By.xpath("//button/span[text()='Confirm']"));
     private final SelenideElement rememberMyLocationCheckbox = $(".cds--checkbox-label-text");
 
-    public ServiceQueuesPage pickOutpatientLocationAndConfirm() {
+    public PickLocationPage clinicLocationSelect() {
         outpatientLocationRadioButton.shouldBe(Condition.visible);
         outpatientLocationRadioButton.click();
 
+        return this;
+    }
+
+    public ServiceQueuesPage clinicLocationConfirm() {
         confirmButton.shouldBe(Condition.visible);
         confirmButton.click();
 
         return getPage(ServiceQueuesPage.class);
     }
 
-    public ServiceQueuesPage pickOutpatientLocationClickRememberMyLocationAndConfirm() {
-        outpatientLocationRadioButton.shouldBe(Condition.visible);
-        outpatientLocationRadioButton.click();
-
+    public PickLocationPage clinicLocationClickRemember() {
         rememberMyLocationCheckbox.shouldBe(Condition.visible);
         rememberMyLocationCheckbox.click();
 
-        confirmButton.shouldBe(Condition.visible);
-        confirmButton.click();
+        return this;
+    }
 
-        return getPage(ServiceQueuesPage.class);
+    public PickLocationPage confirmButtonDisabled() {
+        confirmButton.shouldBe(Condition.visible);
+        confirmButton.shouldBe(Condition.disabled);
+        confirmButton.shouldNotBe(Condition.clickable);
+
+        return this;
     }
 }

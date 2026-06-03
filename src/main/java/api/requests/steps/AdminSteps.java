@@ -396,8 +396,8 @@ public final class AdminSteps {
         return createPatient(patient);
     }
 
-    public static CreatePatientResponse createUnknownPatient() {
-        PersonName personName = buildPersonName("UNKNOWN", "", "UNKNOWN");
+    public static CreatePatientResponse createPatientWithSpecificName(String firstName, String middleName, String lastName) {
+        PersonName personName = buildPersonName(firstName, middleName, lastName);
         CreatePersonRequest person = CreatePersonRequest.builder()
                 .gender(RandomDataGenerator.randomGender().toString())
                 .age(RandomDataGenerator.randomAge(0, 100))

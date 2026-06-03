@@ -49,7 +49,8 @@ public class StartVisitTest extends BaseUiTest {
 
         new PickLocationPage()
                 .open()
-                .pickOutpatientLocationAndConfirm();
+                .clinicLocationSelect()
+                .clinicLocationConfirm();
 
         startNewVisit(patientUuid, VisitTypeEnum.FACILITY_VISIT);
 
@@ -74,7 +75,8 @@ public class StartVisitTest extends BaseUiTest {
 
         new PickLocationPage()
                 .open()
-                .pickOutpatientLocationAndConfirm();
+                .clinicLocationSelect()
+                .clinicLocationConfirm();
 
         VisitPage visitPage = startNewVisit(patientUuid, VisitTypeEnum.FACILITY_VISIT);
 
@@ -118,8 +120,8 @@ public class StartVisitTest extends BaseUiTest {
 
         new PickLocationPage()
                 .open()
-                .pickOutpatientLocationAndConfirm();
-
+                .clinicLocationSelect()
+                .clinicLocationConfirm();
         new VisitPage().open(patientUuid)
                 .waitPatientSummaryLoaded()
                 .openActionsMenu()
@@ -136,7 +138,8 @@ public class StartVisitTest extends BaseUiTest {
 
         new PickLocationPage()
                 .open()
-                .pickOutpatientLocationAndConfirm();
+                .clinicLocationSelect()
+                .clinicLocationConfirm();
 
         new VisitPage().open(patientUuid)
                 .waitPatientSummaryLoaded()
@@ -157,7 +160,8 @@ public class StartVisitTest extends BaseUiTest {
 
         new PickLocationPage()
                 .open()
-                .pickOutpatientLocationAndConfirm();
+                .clinicLocationSelect()
+                .clinicLocationConfirm();
 
         VisitPage visitPage = openStartVisitModal(patientUuid);
 
@@ -186,7 +190,8 @@ public class StartVisitTest extends BaseUiTest {
 
         new PickLocationPage()
                 .open()
-                .pickOutpatientLocationAndConfirm();
+                .clinicLocationSelect()
+                .clinicLocationConfirm();
 
         VisitPage visitPage = openStartVisitModal(patientUuid);
 
@@ -215,7 +220,8 @@ public class StartVisitTest extends BaseUiTest {
 
         new PickLocationPage()
                 .open()
-                .pickOutpatientLocationAndConfirm();
+                .clinicLocationSelect()
+                .clinicLocationConfirm();
 
         VisitPage visitPage = startNewVisit(patientUuid, VisitTypeEnum.FACILITY_VISIT);
 

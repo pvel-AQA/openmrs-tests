@@ -25,7 +25,8 @@ public class SearchPatientTest extends BaseUiTest {
     @AdminSession
     public void searchDropDownShouldShowDefaultMessagesTest() {
         Header header = new PickLocationPage().open()
-                .pickOutpatientLocationAndConfirm()
+                .clinicLocationSelect()
+                .clinicLocationConfirm()
                 .header.clickSearchPatientIcon();
 
         softly.assertThat(header.getSearchInputPlaceholder())
@@ -44,7 +45,7 @@ public class SearchPatientTest extends BaseUiTest {
         String generatedPartOfTheName = RandomDataGenerator.randomString(4);
         createdUuids.addAll(AdminSteps.createPatientsForSearch(4, true, generatedPartOfTheName));
 
-        new PickLocationPage().open().pickOutpatientLocationAndConfirm();
+        new PickLocationPage().open().clinicLocationSelect().clinicLocationConfirm();
         ServiceQueuesPage searchPatients = new ServiceQueuesPage();
         searchPatients.open().header.populateSearchPatientString(generatedPartOfTheName);
 
@@ -62,7 +63,7 @@ public class SearchPatientTest extends BaseUiTest {
     @Test
     @AdminSession
     public void searchPanelActivateAndCloseTest() {
-        new PickLocationPage().open().pickOutpatientLocationAndConfirm();
+        new PickLocationPage().open().clinicLocationSelect().clinicLocationConfirm();
         ServiceQueuesPage page = new ServiceQueuesPage();
         page.header.clickSearchPatientIcon();
 
@@ -87,7 +88,7 @@ public class SearchPatientTest extends BaseUiTest {
         String generatedPartOfTheName = RandomDataGenerator.randomString(4);
         createdUuids.addAll(AdminSteps.createPatientsForSearch(4, true, generatedPartOfTheName));
 
-        new PickLocationPage().open().pickOutpatientLocationAndConfirm();
+        new PickLocationPage().open().clinicLocationSelect().clinicLocationConfirm();
         ServiceQueuesPage page = new ServiceQueuesPage();
         page.header.populateSearchPatientString(generatedPartOfTheName);
 
@@ -114,7 +115,7 @@ public class SearchPatientTest extends BaseUiTest {
         createdUuids.addAll(AdminSteps.createPatientsForSearch(4, true, generatedPartOfTheName));
 
 
-        new PickLocationPage().open().pickOutpatientLocationAndConfirm();
+        new PickLocationPage().open().clinicLocationSelect().clinicLocationConfirm();
         ServiceQueuesPage searchPatients = new ServiceQueuesPage();
         searchPatients.open().header.populateSearchPatientString(generatedPartOfTheName);
 
@@ -146,7 +147,7 @@ public class SearchPatientTest extends BaseUiTest {
         String generatedPartOfTheName = RandomDataGenerator.randomString(4);
         createdUuids.addAll(AdminSteps.createPatientsForSearch(4, true, generatedPartOfTheName));
 
-        new PickLocationPage().open().pickOutpatientLocationAndConfirm();
+        new PickLocationPage().open().clinicLocationSelect().clinicLocationConfirm();
 
         ServiceQueuesPage searchPatients = new ServiceQueuesPage();
         searchPatients.open().header.populateSearchPatientString(generatedPartOfTheName);
@@ -174,7 +175,7 @@ public class SearchPatientTest extends BaseUiTest {
         String generatedPartOfTheName = RandomDataGenerator.randomString(4);
         createdUuids.addAll(AdminSteps.createPatientsForSearch(4, true, generatedPartOfTheName));
 
-        new PickLocationPage().open().pickOutpatientLocationAndConfirm();
+        new PickLocationPage().open().clinicLocationSelect().clinicLocationConfirm();
 
         ServiceQueuesPage searchPatients = new ServiceQueuesPage();
         searchPatients.header.populateSearchPatientString(generatedPartOfTheName);

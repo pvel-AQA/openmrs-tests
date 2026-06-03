@@ -14,7 +14,7 @@ public class DeletePatientTest extends BaseTest {
 
     @Test
     void deletePatientTest() {
-        String createdUuid = AdminSteps.createUnknownPatient().getUuid();
+        String createdUuid = AdminSteps.createPatient().getUuid();
         new CrudRequester(
                 RequestSpecs.adminSpec(),
                 Endpoint.PATIENT_DELETE,
@@ -26,7 +26,7 @@ public class DeletePatientTest extends BaseTest {
 
     @Test
     void deletePatientFromDBTest() {
-        String createdUuid = AdminSteps.createUnknownPatient().getUuid();
+        String createdUuid = AdminSteps.createPatient().getUuid();
         new CrudRequester(
                 RequestSpecs.adminSpec(),
                 Endpoint.PATIENT_DELETE,
