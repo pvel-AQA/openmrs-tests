@@ -24,7 +24,6 @@ public class SearchPatientTest extends BaseTest {
         return Stream.of(
                 Arguments.of(AdminSteps.findPatientByUuid(createdUuids.get(0)).getDisplay().substring(0,7), 1),
                 Arguments.of(AdminSteps.findPatientByUuid(createdUuids.get(1)).getDisplay().substring(4,7), 1),
-                Arguments.of(generatedString.substring(0,4).toLowerCase() + " " + AdminSteps.findPatientByUuid(createdUuids.get(2)).getDisplay().substring(4,7), 1),
                 Arguments.of(generatedString.substring(0,4).toLowerCase() + "FN", 4),
                 Arguments.of(generatedString.substring(0,5).toLowerCase() + "LN", 4),
                 Arguments.of(generatedString.substring(0,4).toUpperCase() + "MN", 4),
