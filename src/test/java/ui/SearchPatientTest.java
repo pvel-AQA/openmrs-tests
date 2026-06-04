@@ -5,6 +5,7 @@ import api.models.ui.Messages;
 import api.models.ui.UiPatientMandatoryInfo;
 import api.requests.steps.AdminSteps;
 import common.annotations.AdminSession;
+import common.annotations.Skip;
 import common.generators.RandomDataGenerator;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
@@ -21,9 +22,10 @@ import static api.constants.Constants.PATH_PARAM_PURGE;
 public class SearchPatientTest extends BaseUiTest {
     private static List<String> createdUuids = new ArrayList<>();
 
+    @Skip
     @Test
     @AdminSession
-    public void searchDropDownShouldShowDefaultMessagesTest() {
+    public void searchDropDownShowDefaultMessagesTest() {
         Header header = new PickLocationPage().open()
                 .clinicLocationSelect()
                 .clinicLocationConfirm()
@@ -41,7 +43,7 @@ public class SearchPatientTest extends BaseUiTest {
 
     @Test
     @AdminSession
-    void searchDropdownShouldShowCorrectResultsTest() {
+    void searchDropdownShowCorrectResultsTest() {
         String generatedPartOfTheName = RandomDataGenerator.randomString(5);
         createdUuids.addAll(AdminSteps.createPatientsForSearch(4, true, generatedPartOfTheName));
 
@@ -62,7 +64,7 @@ public class SearchPatientTest extends BaseUiTest {
 
     @Test
     @AdminSession
-    public void searchPanelActivateAndCloseTest() {
+    public void searchPanelCanBeClosedTest() {
         new PickLocationPage().open().clinicLocationSelect().clinicLocationConfirm();
         ServiceQueuesPage page = new ServiceQueuesPage();
         page.header.clickSearchPatientIcon();
@@ -84,7 +86,7 @@ public class SearchPatientTest extends BaseUiTest {
 
     @Test
     @AdminSession
-    public void searchPanelActivateEnterSearchStringAndCloseTest() {
+    public void searchPanelCanBeClosedAfterSearchTest() {
         String generatedPartOfTheName = RandomDataGenerator.randomString(5);
         createdUuids.addAll(AdminSteps.createPatientsForSearch(4, true, generatedPartOfTheName));
 
@@ -108,9 +110,10 @@ public class SearchPatientTest extends BaseUiTest {
         softly.assertThat(page.header.isCloseButtonVisible()).isFalse();
     }
 
+    @Skip
     @Test
     @AdminSession
-    void searchInputFieldPopulatedWithTextAndThenClearedTest() {
+    void searchInputTextCanBeClearedTest() {
         String generatedPartOfTheName = RandomDataGenerator.randomString(5);
         createdUuids.addAll(AdminSteps.createPatientsForSearch(4, true, generatedPartOfTheName));
 

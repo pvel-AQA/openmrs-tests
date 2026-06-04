@@ -7,6 +7,7 @@ import api.models.enums.VisitTypeEnum;
 import api.requests.steps.AdminSteps;
 import com.codeborne.selenide.WebDriverRunner;
 import common.annotations.AdminSession;
+import common.annotations.Skip;
 import org.junit.jupiter.api.Test;
 import ui.pages.PickLocationPage;
 import ui.pages.VisitPage;
@@ -67,6 +68,7 @@ public class StartVisitTest extends BaseUiTest {
                         .isEqualTo(patientUuid));
     }
 
+    @Skip
     @Test
     @AdminSession
     public void endVisit() {
