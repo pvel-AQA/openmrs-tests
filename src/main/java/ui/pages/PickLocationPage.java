@@ -53,8 +53,6 @@ public class PickLocationPage extends BasePage<PickLocationPage> {
 
     public PickLocationPage checkConfirmButtonDisabled() {
         confirmButton.shouldBe(Condition.visible);
-        //confirmButton.shouldBe(Condition.disabled);
-        //confirmButton.shouldNotBe(Condition.clickable);
         confirmButton.shouldHave(attribute("disabled type", "submit"));
 
         return this;
@@ -62,7 +60,6 @@ public class PickLocationPage extends BasePage<PickLocationPage> {
 
     public PickLocationPage checkConfirmButtonEnabled() {
         confirmButton.shouldBe(Condition.visible);
-        //confirmButton.shouldBe(Condition.enabled);
         confirmButton.shouldBe(Condition.clickable);
 
         return this;

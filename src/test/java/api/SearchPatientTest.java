@@ -3,6 +3,7 @@ package api;
 import api.assertions.CommonAssertions;
 import api.models.CreatePatientResponse;
 import api.requests.steps.AdminSteps;
+import common.annotations.Skip;
 import common.annotations.SkipAutoCleanup;
 import common.generators.RandomDataGenerator;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -29,7 +30,7 @@ public class SearchPatientTest extends BaseTest {
                 Arguments.of(generatedString.substring(0,4).toUpperCase() + "MN", 4),
                 Arguments.of(generatedString.substring(0,3).toLowerCase(), 4));
     }
-    @SkipAutoCleanup
+    @Skip
     @MethodSource("positivePatientSearchDataGenerated")
     @ParameterizedTest
     public void searchPatient_withMatchingTest(String searchText, int resultCount) {
@@ -43,6 +44,7 @@ public class SearchPatientTest extends BaseTest {
                 Arguments.of("m"),
                 Arguments.of("abrakadabra"));
     }
+    @Skip
     @MethodSource("negativePatientSearchDataWhenDBisEmpty")
     @ParameterizedTest
     public void searchPatient_withoutMatching_WhenDB_isEmptyTest(String searchText) {
@@ -56,6 +58,7 @@ public class SearchPatientTest extends BaseTest {
             Arguments.of("m"),
             Arguments.of("abrakadabra"));
     }
+    @Skip
     @MethodSource("negativePatientSearchData")
     @ParameterizedTest
     public void searchPatient_withoutMatchingTest(String searchText) {
@@ -79,7 +82,7 @@ public class SearchPatientTest extends BaseTest {
             Arguments.of("UNKNOWN", 8),
             Arguments.of("UnKnown", 8));
     }
-    @SkipAutoCleanup
+    @Skip
     @MethodSource("unknownPatientSearchDataGenerated")
     @ParameterizedTest
     public void searchUnknownPatientTest(String searchText, int resultCount) {

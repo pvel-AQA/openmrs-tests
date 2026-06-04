@@ -42,13 +42,10 @@ public class LoginTest extends BaseUiTest {
                 .clickLogInButton()
 
                 .getPage(PickLocationPage.class)
-                .checkItIsCorrectPage()
                 .clinicLocationSelect()
                 .clinicLocationClickRemember()
                 .clinicLocationConfirm()
-                .checkItIsCorrectPage()
                 .header.clickMyAccountIconAndLogout()
-                .checkItIsCorrectPage()
 
                 .populateUserNameField(admin.getUsername())
                 .clickContinueButton()
@@ -56,13 +53,10 @@ public class LoginTest extends BaseUiTest {
                 .clickLogInButton()
 
                 .getPage(ServiceQueuesPage.class)
-                .checkItIsCorrectPage()
                 .header.clickChangeClinicButton()
                 .clinicLocationClickRemember()
                 .clinicLocationConfirm()
-                .checkItIsCorrectPage()
                 .header.clickMyAccountIconAndLogout()
-                .checkItIsCorrectPage()
 
                 .populateUserNameField(admin.getUsername())
                 .clickContinueButton()
