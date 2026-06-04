@@ -90,6 +90,6 @@ public final class RandomDataGenerator {
     public static String getIncorrectPassword(){
         return RandomStringUtils.randomAlphanumeric(3).toUpperCase() +
                 RandomStringUtils.randomAlphanumeric(3).toLowerCase() +
-                RandomStringUtils.randomNumeric(3) + "!@#$%^&*()-_=+[]{};:,.<>?";
+                RandomStringUtils.randomNumeric(2) + "!@#";
     }
 }

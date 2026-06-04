@@ -15,7 +15,7 @@ public class DeletePatientTest extends BaseTest {
 
     @Test
     @SkipAutoCleanup
-    void deletePatientTest() {
+    void patientCanBeSoftDeletedTest() {
         String createdUuid = AdminSteps.createPatient().getUuid();
         new CrudRequester(
                 RequestSpecs.adminSpec(),
@@ -28,7 +28,7 @@ public class DeletePatientTest extends BaseTest {
 
     @Test
     @SkipAutoCleanup
-    void deletePatientFromDBTest() {
+    void patientCanBeHardDeletedTest() {
         String createdUuid = AdminSteps.createPatient().getUuid();
         new CrudRequester(
                 RequestSpecs.adminSpec(),

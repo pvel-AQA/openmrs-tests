@@ -5,10 +5,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
-import ui.pages.PatientRegistrationPage;
-import ui.pages.PickLocationPage;
-import ui.pages.SearchResultsPage;
-import ui.pages.ServiceQueuesPage;
+import ui.pages.*;
 import ui.parsers.PatientSearchResultParser;
 
 import java.util.List;
@@ -28,6 +25,9 @@ public class Header extends BaseComponent {
     private final SelenideElement searchResultsContainer = $("[data-testid='floatingSearchResultsContainer']");
     private final SelenideElement errorTitle = $("p[class*='errorMessage']");
     private final SelenideElement errorMessage = $("p[class*='errorCopy']");
+    private final SelenideElement myAccountButton = $(By.xpath("//button[@data-tutorial-target='user-settings']"));
+    private final SelenideElement logOutButton = $(Selectors.byText("Logout"));
+
 
     private final PatientSearchResultParser parser = new PatientSearchResultParser();
 
@@ -153,5 +153,12 @@ public class Header extends BaseComponent {
                 .stream()
                 .map(parser::parse)
                 .collect(Collectors.toList());
+    }
+
+    public LoginPage clickMyAccountIconAndLogout() {
+        myAccountButton.shouldBe(Condition.visible).click();
+        logOutButton.shouldBe(Condition.visible).click();
+
+        return getPage(LoginPage.class);
     }
 }

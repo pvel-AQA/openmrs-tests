@@ -3,8 +3,8 @@ package api;
 import api.assertions.CommonAssertions;
 import api.models.CreatePatientResponse;
 import api.requests.steps.AdminSteps;
+import common.annotations.SkipAutoCleanup;
 import common.generators.RandomDataGenerator;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -13,11 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static api.constants.Constants.PATH_PARAM_PURGE;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SearchPatientTest extends BaseTest {
-    private static List<String> createdUuids = new ArrayList<>();
+    private static final List<String> createdUuids = new ArrayList<>();
     private static final String generatedString = RandomDataGenerator.randomString(7);
 
     public static Stream<Arguments> positivePatientSearchDataGenerated() {
@@ -27,10 +26,11 @@ public class SearchPatientTest extends BaseTest {
                 Arguments.of(AdminSteps.findPatientByUuid(createdUuids.get(1)).getDisplay().substring(4,7), 1),
                 Arguments.of(generatedString.substring(0,4).toLowerCase() + " " + AdminSteps.findPatientByUuid(createdUuids.get(2)).getDisplay().substring(4,7), 1),
                 Arguments.of(generatedString.substring(0,4).toLowerCase() + "FN", 4),
-                Arguments.of(generatedString.substring(0,4).toLowerCase() + "LN", 4),
+                Arguments.of(generatedString.substring(0,5).toLowerCase() + "LN", 4),
                 Arguments.of(generatedString.substring(0,4).toUpperCase() + "MN", 4),
                 Arguments.of(generatedString.substring(0,3).toLowerCase(), 4));
     }
+    @SkipAutoCleanup
     @MethodSource("positivePatientSearchDataGenerated")
     @ParameterizedTest
     public void searchPatient_withMatchingTest(String searchText, int resultCount) {
@@ -80,6 +80,7 @@ public class SearchPatientTest extends BaseTest {
             Arguments.of("UNKNOWN", 8),
             Arguments.of("UnKnown", 8));
     }
+    @SkipAutoCleanup
     @MethodSource("unknownPatientSearchDataGenerated")
     @ParameterizedTest
     public void searchUnknownPatientTest(String searchText, int resultCount) {

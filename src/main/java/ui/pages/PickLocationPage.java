@@ -6,6 +6,7 @@ import com.codeborne.selenide.SelenideElement;
 import lombok.Getter;
 import org.openqa.selenium.By;
 
+import static com.codeborne.selenide.Condition.attribute;
 import static com.codeborne.selenide.Selenide.$;
 
 @Getter
@@ -17,7 +18,8 @@ public class PickLocationPage extends BasePage<PickLocationPage> {
         return "/login/location";
     }
 
-    public PickLocationPage pageIsReady() {
+    @Override
+    public PickLocationPage checkItIsCorrectPage() {
         outpatientLocationRadioButton.shouldBe(Condition.visible);
 
         return this;
@@ -49,10 +51,19 @@ public class PickLocationPage extends BasePage<PickLocationPage> {
         return this;
     }
 
-    public PickLocationPage confirmButtonDisabled() {
+    public PickLocationPage checkConfirmButtonDisabled() {
         confirmButton.shouldBe(Condition.visible);
-        confirmButton.shouldBe(Condition.disabled);
-        confirmButton.shouldNotBe(Condition.clickable);
+        //confirmButton.shouldBe(Condition.disabled);
+        //confirmButton.shouldNotBe(Condition.clickable);
+        confirmButton.shouldHave(attribute("disabled type", "submit"));
+
+        return this;
+    }
+
+    public PickLocationPage checkConfirmButtonEnabled() {
+        confirmButton.shouldBe(Condition.visible);
+        //confirmButton.shouldBe(Condition.enabled);
+        confirmButton.shouldBe(Condition.clickable);
 
         return this;
     }

@@ -42,7 +42,7 @@ public class SearchPatientTest extends BaseUiTest {
     @Test
     @AdminSession
     void searchDropdownShouldShowCorrectResultsTest() {
-        String generatedPartOfTheName = RandomDataGenerator.randomString(4);
+        String generatedPartOfTheName = RandomDataGenerator.randomString(5);
         createdUuids.addAll(AdminSteps.createPatientsForSearch(4, true, generatedPartOfTheName));
 
         new PickLocationPage().open().clinicLocationSelect().clinicLocationConfirm();
@@ -85,7 +85,7 @@ public class SearchPatientTest extends BaseUiTest {
     @Test
     @AdminSession
     public void searchPanelActivateEnterSearchStringAndCloseTest() {
-        String generatedPartOfTheName = RandomDataGenerator.randomString(4);
+        String generatedPartOfTheName = RandomDataGenerator.randomString(5);
         createdUuids.addAll(AdminSteps.createPatientsForSearch(4, true, generatedPartOfTheName));
 
         new PickLocationPage().open().clinicLocationSelect().clinicLocationConfirm();
@@ -111,7 +111,7 @@ public class SearchPatientTest extends BaseUiTest {
     @Test
     @AdminSession
     void searchInputFieldPopulatedWithTextAndThenClearedTest() {
-        String generatedPartOfTheName = RandomDataGenerator.randomString(4);
+        String generatedPartOfTheName = RandomDataGenerator.randomString(5);
         createdUuids.addAll(AdminSteps.createPatientsForSearch(4, true, generatedPartOfTheName));
 
 
@@ -144,7 +144,7 @@ public class SearchPatientTest extends BaseUiTest {
     @Test
     @AdminSession
     public void searchPatientClickSearchButtonTest() {
-        String generatedPartOfTheName = RandomDataGenerator.randomString(4);
+        String generatedPartOfTheName = RandomDataGenerator.randomString(5);
         createdUuids.addAll(AdminSteps.createPatientsForSearch(4, true, generatedPartOfTheName));
 
         new PickLocationPage().open().clinicLocationSelect().clinicLocationConfirm();
@@ -172,7 +172,7 @@ public class SearchPatientTest extends BaseUiTest {
     @Test
     @AdminSession
     public void searchPatientClickEnterTest() {
-        String generatedPartOfTheName = RandomDataGenerator.randomString(4);
+        String generatedPartOfTheName = RandomDataGenerator.randomString(5);
         createdUuids.addAll(AdminSteps.createPatientsForSearch(4, true, generatedPartOfTheName));
 
         new PickLocationPage().open().clinicLocationSelect().clinicLocationConfirm();

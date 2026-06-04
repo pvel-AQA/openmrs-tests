@@ -6,7 +6,6 @@ import api.requests.specs.RequestSpecs;
 import api.requests.steps.AdminSteps;
 import com.codeborne.selenide.Condition;
 import common.annotations.InjectAdmin;
-import common.annotations.Skip;
 import common.generators.RandomDataGenerator;
 import org.junit.jupiter.api.Test;
 import ui.pages.LoginPage;
@@ -16,10 +15,10 @@ import ui.pages.ServiceQueuesPage;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class LoginTest extends BaseUiTest {
-
     @Test
     public void adminCanLoginTest(@InjectAdmin AdminLogin admin) {
         new LoginPage().open()
+                .clearSession()
                 .populateUserNameField(admin.getUsername())
                 .clickContinueButton()
                 .populatePasswordField(admin.getPassword())
@@ -34,36 +33,64 @@ public class LoginTest extends BaseUiTest {
         assertThat(identifierTypeUuid).isEqualTo(Constants.IDENTIFIER_TYPE_UUID);
     }
 
-    @Skip(reason = "flaky test, that should be updated")
     @Test
-    public void adminCanLoginClinicMemorisedTest(@InjectAdmin AdminLogin admin) {
+    public void adminCanLoginWithClinicMemorisedTest(@InjectAdmin AdminLogin admin) {
         new LoginPage().open()
                 .populateUserNameField(admin.getUsername())
                 .clickContinueButton()
                 .populatePasswordField(admin.getPassword())
                 .clickLogInButton()
+
+                .getPage(PickLocationPage.class)
+                .checkItIsCorrectPage()
+                .clinicLocationSelect()
+                .clinicLocationClickRemember()
+                .clinicLocationConfirm()
+                .checkItIsCorrectPage()
+                .header.clickMyAccountIconAndLogout()
+                .checkItIsCorrectPage()
+
+                .populateUserNameField(admin.getUsername())
+                .clickContinueButton()
+                .populatePasswordField(admin.getPassword())
+                .clickLogInButton()
+
                 .getPage(ServiceQueuesPage.class)
-                .pageIsReady();
+                .checkItIsCorrectPage()
+                .header.clickChangeClinicButton()
+                .clinicLocationClickRemember()
+                .clinicLocationConfirm()
+                .checkItIsCorrectPage()
+                .header.clickMyAccountIconAndLogout()
+                .checkItIsCorrectPage()
+
+                .populateUserNameField(admin.getUsername())
+                .clickContinueButton()
+                .populatePasswordField(admin.getPassword())
+                .clickLogInButton()
+                .getPage(PickLocationPage.class)
+                .checkItIsCorrectPage();
     }
 
     @Test
-    public void firstPageNoUserNameLoginTest() {
+    public void userCannotLoginWithoutNameTest() {
         String emptyString = "";
         new LoginPage().open()
+                .clearSession()
                 .populateUserNameField(emptyString)
                 .clickContinueButton()
-                .pageIsReady();
+                .checkItIsCorrectPage();
     }
 
-    //@Skip(reason = "flaky test, that should be updated")
     @Test
-    public void wrongAdminPasswordLoginTest(@InjectAdmin AdminLogin admin) {
+    public void cannotLoginWithWrongAdminPasswordTest(@InjectAdmin AdminLogin admin) {
         new LoginPage().open()
+                .clearSession()
                 .populateUserNameField(admin.getUsername())
                 .clickContinueButton()
                 .populatePasswordField(RandomDataGenerator.getIncorrectPassword())
                 .clickLogInButton()
                 .errorMessageInvalidUsernameOrPasswordIsDisplayed()
-                .pageIsReady();
+                .checkItIsCorrectPage();
     }
 }

@@ -18,7 +18,7 @@ public class VisitPage extends BasePage<VisitPage> {
     }
 
     @Override
-    public VisitPage pageIsReady() {
+    public VisitPage checkItIsCorrectPage() {
         startVisitHeader.shouldBe(Condition.visible);
 
         return this;
