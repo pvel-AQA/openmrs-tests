@@ -4,7 +4,7 @@ on: [ push, workflow_dispatch ]
 
 # stages analogy
 jobs:
-  run-tests:
+  run_tests:
     name: Set up services (review apps) and run tests
     runs-on: ubuntu-latest
     steps:
@@ -80,7 +80,7 @@ jobs:
 
   notify:
     name: Telegram notification
-    needs: [ run-tests ]
+    needs: [ run_tests ]
     runs-on: ubuntu-latest
     if: always()
     steps:
@@ -91,7 +91,7 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           format: html
           message: |
-            <b>${{ needs.test.result == 'success' && '✅ Passed' || '❌ Failed' }}</b> — OpenMRS test suite
+            <b>${{ needs.run_tests.result == 'success' && '✅ Passed' || '❌ Failed' }}</b> — OpenMRS test suite
             Branch: <code>${{ github.ref_name }}</code>
             Commit: ${{ github.actor }} — ${{ github.event.head_commit.message }}
             <a href="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}">View run &amp; logs</a>
