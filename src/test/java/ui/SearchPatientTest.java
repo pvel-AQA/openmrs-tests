@@ -22,13 +22,13 @@ import static api.constants.Constants.PATH_PARAM_PURGE;
 public class SearchPatientTest extends BaseUiTest {
     private static List<String> createdUuids = new ArrayList<>();
 
-    @Skip
+    @Skip(reason = "flaky test, that should be updated")
     @Test
     @AdminSession
-    public void searchDropDownShowDefaultMessagesTest() {
+    public void searchDropDownShowsDefaultMessagesTest() {
         Header header = new PickLocationPage().open()
-                .clinicLocationSelect()
-                .clinicLocationConfirm()
+                .selectClinicLocation()
+                .confirmClinicLocation()
                 .header.clickSearchPatientIcon();
 
         softly.assertThat(header.getSearchInputPlaceholder())
@@ -43,11 +43,11 @@ public class SearchPatientTest extends BaseUiTest {
 
     @Test
     @AdminSession
-    void searchDropdownShowCorrectResultsTest() {
+    void searchDropdownShowsCorrectResultsTest() {
         String generatedPartOfTheName = RandomDataGenerator.randomString(5);
         createdUuids.addAll(AdminSteps.createPatientsForSearch(4, true, generatedPartOfTheName));
 
-        new PickLocationPage().open().clinicLocationSelect().clinicLocationConfirm();
+        new PickLocationPage().open().selectClinicLocation().confirmClinicLocation();
         ServiceQueuesPage searchPatients = new ServiceQueuesPage();
         searchPatients.open().header.populateSearchPatientString(generatedPartOfTheName);
 
@@ -65,7 +65,7 @@ public class SearchPatientTest extends BaseUiTest {
     @Test
     @AdminSession
     public void searchPanelCanBeClosedTest() {
-        new PickLocationPage().open().clinicLocationSelect().clinicLocationConfirm();
+        new PickLocationPage().open().selectClinicLocation().confirmClinicLocation();
         ServiceQueuesPage page = new ServiceQueuesPage();
         page.header.clickSearchPatientIcon();
 
@@ -90,7 +90,7 @@ public class SearchPatientTest extends BaseUiTest {
         String generatedPartOfTheName = RandomDataGenerator.randomString(5);
         createdUuids.addAll(AdminSteps.createPatientsForSearch(4, true, generatedPartOfTheName));
 
-        new PickLocationPage().open().clinicLocationSelect().clinicLocationConfirm();
+        new PickLocationPage().open().selectClinicLocation().confirmClinicLocation();
         ServiceQueuesPage page = new ServiceQueuesPage();
         page.header.populateSearchPatientString(generatedPartOfTheName);
 
@@ -110,15 +110,15 @@ public class SearchPatientTest extends BaseUiTest {
         softly.assertThat(page.header.isCloseButtonVisible()).isFalse();
     }
 
-    @Skip
+    @Skip(reason = "flaky test, that should be updated")
     @Test
     @AdminSession
-    void searchInputTextCanBeClearedTest() {
+    void searchInputCanBeClearedTest() {
         String generatedPartOfTheName = RandomDataGenerator.randomString(5);
         createdUuids.addAll(AdminSteps.createPatientsForSearch(4, true, generatedPartOfTheName));
 
 
-        new PickLocationPage().open().clinicLocationSelect().clinicLocationConfirm();
+        new PickLocationPage().open().selectClinicLocation().confirmClinicLocation();
         ServiceQueuesPage searchPatients = new ServiceQueuesPage();
         searchPatients.open().header.populateSearchPatientString(generatedPartOfTheName);
 
@@ -146,11 +146,11 @@ public class SearchPatientTest extends BaseUiTest {
 
     @Test
     @AdminSession
-    public void searchPatientClickSearchButtonTest() {
+    public void userCanNavigateToSearchResultsPageByClickingSearchButtonTest() {
         String generatedPartOfTheName = RandomDataGenerator.randomString(5);
         createdUuids.addAll(AdminSteps.createPatientsForSearch(4, true, generatedPartOfTheName));
 
-        new PickLocationPage().open().clinicLocationSelect().clinicLocationConfirm();
+        new PickLocationPage().open().selectClinicLocation().confirmClinicLocation();
 
         ServiceQueuesPage searchPatients = new ServiceQueuesPage();
         searchPatients.open().header.populateSearchPatientString(generatedPartOfTheName);
@@ -174,11 +174,11 @@ public class SearchPatientTest extends BaseUiTest {
 
     @Test
     @AdminSession
-    public void searchPatientClickEnterTest() {
+    public void userCanNavigateToSearchResultsPageByPressingEnterTest() {
         String generatedPartOfTheName = RandomDataGenerator.randomString(5);
         createdUuids.addAll(AdminSteps.createPatientsForSearch(4, true, generatedPartOfTheName));
 
-        new PickLocationPage().open().clinicLocationSelect().clinicLocationConfirm();
+        new PickLocationPage().open().selectClinicLocation().confirmClinicLocation();
 
         ServiceQueuesPage searchPatients = new ServiceQueuesPage();
         searchPatients.header.populateSearchPatientString(generatedPartOfTheName);

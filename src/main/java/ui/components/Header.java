@@ -5,7 +5,11 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
-import ui.pages.*;
+import ui.pages.PickLocationPage;
+import ui.pages.ServiceQueuesPage;
+import ui.pages.PatientRegistrationPage;
+import ui.pages.SearchResultsPage;
+import ui.pages.LoginPage;
 import ui.parsers.PatientSearchResultParser;
 
 import java.util.List;
@@ -27,7 +31,6 @@ public class Header extends BaseComponent {
     private final SelenideElement errorMessage = $("p[class*='errorCopy']");
     private final SelenideElement myAccountButton = $(By.xpath("//button[@data-tutorial-target='user-settings']"));
     private final SelenideElement logOutButton = $(Selectors.byText("Logout"));
-
 
     private final PatientSearchResultParser parser = new PatientSearchResultParser();
 

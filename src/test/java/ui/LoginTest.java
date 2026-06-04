@@ -18,7 +18,6 @@ public class LoginTest extends BaseUiTest {
     @Test
     public void adminCanLoginTest(@InjectAdmin AdminLogin admin) {
         new LoginPage().open()
-                .clearSession()
                 .populateUserNameField(admin.getUsername())
                 .clickContinueButton()
                 .populatePasswordField(admin.getPassword())
@@ -42,9 +41,9 @@ public class LoginTest extends BaseUiTest {
                 .clickLogInButton()
 
                 .getPage(PickLocationPage.class)
-                .clinicLocationSelect()
+                .selectClinicLocation()
                 .clinicLocationClickRemember()
-                .clinicLocationConfirm()
+                .confirmClinicLocation()
                 .header.clickMyAccountIconAndLogout()
 
                 .populateUserNameField(admin.getUsername())
@@ -55,7 +54,7 @@ public class LoginTest extends BaseUiTest {
                 .getPage(ServiceQueuesPage.class)
                 .header.clickChangeClinicButton()
                 .clinicLocationClickRemember()
-                .clinicLocationConfirm()
+                .confirmClinicLocation()
                 .header.clickMyAccountIconAndLogout()
 
                 .populateUserNameField(admin.getUsername())
@@ -70,7 +69,6 @@ public class LoginTest extends BaseUiTest {
     public void userCannotLoginWithoutNameTest() {
         String emptyString = "";
         new LoginPage().open()
-                .clearSession()
                 .populateUserNameField(emptyString)
                 .clickContinueButton()
                 .checkItIsCorrectPage();
@@ -79,7 +77,6 @@ public class LoginTest extends BaseUiTest {
     @Test
     public void cannotLoginWithWrongAdminPasswordTest(@InjectAdmin AdminLogin admin) {
         new LoginPage().open()
-                .clearSession()
                 .populateUserNameField(admin.getUsername())
                 .clickContinueButton()
                 .populatePasswordField(RandomDataGenerator.getIncorrectPassword())

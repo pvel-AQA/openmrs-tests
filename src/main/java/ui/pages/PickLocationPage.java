@@ -6,7 +6,6 @@ import com.codeborne.selenide.SelenideElement;
 import lombok.Getter;
 import org.openqa.selenium.By;
 
-import static com.codeborne.selenide.Condition.attribute;
 import static com.codeborne.selenide.Selenide.$;
 
 @Getter
@@ -30,14 +29,21 @@ public class PickLocationPage extends BasePage<PickLocationPage> {
     private final SelenideElement confirmButton = $(By.xpath("//button/span[text()='Confirm']"));
     private final SelenideElement rememberMyLocationCheckbox = $(".cds--checkbox-label-text");
 
-    public PickLocationPage clinicLocationSelect() {
+    public PickLocationPage selectClinicLocation() {
         outpatientLocationRadioButton.shouldBe(Condition.visible);
         outpatientLocationRadioButton.click();
 
         return this;
     }
 
-    public ServiceQueuesPage clinicLocationConfirm() {
+    public ServiceQueuesPage selectOutpatientLocationAndConfirm() {
+        selectClinicLocation();
+        confirmClinicLocation();
+
+        return getPage(ServiceQueuesPage.class);
+    }
+
+    public ServiceQueuesPage confirmClinicLocation() {
         confirmButton.shouldBe(Condition.visible);
         confirmButton.click();
 
@@ -53,7 +59,7 @@ public class PickLocationPage extends BasePage<PickLocationPage> {
 
     public PickLocationPage checkConfirmButtonDisabled() {
         confirmButton.shouldBe(Condition.visible);
-        confirmButton.shouldHave(attribute("disabled type", "submit"));
+        confirmButton.shouldHave(Condition.attribute("disabled type", "submit"));
 
         return this;
     }
