@@ -4,7 +4,7 @@ on: [ push, workflow_dispatch ]
 
 # stages analogy
 jobs:
-  run-tests:
+  run_tests:
     name: Set up services (review apps) and run tests
     runs-on: ubuntu-latest
     steps:
@@ -36,7 +36,7 @@ jobs:
         uses: ./.github/actions/wait-for-openmrs
 
       - name: Run tests
-        run: ./mvnw clean test -P ui -q
+        run: ./mvnw clean test -P all -q
         env:
           APIBASEURL: http://localhost:80/openmrs
           UIBASEURL: http://gateway/openmrs/spa
@@ -77,3 +77,21 @@ jobs:
       - name: Clean up services
         if: always()
         run: cd infra/docker_compose && docker compose -p openmrs down
+
+  notify:
+    name: Telegram notification
+    needs: [ run_tests ]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Send Telegram notification
+        uses: appleboy/telegram-action@v1.0.1
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: html
+          message: |
+            <b>${{ needs.run_tests.result == 'success' && '✅ Passed' || '❌ Failed' }}</b> — OpenMRS test suite
+            Branch: <code>${{ github.ref_name }}</code>
+            Commit: ${{ github.actor }} — ${{ github.event.head_commit.message }}
+            <a href="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}">View run &amp; logs</a>

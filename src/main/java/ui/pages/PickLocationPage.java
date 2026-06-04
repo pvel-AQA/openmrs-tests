@@ -17,7 +17,8 @@ public class PickLocationPage extends BasePage<PickLocationPage> {
         return "/login/location";
     }
 
-    public PickLocationPage pageIsReady() {
+    @Override
+    public PickLocationPage checkItIsCorrectPage() {
         outpatientLocationRadioButton.shouldBe(Condition.visible);
 
         return this;
@@ -28,26 +29,45 @@ public class PickLocationPage extends BasePage<PickLocationPage> {
     private final SelenideElement confirmButton = $(By.xpath("//button/span[text()='Confirm']"));
     private final SelenideElement rememberMyLocationCheckbox = $(".cds--checkbox-label-text");
 
-    public ServiceQueuesPage pickOutpatientLocationAndConfirm() {
+    public PickLocationPage selectClinicLocation() {
         outpatientLocationRadioButton.shouldBe(Condition.visible);
         outpatientLocationRadioButton.click();
 
+        return this;
+    }
+
+    public ServiceQueuesPage selectOutpatientLocationAndConfirm() {
+        selectClinicLocation();
+        confirmClinicLocation();
+
+        return getPage(ServiceQueuesPage.class);
+    }
+
+    public ServiceQueuesPage confirmClinicLocation() {
         confirmButton.shouldBe(Condition.visible);
         confirmButton.click();
 
         return getPage(ServiceQueuesPage.class);
     }
 
-    public ServiceQueuesPage pickOutpatientLocationClickRememberMyLocationAndConfirm() {
-        outpatientLocationRadioButton.shouldBe(Condition.visible);
-        outpatientLocationRadioButton.click();
-
+    public PickLocationPage clinicLocationClickRemember() {
         rememberMyLocationCheckbox.shouldBe(Condition.visible);
         rememberMyLocationCheckbox.click();
 
-        confirmButton.shouldBe(Condition.visible);
-        confirmButton.click();
+        return this;
+    }
 
-        return getPage(ServiceQueuesPage.class);
+    public PickLocationPage checkConfirmButtonDisabled() {
+        confirmButton.shouldBe(Condition.visible);
+        confirmButton.shouldHave(Condition.attribute("disabled type", "submit"));
+
+        return this;
+    }
+
+    public PickLocationPage checkConfirmButtonEnabled() {
+        confirmButton.shouldBe(Condition.visible);
+        confirmButton.shouldBe(Condition.clickable);
+
+        return this;
     }
 }

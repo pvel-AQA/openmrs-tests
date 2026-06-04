@@ -396,8 +396,8 @@ public final class AdminSteps {
         return createPatient(patient);
     }
 
-    public static CreatePatientResponse createUnknownPatient() {
-        PersonName personName = buildPersonName("UNKNOWN", "", "UNKNOWN");
+    public static CreatePatientResponse createPatientWithSpecificName(String firstName, String middleName, String lastName) {
+        PersonName personName = buildPersonName(firstName, middleName, lastName);
         CreatePersonRequest person = CreatePersonRequest.builder()
                 .gender(RandomDataGenerator.randomGender().toString())
                 .age(RandomDataGenerator.randomAge(0, 100))
@@ -419,7 +419,7 @@ public final class AdminSteps {
         for (int i = 0; i < count; i++) {
             firstName = generatedString.substring(0, 4).toLowerCase() + "FN" + letters.charAt(i); //abcd(e)FNa
             middleName = generatedString.substring(0, 4).toUpperCase() + "MN" + letters.charAt(i); //
-            lastName = generatedString.substring(0, 4).toLowerCase() + "LN" + letters.charAt(i); //abcdeLNa
+            lastName = generatedString.substring(0, 5).toLowerCase() + "LN" + letters.charAt(i); //abcdeLNa
             gender = RandomDataGenerator.randomGender().toString();
             if (knownDOB) {
                 dateOfBirth = RandomDataGenerator.randomDateBetween(LocalDate.parse("1900-01-01"), LocalDate.now());

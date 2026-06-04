@@ -39,7 +39,7 @@ public class PatientSummaryPage extends BasePage<PatientSummaryPage> {
     }
 
     @Override
-    public PatientSummaryPage pageIsReady() {
+    public PatientSummaryPage checkItIsCorrectPage() {
         vitalsHistoryLink.shouldBe(Condition.visible);
         openMrsIdNumber.shouldBe(Condition.visible);
 

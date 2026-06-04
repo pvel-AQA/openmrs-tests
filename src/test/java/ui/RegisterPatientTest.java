@@ -27,7 +27,7 @@ public class RegisterPatientTest extends BaseUiTest {
         String patientUuid = StepLogger.log("Register a patient and check all values correspond to" +
                 " the fields on Patient Summary Page", () -> {
             return new PickLocationPage().open()
-                    .pickOutpatientLocationAndConfirm()
+                    .selectOutpatientLocationAndConfirm()
                     .header.clickAddPatientButton()
                     .registerPatientWithAllFieldsPopulatedCorrectly(patient)
                     .verifySuccessNotification()
@@ -70,7 +70,7 @@ public class RegisterPatientTest extends BaseUiTest {
         String patientUuid = StepLogger.log("Register a patient and check all values correspond to" +
                 " the fields on Patient Summary Page", () -> {
             return new PickLocationPage().open()
-                    .pickOutpatientLocationAndConfirm()
+                    .selectOutpatientLocationAndConfirm()
                     .header.clickAddPatientButton()
                     .registerPatientWithValidMandatoryFields(patient)
                     .verifySuccessNotification()
@@ -115,7 +115,7 @@ public class RegisterPatientTest extends BaseUiTest {
         String patientUuid = StepLogger.log("Register a patient and check all values correspond to" +
                 " the fields on Patient Summary Page", () -> {
             return new PickLocationPage().open()
-                    .pickOutpatientLocationAndConfirm()
+                    .selectOutpatientLocationAndConfirm()
                     .header.clickAddPatientButton()
                     .registerUnknownPatientTest(patient)
 
