@@ -18,6 +18,7 @@ public class LoginTest extends BaseUiTest {
     @Test
     public void adminCanLoginTest(@InjectAdmin AdminLogin admin) {
         new LoginPage().open()
+                .clearSession()
                 .populateUserNameField(admin.getUsername())
                 .clickContinueButton()
                 .populatePasswordField(admin.getPassword())
@@ -77,6 +78,7 @@ public class LoginTest extends BaseUiTest {
     @Test
     public void cannotLoginWithWrongAdminPasswordTest(@InjectAdmin AdminLogin admin) {
         new LoginPage().open()
+                .clearSession()
                 .populateUserNameField(admin.getUsername())
                 .clickContinueButton()
                 .populatePasswordField(RandomDataGenerator.getIncorrectPassword())
