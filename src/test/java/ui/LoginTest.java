@@ -18,6 +18,7 @@ public class LoginTest extends BaseUiTest {
     @Test
     public void adminCanLoginTest(@InjectAdmin AdminLogin admin) {
         new LoginPage().open()
+                .clearSession()
                 .populateUserNameField(admin.getUsername())
                 .clickContinueButton()
                 .populatePasswordField(admin.getPassword())
@@ -43,7 +44,6 @@ public class LoginTest extends BaseUiTest {
                 .header.clickMyAccountIconAndLogout()
 
                 .enterCredentials(admin.getUsername(), admin.getPassword())
-
                 .getPage(ServiceQueuesPage.class)
                 .header.clickChangeClinicButton()
                 .clinicLocationClickRemember()

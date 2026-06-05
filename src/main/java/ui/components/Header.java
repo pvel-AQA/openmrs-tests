@@ -4,6 +4,7 @@ import api.models.ui.UiPatientMandatoryInfo;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.SelenideElement;
+import lombok.Getter;
 import org.openqa.selenium.By;
 import ui.pages.PickLocationPage;
 import ui.pages.ServiceQueuesPage;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 
 import static com.codeborne.selenide.Selenide.$;
 
+@Getter
 public class Header extends BaseComponent {
     private final SelenideElement addPatientButton = $(By.xpath("//button[@data-tutorial-target='add-patient']"));
     private final SelenideElement searchPatientIcon = $("button[data-testid='searchPatientIcon']");
@@ -27,8 +29,8 @@ public class Header extends BaseComponent {
     private final SelenideElement closeSearchPanelButton = $("button[data-testid='closeSearchIcon']");
     private final SelenideElement searchResultsCount = $("[class*='resultsText']");
     private final SelenideElement searchResultsContainer = $("[data-testid='floatingSearchResultsContainer']");
-    private final SelenideElement errorTitle = $("p[class*='errorMessage']");
-    private final SelenideElement errorMessage = $("p[class*='errorCopy']");
+    private final SelenideElement searchEmptyResultText = $("p[class*='emptyResultText']");
+    private final SelenideElement searchActionText = $("p[class*='actionText']");
     private final SelenideElement myAccountButton = $(By.xpath("//button[@data-tutorial-target='user-settings']"));
     private final SelenideElement logOutButton = $(Selectors.byText("Logout"));
 
@@ -132,13 +134,14 @@ public class Header extends BaseComponent {
     }
 
     public String getErrorTitleText() {
-        return errorTitle
+        return searchEmptyResultText
+                .shouldBe(Condition.exist)
                 .shouldBe(Condition.visible)
                 .getText();
     }
 
     public String getErrorMessageText() {
-        return errorMessage
+        return searchActionText
                 .shouldBe(Condition.visible)
                 .getText();
     }

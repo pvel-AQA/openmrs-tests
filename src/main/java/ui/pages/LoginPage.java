@@ -1,6 +1,6 @@
 package ui.pages;
 
-import api.models.ui.Messages;
+import api.models.ui.ErrorMessages;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.Selenide;
@@ -63,8 +63,8 @@ public class LoginPage extends BasePage<LoginPage> {
 
     public LoginPage errorMessageInvalidUsernameOrPasswordIsDisplayed(){
         errorWrapper.shouldBe(Condition.visible);
-        errorTitle.shouldHave(Condition.exactText(Messages.ERROR_TITLE_TEXT.getText()));
-        errorMessage.shouldHave(Condition.exactText(Messages.LOGIN_ERROR_MESSAGE.getText()));
+        errorTitle.shouldHave(Condition.exactText(ErrorMessages.ERROR_TITLE_TEXT.getText()));
+        errorMessage.shouldHave(Condition.exactText(ErrorMessages.LOGIN_ERROR_MESSAGE.getText()));
         errorMessageCloseButton.click();
 
         return this;

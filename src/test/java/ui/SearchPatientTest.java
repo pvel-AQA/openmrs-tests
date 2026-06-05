@@ -1,28 +1,22 @@
 package ui;
 
 import api.models.CreatePatientResponse;
-import api.models.ui.Messages;
+import api.models.ui.DefaultMessages;
+import api.models.ui.ErrorMessages;
 import api.models.ui.UiPatientMandatoryInfo;
 import api.requests.steps.AdminSteps;
 import common.annotations.AdminSession;
-import common.annotations.Skip;
 import common.generators.RandomDataGenerator;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 import ui.components.Header;
 import ui.pages.PickLocationPage;
 import ui.pages.SearchResultsPage;
 import ui.pages.ServiceQueuesPage;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import static api.constants.Constants.PATH_PARAM_PURGE;
-
 public class SearchPatientTest extends BaseUiTest {
-    private static List<String> createdUuids = new ArrayList<>();
 
-    @Skip(reason = "flaky test, that should be updated")
     @Test
     @AdminSession
     public void searchDropDownShowsDefaultMessagesTest() {
@@ -32,20 +26,20 @@ public class SearchPatientTest extends BaseUiTest {
                 .header.clickSearchPatientIcon();
 
         softly.assertThat(header.getSearchInputPlaceholder())
-                .isEqualTo(Messages.SEARCH_INPUT_FIELD_DEFAULT_TEXT.getText());
+                .isEqualTo(DefaultMessages.SEARCH_INPUT_FIELD_DEFAULT_TEXT.getText());
 
-        softly.assertThat(header.getErrorTitleText())
-                .isEqualTo(Messages.ERROR_TITLE_TEXT.getText());
+        softly.assertThat(header.getSearchEmptyResultText().getText())
+                .isEqualTo(DefaultMessages.SEARCH_NO_RESULTS_TITLE.getText());
 
-        softly.assertThat(header.getErrorMessageText())
-                .isEqualTo(Messages.SEARCH_RESULTS_ERROR_MESSAGE.getText());
+        softly.assertThat(header.getSearchActionText().getText())
+                .isEqualTo(DefaultMessages.SEARCH_ACTIONS_TEXT.getText());
     }
 
     @Test
     @AdminSession
     void searchDropdownShowsCorrectResultsTest() {
         String generatedPartOfTheName = RandomDataGenerator.randomString(5);
-        createdUuids.addAll(AdminSteps.createPatientsForSearch(4, true, generatedPartOfTheName));
+        AdminSteps.createPatientsForSearch(4, true, generatedPartOfTheName);
 
         new PickLocationPage().open().selectClinicLocation().confirmClinicLocation();
         ServiceQueuesPage searchPatients = new ServiceQueuesPage();
@@ -88,7 +82,7 @@ public class SearchPatientTest extends BaseUiTest {
     @AdminSession
     public void searchPanelCanBeClosedAfterSearchTest() {
         String generatedPartOfTheName = RandomDataGenerator.randomString(5);
-        createdUuids.addAll(AdminSteps.createPatientsForSearch(4, true, generatedPartOfTheName));
+        AdminSteps.createPatientsForSearch(4, true, generatedPartOfTheName);
 
         new PickLocationPage().open().selectClinicLocation().confirmClinicLocation();
         ServiceQueuesPage page = new ServiceQueuesPage();
@@ -110,12 +104,11 @@ public class SearchPatientTest extends BaseUiTest {
         softly.assertThat(page.header.isCloseButtonVisible()).isFalse();
     }
 
-    @Skip(reason = "flaky test, that should be updated")
     @Test
     @AdminSession
     void searchInputCanBeClearedTest() {
         String generatedPartOfTheName = RandomDataGenerator.randomString(5);
-        createdUuids.addAll(AdminSteps.createPatientsForSearch(4, true, generatedPartOfTheName));
+        AdminSteps.createPatientsForSearch(4, true, generatedPartOfTheName);
 
 
         new PickLocationPage().open().selectClinicLocation().confirmClinicLocation();
@@ -135,20 +128,20 @@ public class SearchPatientTest extends BaseUiTest {
         searchPatients.header.clickClearTextInputFieldButton();
 
         softly.assertThat(searchPatients.header.getSearchInputPlaceholder())
-                .isEqualTo(Messages.SEARCH_INPUT_FIELD_DEFAULT_TEXT.getText());
+                .isEqualTo(DefaultMessages.SEARCH_INPUT_FIELD_DEFAULT_TEXT.getText());
 
-        softly.assertThat(searchPatients.header.getErrorTitleText())
-                .isEqualTo(Messages.ERROR_TITLE_TEXT.getText());
+        softly.assertThat(searchPatients.header.getSearchEmptyResultText().getText())
+                .isEqualTo(DefaultMessages.SEARCH_NO_RESULTS_TITLE.getText());
 
-        softly.assertThat(searchPatients.header.getErrorMessageText())
-                .isEqualTo(Messages.SEARCH_RESULTS_ERROR_MESSAGE.getText());
+        softly.assertThat(searchPatients.header.getSearchActionText().getText())
+                .isEqualTo(DefaultMessages.SEARCH_ACTIONS_TEXT.getText());
     }
 
     @Test
     @AdminSession
     public void userCanNavigateToSearchResultsPageByClickingSearchButtonTest() {
         String generatedPartOfTheName = RandomDataGenerator.randomString(5);
-        createdUuids.addAll(AdminSteps.createPatientsForSearch(4, true, generatedPartOfTheName));
+        AdminSteps.createPatientsForSearch(4, true, generatedPartOfTheName);
 
         new PickLocationPage().open().selectClinicLocation().confirmClinicLocation();
 
@@ -176,7 +169,7 @@ public class SearchPatientTest extends BaseUiTest {
     @AdminSession
     public void userCanNavigateToSearchResultsPageByPressingEnterTest() {
         String generatedPartOfTheName = RandomDataGenerator.randomString(5);
-        createdUuids.addAll(AdminSteps.createPatientsForSearch(4, true, generatedPartOfTheName));
+        AdminSteps.createPatientsForSearch(4, true, generatedPartOfTheName);
 
         new PickLocationPage().open().selectClinicLocation().confirmClinicLocation();
 
