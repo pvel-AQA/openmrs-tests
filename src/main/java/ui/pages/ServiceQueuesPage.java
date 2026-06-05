@@ -18,7 +18,8 @@ public class ServiceQueuesPage extends AuthBasePage<ServiceQueuesPage> {
         return "/home/service-queues";
     }
 
-    public ServiceQueuesPage pageIsReady() {
+    @Override
+    public ServiceQueuesPage checkItIsCorrectPage() {
         pageName.shouldBe(Condition.visible).shouldHave(Condition.exactText(EXPECTED_PAGE_NAME));
         clinicName.shouldBe(Condition.visible).shouldHave(Condition.exactText(Constants.CLINIC_NAME));
 

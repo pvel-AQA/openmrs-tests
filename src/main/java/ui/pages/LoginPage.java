@@ -3,6 +3,7 @@ package ui.pages;
 import api.models.ui.Messages;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selectors;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -14,7 +15,7 @@ public class LoginPage extends BasePage<LoginPage> {
         return "/login";
     }
 
-    public LoginPage pageIsReady() {
+    public LoginPage checkItIsCorrectPage() {
         passwordField.shouldNotBe(Condition.visible);
         usernameField.shouldBe(Condition.visible);
         continueButton.shouldBe(Condition.visible);
@@ -65,6 +66,13 @@ public class LoginPage extends BasePage<LoginPage> {
         errorTitle.shouldHave(Condition.exactText(Messages.ERROR_TITLE_TEXT.getText()));
         errorMessage.shouldHave(Condition.exactText(Messages.LOGIN_ERROR_MESSAGE.getText()));
         errorMessageCloseButton.click();
+
+        return this;
+    }
+
+    public LoginPage clearSession() {
+        Selenide.clearBrowserCookies();
+        Selenide.clearBrowserLocalStorage();
 
         return this;
     }
