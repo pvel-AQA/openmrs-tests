@@ -7,7 +7,7 @@ runs:
       shell: bash
       run: |
         echo "Waiting for OpenMRS REST API..."
-        for i in $(seq 1 150); do
+        for i in $(seq 1 200); do
           STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
             -u admin:Admin123 \
             http://localhost/openmrs/ws/rest/v1/session)

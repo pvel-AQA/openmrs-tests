@@ -32,7 +32,7 @@ jobs:
           cd ../..
           
       - name: Wait for OpenMRS to be ready
-        timeout-minutes: 25
+        timeout-minutes: 40
         uses: ./.github/actions/wait-for-openmrs
 
       - name: Run tests
