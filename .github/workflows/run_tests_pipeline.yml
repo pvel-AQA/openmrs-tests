@@ -1,12 +1,17 @@
 name: Run tests
 
-on: [ push, workflow_dispatch ]
+on: #[ push, workflow_dispatch ]
+  push:
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
 
 # stages analogy
 jobs:
   run_tests:
     name: Set up services (review apps) and run tests
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -67,7 +72,12 @@ jobs:
 
       - name: Build Swagger Coverage report
         if: always()
-        run: sudo cp swagger-coverage-report.html allure-history/${{ github.run_number }}
+        run: |
+          if [ -f swagger-coverage-report.html ]; then
+            sudo cp swagger-coverage-report.html allure-history/${{ github.run_number }}
+          else
+            echo "No swagger-coverage report (tests likely didn't run) — skipping"
+          fi
 
       - name: Publish test report
         uses: peaceiris/actions-gh-pages@v4
