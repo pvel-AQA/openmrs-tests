@@ -35,21 +35,14 @@ public class LoginTest extends BaseUiTest {
     @Test
     public void adminCanLoginWithClinicMemorisedTest(@InjectAdmin AdminLogin admin) {
         new LoginPage().open()
-                .populateUserNameField(admin.getUsername())
-                .clickContinueButton()
-                .populatePasswordField(admin.getPassword())
-                .clickLogInButton()
-
+                .enterCredentials(admin.getUsername(), admin.getPassword())
                 .getPage(PickLocationPage.class)
                 .selectClinicLocation()
                 .clinicLocationClickRemember()
                 .confirmClinicLocation()
                 .header.clickMyAccountIconAndLogout()
 
-                .populateUserNameField(admin.getUsername())
-                .clickContinueButton()
-                .populatePasswordField(admin.getPassword())
-                .clickLogInButton()
+                .enterCredentials(admin.getUsername(), admin.getPassword())
 
                 .getPage(ServiceQueuesPage.class)
                 .header.clickChangeClinicButton()
@@ -57,10 +50,7 @@ public class LoginTest extends BaseUiTest {
                 .confirmClinicLocation()
                 .header.clickMyAccountIconAndLogout()
 
-                .populateUserNameField(admin.getUsername())
-                .clickContinueButton()
-                .populatePasswordField(admin.getPassword())
-                .clickLogInButton()
+                .enterCredentials(admin.getUsername(), admin.getPassword())
                 .getPage(PickLocationPage.class)
                 .checkItIsCorrectPage();
     }
@@ -77,6 +67,7 @@ public class LoginTest extends BaseUiTest {
     @Test
     public void cannotLoginWithWrongAdminPasswordTest(@InjectAdmin AdminLogin admin) {
         new LoginPage().open()
+                .clearSession()
                 .populateUserNameField(admin.getUsername())
                 .clickContinueButton()
                 .populatePasswordField(RandomDataGenerator.getIncorrectPassword())

@@ -7,7 +7,6 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 
 import static com.codeborne.selenide.Selenide.$;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LoginPage extends BasePage<LoginPage> {
     @Override
@@ -15,6 +14,7 @@ public class LoginPage extends BasePage<LoginPage> {
         return "/login";
     }
 
+    @Override
     public LoginPage checkItIsCorrectPage() {
         passwordField.shouldNotBe(Condition.visible);
         usernameField.shouldBe(Condition.visible);
@@ -73,6 +73,15 @@ public class LoginPage extends BasePage<LoginPage> {
     public LoginPage clearSession() {
         Selenide.clearBrowserCookies();
         Selenide.clearBrowserLocalStorage();
+
+        return this;
+    }
+
+    public LoginPage enterCredentials(String userName, String password) {
+        populateUserNameField(userName);
+        clickContinueButton();
+        populatePasswordField(password);
+        clickLogInButton();
 
         return this;
     }
