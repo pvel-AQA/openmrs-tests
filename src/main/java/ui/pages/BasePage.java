@@ -19,7 +19,7 @@ public abstract class BasePage<T extends BasePage> {
     }
 
     public T open(Object... params) {
-        return (T) Selenide.open(String.format(url(), params), (Class<T>) this.getClass());
+        return Selenide.open(String.format(url(), params), (Class<T>) this.getClass());
     }
 
     public <T extends BasePage> T getPage(Class<T> pageClass) {
