@@ -1,10 +1,10 @@
 package api.requests.skeleton.requesters;
 
-import api.configs.Config;
 import api.models.BaseModel;
 import api.requests.Endpoint;
 import api.requests.HttpRequest;
 import api.requests.skeleton.interfaces.CrudEndpointInterface;
+import common.helpers.StepLogger;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
@@ -24,90 +24,104 @@ public class CrudRequester extends HttpRequest implements CrudEndpointInterface 
 
     @Override
     public ValidatableResponse get(String uuid, Class<?> clazz) {
-        return given()
-                .spec(requestSpecification)
-                .pathParams(PATH_PARAM_UUID, uuid)
-                .when()
-                .get(endpoint.getUrl())
-                .then()
-                .assertThat()
-                .spec(responseSpecifications);
+        return StepLogger.log("Get request to " + endpoint.getUrl() + " with uuid" + uuid, () -> {
+            return given()
+                    .spec(requestSpecification)
+                    .pathParams(PATH_PARAM_UUID, uuid)
+                    .when()
+                    .get(endpoint.getUrl())
+                    .then()
+                    .assertThat()
+                    .spec(responseSpecifications);
+        });
     }
 
     @Override
     public ValidatableResponse getAll(String uuid, Class<?> clazz) {
-        return given()
-                .spec(requestSpecification)
-                .pathParams(PATH_PARAM_UUID, uuid)
-                .when()
-                .get(endpoint.getUrl())
-                .then()
-                .assertThat()
-                .spec(responseSpecifications);
+        return StepLogger.log("GetAll request to " + endpoint.getUrl() + " with uuid" + uuid, () -> {
+            return given()
+                    .spec(requestSpecification)
+                    .pathParams(PATH_PARAM_UUID, uuid)
+                    .when()
+                    .get(endpoint.getUrl())
+                    .then()
+                    .assertThat()
+                    .spec(responseSpecifications);
+        });
     }
 
     @Override
     public ValidatableResponse getAll(Map<String, Object> queryParams, Class<?> clazz) {
-        return given()
-                .spec(requestSpecification)
-                .when()
-                .queryParams(queryParams)
-                .get(endpoint.getUrl())
-                .then()
-                .assertThat()
-                .spec(responseSpecifications);
+        return StepLogger.log("GetAll request to " + endpoint.getUrl(), () -> {
+            return given()
+                    .spec(requestSpecification)
+                    .when()
+                    .queryParams(queryParams)
+                    .get(endpoint.getUrl())
+                    .then()
+                    .assertThat()
+                    .spec(responseSpecifications);
+        });
     }
 
     @Override
     public ValidatableResponse post(BaseModel model) {
-        var body = model == null ? "{}" : model;
+        return StepLogger.log("Post request to" + endpoint.getUrl(), () -> {
+            var body = model == null ? "{}" : model;
 
-        return given()
-                .spec(requestSpecification)
-                .when()
-                .body(body)
-                .post(endpoint.getUrl())
-                .then()
-                .assertThat()
-                .spec(responseSpecifications);
+            return given()
+                    .spec(requestSpecification)
+                    .when()
+                    .body(body)
+                    .post(endpoint.getUrl())
+                    .then()
+                    .assertThat()
+                    .spec(responseSpecifications);
+        });
     }
 
     @Override
     public ValidatableResponse post(BaseModel model, String uuid) {
-        var body = model == null ? "{}" : model;
+        return StepLogger.log("Post request to" + endpoint.getUrl() + " with uuid" + uuid, () -> {
+            var body = model == null ? "{}" : model;
 
-        return given()
-                .spec(requestSpecification)
-                .pathParam(PATH_PARAM_UUID, uuid)
-                .when()
-                .body(body)
-                .post(endpoint.getUrl())
-                .then()
-                .assertThat()
-                .spec(responseSpecifications);
+            return given()
+                    .spec(requestSpecification)
+                    .pathParam(PATH_PARAM_UUID, uuid)
+                    .when()
+                    .body(body)
+                    .post(endpoint.getUrl())
+                    .then()
+                    .assertThat()
+                    .spec(responseSpecifications);
+        });
     }
 
     @Override
     public ValidatableResponse delete(String uuid) {
-        return given()
-                .spec(requestSpecification)
-                .pathParam(PATH_PARAM_UUID, uuid)
-                .when()
-                .delete(endpoint.getUrl())
-                .then()
-                .spec(responseSpecifications);
+        return StepLogger.log("Soft delete request to" + endpoint.getUrl() + " with uuid" + uuid, () -> {
+            return given()
+                    .spec(requestSpecification)
+                    .pathParam(PATH_PARAM_UUID, uuid)
+                    .when()
+                    .delete(endpoint.getUrl())
+                    .then()
+                    .spec(responseSpecifications);
+        });
     }
 
     @Override
     public ValidatableResponse delete(String uuid, Boolean purge) {
-        return given()
-                .spec(requestSpecification)
-                .pathParam(PATH_PARAM_UUID, uuid)
-                .queryParam(PATH_PARAM_PURGE, purge)
-                .when()
-                .delete(endpoint.getUrl())
-                .then()
-                .spec(responseSpecifications);
+        return StepLogger.log("Hard delete request to" + endpoint.getUrl() + " with uuid" + uuid, () -> {
+            return given()
+                    .spec(requestSpecification)
+                    .pathParam(PATH_PARAM_UUID, uuid)
+                    .queryParam(PATH_PARAM_PURGE, purge)
+                    .when()
+                    .delete(endpoint.getUrl())
+                    .then()
+                    .spec(responseSpecifications);
+        });
     }
 
     public static class QueryBuilder {
