@@ -25,6 +25,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
+      - name: Pull and cache browser images
+        uses: ./.github/actions/pull-and-cache-browsers
+
       - name: Set up services
         run: |
           cd infra/docker_compose
