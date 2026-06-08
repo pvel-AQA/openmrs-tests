@@ -1,12 +1,15 @@
 package ui.pages;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.SelenideElement;
+import common.utils.RetryUtils;
 import lombok.Getter;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
 
 @Getter
 public class PickLocationPage extends BasePage<PickLocationPage> {
@@ -26,6 +29,7 @@ public class PickLocationPage extends BasePage<PickLocationPage> {
 
     private final SelenideElement welcomeText = $("p.-esm-login__location-picker__welcomeTitle___iI\\+4Z");
     private final SelenideElement outpatientLocationRadioButton = $(Selectors.byText("Outpatient Clinic"));
+    private final ElementsCollection locationFieldSet = $$(By.xpath("//fieldset/div/label[@class='cds--radio-button__label']"));
     private final SelenideElement confirmButton = $(By.xpath("//button/span[text()='Confirm']"));
     private final SelenideElement rememberMyLocationCheckbox = $(".cds--checkbox-label-text");
 
@@ -37,6 +41,12 @@ public class PickLocationPage extends BasePage<PickLocationPage> {
     }
 
     public ServiceQueuesPage selectOutpatientLocationAndConfirm() {
+        RetryUtils.retryStable("Wait until locations list is stable",
+                () -> locationFieldSet.size(),
+                Integer::equals,
+                5,
+                1000);
+
         selectClinicLocation();
         confirmClinicLocation();
 
