@@ -24,7 +24,7 @@ public class CrudRequester extends HttpRequest implements CrudEndpointInterface 
 
     @Override
     public ValidatableResponse get(String uuid, Class<?> clazz) {
-        return StepLogger.log("Get request to " + endpoint.getUrl() + " with uuid" + uuid, () -> {
+        return StepLogger.log("Get request to " + endpoint.getUrl() + " with uuid: " + uuid, () -> {
             return given()
                     .spec(requestSpecification)
                     .pathParams(PATH_PARAM_UUID, uuid)
@@ -38,7 +38,7 @@ public class CrudRequester extends HttpRequest implements CrudEndpointInterface 
 
     @Override
     public ValidatableResponse getAll(String uuid, Class<?> clazz) {
-        return StepLogger.log("GetAll request to " + endpoint.getUrl() + " with uuid" + uuid, () -> {
+        return StepLogger.log("GetAll request to " + endpoint.getUrl() + " with uuid: " + uuid, () -> {
             return given()
                     .spec(requestSpecification)
                     .pathParams(PATH_PARAM_UUID, uuid)
@@ -82,7 +82,7 @@ public class CrudRequester extends HttpRequest implements CrudEndpointInterface 
 
     @Override
     public ValidatableResponse post(BaseModel model, String uuid) {
-        return StepLogger.log("Post request to" + endpoint.getUrl() + " with uuid" + uuid, () -> {
+        return StepLogger.log("Post request to" + endpoint.getUrl() + " with uuid: " + uuid, () -> {
             var body = model == null ? "{}" : model;
 
             return given()
@@ -99,7 +99,7 @@ public class CrudRequester extends HttpRequest implements CrudEndpointInterface 
 
     @Override
     public ValidatableResponse delete(String uuid) {
-        return StepLogger.log("Soft delete request to" + endpoint.getUrl() + " with uuid" + uuid, () -> {
+        return StepLogger.log("Soft delete request to" + endpoint.getUrl() + " with uuid: " + uuid, () -> {
             return given()
                     .spec(requestSpecification)
                     .pathParam(PATH_PARAM_UUID, uuid)
@@ -112,7 +112,7 @@ public class CrudRequester extends HttpRequest implements CrudEndpointInterface 
 
     @Override
     public ValidatableResponse delete(String uuid, Boolean purge) {
-        return StepLogger.log("Hard delete request to" + endpoint.getUrl() + " with uuid" + uuid, () -> {
+        return StepLogger.log("Hard delete request to" + endpoint.getUrl() + " with uuid: " + uuid, () -> {
             return given()
                     .spec(requestSpecification)
                     .pathParam(PATH_PARAM_UUID, uuid)

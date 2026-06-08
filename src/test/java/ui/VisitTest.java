@@ -9,6 +9,8 @@ import com.codeborne.selenide.WebDriverRunner;
 import common.annotations.AdminSession;
 import common.annotations.Skip;
 import org.junit.jupiter.api.Test;
+import ui.components.VisitComponent;
+import ui.pages.PatientSummaryPage;
 import ui.pages.PickLocationPage;
 import ui.pages.VisitPage;
 
@@ -214,33 +216,63 @@ public class VisitTest extends BaseUiTest {
                 .isEmpty();
     }
 
+//    @Test
+//    @AdminSession
+//    public void deleteActiveVisitShouldRemoveItSuccessfully() {
+//        CreatePatientResponse createdPatient = AdminSteps.createPatient();
+//        String patientUuid = createdPatient.getUuid();
+//
+//        new PickLocationPage()
+//                .open()
+//                .selectClinicLocation()
+//                .confirmClinicLocation();
+//
+//        VisitPage visitPage = startNewVisit(patientUuid, VisitTypeEnum.FACILITY_VISIT);
+//
+//        visitPage.deleteActiveVisit()
+//                .waitDeleteVisitConfirmationModal()
+//                .confirmDeleteVisit()
+//                .checkVisitDeletedSuccessfully()
+//                .checkNoActiveVisitTag();
+//
+//        assertThat(WebDriverRunner.url())
+//                .as("URL should contain patient UUID")
+//                .contains(patientUuid);
+//
+//        List<CreateVisitResponse> apiVisits = AdminSteps.getVisitsForPatient(patientUuid);
+//
+//        assertThat(apiVisits)
+//                .as("Visit should be completely deleted (not returned in API)")
+//                .isEmpty();
+//    }
+
     @Test
     @AdminSession
     public void deleteActiveVisitShouldRemoveItSuccessfully() {
         CreatePatientResponse createdPatient = AdminSteps.createPatient();
-        String patientUuid = createdPatient.getUuid();
 
-        new PickLocationPage()
-                .open()
-                .selectClinicLocation()
-                .confirmClinicLocation();
+        new PickLocationPage().open()
+                .selectOutpatientLocationAndConfirm()
+                .getPage(PatientSummaryPage.class)
+                .open(createdPatient.getUuid())
+                .clickActionsButton()
+                .clickAddVisitButton()
 
-        VisitPage visitPage = startNewVisit(patientUuid, VisitTypeEnum.FACILITY_VISIT);
+                .getVisitComponent()
+                .startVisit(VisitComponent.UBUNTU_LOCATION_NAME, VisitTypeEnum.FACILITY_VISIT.getDisplayName())
+                .verifyStartFacilityVisitSuccessNotification()
+                .checkActiveVisitTagIsDisplayed()
 
-        visitPage.deleteActiveVisit()
-                .waitDeleteVisitConfirmationModal()
-                .confirmDeleteVisit()
-                .checkVisitDeletedSuccessfully()
-                .checkNoActiveVisitTag();
+                .clickActionsButton()
+                .clickDeleteActiveVisitButton()
+                .clickDeleteVisitPopupButton()
+                .verifyDeleteActiveVisitSuccessNotification();
 
-        assertThat(WebDriverRunner.url())
-                .as("URL should contain patient UUID")
-                .contains(patientUuid);
-
-        List<CreateVisitResponse> apiVisits = AdminSteps.getVisitsForPatient(patientUuid);
+        List<CreateVisitResponse> apiVisits = AdminSteps.getVisitsForPatient(createdPatient.getUuid());
 
         assertThat(apiVisits)
                 .as("Visit should be completely deleted (not returned in API)")
                 .isEmpty();
+
     }
 }

@@ -467,7 +467,6 @@ public final class AdminSteps {
                                 .vEqualsFull()
                                 .limit(10)
                                 .build(),
-                        CreateVisitResponse.class
-                );
+                        CreateVisitResponse.class);
     }
 }

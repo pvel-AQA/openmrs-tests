@@ -4,7 +4,9 @@ import lombok.Getter;
 
 @Getter
 public enum ActionableNotification {
-    NEW_PATIENT_CREATED("New Patient Created", "The patient can now be found by searching for them using their name or ID number");
+    NEW_PATIENT_CREATED("New Patient Created", "The patient can now be found by searching for them using their name or ID number"),
+    FACILITY_VISIT_DELETED("Facility Visit deleted", "Facility Visit deleted successfully"),
+    FACILITY_VISIT_STARTED("Visit started", "Facility Visit started successfully");
 
     ActionableNotification(String notificationTitle, String notificationSubTitle) {
         this.notificationTitle = notificationTitle;
