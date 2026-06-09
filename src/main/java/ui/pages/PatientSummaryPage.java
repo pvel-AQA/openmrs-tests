@@ -38,8 +38,10 @@ public class PatientSummaryPage extends BasePage<PatientSummaryPage> {
     private final SelenideElement vitalsHistoryLink = $("a[href*='Vitals ']");
     private final SelenideElement actionsButton = $(By.xpath("//span[@class='gFjL-10of83qbNS98PN9Iw==' and text()='Actions']"));
     private final SelenideElement addVisitButton = $(By.xpath("//button/div[text()='Add visit']"));
+    private final SelenideElement endVisitButton = $(By.xpath("//button/div[text()='End active visit']"));
     private final SelenideElement activeVisitTag = $(By.xpath("//span[@title='Active Visit']"));
     private final SelenideElement deleteVisitPopupButton = $(By.xpath("//button[@class='cds--btn cds--btn--danger' and text()='Delete visit']"));
+    private final SelenideElement endVisitPopupButton = $(By.xpath("//button[@class='cds--btn cds--btn--danger' and text()='End Visit']"));
 
     @Override
     public String url() {
@@ -171,6 +173,18 @@ public class PatientSummaryPage extends BasePage<PatientSummaryPage> {
         return this;
     }
 
+    public PatientSummaryPage verifyEndActiveVisitSuccessNotification() {
+        $(".cds--actionable-notification__focus-wrapper").shouldBe(Condition.visible);
+
+        $(".cds--actionable-notification__title")
+                .shouldHave(Condition.exactText(ActionableNotification.VISIT_ENDED.getNotificationTitle()));
+
+        $(".cds--actionable-notification__subtitle")
+                .shouldHave(Condition.exactText(ActionableNotification.VISIT_ENDED.getNotificationSubTitle()));
+
+        return this;
+    }
+
     public PatientSummaryPage addPatientToEntityStorage(CreatePatientResponse patientResponse) {
         EntityStorage.add(patientResponse);
 
@@ -196,6 +210,13 @@ public class PatientSummaryPage extends BasePage<PatientSummaryPage> {
         return this;
     }
 
+    public PatientSummaryPage clickEndActiveVisitButton() {
+        endVisitButton.shouldBe(Condition.visible);
+        endVisitButton.click();
+
+        return this;
+    }
+
     public PatientSummaryPage clickDeleteActiveVisitButton() {
         clickActionsButton();
 
@@ -215,10 +236,23 @@ public class PatientSummaryPage extends BasePage<PatientSummaryPage> {
         return this;
     }
 
+    public PatientSummaryPage clickEndVisitPopupButton() {
+        endVisitPopupButton.shouldBe(Condition.visible);
+        endVisitPopupButton.click();
+
+        return this;
+    }
+
     public PatientSummaryPage checkActiveVisitTagIsDisplayed() {
         activeVisitTag.shouldBe(Condition.visible);
         activeVisitTag.click();
 
         return  this;
+    }
+
+    public PatientSummaryPage checkActiveVisitTagIsNotDisplayed() {
+        activeVisitTag.shouldNotBe(Condition.visible);
+
+        return this;
     }
 }

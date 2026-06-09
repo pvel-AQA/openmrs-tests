@@ -463,7 +463,7 @@ public final class AdminSteps {
                 .getAll(
                         new CrudRequester.QueryBuilder()
                                 .add("patient", patientUuid)
-                                .add("includeInactive", "false")
+                                .add("includeInactive", "true")
                                 .vEqualsFull()
                                 .limit(10)
                                 .build(),

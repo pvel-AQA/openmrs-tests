@@ -1,13 +1,12 @@
 package ui;
 
 import api.models.CreatePatientResponse;
+import api.models.enums.VisitTypeEnum;
 import api.models.ui.VisitTab;
 import api.models.visit.CreateVisitResponse;
-import api.models.enums.VisitTypeEnum;
 import api.requests.steps.AdminSteps;
 import com.codeborne.selenide.WebDriverRunner;
 import common.annotations.AdminSession;
-import common.annotations.Skip;
 import org.junit.jupiter.api.Test;
 import ui.components.VisitComponent;
 import ui.pages.PatientSummaryPage;
@@ -70,50 +69,79 @@ public class VisitTest extends BaseUiTest {
                         .isEqualTo(patientUuid));
     }
 
-    @Skip(reason = "flaky test, that should be updated")
+//    @Test
+//    @AdminSession
+//    public void endVisit() {
+//        CreatePatientResponse createdPatient = AdminSteps.createPatient();
+//        String patientUuid = createdPatient.getUuid();
+//
+//        new PickLocationPage()
+//                .open()
+//                .selectClinicLocation()
+//                .confirmClinicLocation();
+//
+//        VisitPage visitPage = startNewVisit(patientUuid, VisitTypeEnum.FACILITY_VISIT);
+//
+//        visitPage.openActionsMenu()
+//                .selectEndActiveVisit()
+//                .waitEndVisitConfirmationModal()
+//                .confirmEndVisit()
+//                .checkVisitEndedSuccessfully()
+//                .checkNoActiveVisitTag();
+//
+//        assertThat(WebDriverRunner.url())
+//                .as("URL should contain patient UUID")
+//                .contains(patientUuid);
+//
+//        List<CreateVisitResponse> apiVisits = AdminSteps.getVisitsForPatient(patientUuid);
+//
+//        assertThat(apiVisits)
+//                .as("Ended visit should still exist in API")
+//                .isNotEmpty()
+//                .anySatisfy(visit -> {
+//                    assertThat(visit.getPatient().getUuid())
+//                            .as("Patient UUID should match")
+//                            .isEqualTo(patientUuid);
+//
+//                    assertThat(visit.getStopDatetime())
+//                            .as("Visit should have stopDatetime after ending")
+//                            .isNotNull()
+//                            .isNotBlank();
+//
+//                    assertThat(visit.isVoided())
+//                            .as("Visit should NOT be voided after ending")
+//                            .isFalse();
+//                });
+//    }
+
     @Test
     @AdminSession
     public void endVisit() {
         CreatePatientResponse createdPatient = AdminSteps.createPatient();
-        String patientUuid = createdPatient.getUuid();
 
-        new PickLocationPage()
-                .open()
-                .selectClinicLocation()
-                .confirmClinicLocation();
+        new PickLocationPage().open()
+                .selectOutpatientLocationAndConfirm()
+                .getPage(PatientSummaryPage.class)
+                .open(createdPatient.getUuid())
+                .clickActionsButton()
+                .clickAddVisitButton()
 
-        VisitPage visitPage = startNewVisit(patientUuid, VisitTypeEnum.FACILITY_VISIT);
+                .getVisitComponent()
+                .startVisit(VisitComponent.UBUNTU_LOCATION_NAME, VisitTypeEnum.FACILITY_VISIT.getDisplayName())
+                .verifyStartFacilityVisitSuccessNotification()
+                .checkActiveVisitTagIsDisplayed()
 
-        visitPage.openActionsMenu()
-                .selectEndActiveVisit()
-                .waitEndVisitConfirmationModal()
-                .confirmEndVisit()
-                .checkVisitEndedSuccessfully()
-                .checkNoActiveVisitTag();
+                .clickActionsButton()
+                .clickEndActiveVisitButton()
+                .clickEndVisitPopupButton()
+                .verifyEndActiveVisitSuccessNotification()
+                .checkActiveVisitTagIsNotDisplayed();
 
-        assertThat(WebDriverRunner.url())
-                .as("URL should contain patient UUID")
-                .contains(patientUuid);
+        CreateVisitResponse foundVisit = AdminSteps.getVisitsForPatient(createdPatient.getUuid()).getFirst();
 
-        List<CreateVisitResponse> apiVisits = AdminSteps.getVisitsForPatient(patientUuid);
-
-        assertThat(apiVisits)
-                .as("Ended visit should still exist in API")
-                .isNotEmpty()
-                .anySatisfy(visit -> {
-                    assertThat(visit.getPatient().getUuid())
-                            .as("Patient UUID should match")
-                            .isEqualTo(patientUuid);
-
-                    assertThat(visit.getStopDatetime())
-                            .as("Visit should have stopDatetime after ending")
-                            .isNotNull()
-                            .isNotBlank();
-
-                    assertThat(visit.isVoided())
-                            .as("Visit should NOT be voided after ending")
-                            .isFalse();
-                });
+        softly.assertThat(foundVisit.getPatient().getUuid()).isEqualTo(createdPatient.getUuid());
+        softly.assertThat(foundVisit.getStopDatetime()).isNotBlank();
+        softly.assertThat(foundVisit.isVoided()).isFalse();
     }
 
     @Test
@@ -266,7 +294,8 @@ public class VisitTest extends BaseUiTest {
                 .clickActionsButton()
                 .clickDeleteActiveVisitButton()
                 .clickDeleteVisitPopupButton()
-                .verifyDeleteActiveVisitSuccessNotification();
+                .verifyDeleteActiveVisitSuccessNotification()
+                .checkActiveVisitTagIsNotDisplayed();
 
         List<CreateVisitResponse> apiVisits = AdminSteps.getVisitsForPatient(createdPatient.getUuid());
 
