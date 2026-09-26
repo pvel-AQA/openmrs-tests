@@ -78,9 +78,9 @@ jobs:
       - name: Copy coverage report to gh-pages output
         if: always()
         run: |
-          mkdir -p allure-history/coverage
-          cp target/coverage-report.html allure-history/coverage/latest.html
-          cp target/coverage-report.html allure-history/coverage/run-${{ github.run_number }}.html
+          sudo mkdir -p allure-history/coverage
+          sudo cp target/coverage-report.html allure-history/coverage/latest.html
+          sudo cp target/coverage-report.html allure-history/coverage/run-${{ github.run_number }}.html
 
       - name: Check test stability
         if: always()
