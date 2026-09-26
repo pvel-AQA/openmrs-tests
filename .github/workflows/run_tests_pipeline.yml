@@ -8,7 +8,8 @@ jobs:
     outputs:
         stable_percent: ${{ steps.stability.outputs.stable_percent }}
         stable_count: ${{ steps.stability.outputs.stable_count }}
-        unstable_count: ${{ steps.stability.outputs.unstable_count }}
+        flaky_count: ${{ steps.stability.outputs.flaky_count }}
+        always_failed_count: ${{ steps.stability.outputs.always_failed_count }}
         skipped_count: ${{ steps.stability.outputs.skipped_count }}
     name: Set up services (review apps) and run tests
     runs-on: ubuntu-latest
@@ -112,10 +113,11 @@ jobs:
             Commit: ${{ github.actor }} — ${{ github.event.head_commit.message }}
             
             <b>📈 Stability (last 5 runs):</b>
-            Stable %:   <b>${{ needs.run_tests.outputs.stable_percent }}%</b>
-            Stable:     ${{ needs.run_tests.outputs.stable_count }}
-            Unstable:   ${{ needs.run_tests.outputs.unstable_count }}
-            Skipped:    ${{ needs.run_tests.outputs.skipped_count }}
+            Stable %:       <b>${{ needs.run_tests.outputs.stable_percent }}%</b>
+            Stable:         ${{ needs.run_tests.outputs.stable_count }}
+            Flaky:          ${{ needs.run_tests.outputs.flaky_count }}
+            Always failed:  ${{ needs.run_tests.outputs.always_failed_count }}
+            Skipped:        ${{ needs.run_tests.outputs.skipped_count }}
             
             <b>📊 Reports:</b>
             Allure Report: <a href="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/${{ github.run_number }}/index.html">${{ github.event.repository.name }} Allure</a>
