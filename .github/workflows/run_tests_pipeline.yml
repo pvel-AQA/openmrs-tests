@@ -56,6 +56,10 @@ jobs:
         if: always()
         run: .swagger-coverage-commandline/bin/swagger-coverage-commandline -s openmrs-swagger.json -i target/swagger-coverage-output
 
+      - name: Coverage report
+        if: always()
+        run: ./mvnw exec:java -q
+
       - name: Load test report history
         uses: actions/checkout@v7
         if: always()
@@ -70,6 +74,13 @@ jobs:
           gh_pages: gh-pages
           allure_results: target/allure-results
           allure_history: allure-history
+
+      - name: Copy coverage report to gh-pages output
+        if: always()
+        run: |
+          mkdir -p allure-history/coverage
+          cp target/coverage-report.html allure-history/coverage/latest.html
+          cp target/coverage-report.html allure-history/coverage/run-${{ github.run_number }}.html
 
       - name: Check test stability
         if: always()
@@ -121,5 +132,6 @@ jobs:
             
             <b>📊 Reports:</b>
             Allure Report: <a href="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/${{ github.run_number }}/index.html">${{ github.event.repository.name }} Allure</a>
+            Coverage Report: <a href="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/coverage/latest.html">coverage-report.html</a>
             Swagger Coverage: <a href="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/${{ github.run_number }}/swagger-coverage-report.html">Swagger Coverage</a>
             <a href="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}">View run &amp; logs</a>

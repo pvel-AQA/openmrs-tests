@@ -53,6 +53,7 @@
                     <arguments>
                         <argument>--registry=/testcases-registry.yaml</argument>
                         <argument>--allure=target/allure-results</argument>
+                        <argument>--html=target/coverage-report.html</argument>
                     </arguments>
                 </configuration>
             </plugin>
