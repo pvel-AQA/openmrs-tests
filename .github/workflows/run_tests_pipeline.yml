@@ -5,6 +5,11 @@ on: [ push, workflow_dispatch ]
 # stages analogy
 jobs:
   run_tests:
+    outputs:
+        stable_percent: ${{ steps.stability.outputs.stable_percent }}
+        stable_count: ${{ steps.stability.outputs.stable_count }}
+        unstable_count: ${{ steps.stability.outputs.unstable_count }}
+        skipped_count: ${{ steps.stability.outputs.skipped_count }}
     name: Set up services (review apps) and run tests
     runs-on: ubuntu-latest
     steps:
@@ -65,6 +70,14 @@ jobs:
           allure_results: target/allure-results
           allure_history: allure-history
 
+      - name: Check test stability
+        if: always()
+        id: stability
+        run: python3 scripts/stability_check.py
+        env:
+          STABLE_LAST_N: '5'
+          MIN_STABLE_PERCENT: '0'
+
       - name: Build Swagger Coverage report
         if: always()
         run: sudo cp swagger-coverage-report.html allure-history/${{ github.run_number }}
@@ -97,6 +110,12 @@ jobs:
             <b>${{ needs.run_tests.result == 'success' && '✅ Passed' || '❌ Failed' }}</b> — OpenMRS test suite
             Branch: <code>${{ github.ref_name }}</code>
             Commit: ${{ github.actor }} — ${{ github.event.head_commit.message }}
+            
+            <b>📈 Stability (last 5 runs):</b>
+            Stable %:   <b>${{ needs.run_tests.outputs.stable_percent }}%</b>
+            Stable:     ${{ needs.run_tests.outputs.stable_count }}
+            Unstable:   ${{ needs.run_tests.outputs.unstable_count }}
+            Skipped:    ${{ needs.run_tests.outputs.skipped_count }}
             
             <b>📊 Reports:</b>
             Allure Report: <a href="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/${{ github.run_number }}/index.html">${{ github.event.repository.name }} Allure</a>

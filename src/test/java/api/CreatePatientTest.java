@@ -12,7 +12,8 @@ import api.requests.specs.RequestSpecs;
 import api.requests.specs.ResponseSpecs;
 import api.requests.steps.AdminSteps;
 import api.utils.EntityTestUtils;
-import common.annotations.AutoCleanup;
+import common.annotations.CaseId;
+import common.annotations.CaseIdParam;
 import common.generators.PartialEntityGenerator;
 import common.generators.RandomDataGenerator;
 import common.utils.DateUtils;
@@ -33,6 +34,7 @@ public class CreatePatientTest extends BaseTest {
     private static final String[] NAMES_FIELDS_TO_BE_GENERATED = Constants.nameFieldsToBeGenerated;
 
     @Test
+    @CaseId("TC-001")
     public void knownPatientCanBeCreatedWithOnlyMandatoryDataTest() {
         PersonName personName = PartialEntityGenerator.generate(PersonName.class, NAMES_FIELDS_TO_BE_GENERATED);
 
@@ -66,6 +68,7 @@ public class CreatePatientTest extends BaseTest {
     }
 
     @Test
+    @CaseId("TC-003")
     public void knownPatientCanBeCreatedWithValidDataTest() {
         final String identifierResponsePrefix = "OpenMRS ID = ";
 
@@ -145,16 +148,16 @@ public class CreatePatientTest extends BaseTest {
 
     private static Stream<Arguments> emptyNames() {
         return Stream.of(
-                EntityTestUtils.entityWithValidValue(PersonName.class, NAMES_FIELDS_TO_BE_GENERATED,
+                EntityTestUtils.entityWithValidValue("TC-003", PersonName.class, NAMES_FIELDS_TO_BE_GENERATED,
                         n -> n.setMiddleName("")),
-                EntityTestUtils.entityWithValidValue(PersonName.class, NAMES_FIELDS_TO_BE_GENERATED,
+                EntityTestUtils.entityWithValidValue("TC-004", PersonName.class, NAMES_FIELDS_TO_BE_GENERATED,
                         n -> n.setFamilyName(""))
         );
     }
 
     @ParameterizedTest
     @MethodSource("emptyNames")
-    public void patientCanBeCreatedWithEmptyMiddleOrGivenName(PersonName personName) {
+    public void patientCanBeCreatedWithEmptyMiddleOrGivenName(@CaseIdParam String caseId, PersonName personName) {
         CreatePersonRequest person = PartialEntityGenerator.generate(CreatePersonRequest.class, Constants.personFieldsToBeGenerated);
         person.setNames(List.of(personName));
         person.setBirthdate(RandomDataGenerator.generateValidDate());

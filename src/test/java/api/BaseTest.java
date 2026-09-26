@@ -1,6 +1,7 @@
 package api;
 
 import common.annotations.AutoCleanup;
+import common.extensions.CaseIdExtension;
 import common.extensions.CleanupExtension;
 import common.extensions.SkipExtension;
 import common.extensions.TimingExtension;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 
+@ExtendWith(CaseIdExtension.class)
 @ExtendWith(CleanupExtension.class)
 @ExtendWith(SkipExtension.class)
 @ExtendWith(TimingExtension.class)
