@@ -2,7 +2,7 @@ import json
 import sys
 import os
 
-HISTORY_PATH = "allure-history/history.json"
+HISTORY_PATH = "allure-history/last-history/history.json"
 LAST_N = int(os.environ.get("STABLE_LAST_N", "5"))
 MIN_STABLE_PERCENT = float(os.environ.get("MIN_STABLE_PERCENT", "0"))
 
