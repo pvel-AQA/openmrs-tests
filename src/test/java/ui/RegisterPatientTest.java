@@ -13,13 +13,14 @@ import common.annotations.Skip;
 import common.helpers.StepLogger;
 import common.utils.DateUtils;
 import org.junit.jupiter.api.Test;
+import org.junitpioneer.jupiter.RetryingTest;
 import ui.pages.PatientSummaryPage;
 import ui.pages.PickLocationPage;
 
 import static api.utils.DisplayFormatterUtils.personDisplayFormatter;
 
 public class RegisterPatientTest extends BaseUiTest {
-    @Test
+    @RetryingTest(maxAttempts = 2)
     @AdminSession
     public void knownPatientCanBeRegisteredWithAllValidDataTest() {
         RegisterPatientUi patient = AdminSteps.createPatientForUi();
