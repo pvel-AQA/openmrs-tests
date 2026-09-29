@@ -68,6 +68,7 @@ jobs:
             PROFILE="${{ inputs.test_profile }}"
             PROFILE="${PROFILE:-all}"
           fi
+          echo "profile=$PROFILE" >> $GITHUB_OUTPUT
           ./mvnw clean test -P "$PROFILE" -q
         env:
           APIBASEURL: http://localhost:80/openmrs
