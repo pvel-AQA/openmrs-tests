@@ -1,11 +1,26 @@
 name: Run tests
 
-on: [ push, workflow_dispatch ]
+on:
+  push:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    inputs:
+      test_profile:
+        description: 'What test profile to use'
+        required: true
+        default: 'api'
+        type: choice
+        options:
+          - api
+          - ui
+          - all
 
 # stages analogy
 jobs:
   run_tests:
     outputs:
+        profile: ${{ steps.run_tests_step.outputs.profile }}
         stable_percent: ${{ steps.stability.outputs.stable_percent }}
         stable_count: ${{ steps.stability.outputs.stable_count }}
         flaky_count: ${{ steps.stability.outputs.flaky_count }}
@@ -45,7 +60,15 @@ jobs:
         uses: ./.github/actions/wait-for-openmrs
 
       - name: Run tests
-        run: ./mvnw clean test -P all -q
+        id: run_tests_step
+        run: |
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            PROFILE="all"
+          else
+            PROFILE="${{ inputs.test_profile }}"
+            PROFILE="${PROFILE:-all}"
+          fi
+          ./mvnw clean test -P "$PROFILE" -q
         env:
           APIBASEURL: http://localhost:80/openmrs
           UIBASEURL: http://gateway/openmrs/spa
@@ -120,6 +143,8 @@ jobs:
           format: html
           message: |
             <b>${{ needs.run_tests.result == 'success' && '✅ Passed' || '❌ Failed' }}</b> — OpenMRS test suite
+            Profile: <code>${{ needs.run_tests.outputs.profile }}</code>
+            Trigger: <code>${{ github.event_name }}</code>
             Branch: <code>${{ github.ref_name }}</code>
             Commit: ${{ github.actor }} — ${{ github.event.head_commit.message }}
             
