@@ -1,8 +1,8 @@
 package api.requests.skeleton.requesters;
 
-import api.configs.Config;
 import api.requests.HttpRequest;
 import api.requests.skeleton.interfaces.DeleteByPathInterface;
+import common.helpers.StepLogger;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
@@ -16,11 +16,13 @@ public class DeleteRequester extends HttpRequest implements DeleteByPathInterfac
 
     @Override
     public ValidatableResponse delete(String path) {
-        return given()
-                .spec(requestSpecification)
-                .when()
-                .delete(path)
-                .then()
-                .spec(responseSpecifications);
+        return StepLogger.log("Soft delete request to" + path, () -> {
+            return given()
+                    .spec(requestSpecification)
+                    .when()
+                    .delete(path)
+                    .then()
+                    .spec(responseSpecifications);
+        });
     }
 }

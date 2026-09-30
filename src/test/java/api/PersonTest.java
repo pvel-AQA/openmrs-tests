@@ -1,6 +1,8 @@
 package api;
 
-import api.models.*;
+import api.models.CreatePersonRequest;
+import api.models.CreatePersonResponse;
+import api.models.PersonName;
 import api.models.comparison.ModelAssertions;
 import api.requests.Endpoint;
 import api.requests.skeleton.requesters.CrudRequester;
@@ -11,7 +13,6 @@ import api.requests.steps.AdminSteps;
 import common.annotations.SkipAutoCleanup;
 import common.generators.PartialEntityGenerator;
 import common.generators.RandomDataGenerator;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

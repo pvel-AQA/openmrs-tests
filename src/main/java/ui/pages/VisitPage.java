@@ -4,6 +4,7 @@ import api.models.ui.VisitMessage;
 import api.models.ui.VisitTab;
 import api.models.enums.VisitTypeEnum;
 import com.codeborne.selenide.*;
+import common.utils.RetryUtils;
 import org.openqa.selenium.By;
 
 import java.time.Duration;
@@ -57,6 +58,11 @@ public class VisitPage extends BasePage<VisitPage> {
     }
 
     public VisitPage openActionsMenu() {
+        RetryUtils.retry("Click action button when it's interactable",
+                () -> $(By.xpath("//span[@class='-esm-patient-vitals__vitals-header__heading___Srnfj']")).getText(),
+                result -> result.equals("Vitals and biometrics"),
+                10,
+                1000);
         actionButton
                 .shouldBe(Condition.visible)
                 .click();

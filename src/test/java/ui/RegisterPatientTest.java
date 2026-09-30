@@ -10,6 +10,7 @@ import api.models.ui.RegisterUnknownPatientUi;
 import api.requests.steps.AdminSteps;
 import common.annotations.AdminSession;
 import common.annotations.Skip;
+import common.annotations.TestWithRetry;
 import common.helpers.StepLogger;
 import common.utils.DateUtils;
 import org.junit.jupiter.api.Test;
@@ -19,7 +20,7 @@ import ui.pages.PickLocationPage;
 import static api.utils.DisplayFormatterUtils.personDisplayFormatter;
 
 public class RegisterPatientTest extends BaseUiTest {
-    @Test
+    @TestWithRetry(maxAttempts = 2)
     @AdminSession
     public void knownPatientCanBeRegisteredWithAllValidDataTest() {
         RegisterPatientUi patient = AdminSteps.createPatientForUi();

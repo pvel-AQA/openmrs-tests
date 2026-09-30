@@ -1,10 +1,31 @@
 name: Run tests
 
-on: [ push, workflow_dispatch ]
+on:
+  push:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    inputs:
+      test_profile:
+        description: 'What test profile to use'
+        required: true
+        default: 'api'
+        type: choice
+        options:
+          - api
+          - ui
+          - all
 
 # stages analogy
 jobs:
   run_tests:
+    outputs:
+        profile: ${{ steps.run_tests_step.outputs.profile }}
+        stable_percent: ${{ steps.stability.outputs.stable_percent }}
+        stable_count: ${{ steps.stability.outputs.stable_count }}
+        flaky_count: ${{ steps.stability.outputs.flaky_count }}
+        always_failed_count: ${{ steps.stability.outputs.always_failed_count }}
+        skipped_count: ${{ steps.stability.outputs.skipped_count }}
     name: Set up services (review apps) and run tests
     runs-on: ubuntu-latest
     steps:
@@ -25,6 +46,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
+      - name: Pull and cache browser images
+        uses: ./.github/actions/pull-and-cache-browsers
+
       - name: Set up services
         run: |
           cd infra/docker_compose
@@ -32,11 +56,20 @@ jobs:
           cd ../..
           
       - name: Wait for OpenMRS to be ready
-        timeout-minutes: 25
+        timeout-minutes: 40
         uses: ./.github/actions/wait-for-openmrs
 
       - name: Run tests
-        run: ./mvnw clean test -P all -q
+        id: run_tests_step
+        run: |
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            PROFILE="all"
+          else
+            PROFILE="${{ inputs.test_profile }}"
+            PROFILE="${PROFILE:-all}"
+          fi
+          echo "profile=$PROFILE" >> $GITHUB_OUTPUT
+          ./mvnw clean test -P "$PROFILE" -q
         env:
           APIBASEURL: http://localhost:80/openmrs
           UIBASEURL: http://gateway/openmrs/spa
@@ -47,20 +80,39 @@ jobs:
         if: always()
         run: .swagger-coverage-commandline/bin/swagger-coverage-commandline -s openmrs-swagger.json -i target/swagger-coverage-output
 
+      - name: Coverage report
+        if: always()
+        run: ./mvnw exec:java -q
+
       - name: Load test report history
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         if: always()
         with:
           ref: gh-pages
           path: gh-pages
 
       - name: Build test report
-        uses: simple-elf/allure-report-action@v1.14
+        uses: simple-elf/allure-report-action@v1.15
         if: always()
         with:
           gh_pages: gh-pages
           allure_results: target/allure-results
           allure_history: allure-history
+
+      - name: Copy coverage report to gh-pages output
+        if: always()
+        run: |
+          sudo mkdir -p allure-history/coverage
+          sudo cp target/coverage-report.html allure-history/coverage/latest.html
+          sudo cp target/coverage-report.html allure-history/coverage/run-${{ github.run_number }}.html
+
+      - name: Check test stability
+        if: always()
+        id: stability
+        run: python3 scripts/stability_check.py
+        env:
+          STABLE_LAST_N: '5'
+          MIN_STABLE_PERCENT: '0'
 
       - name: Build Swagger Coverage report
         if: always()
@@ -92,6 +144,20 @@ jobs:
           format: html
           message: |
             <b>${{ needs.run_tests.result == 'success' && '✅ Passed' || '❌ Failed' }}</b> — OpenMRS test suite
+            Profile: <code>${{ needs.run_tests.outputs.profile }}</code>
+            Trigger: <code>${{ github.event_name }}</code>
             Branch: <code>${{ github.ref_name }}</code>
             Commit: ${{ github.actor }} — ${{ github.event.head_commit.message }}
+            
+            <b>📈 Stability (last 5 runs):</b>
+            Stable %:       <b>${{ needs.run_tests.outputs.stable_percent }}%</b>
+            Stable:         ${{ needs.run_tests.outputs.stable_count }}
+            Flaky:          ${{ needs.run_tests.outputs.flaky_count }}
+            Always failed:  ${{ needs.run_tests.outputs.always_failed_count }}
+            Skipped:        ${{ needs.run_tests.outputs.skipped_count }}
+            
+            <b>📊 Reports:</b>
+            Allure Report: <a href="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/${{ github.run_number }}/index.html">${{ github.event.repository.name }} Allure</a>
+            Coverage Report: <a href="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/coverage/latest.html">coverage-report.html</a>
+            Swagger Coverage: <a href="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/${{ github.run_number }}/swagger-coverage-report.html">Swagger Coverage</a>
             <a href="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}">View run &amp; logs</a>

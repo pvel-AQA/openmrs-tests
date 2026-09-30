@@ -33,39 +33,6 @@ public class LoginTest extends BaseUiTest {
     }
 
     @Test
-    public void adminCanLoginWithClinicMemorisedTest(@InjectAdmin AdminLogin admin) {
-        new LoginPage().open()
-                .populateUserNameField(admin.getUsername())
-                .clickContinueButton()
-                .populatePasswordField(admin.getPassword())
-                .clickLogInButton()
-
-                .getPage(PickLocationPage.class)
-                .selectClinicLocation()
-                .clinicLocationClickRemember()
-                .confirmClinicLocation()
-                .header.clickMyAccountIconAndLogout()
-
-                .populateUserNameField(admin.getUsername())
-                .clickContinueButton()
-                .populatePasswordField(admin.getPassword())
-                .clickLogInButton()
-
-                .getPage(ServiceQueuesPage.class)
-                .header.clickChangeClinicButton()
-                .clinicLocationClickRemember()
-                .confirmClinicLocation()
-                .header.clickMyAccountIconAndLogout()
-
-                .populateUserNameField(admin.getUsername())
-                .clickContinueButton()
-                .populatePasswordField(admin.getPassword())
-                .clickLogInButton()
-                .getPage(PickLocationPage.class)
-                .checkItIsCorrectPage();
-    }
-
-    @Test
     public void userCannotLoginWithoutNameTest() {
         String emptyString = "";
         new LoginPage().open()

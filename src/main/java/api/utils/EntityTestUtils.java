@@ -11,6 +11,7 @@ public final class EntityTestUtils {
     }
 
     public static <T> Arguments entityWithError(
+            String caseId,
             Class<T> clazz,
             String[] fieldsToGenerate,
             Consumer<T> customizer,
@@ -19,17 +20,18 @@ public final class EntityTestUtils {
         T entity = PartialEntityGenerator.generate(clazz, fieldsToGenerate);
         customizer.accept(entity);
 
-        return Arguments.of(entity, errorKey, errorMessage);
+        return Arguments.of(caseId, entity, errorKey, errorMessage);
     }
 
     public static <T> Arguments entityWithValidValue(
+            String caseId,
             Class<T> clazz,
             String[] fieldsToGenerate,
             Consumer<T> customizer) {
         T entity = PartialEntityGenerator.generate(clazz, fieldsToGenerate);
         customizer.accept(entity);
 
-        return Arguments.of(entity);
+        return Arguments.of(caseId, entity);
     }
 
 
