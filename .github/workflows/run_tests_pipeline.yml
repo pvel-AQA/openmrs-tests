@@ -62,7 +62,9 @@ jobs:
 
       - name: Run Swagger Coverage
         if: always()
-        run: .swagger-coverage-commandline/bin/swagger-coverage-commandline -s openmrs-swagger.json -i target/swagger-coverage-output
+        run: |
+          .swagger-coverage-commandline/bin/swagger-coverage-commandline -s openmrs-swagger.json -i target/swagger-coverage-output
+          test -f swagger-coverage-report.html
 
       - name: Upload Allure Results Artifact
         if: always()
@@ -172,8 +174,8 @@ jobs:
           path: target/allure-results-temp
 
       - name: Download Swagger Coverage Report artifact
+        if: needs.run_api_tests.result != 'skipped'
         uses: actions/download-artifact@v4
-        if: always()
         with:
           name: swagger-coverage-report
           path: target/swagger-temp
@@ -185,7 +187,7 @@ jobs:
 
       - name: Coverage report
         if: always()
-        run: ./mvnw exec:java -q
+        run: ./mvnw -q compile exec:java
 
       - name: Create Allure Environment properties
         if: always()
@@ -216,10 +218,10 @@ jobs:
           cp target/coverage-report.html allure-history/coverage/run-${{ github.run_number }}.html
 
       - name: Copy Swagger Coverage to Allure Run Dir
-        if: always()
+        if: needs.run_api_tests.result != 'skipped'
         run: |
           mkdir -p allure-history/${{ github.run_number }}
-          cp target/swagger-temp/swagger-coverage-report.html allure-history/${{ github.run_number }}/swagger-coverage-report.html 2>/dev/null || true
+          cp target/swagger-temp/swagger-coverage-report.html allure-history/${{ github.run_number }}/swagger-coverage-report.html
 
       - name: Check test stability
         if: always()
