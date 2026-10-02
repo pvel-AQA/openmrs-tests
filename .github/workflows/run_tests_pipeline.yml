@@ -62,9 +62,7 @@ jobs:
 
       - name: Run Swagger Coverage
         if: always()
-        run: |
-          .swagger-coverage-commandline/bin/swagger-coverage-commandline -s openmrs-swagger.json -i target/swagger-coverage-output
-          test -f swagger-coverage-report.html
+        run: .swagger-coverage-commandline/bin/swagger-coverage-commandline -s openmrs-swagger.json -i target/swagger-coverage-output
 
       - name: Upload Allure Results Artifact
         if: always()
@@ -166,6 +164,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
+      - name: Set up JDK
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'corretto'
+          java-version: '21'
+
       - name: Download all Allure artifacts
         uses: actions/download-artifact@v4
         with:
@@ -179,6 +183,10 @@ jobs:
         with:
           name: swagger-coverage-report
           path: target/swagger-temp
+
+      - name: Show swagger artifact contents
+        if: needs.run_api_tests.result != 'skipped'
+        run: find target/swagger-temp -type f
 
       - name: Merge Allure results
         run: |
@@ -213,15 +221,15 @@ jobs:
       - name: Copy coverage report to gh-pages output
         if: always()
         run: |
-          mkdir -p allure-history/coverage
-          cp target/coverage-report.html allure-history/coverage/latest.html
-          cp target/coverage-report.html allure-history/coverage/run-${{ github.run_number }}.html
+          sudo mkdir -p allure-history/coverage
+          sudo cp target/coverage-report.html allure-history/coverage/latest.html
+          sudo cp target/coverage-report.html allure-history/coverage/run-${{ github.run_number }}.html
 
       - name: Copy Swagger Coverage to Allure Run Dir
         if: needs.run_api_tests.result != 'skipped'
         run: |
-          mkdir -p allure-history/${{ github.run_number }}
-          cp target/swagger-temp/swagger-coverage-report.html allure-history/${{ github.run_number }}/swagger-coverage-report.html
+          sudo mkdir -p allure-history/${{ github.run_number }}
+          sudo cp target/swagger-temp/swagger-coverage-report.html allure-history/${{ github.run_number }}/swagger-coverage-report.html
 
       - name: Check test stability
         if: always()
