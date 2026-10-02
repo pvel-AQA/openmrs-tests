@@ -12,6 +12,9 @@ import java.util.stream.Stream;
 
 public final class AllureResultsParser {
 
+    private static final String CASE_ID_LABEL = "caseId";
+    private static final String RESULT_FILE_SUFFIX = "-result.json";
+
     private static final ObjectMapper JSON = new ObjectMapper();
 
     private AllureResultsParser() {
@@ -24,7 +27,7 @@ public final class AllureResultsParser {
         List<AllureResult> results = new ArrayList<>();
         try (Stream<Path> files = Files.walk(dir)) {
             files.filter(Files::isRegularFile)
-                    .filter(p -> p.getFileName().toString().endsWith("-result.json"))
+                    .filter(p -> p.getFileName().toString().endsWith(RESULT_FILE_SUFFIX))
                     .forEach(p -> results.add(readOne(p)));
         } catch (IOException e) {
             throw new UncheckedIOException(e);
@@ -40,18 +43,12 @@ public final class AllureResultsParser {
         if (result.labels() == null) {
             return null;
         }
-        boolean marker = false;
-        for (AllureResult.Label l : result.labels()) {
-            if (!"tag".equals(l.name())) {
-                continue;
-            }
-            if (marker) {
-                return l.value();
-            }
-            if ("case-id".equals(l.value())) {
-                marker = true;
-            }
-        }
-        return null;
+
+        return result.labels().stream()
+                .filter(label -> CASE_ID_LABEL.equals(label.name()))
+                .map(AllureResult.Label::value)
+                .filter(v -> v != null && !v.isBlank())
+                .findFirst()
+                .orElse(null);
     }
 }

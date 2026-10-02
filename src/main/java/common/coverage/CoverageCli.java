@@ -32,8 +32,10 @@ public final class CoverageCli {
         Set<String> unknown = CoverageCalculator.unknownCaseIds(registryIds, results);
         int coveredCount = registryIds.size() - notCovered.size();
 
-        System.out.printf("Registry size:  %d%n", registryIds.size());
-        System.out.printf("Automated %%:    %.2f%%%n", automated);
+        System.out.printf("Registry: %s%n", registryPath);
+        System.out.printf("Allure dir: %s%n", allureDir);
+        System.out.printf("Registry size: %d%n", registryIds.size());
+        System.out.printf("Automated %%: %.2f%%%n", automated);
 
         if (!unknown.isEmpty()) {
             System.out.printf("Cases in Allure not in registry: %s%n", unknown);
