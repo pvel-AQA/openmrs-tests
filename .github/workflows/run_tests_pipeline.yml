@@ -195,6 +195,7 @@ jobs:
 
       - name: Coverage report
         if: always()
+        id: coverage
         run: ./mvnw -q compile exec:java
 
       - name: Create Allure Environment properties
@@ -219,14 +220,14 @@ jobs:
           allure_history: allure-history
 
       - name: Copy coverage report to gh-pages output
-        if: always()
+        if: always() && steps.coverage.outcome == 'success'
         run: |
           sudo mkdir -p allure-history/coverage
           sudo cp target/coverage-report.html allure-history/coverage/latest.html
           sudo cp target/coverage-report.html allure-history/coverage/run-${{ github.run_number }}.html
 
       - name: Copy Swagger Coverage to Allure Run Dir
-        if: needs.run_api_tests.result != 'skipped'
+        if: always() && needs.run_api_tests.result != 'skipped'
         run: |
           sudo mkdir -p allure-history/${{ github.run_number }}
           sudo cp target/swagger-temp/swagger-coverage-report.html allure-history/${{ github.run_number }}/swagger-coverage-report.html
