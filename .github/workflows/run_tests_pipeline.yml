@@ -16,18 +16,85 @@ on:
           - ui
           - all
 
-# stages analogy
 jobs:
-  run_tests:
-    outputs:
-        profile: ${{ steps.run_tests_step.outputs.profile }}
-        stable_percent: ${{ steps.stability.outputs.stable_percent }}
-        stable_count: ${{ steps.stability.outputs.stable_count }}
-        flaky_count: ${{ steps.stability.outputs.flaky_count }}
-        always_failed_count: ${{ steps.stability.outputs.always_failed_count }}
-        skipped_count: ${{ steps.stability.outputs.skipped_count }}
-    name: Set up services (review apps) and run tests
+  run_api_tests:
+    name: API Tests
     runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'schedule' ||
+      (github.event_name == 'workflow_dispatch' && (inputs.test_profile == 'api' || inputs.test_profile == 'all'))
+    outputs:
+      profile: ${{ inputs.test_profile || 'all' }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up JDK
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'corretto'
+          java-version: '21'
+
+      - name: Cache Maven repository
+        uses: actions/cache@v5
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Set up services
+        run: |
+          cd infra/docker_compose
+          bash restart_docker.sh
+          cd ../..
+
+      - name: Wait for OpenMRS to be ready
+        timeout-minutes: 40
+        uses: ./.github/actions/wait-for-openmrs
+
+      - name: Run API tests
+        run: ./mvnw clean test -P api -q
+        env:
+          APIBASEURL: http://localhost:80/openmrs
+          APIFULLPREFIX: http://localhost/openmrs/ws/rest/v1
+
+      - name: Run Swagger Coverage
+        if: always()
+        run: .swagger-coverage-commandline/bin/swagger-coverage-commandline -s openmrs-swagger.json -i target/swagger-coverage-output
+
+      - name: Upload Allure Results Artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results-api
+          path: target/allure-results
+          retention-days: 1
+
+      - name: Upload Swagger Coverage Report Artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: swagger-coverage-report
+          path: swagger-coverage-report.html
+          retention-days: 1
+
+      - name: Clean up services
+        if: always()
+        run: cd infra/docker_compose && docker compose -p openmrs down
+
+  run_ui_tests:
+    name: UI Tests (${{ matrix.browser }})
+    runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'schedule' ||
+      (github.event_name == 'workflow_dispatch' && (inputs.test_profile == 'ui' || inputs.test_profile == 'all'))
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chrome, firefox]
+    outputs:
+      profile: ${{ inputs.test_profile || 'all' }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -54,35 +121,75 @@ jobs:
           cd infra/docker_compose
           bash restart_docker.sh
           cd ../..
-          
+
       - name: Wait for OpenMRS to be ready
         timeout-minutes: 40
         uses: ./.github/actions/wait-for-openmrs
 
-      - name: Run tests
-        id: run_tests_step
-        run: |
-          if [ "${{ github.event_name }}" = "schedule" ]; then
-            PROFILE="all"
-          else
-            PROFILE="${{ inputs.test_profile }}"
-            PROFILE="${PROFILE:-all}"
-          fi
-          echo "profile=$PROFILE" >> $GITHUB_OUTPUT
-          ./mvnw clean test -P "$PROFILE" -q
+      - name: Run UI tests
+        run: ./mvnw clean test -P ui -q -Dbrowser=${{ matrix.browser }}
         env:
           APIBASEURL: http://localhost:80/openmrs
           UIBASEURL: http://gateway/openmrs/spa
           BROWSERREMOTE: http://localhost:4444/wd/hub
           APIFULLPREFIX: http://localhost/openmrs/ws/rest/v1
+          BROWSER: ${{ matrix.browser }}
 
-      - name: Run Swagger Coverage
+      - name: Upload Allure Results Artifact
         if: always()
-        run: .swagger-coverage-commandline/bin/swagger-coverage-commandline -s openmrs-swagger.json -i target/swagger-coverage-output
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results-ui-${{ matrix.browser }}
+          path: target/allure-results
+          retention-days: 1
+
+      - name: Clean up services
+        if: always()
+        run: cd infra/docker_compose && docker compose -p openmrs down
+
+  publish_report:
+    name: Generate and Publish Allure Report
+    needs: [ run_api_tests, run_ui_tests ]
+    runs-on: ubuntu-latest
+    if: always()
+    outputs:
+      stable_percent: ${{ steps.stability.outputs.stable_percent }}
+      stable_count: ${{ steps.stability.outputs.stable_count }}
+      flaky_count: ${{ steps.stability.outputs.flaky_count }}
+      always_failed_count: ${{ steps.stability.outputs.always_failed_count }}
+      skipped_count: ${{ steps.stability.outputs.skipped_count }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Download all Allure artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: allure-results-*
+          merge-multiple: true
+          path: target/allure-results-temp
+
+      - name: Download Swagger Coverage Report artifact
+        uses: actions/download-artifact@v4
+        if: always()
+        with:
+          name: swagger-coverage-report
+          path: target/swagger-temp
+
+      - name: Merge Allure results
+        run: |
+          mkdir -p target/allure-results
+          find target/allure-results-temp -name '*.json' -exec cp {} target/allure-results/ \;
 
       - name: Coverage report
         if: always()
         run: ./mvnw exec:java -q
+
+      - name: Create Allure Environment properties
+        if: always()
+        run: |
+          echo "UI browsers=Chrome, Firefox" >> target/allure-results/environment.properties
+          echo "Runner=GitHub Actions" >> target/allure-results/environment.properties
 
       - name: Load test report history
         uses: actions/checkout@v7
@@ -102,9 +209,15 @@ jobs:
       - name: Copy coverage report to gh-pages output
         if: always()
         run: |
-          sudo mkdir -p allure-history/coverage
-          sudo cp target/coverage-report.html allure-history/coverage/latest.html
-          sudo cp target/coverage-report.html allure-history/coverage/run-${{ github.run_number }}.html
+          mkdir -p allure-history/coverage
+          cp target/coverage-report.html allure-history/coverage/latest.html
+          cp target/coverage-report.html allure-history/coverage/run-${{ github.run_number }}.html
+
+      - name: Copy Swagger Coverage to Allure Run Dir
+        if: always()
+        run: |
+          mkdir -p allure-history/${{ github.run_number }}
+          cp target/swagger-temp/swagger-coverage-report.html allure-history/${{ github.run_number }}/swagger-coverage-report.html 2>/dev/null || true
 
       - name: Check test stability
         if: always()
@@ -114,10 +227,6 @@ jobs:
           STABLE_LAST_N: '5'
           MIN_STABLE_PERCENT: '0'
 
-      - name: Build Swagger Coverage report
-        if: always()
-        run: sudo cp swagger-coverage-report.html allure-history/${{ github.run_number }}
-
       - name: Publish test report
         uses: peaceiris/actions-gh-pages@v4
         if: always()
@@ -126,13 +235,9 @@ jobs:
           publish_branch: gh-pages
           publish_dir: allure-history
 
-      - name: Clean up services
-        if: always()
-        run: cd infra/docker_compose && docker compose -p openmrs down
-
   notify:
     name: Telegram notification
-    needs: [ run_tests ]
+    needs: [ run_api_tests, run_ui_tests, publish_report ]
     runs-on: ubuntu-latest
     if: always()
     steps:
@@ -143,18 +248,18 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           format: html
           message: |
-            <b>${{ needs.run_tests.result == 'success' && '✅ Passed' || '❌ Failed' }}</b> — OpenMRS test suite
-            Profile: <code>${{ needs.run_tests.outputs.profile }}</code>
+            <b>${{ (needs.run_api_tests.result != 'skipped' && needs.run_api_tests.result == 'success') || (needs.run_ui_tests.result != 'skipped' && needs.run_ui_tests.result == 'success') && '✅ Passed' || '❌ Failed' }}</b> — OpenMRS test suite
+            Profile: <code>${{ (needs.run_api_tests.result != 'skipped' && needs.run_ui_tests.result != 'skipped' && 'all') || (needs.run_api_tests.result != 'skipped' && 'api') || (needs.run_ui_tests.result != 'skipped' && 'ui') || 'unknown' }}</code>
             Trigger: <code>${{ github.event_name }}</code>
             Branch: <code>${{ github.ref_name }}</code>
             Commit: ${{ github.actor }} — ${{ github.event.head_commit.message }}
             
             <b>📈 Stability (last 5 runs):</b>
-            Stable %:       <b>${{ needs.run_tests.outputs.stable_percent }}%</b>
-            Stable:         ${{ needs.run_tests.outputs.stable_count }}
-            Flaky:          ${{ needs.run_tests.outputs.flaky_count }}
-            Always failed:  ${{ needs.run_tests.outputs.always_failed_count }}
-            Skipped:        ${{ needs.run_tests.outputs.skipped_count }}
+            Stable %:       <b>${{ needs.publish_report.outputs.stable_percent }}%</b>
+            Stable:         ${{ needs.publish_report.outputs.stable_count }}
+            Flaky:          ${{ needs.publish_report.outputs.flaky_count }}
+            Always failed:  ${{ needs.publish_report.outputs.always_failed_count }}
+            Skipped:        ${{ needs.publish_report.outputs.skipped_count }}
             
             <b>📊 Reports:</b>
             Allure Report: <a href="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/${{ github.run_number }}/index.html">${{ github.event.repository.name }} Allure</a>
