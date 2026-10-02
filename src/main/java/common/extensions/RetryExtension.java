@@ -1,6 +1,7 @@
 package common.extensions;
 
 import common.annotations.TestWithRetry;
+import common.helpers.CaseIdExtractor;
 import io.qameta.allure.Allure;
 import io.qameta.allure.model.Label;
 import org.junit.jupiter.api.extension.*;
@@ -13,6 +14,8 @@ import java.util.stream.Stream;
 
 public class RetryExtension implements TestTemplateInvocationContextProvider {
 
+    private static final String RETRY_LABEL = "retryAttempt";
+
     @Override
     public boolean supportsTestTemplate(ExtensionContext context) {
         return AnnotationSupport.isAnnotated(context.getTestMethod(), TestWithRetry.class)
@@ -23,7 +26,7 @@ public class RetryExtension implements TestTemplateInvocationContextProvider {
     public Stream<TestTemplateInvocationContext> provideTestTemplateInvocationContexts(ExtensionContext context) {
         TestWithRetry retry = AnnotationSupport.findAnnotation(context.getTestMethod(), TestWithRetry.class)
                 .or(() -> AnnotationSupport.findAnnotation(context.getTestClass(), TestWithRetry.class))
-                .orElseThrow(() -> new IllegalStateException("@Retry not found"));
+                .orElseThrow(() -> new IllegalStateException("@TestWithRetry not found"));
 
         int maxAttempts = retry.maxAttempts();
         long delayMs = retry.delayMs();
@@ -56,11 +59,9 @@ public class RetryExtension implements TestTemplateInvocationContextProvider {
             boolean isLastAttempt = (attempt + 1) >= maxAttempts;
 
             if (isLastAttempt) {
-                // последний провал — тест падает
                 throw throwable;
             }
 
-            // не последний провал — прерываем попытку, но не весь тест
             if (delayMs > 0) {
                 try {
                     Thread.sleep(delayMs);
@@ -74,19 +75,21 @@ public class RetryExtension implements TestTemplateInvocationContextProvider {
 
         @Override
         public void afterTestExecution(ExtensionContext context) {
-            // У всех попыток должен быть одинаковый historyId, чтобы Allure сгруппировал их в Retries.
-            String historyId = calculateHistoryId(context);
+            String caseId = extractCaseId(context);
+            String historyId = buildHistoryId(context, caseId);
 
             Allure.getLifecycle().updateTestCase(testCase -> {
                 testCase.setHistoryId(historyId);
-                testCase.getLabels().removeIf(l -> "retryAttempt".equals(l.getName()));
-                testCase.getLabels().add(
-                        new Label().setName("retryAttempt").setValue(String.valueOf(attempt + 1))
-                );
+                testCase.getLabels().removeIf(l -> RETRY_LABEL.equals(l.getName()));
+                testCase.getLabels().add(new Label().setName(RETRY_LABEL).setValue(String.valueOf(attempt + 1)));
             });
         }
 
-        private String calculateHistoryId(ExtensionContext context) {
+        private String extractCaseId(ExtensionContext context) {
+            return CaseIdExtractor.extract(context);
+        }
+
+        private String buildHistoryId(ExtensionContext context, String caseId) {
             String className = context.getTestClass()
                     .map(Class::getName)
                     .orElse("unknown");
@@ -94,6 +97,10 @@ public class RetryExtension implements TestTemplateInvocationContextProvider {
             String methodName = context.getTestMethod()
                     .map(java.lang.reflect.Method::getName)
                     .orElse("unknown");
+
+            if (caseId != null && !caseId.isBlank()) {
+                return className + "#" + methodName + "#" + caseId;
+            }
 
             return className + "#" + methodName;
         }
