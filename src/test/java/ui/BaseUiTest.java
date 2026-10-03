@@ -43,7 +43,7 @@ public class BaseUiTest extends BaseTest {
         });
 
         Allure.label("browser", browser);
-
+        Allure.label("tag", browser);
         Allure.parameter("Browser", browser);
     }
 
