@@ -1,0 +1,115 @@
+<div>Status code 201 </div>
+
+
+<h4>Body</h4>
+<div>
+    <pre class="preformated-text">
+{
+    &quot;uuid&quot;: &quot;5fc5c11e-9937-40e8-b6f4-2f551208d5a0&quot;,
+    &quot;display&quot;: &quot;10001W3 - f744bb24 be0674c9 416110da&quot;,
+    &quot;identifiers&quot;: [
+        {
+            &quot;uuid&quot;: &quot;8456f688-feca-4743-b1b7-83610f853ed7&quot;,
+            &quot;display&quot;: &quot;OpenMRS ID = 10001W3&quot;,
+            &quot;links&quot;: [
+                {
+                    &quot;rel&quot;: &quot;self&quot;,
+                    &quot;uri&quot;: &quot;http://localhost/openmrs/ws/rest/v1/patient/5fc5c11e-9937-40e8-b6f4-2f551208d5a0/identifier/8456f688-feca-4743-b1b7-83610f853ed7&quot;,
+                    &quot;resourceAlias&quot;: &quot;identifier&quot;
+                }
+            ]
+        }
+    ],
+    &quot;person&quot;: {
+        &quot;uuid&quot;: &quot;5fc5c11e-9937-40e8-b6f4-2f551208d5a0&quot;,
+        &quot;display&quot;: &quot;f744bb24 be0674c9 416110da&quot;,
+        &quot;gender&quot;: &quot;U&quot;,
+        &quot;age&quot;: 103,
+        &quot;birthdate&quot;: &quot;1923-02-14T00:00:00.000+0000&quot;,
+        &quot;birthdateEstimated&quot;: false,
+        &quot;dead&quot;: false,
+        &quot;deathDate&quot;: null,
+        &quot;causeOfDeath&quot;: null,
+        &quot;preferredName&quot;: {
+            &quot;uuid&quot;: &quot;bbb76566-ead9-43d3-acad-3e850c2e0906&quot;,
+            &quot;display&quot;: &quot;f744bb24 be0674c9 416110da&quot;,
+            &quot;links&quot;: [
+                {
+                    &quot;rel&quot;: &quot;self&quot;,
+                    &quot;uri&quot;: &quot;http://localhost/openmrs/ws/rest/v1/person/5fc5c11e-9937-40e8-b6f4-2f551208d5a0/name/bbb76566-ead9-43d3-acad-3e850c2e0906&quot;,
+                    &quot;resourceAlias&quot;: &quot;name&quot;
+                }
+            ]
+        },
+        &quot;preferredAddress&quot;: {
+            &quot;uuid&quot;: &quot;0f412db8-224c-4442-bfb8-d7fff54bd1f7&quot;,
+            &quot;display&quot;: &quot;61b174b8&quot;,
+            &quot;links&quot;: [
+                {
+                    &quot;rel&quot;: &quot;self&quot;,
+                    &quot;uri&quot;: &quot;http://localhost/openmrs/ws/rest/v1/person/5fc5c11e-9937-40e8-b6f4-2f551208d5a0/address/0f412db8-224c-4442-bfb8-d7fff54bd1f7&quot;,
+                    &quot;resourceAlias&quot;: &quot;address&quot;
+                }
+            ]
+        },
+        &quot;attributes&quot;: [
+            {
+                &quot;uuid&quot;: &quot;d9e1695f-0942-4039-9a0a-308be1987886&quot;,
+                &quot;display&quot;: &quot;+1 (008)-6516409&quot;,
+                &quot;links&quot;: [
+                    {
+                        &quot;rel&quot;: &quot;self&quot;,
+                        &quot;uri&quot;: &quot;http://localhost/openmrs/ws/rest/v1/person/5fc5c11e-9937-40e8-b6f4-2f551208d5a0/attribute/d9e1695f-0942-4039-9a0a-308be1987886&quot;,
+                        &quot;resourceAlias&quot;: &quot;attribute&quot;
+                    }
+                ]
+            }
+        ],
+        &quot;voided&quot;: false,
+        &quot;birthtime&quot;: null,
+        &quot;deathdateEstimated&quot;: false,
+        &quot;links&quot;: [
+            {
+                &quot;rel&quot;: &quot;self&quot;,
+                &quot;uri&quot;: &quot;http://localhost/openmrs/ws/rest/v1/person/5fc5c11e-9937-40e8-b6f4-2f551208d5a0&quot;,
+                &quot;resourceAlias&quot;: &quot;person&quot;
+            },
+            {
+                &quot;rel&quot;: &quot;full&quot;,
+                &quot;uri&quot;: &quot;http://localhost/openmrs/ws/rest/v1/person/5fc5c11e-9937-40e8-b6f4-2f551208d5a0?v=full&quot;,
+                &quot;resourceAlias&quot;: &quot;person&quot;
+            }
+        ],
+        &quot;resourceVersion&quot;: &quot;1.11&quot;
+    },
+    &quot;voided&quot;: false,
+    &quot;links&quot;: [
+        {
+            &quot;rel&quot;: &quot;self&quot;,
+            &quot;uri&quot;: &quot;http://localhost/openmrs/ws/rest/v1/patient/5fc5c11e-9937-40e8-b6f4-2f551208d5a0&quot;,
+            &quot;resourceAlias&quot;: &quot;patient&quot;
+        },
+        {
+            &quot;rel&quot;: &quot;full&quot;,
+            &quot;uri&quot;: &quot;http://localhost/openmrs/ws/rest/v1/patient/5fc5c11e-9937-40e8-b6f4-2f551208d5a0?v=full&quot;,
+            &quot;resourceAlias&quot;: &quot;patient&quot;
+        }
+    ],
+    &quot;resourceVersion&quot;: &quot;1.8&quot;
+}    </pre>
+</div>
+
+<h4>Headers</h4>
+<div>
+        <div>Server: nginx/1.31.2</div>
+        <div>X-Content-Type-Options: nosniff</div>
+        <div>Content-Security-Policy: default-src &#39;self&#39; &#39;unsafe-inline&#39; &#39;unsafe-eval&#39; localhost localhost:*; base-uri &#39;self&#39;; font-src &#39;self&#39;; img-src &#39;self&#39; data:; frame-ancestors &#39;self&#39; ;</div>
+        <div>Connection: keep-alive</div>
+        <div>Set-Cookie: JSESSIONID=479A08CF26F57AAA00B703C6898F8CBA; Path=/openmrs; HttpOnly</div>
+        <div>Content-Length: 2129</div>
+        <div>X-XSS-Protection: 1; mode=block</div>
+        <div>Date: Sun, 04 Oct 2026 07:55:42 GMT</div>
+        <div>Content-Type: application/json;charset=UTF-8</div>
+</div>
+
+
