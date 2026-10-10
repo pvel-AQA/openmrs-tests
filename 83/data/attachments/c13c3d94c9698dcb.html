@@ -1,0 +1,78 @@
+<div>POST to http://localhost:80/openmrs/ws/rest/v1/person/</div>
+
+    <h4>Body</h4>
+    <div>
+    <pre class="preformated-text">
+{
+    &quot;addresses&quot;: [
+        {
+            &quot;address1&quot;: &quot;712bb9ba&quot;,
+            &quot;address2&quot;: &quot;ebe584aa&quot;,
+            &quot;cityVillage&quot;: &quot;77c164c2&quot;,
+            &quot;country&quot;: &quot;14a01fa7&quot;,
+            &quot;postalCode&quot;: &quot;db02c8fd&quot;,
+            &quot;stateProvince&quot;: &quot;f441f8a2&quot;
+        }
+    ],
+    &quot;attributes&quot;: [
+        {
+            &quot;attributeType&quot;: &quot;14d4f066-15f5-102d-96e4-000c29c2a5d7&quot;,
+            &quot;value&quot;: &quot;068.3730721&quot;
+        }
+    ],
+    &quot;birthdate&quot;: &quot;2025-07-06&quot;,
+    &quot;birthdateEstimated&quot;: true,
+    &quot;dead&quot;: false,
+    &quot;gender&quot;: &quot;U&quot;,
+    &quot;names&quot;: [
+        {
+            &quot;familyName&quot;: &quot;4fc9a9fd&quot;,
+            &quot;givenName&quot;: &quot;8561092d&quot;,
+            &quot;middleName&quot;: &quot;79d9373e&quot;
+        }
+    ]
+}    </pre>
+    </div>
+
+    <h4>Headers</h4>
+    <div>
+            <div>Authorization: Basic YWRtaW46QWRtaW4xMjM=</div>
+            <div>Accept: application/json, application/javascript, text/javascript, text/json</div>
+            <div>Content-Type: application/json</div>
+    </div>
+
+
+
+    <h4>Curl</h4>
+    <div>
+        curl -v -X POST &#39;http://localhost:80/openmrs/ws/rest/v1/person/&#39; -H &#39;Authorization: Basic YWRtaW46QWRtaW4xMjM=&#39; -H &#39;Accept: application/json, application/javascript, text/javascript, text/json&#39; -H &#39;Content-Type: application/json&#39; -d &#39;{
+    &quot;addresses&quot;: [
+        {
+            &quot;address1&quot;: &quot;712bb9ba&quot;,
+            &quot;address2&quot;: &quot;ebe584aa&quot;,
+            &quot;cityVillage&quot;: &quot;77c164c2&quot;,
+            &quot;country&quot;: &quot;14a01fa7&quot;,
+            &quot;postalCode&quot;: &quot;db02c8fd&quot;,
+            &quot;stateProvince&quot;: &quot;f441f8a2&quot;
+        }
+    ],
+    &quot;attributes&quot;: [
+        {
+            &quot;attributeType&quot;: &quot;14d4f066-15f5-102d-96e4-000c29c2a5d7&quot;,
+            &quot;value&quot;: &quot;068.3730721&quot;
+        }
+    ],
+    &quot;birthdate&quot;: &quot;2025-07-06&quot;,
+    &quot;birthdateEstimated&quot;: true,
+    &quot;dead&quot;: false,
+    &quot;gender&quot;: &quot;U&quot;,
+    &quot;names&quot;: [
+        {
+            &quot;familyName&quot;: &quot;4fc9a9fd&quot;,
+            &quot;givenName&quot;: &quot;8561092d&quot;,
+            &quot;middleName&quot;: &quot;79d9373e&quot;
+        }
+    ]
+}&#39;
+    </div>
+
